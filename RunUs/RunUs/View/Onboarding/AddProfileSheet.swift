@@ -15,13 +15,10 @@ struct AddProfileSheet: View {
     @Binding var selectedImages: [UIImage]
     @Binding var isPresentedError: Bool
     private let maxSelectedCount: Int = 1
-    private var disabledAddPhotos: Bool {
-        selectedImages.count >= maxSelectedCount
-    }
     private var availableSelectedCount: Int {
         maxSelectedCount - selectedImages.count
     }
-    
+
     var body: some View {
         GeometryReader { geomtry in
             
@@ -39,7 +36,6 @@ struct AddProfileSheet: View {
                             .foregroundColor(.gray700)
                     }
                 }
-                .disabled(disabledAddPhotos)
                 .onChange(of: selectedProfile) { _, newValue in
                     handleSelectedPhotos(newValue)
                 }
@@ -63,8 +59,11 @@ struct AddProfileSheet: View {
                 case .success(let data):
                     if let data = data, let newImage = UIImage(data: data) {
                         if !selectedImages.contains(where: { $0.pngData() == newImage.pngData() }) {
+                            selectedImages.removeAll()
+                            selectedProfile.removeAll()
                             DispatchQueue.main.async {
                                 selectedImages.append(newImage)
+                                dismiss()
                             }
                         }
                     }

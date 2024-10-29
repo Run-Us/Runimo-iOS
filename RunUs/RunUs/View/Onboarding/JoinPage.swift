@@ -155,15 +155,14 @@ struct JoinPage: View {
     
     var profileImage: some View {
         Group {
-            if selectedProfile.isEmpty {
-                Image("default_user_profile")
+            if let lastImage = selectedProfile.last {
+                Image(uiImage: lastImage)
                     .resizable()
                     .scaledToFill()
                     .frame(width: 120, height: 120)
                     .clipShape(RoundedRectangle(cornerRadius: 52))
-                
             } else {
-                Image(uiImage: selectedProfile[0])
+                Image("default_user_profile")
                     .resizable()
                     .scaledToFill()
                     .frame(width: 120, height: 120)

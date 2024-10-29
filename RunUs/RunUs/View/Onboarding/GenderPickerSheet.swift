@@ -41,6 +41,7 @@ struct GenderPickerSheet: View {
         Button(action: {
             self.gender = gender
             self.showGenderPicker = false
+            dismiss()
         }, label: {
             Text(gender)
                 .font(.body2_medium)
