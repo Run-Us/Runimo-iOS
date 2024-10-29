@@ -41,7 +41,6 @@ struct RunningMapPage: View {
                             Button {
                                 showStopAlert = true
                                 mapVM.stopUpdatingLocation()
-                                WebSocketService.sharedSocket.sendMessageStop()
                             } label: {
                                 Image("run_stop")
                                     .shadow(radius: 2, x: 0, y: 4)
@@ -65,7 +64,6 @@ struct RunningMapPage: View {
                             
                             Button {
                                 mapVM.startUpdatingLocation()
-                                WebSocketService.sharedSocket.sendMessageResume()
                             } label: {
                                 Image("run_start")
                                     .shadow(radius: 2, x: 0, y: 4)
