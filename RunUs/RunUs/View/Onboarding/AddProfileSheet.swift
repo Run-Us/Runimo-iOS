@@ -9,6 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct AddProfileSheet: View {
+    @Environment(\.dismiss) var dismiss
     @Binding var showAddProfile: Bool
     @State var selectedProfile: [PhotosPickerItem] = []
     @Binding var selectedImages: [UIImage]
@@ -23,6 +24,7 @@ struct AddProfileSheet: View {
     
     var body: some View {
         GeometryReader { geomtry in
+            
             VStack(alignment: .leading, spacing: 34) {
                 Text("프로필 사진 추가")
                     .font(.title5_bold)
@@ -43,6 +45,10 @@ struct AddProfileSheet: View {
                 }
             }
             .padding()
+            
+        }
+        .onTapGesture {
+            dismiss()
         }
         .onDisappear(perform: {
             print("selectedProfile: \(selectedProfile)")

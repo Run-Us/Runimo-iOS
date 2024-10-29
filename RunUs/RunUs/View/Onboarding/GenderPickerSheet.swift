@@ -27,6 +27,9 @@ struct GenderPickerSheet: View {
             }
             .padding()
         }
+        .onTapGesture {
+            dismiss()
+        }
         .onDisappear(perform: {
             showGenderPicker = false
             dismiss()
