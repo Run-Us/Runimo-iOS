@@ -47,7 +47,6 @@ struct AddProfileSheet: View {
             dismiss()
         }
         .onDisappear(perform: {
-            print("selectedProfile: \(selectedProfile)")
             showAddProfile = false
         })
     }
