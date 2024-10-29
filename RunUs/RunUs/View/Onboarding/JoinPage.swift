@@ -117,7 +117,8 @@ struct JoinPage: View {
                     }, label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)
-                                .frame(width: 361, height: 56)
+                                .frame(height: 56)
+                                .padding(.horizontal)
                                 .foregroundColor(nickname.isEmpty || gender == "성별을 선택해주세요" || !nicknameIsValid ? .gray300 : .primary400)
                             Text("시작하기")
                                 .font(.title5_bold)
