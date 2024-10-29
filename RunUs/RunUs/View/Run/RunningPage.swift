@@ -80,12 +80,10 @@ struct RunningPage: View {
                     
                     // custom page dots
                     HStack {
-                        if let picker = pickerText[runningType] {
-                            ForEach(picker.indices, id: \.self) { index in
-                                Circle()
-                                    .frame(width: 8, height: 8)
-                                    .foregroundStyle(index == selectedTab ? .primary500 : .primary200)
-                            }
+                        ForEach(pickerList.indices, id: \.self) { index in
+                            Circle()
+                                .frame(width: 8, height: 8)
+                                .foregroundStyle(index == selectedTab ? .primary500 : .primary200)
                         }
                     }
                 }
