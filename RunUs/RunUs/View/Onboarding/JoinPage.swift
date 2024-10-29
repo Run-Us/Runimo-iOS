@@ -42,22 +42,19 @@ struct JoinPage: View {
                         .foregroundColor(.gray500)
                         .padding(8)
                     
-                    profileImage
-                        .overlay {
-                            Button(action: {
-                                showAddProfile = true
-                                print("add profile")
-                                
-                            }, label: {
+                    Button(action: {
+                        showAddProfile = true
+                    }, label: {
+                        profileImage
+                            .overlay(alignment: .bottomTrailing) {
                                 Image("plus_profile_button")
-                            })
-                            .offset(x: 30, y: 30)
-                        }
-                        .padding(36)
-                        .sheet(isPresented: $showAddProfile, content: {
-                            AddProfileSheet(showAddProfile: $showAddProfile, selectedImages: $selectedProfile, isPresentedError: $isPresentedError)
-                                .presentationDetents([.fraction(0.15)])
-                        })
+                            }
+                            .padding(36)
+                    })
+                    .sheet(isPresented: $showAddProfile, content: {
+                        AddProfileSheet(showAddProfile: $showAddProfile, selectedImages: $selectedProfile, isPresentedError: $isPresentedError)
+                            .presentationDetents([.fraction(0.15)])
+                    })
                     
                     VStack(alignment: .leading) {
                         Text("닉네임")
@@ -102,7 +99,6 @@ struct JoinPage: View {
                         Spacer()
                         Button(action: {
                             showGenderPicker = true
-                            print("add gender")
                         }, label: {
                             Text("\(gender)")
                                 .font(.body1_medium)
