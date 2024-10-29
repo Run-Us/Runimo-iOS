@@ -60,7 +60,6 @@ struct JoinPage: View {
                         Text("닉네임")
                             .font(.body1_bold)
                             .foregroundColor(nicknameIsValid ? .gray700 : .error)
-                            .padding(.horizontal)
                         
                         TextField("한글, 영어, 숫자만 입력 가능해요", text: $nickname)
                             .onChange(of: nickname) { _,newValue in
@@ -70,25 +69,21 @@ struct JoinPage: View {
                             .autocapitalization(.none)
                             .disableAutocorrection(false)
                             .foregroundColor(nickname.count > 0 ? .gray900 : .gray500)
-                            .cornerRadius(8)
                             .padding(10)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(!nicknameIsValid ? .error :
                                                 nickname.count > 0 ? .gray700 : .gray300, lineWidth: 1)
                             )
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 12)
-                    }
-                    
-                    HStack {
-                        Text("\(containsSpecialCharacters(text: nickname) ? "사용할 수 없는 문자가 포함되어 있어요" : nickname.count <= 8 ? "" : "닉네임은 8자 이내로 설정할 수 있어요" )")
-                            .font(.caption_regular)
-                            .foregroundColor(nicknameIsValid ? .gray400 : .error)
-                        Spacer()
-                        Text("\(nickname.count)/8")
-                            .font(.caption_regular)
-                            .foregroundColor(nicknameIsValid ? .gray400 : .error)
+                            .padding(.vertical, 8)
+                        
+                        HStack {
+                            Text(errorText())
+                            Spacer()
+                            Text("\(nickname.count)/8")
+                        }
+                        .foregroundColor(nicknameIsValid ? .gray400 : .error)
+                        .font(.caption_regular)
                     }
                     .padding(.horizontal)
                     
@@ -171,6 +166,17 @@ struct JoinPage: View {
         let range = NSRange(location: 0, length: text.utf16.count)
         let regex = try! NSRegularExpression(pattern: "[^A-Za-z0-9가-힣]")
         return regex.firstMatch(in: text, options: [], range: range) != nil
+    }
+    
+    func errorText() -> String {
+        if containsSpecialCharacters(text: nickname) {
+            return "사용할 수 없는 문자가 포함되어 있어요"
+        }
+        
+        if nickname.count > 8 {
+            return "닉네임은 8자 이내로 설정할 수 있어요"
+        }
+        return ""
     }
 }
 
