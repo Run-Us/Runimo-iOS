@@ -62,7 +62,7 @@ struct RunTab: View {
                 .ignoresSafeArea()
             
             Button {
-                createRunning()
+                showRunningPage = true
             } label: {
                 Image("run_start")
                     .shadow(radius: 2, x: 0, y: 4)
@@ -73,20 +73,6 @@ struct RunTab: View {
                 RunningPage(runningType: .alone, mapVM: mapVM)
             }
             
-        }
-    }
-    
-    // socket
-    func createRunning() {
-        runningSession.createRunningSession(currentLatitude: mapVM.userLocation.coordinate.latitude, currentLongitude: mapVM.userLocation.coordinate.longitude) { success, result in
-            if success {
-                print("Try WebSocket Connect || runningId: \(result?.payload.runningKey ?? "error")")
-                WebSocketService.sharedSocket.connect(runningSessionInfo: result?.payload)
-                showRunningPage = true
-            } else {
-                print("createRunningSession || error")
-                
-            }
         }
     }
 }

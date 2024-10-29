@@ -52,7 +52,6 @@ extension MapViewModel: CLLocationManagerDelegate {
         guard let newLocation = locations.last else { return }
         userLocation = newLocation
         userPath.append(NMGLatLng(from: newLocation.coordinate))
-        WebSocketService.sharedSocket.sendMessageLocationUpdate(currentUserLocation: userLocation)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {

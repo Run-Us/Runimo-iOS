@@ -49,7 +49,7 @@ struct Map: UIViewRepresentable {
     // 경로선 그리는 함수
     func addPathOverlay(_ map: NMFMapView) {
         let pathOverlay = NMFPath()
-        pathOverlay.color = .secondary
+        pathOverlay.color = .highlight
         pathOverlay.outlineColor = .primary400
         pathOverlay.outlineWidth = 1
         pathOverlay.path = NMGLineString(points: mapVM.userPath)

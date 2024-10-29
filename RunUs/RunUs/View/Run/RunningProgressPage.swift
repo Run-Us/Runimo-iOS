@@ -45,7 +45,6 @@ struct RunningProgressPage: View {
             
             Button(action: {
                 selectedTab = 1
-                WebSocketService.sharedSocket.sendMessagePause()
                 mapVM.stopUpdatingLocation()
             }, label: {
                 Image("run_pause")

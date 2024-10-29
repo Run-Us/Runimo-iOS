@@ -69,7 +69,7 @@ struct LoginPage: View {
             .ignoresSafeArea()
             .onAppear {
                 if authVM.checkUserIdExists() {
-//                    loginSuccess = true
+                    loginSuccess = true
                 }
             }
             .fullScreenCover(isPresented: $loginSuccess) {

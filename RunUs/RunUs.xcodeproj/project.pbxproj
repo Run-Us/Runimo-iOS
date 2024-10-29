@@ -40,8 +40,10 @@
 		2398F4AF2CB8303E001D922B /* Pretendard-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AD2CB8303E001D922B /* Pretendard-Regular.ttf */; };
 		2398F4B12CB8303E001D922B /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AC2CB8303E001D922B /* Pretendard-Medium.ttf */; };
 		2398F4B22CB8303E001D922B /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */; };
+		23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C27B012CBF819200978DC9 /* ProgressBar.swift */; };
 		883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883764102CBCF6360046EC7B /* GenderPickerSheet.swift */; };
 		883764132CBD277E0046EC7B /* AddProfileSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883764122CBD277E0046EC7B /* AddProfileSheet.swift */; };
+		886684D32CBE769C00BD30E8 /* PasscodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */; };
 		887940EE2CAAFEC80018C035 /* RunningSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887940ED2CAAFEC80018C035 /* RunningSessionService.swift */; };
 		887940F42CAB2AD30018C035 /* JoinPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887940F32CAB2AD30018C035 /* JoinPage.swift */; };
 		887940F62CAB2D680018C035 /* JoinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887940F52CAB2D680018C035 /* JoinService.swift */; };
@@ -95,8 +97,10 @@
 		2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.ttf"; sourceTree = "<group>"; };
 		2398F4AC2CB8303E001D922B /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.ttf"; sourceTree = "<group>"; };
 		2398F4AD2CB8303E001D922B /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
+		23C27B012CBF819200978DC9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		883764102CBCF6360046EC7B /* GenderPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderPickerSheet.swift; sourceTree = "<group>"; };
 		883764122CBD277E0046EC7B /* AddProfileSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileSheet.swift; sourceTree = "<group>"; };
+		886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeGenerator.swift; sourceTree = "<group>"; };
 		887940ED2CAAFEC80018C035 /* RunningSessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningSessionService.swift; sourceTree = "<group>"; };
 		887940F32CAB2AD30018C035 /* JoinPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinPage.swift; sourceTree = "<group>"; };
 		887940F52CAB2D680018C035 /* JoinService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinService.swift; sourceTree = "<group>"; };
@@ -256,6 +260,7 @@
 				2372998E2CBCDD2100D0E7F6 /* RunTab.swift */,
 				2398F4932CB29B11001D922B /* FinishRunningPage.swift */,
 				233831022CC7C4B40075E73A /* RunningPostPage.swift */,
+				23C27B012CBF819200978DC9 /* ProgressBar.swift */,
 			);
 			path = Run;
 			sourceTree = "<group>";
@@ -278,6 +283,7 @@
 				888648F82C9824A500B040BA /* NoticeBar.swift */,
 				237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */,
 				233831002CC69B430075E73A /* PopUp.swift */,
+				886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -404,6 +410,7 @@
 				233ED1FF2CABA0E7001EF0BC /* MemberInfo.swift in Sources */,
 				233ED2002CABA0E7001EF0BC /* RunningInfo.swift in Sources */,
 				88E556112C8F5CCC003789B7 /* TabBar.swift in Sources */,
+				23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */,
 				230314E52C88851100B299D5 /* FontExtension.swift in Sources */,
 				888648F52C981F7800B040BA /* CreateGroupRunPage.swift in Sources */,
 				233831032CC7C4B40075E73A /* RunningPostPage.swift in Sources */,
@@ -419,6 +426,7 @@
 				236343122C90386D00336D67 /* RunningMapPage.swift in Sources */,
 				887940F42CAB2AD30018C035 /* JoinPage.swift in Sources */,
 				236343162C9180D000336D67 /* RunningProgressPage.swift in Sources */,
+				886684D32CBE769C00BD30E8 /* PasscodeGenerator.swift in Sources */,
 				2398F4942CB29B11001D922B /* FinishRunningPage.swift in Sources */,
 				237299912CBCF12800D0E7F6 /* SegmentedPicker.swift in Sources */,
 				883764132CBD277E0046EC7B /* AddProfileSheet.swift in Sources */,

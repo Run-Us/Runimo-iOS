@@ -25,11 +25,18 @@ struct RunningPage: View {
         case .group:  return ["개요", "지도", "그룹원"]
         }
     }
+
     
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
                 VStack(spacing: 0) {
+                    ProgressBar(progress: $mapVM.motionManager.runningInfo.distance)
+                        .padding(.horizontal, 50)
+                        .padding(.vertical, 25)
+                    
+                    Divider()
+                    
                     // picker
                     SegmentedPicker(
                         selectedTab: $selectedTab,
@@ -38,14 +45,16 @@ struct RunningPage: View {
                     )
                     
                     // runningType으로 group 러닝일 때 RunningMapPage 재사용
-                    switch (selectedTab) {
-                    case 0:
+                    TabView(selection: $selectedTab) {
+                        // 개요
                         RunningProgressPage(
                             mapVM: mapVM,
                             motionManager: mapVM.motionManager,
                             selectedTab: $selectedTab
                         )
-                    case 1:
+                        .tag(0)
+                        
+                        // 지도
                         RunningMapPage(
                             mapVM: mapVM,
                             motionManager: mapVM.motionManager,
@@ -54,7 +63,9 @@ struct RunningPage: View {
                             selectedTab: $selectedTab,
                             showFinishPage: $showFinishPage
                         )
-                    default:
+                        .tag(1)
+                        
+                        // 그룹원
                         RunningMapPage(
                             mapVM: mapVM,
                             motionManager: mapVM.motionManager,
@@ -63,6 +74,19 @@ struct RunningPage: View {
                             selectedTab: $selectedTab,
                             showFinishPage: $showFinishPage
                         )
+                        .tag(2)
+                    }
+                    .tabViewStyle(PageTabViewStyle())
+                    
+                    // custom page dots
+                    HStack {
+                        if let picker = pickerText[runningType] {
+                            ForEach(picker.indices, id: \.self) { index in
+                                Circle()
+                                    .frame(width: 8, height: 8)
+                                    .foregroundStyle(index == selectedTab ? .primary500 : .primary200)
+                            }
+                        }
                     }
                 }
             }
