@@ -54,3 +54,9 @@ struct LocationWithCount: Codable {
     var longitude: Double
     var count: Int
 }
+
+struct RunningPost {
+    var title: String
+    var contents: String
+    var runningInfo: RunningInfo
+}

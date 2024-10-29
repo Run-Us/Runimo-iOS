@@ -11,7 +11,7 @@ struct RunningMapPage: View {
     @StateObject var mapVM: MapViewModel
     @StateObject var motionManager: MotionManager
     let runningType: RunningType
-    @State private var showStopAlert: Bool = false
+    @Binding var showStopAlert: Bool
     @Binding var selectedTab: Int
     @Binding var showFinishPage: Bool
     
@@ -45,22 +45,6 @@ struct RunningMapPage: View {
                                 Image("run_stop")
                                     .shadow(radius: 2, x: 0, y: 4)
                             }
-                            .alert("러닝을 종료할까요?", isPresented: $showStopAlert) {
-                                HStack {
-                                    Button(action: {
-                                        mapVM.startUpdatingLocation()
-                                    }, label: {
-                                        Text("취소")
-                                    })
-                                    Button(action: {
-                                        mapVM.stopUpdatingLocation()
-                                        WebSocketService.sharedSocket.sendMessageAggregate()
-                                        showFinishPage = true
-                                    }, label: {
-                                        Text("끝내기")
-                                    })
-                                }
-                            }
                             
                             Button {
                                 mapVM.startUpdatingLocation()
@@ -79,6 +63,9 @@ struct RunningMapPage: View {
                 case .group: RunningParticipant()
                 }
             }
+            .navigationDestination(isPresented: $showFinishPage) {
+                FinishRunningPage(mapVM: mapVM)
+            }
         }
     }
     
@@ -95,7 +82,7 @@ struct RunningMapPage: View {
                 }
                 Spacer()
                 VStack(spacing: 10) {
-                    Text(motionManager.runningInfo.averagePace ?? "-'--''")
+                    Text(motionManager.runningInfo.averagePace ?? "-’--”")
                         .font(.title3_bold)
                         .foregroundStyle(.gray900)
                     Text("평균 페이스")
@@ -121,5 +108,5 @@ struct RunningMapPage: View {
 }
 
 #Preview {
-    RunningMapPage(mapVM: MapViewModel(), motionManager: MotionManager(), runningType: .group, selectedTab: .constant(1), showFinishPage: .constant(false))
+    RunningMapPage(mapVM: MapViewModel(), motionManager: MotionManager(), runningType: .group, showStopAlert: .constant(false), selectedTab: .constant(1), showFinishPage: .constant(false))
 }

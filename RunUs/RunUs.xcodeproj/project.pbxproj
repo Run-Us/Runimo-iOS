@@ -14,6 +14,8 @@
 		230314F42C89A00B00B299D5 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 230314F32C89A00B00B299D5 /* KakaoSDKCommon */; };
 		230314F62C89A00B00B299D5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 230314F52C89A00B00B299D5 /* KakaoSDKUser */; };
 		230315002C8A096D00B299D5 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 230314FF2C8A096D00B299D5 /* KeychainSwift */; };
+		233831012CC69B430075E73A /* PopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233831002CC69B430075E73A /* PopUp.swift */; };
+		233831032CC7C4B40075E73A /* RunningPostPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233831022CC7C4B40075E73A /* RunningPostPage.swift */; };
 		233ED1CA2CA93D49001EF0BC /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233ED1C92CA93D49001EF0BC /* AuthService.swift */; };
 		233ED1FD2CABA0E7001EF0BC /* RunningSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233ED1FB2CABA0E7001EF0BC /* RunningSessionInfo.swift */; };
 		233ED1FE2CABA0E7001EF0BC /* ParticipantInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233ED1F92CABA0E7001EF0BC /* ParticipantInfo.swift */; };
@@ -35,7 +37,6 @@
 		23931DA22CBA370000BD8BBA /* Paperlogy-7Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23931DA12CBA370000BD8BBA /* Paperlogy-7Bold.ttf */; };
 		23931DA32CBA370000BD8BBA /* Paperlogy-5Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23931DA02CBA370000BD8BBA /* Paperlogy-5Medium.ttf */; };
 		2398F4942CB29B11001D922B /* FinishRunningPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2398F4932CB29B11001D922B /* FinishRunningPage.swift */; };
-		2398F4962CB2B968001D922B /* ShareRunningRecordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2398F4952CB2B968001D922B /* ShareRunningRecordPage.swift */; };
 		2398F4AF2CB8303E001D922B /* Pretendard-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AD2CB8303E001D922B /* Pretendard-Regular.ttf */; };
 		2398F4B12CB8303E001D922B /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AC2CB8303E001D922B /* Pretendard-Medium.ttf */; };
 		2398F4B22CB8303E001D922B /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */; };
@@ -70,6 +71,8 @@
 		230314EE2C89920100B299D5 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		230314F72C89A5E200B299D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		230314F82C89AD0800B299D5 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		233831002CC69B430075E73A /* PopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUp.swift; sourceTree = "<group>"; };
+		233831022CC7C4B40075E73A /* RunningPostPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningPostPage.swift; sourceTree = "<group>"; };
 		233ED1C92CA93D49001EF0BC /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		233ED1F82CABA0E7001EF0BC /* MemberInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfo.swift; sourceTree = "<group>"; };
 		233ED1F92CABA0E7001EF0BC /* ParticipantInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantInfo.swift; sourceTree = "<group>"; };
@@ -91,7 +94,6 @@
 		23931DA02CBA370000BD8BBA /* Paperlogy-5Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Paperlogy-5Medium.ttf"; sourceTree = "<group>"; };
 		23931DA12CBA370000BD8BBA /* Paperlogy-7Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Paperlogy-7Bold.ttf"; sourceTree = "<group>"; };
 		2398F4932CB29B11001D922B /* FinishRunningPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishRunningPage.swift; sourceTree = "<group>"; };
-		2398F4952CB2B968001D922B /* ShareRunningRecordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareRunningRecordPage.swift; sourceTree = "<group>"; };
 		2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.ttf"; sourceTree = "<group>"; };
 		2398F4AC2CB8303E001D922B /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.ttf"; sourceTree = "<group>"; };
 		2398F4AD2CB8303E001D922B /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
@@ -257,7 +259,7 @@
 				88E556082C8F20E8003789B7 /* RunningPage.swift */,
 				2372998E2CBCDD2100D0E7F6 /* RunTab.swift */,
 				2398F4932CB29B11001D922B /* FinishRunningPage.swift */,
-				2398F4952CB2B968001D922B /* ShareRunningRecordPage.swift */,
+				233831022CC7C4B40075E73A /* RunningPostPage.swift */,
 				23C27B012CBF819200978DC9 /* ProgressBar.swift */,
 			);
 			path = Run;
@@ -280,6 +282,7 @@
 				237B430D2C8F0193002163B9 /* MapPage.swift */,
 				888648F82C9824A500B040BA /* NoticeBar.swift */,
 				237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */,
+				233831002CC69B430075E73A /* PopUp.swift */,
 				886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */,
 			);
 			path = Utils;
@@ -410,6 +413,7 @@
 				23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */,
 				230314E52C88851100B299D5 /* FontExtension.swift in Sources */,
 				888648F52C981F7800B040BA /* CreateGroupRunPage.swift in Sources */,
+				233831032CC7C4B40075E73A /* RunningPostPage.swift in Sources */,
 				887940F62CAB2D680018C035 /* JoinService.swift in Sources */,
 				237B430E2C8F0193002163B9 /* MapPage.swift in Sources */,
 				236343142C917B3E00336D67 /* MapViewModel.swift in Sources */,
@@ -430,12 +434,12 @@
 				888648F92C9824A500B040BA /* NoticeBar.swift in Sources */,
 				887940FE2CAB35DB0018C035 /* ParticipationService.swift in Sources */,
 				88E556132C8F5E49003789B7 /* CharacterTab.swift in Sources */,
-				2398F4962CB2B968001D922B /* ShareRunningRecordPage.swift in Sources */,
 				88E5560D2C8F213E003789B7 /* MyTab.swift in Sources */,
 				883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */,
 				888648FB2C982FD500B040BA /* ParticipantProfile.swift in Sources */,
 				88D3BF0D2C9F6B35009E4365 /* JoinGroupRunPage.swift in Sources */,
 				888648F22C981ECC00B040BA /* StartGroupRunPage.swift in Sources */,
+				233831012CC69B430075E73A /* PopUp.swift in Sources */,
 				233ED1CA2CA93D49001EF0BC /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

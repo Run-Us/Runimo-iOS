@@ -31,8 +31,8 @@ extension Font {
     static let title2_medium: Font = .custom(FontName.paperlogyMedium, size: 48)
     static let title3_bold: Font = .custom(FontName.paperlogyBold, size: 30)
     static let title4_semibold: Font = .custom(FontName.paperlogySemiBold, size: 20)
-    static let title5_bold: Font = .custom(FontName.paperlogyBold, size: 16)
-    static let title5_medium: Font = .custom(FontName.paperlogyMedium, size: 16)
+    static let title5_bold: Font = .custom(FontName.paperlogyBold, size: 18)
+    static let title5_medium: Font = .custom(FontName.paperlogyMedium, size: 18)
     
     // body
     static let body1_bold: Font = .custom(FontName.pretendardBold, size: 16)
