@@ -10,7 +10,6 @@ import PhotosUI
 
 struct AddProfileSheet: View {
     @Environment(\.dismiss) var dismiss
-    @Binding var showAddProfile: Bool
     @State var selectedProfile: [PhotosPickerItem] = []
     @Binding var selectedImages: [UIImage]
     @Binding var isPresentedError: Bool
@@ -20,7 +19,7 @@ struct AddProfileSheet: View {
     }
 
     var body: some View {
-        GeometryReader { geomtry in
+        GeometryReader { _ in
             
             VStack(alignment: .leading, spacing: 34) {
                 Text("프로필 사진 추가")
@@ -39,6 +38,19 @@ struct AddProfileSheet: View {
                 .onChange(of: selectedProfile) { _, newValue in
                     handleSelectedPhotos(newValue)
                 }
+                
+                Button {
+                    selectedImages.removeAll()
+                    selectedProfile.removeAll()
+                    dismiss()
+                } label: {
+                    HStack {
+                        Image("trash")
+                        Text("사진 삭제하기")
+                            .font(.body2_medium)
+                            .foregroundColor(.error)
+                    }
+                }
             }
             .padding()
             
@@ -46,9 +58,6 @@ struct AddProfileSheet: View {
         .onTapGesture {
             dismiss()
         }
-        .onDisappear(perform: {
-            showAddProfile = false
-        })
     }
     
     func handleSelectedPhotos(_ newPhotos: [PhotosPickerItem]) {

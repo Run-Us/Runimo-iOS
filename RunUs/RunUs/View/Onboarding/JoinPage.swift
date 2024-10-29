@@ -52,8 +52,8 @@ struct JoinPage: View {
                             .padding(36)
                     })
                     .sheet(isPresented: $showAddProfile, content: {
-                        AddProfileSheet(showAddProfile: $showAddProfile, selectedImages: $selectedProfile, isPresentedError: $isPresentedError)
-                            .presentationDetents([.fraction(0.15)])
+                        AddProfileSheet(selectedImages: $selectedProfile, isPresentedError: $isPresentedError)
+                            .presentationDetents([.fraction(0.21)])
                     })
                     
                     VStack(alignment: .leading) {
@@ -97,7 +97,7 @@ struct JoinPage: View {
                         }, label: {
                             Text("\(gender)")
                                 .font(.body1_medium)
-                                .foregroundColor(.gray700)
+                                .foregroundColor(gender == "성별을 선택해주세요" ? .gray500 : .gray700)
                         })
                         .sheet(isPresented: $showGenderPicker, content: {
                             GenderPickerSheet(gender: $gender, showGenderPicker: $showGenderPicker)
