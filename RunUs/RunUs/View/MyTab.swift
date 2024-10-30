@@ -8,27 +8,18 @@
 import SwiftUI
 
 struct MyTab: View {
-    @Environment(\.dismiss) var dismiss
     let userDefaults = UserDefaults.standard
+    @State private var selectedTab: Int = 0
     
     var body: some View {
-        ScrollView {
-            userInfo()
-                .padding(.vertical, 24)
-        }
-        .padding(.horizontal, 16)
-        VStack {
-            Button(action: {
-                UserDefaults.standard.removeObject(forKey: "idToken")
-                UserDefaults.standard.removeObject(forKey: "userId")
-                dismiss()
-            }, label: {
-                Text("로그아웃")
-                    .foregroundColor(.white)
-                    .padding()
-            })
-            .background(.blue)
-            .cornerRadius(10)
+        GeometryReader { geometry in
+            ScrollView {
+                userInfo()
+                    .padding(.vertical, 24)
+                    .padding(.horizontal, 16)
+                
+                SegmentedPicker(selectedTab: $selectedTab, type: ["주간","월간","연간"], width: geometry.size.width)
+            }
         }
     }
     
