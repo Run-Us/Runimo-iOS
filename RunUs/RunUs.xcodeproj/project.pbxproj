@@ -21,6 +21,7 @@
 		233ED1FE2CABA0E7001EF0BC /* ParticipantInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233ED1F92CABA0E7001EF0BC /* ParticipantInfo.swift */; };
 		233ED1FF2CABA0E7001EF0BC /* MemberInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233ED1F82CABA0E7001EF0BC /* MemberInfo.swift */; };
 		233ED2002CABA0E7001EF0BC /* RunningInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233ED1FA2CABA0E7001EF0BC /* RunningInfo.swift */; };
+		2347D9AC2CD25927003776BC /* RecordCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2347D9AB2CD25927003776BC /* RecordCard.swift */; };
 		2355F66C2C9E9CE700A65108 /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2355F66B2C9E9CE700A65108 /* MotionManager.swift */; };
 		236343122C90386D00336D67 /* RunningMapPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236343112C90386D00336D67 /* RunningMapPage.swift */; };
 		236343142C917B3E00336D67 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236343132C917B3E00336D67 /* MapViewModel.swift */; };
@@ -78,6 +79,7 @@
 		233ED1F92CABA0E7001EF0BC /* ParticipantInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantInfo.swift; sourceTree = "<group>"; };
 		233ED1FA2CABA0E7001EF0BC /* RunningInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningInfo.swift; sourceTree = "<group>"; };
 		233ED1FB2CABA0E7001EF0BC /* RunningSessionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningSessionInfo.swift; sourceTree = "<group>"; };
+		2347D9AB2CD25927003776BC /* RecordCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCard.swift; sourceTree = "<group>"; };
 		2355F66B2C9E9CE700A65108 /* MotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
 		236343112C90386D00336D67 /* RunningMapPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningMapPage.swift; sourceTree = "<group>"; };
 		236343132C917B3E00336D67 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -167,9 +169,9 @@
 				23B708DD2C99523E006E9547 /* Onboarding */,
 				23B708DC2C995136006E9547 /* Run */,
 				888648F32C981F0700B040BA /* GroupRun */,
+				2347D9AA2CD2578C003776BC /* MyPage */,
 				88E556042C8F208F003789B7 /* HomeTab.swift */,
 				88E556062C8F20C8003789B7 /* CrewTab.swift */,
-				88E5560C2C8F213E003789B7 /* MyTab.swift */,
 				88E556102C8F5CCC003789B7 /* TabBar.swift */,
 				88E556122C8F5E49003789B7 /* CharacterTab.swift */,
 			);
@@ -207,6 +209,15 @@
 				233ED1FB2CABA0E7001EF0BC /* RunningSessionInfo.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		2347D9AA2CD2578C003776BC /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				88E5560C2C8F213E003789B7 /* MyTab.swift */,
+				2347D9AB2CD25927003776BC /* RecordCard.swift */,
+			);
+			path = MyPage;
 			sourceTree = "<group>";
 		};
 		238E78E52C83147200D04F58 = {
@@ -406,6 +417,7 @@
 				88D3BF0F2C9F6C42009E4365 /* ParticipantList.swift in Sources */,
 				230314E92C88A48D00B299D5 /* LoginPage.swift in Sources */,
 				233ED1FD2CABA0E7001EF0BC /* RunningSessionInfo.swift in Sources */,
+				2347D9AC2CD25927003776BC /* RecordCard.swift in Sources */,
 				233ED1FE2CABA0E7001EF0BC /* ParticipantInfo.swift in Sources */,
 				233ED1FF2CABA0E7001EF0BC /* MemberInfo.swift in Sources */,
 				233ED2002CABA0E7001EF0BC /* RunningInfo.swift in Sources */,

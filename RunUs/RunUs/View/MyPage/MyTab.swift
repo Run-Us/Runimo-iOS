@@ -19,6 +19,12 @@ struct MyTab: View {
                     .padding(.horizontal, 16)
                 
                 SegmentedPicker(selectedTab: $selectedTab, type: ["주간","월간","연간"], width: geometry.size.width)
+                
+                VStack(spacing: 24) {
+                    RecordCard(selectedTab: $selectedTab)
+                }
+                .padding(.vertical, 24)
+                .padding(.horizontal, 16)
             }
         }
     }
