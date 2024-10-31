@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MyTab: View {
+    @StateObject private var myPageVM = MyPageViewModel()
     let userDefaults = UserDefaults.standard
-    @State private var selectedTab: Int = 0
     
     var body: some View {
         GeometryReader { geometry in
@@ -18,10 +18,12 @@ struct MyTab: View {
                     .padding(.vertical, 24)
                     .padding(.horizontal, 16)
                 
-                SegmentedPicker(selectedTab: $selectedTab, type: ["주간","월간","연간"], width: geometry.size.width)
+                SegmentedPicker(selectedTab: $myPageVM.selectedTab, type: ["주간","월간","연간"], width: geometry.size.width)
                 
                 VStack(spacing: 24) {
-                    RecordCard(selectedTab: $selectedTab)
+                    RecordCard(selectedTab: $myPageVM.selectedTab)
+                    MyGraph(myPageVM: myPageVM)
+                        .frame(height: 160)
                 }
                 .padding(.vertical, 24)
                 .padding(.horizontal, 16)

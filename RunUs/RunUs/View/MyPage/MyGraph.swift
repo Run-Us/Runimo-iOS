@@ -7,14 +7,8 @@
 
 import SwiftUI
 
-enum RecordType {
-    case weekly
-    case monthly
-    case yearly
-}
-
 struct MyGraph: View {
-    @Binding var recordType: RecordType
+    @ObservedObject var myPageVM: MyPageViewModel
     
     var body: some View {
         ZStack {
@@ -22,7 +16,8 @@ struct MyGraph: View {
                 // 배경 라인 및 범위
                 background()
                 // 그래프
-                
+                barGraph()
+                    .frame(width: geometry.size.width-48)
             }
         }
     }
@@ -53,11 +48,19 @@ struct MyGraph: View {
     }
     
     @ViewBuilder
-    func yGraph() -> some View {
-        
+    func barGraph() -> some View {
+        HStack {
+            ForEach(myPageVM.xData, id: \.self) { item in
+                Spacer()
+                Text(item)
+                    .font(.caption_regular)
+                    .foregroundStyle(.gray500)
+                Spacer()
+            }
+        }
     }
 }
 
 #Preview {
-    MyGraph(recordType: .constant(.weekly))
+    MyGraph(myPageVM: .init())
 }
