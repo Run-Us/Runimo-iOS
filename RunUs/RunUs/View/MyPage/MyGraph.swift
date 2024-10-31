@@ -16,8 +16,9 @@ struct MyGraph: View {
                 // 배경 라인 및 범위
                 background()
                 // 그래프
-                barGraph()
+                totalGraph()
                     .frame(width: geometry.size.width-48)
+                    .padding(.top, 12)
             }
         }
     }
@@ -30,13 +31,13 @@ struct MyGraph: View {
             xLine(km: 4.5)
             Spacer()
             xLine(km: 0)
-                .padding(.bottom, 18)
+                .padding(.bottom, 24)
         }
     }
     
     @ViewBuilder
     func xLine(km: Double) -> some View {
-        HStack(spacing: 12) {
+        HStack(alignment: .bottom, spacing: 12) {
             Rectangle()
                 .frame(height: 1)
                 .foregroundStyle(.gray300)
@@ -45,18 +46,27 @@ struct MyGraph: View {
                 .font(.caption_regular)
                 .foregroundStyle(.gray500)
         }
+        .frame(height: 12)
     }
     
     @ViewBuilder
-    func barGraph() -> some View {
+    func totalGraph() -> some View {
         HStack {
             ForEach(myPageVM.xData, id: \.self) { item in
-                Spacer()
-                Text(item)
-                    .font(.caption_regular)
-                    .foregroundStyle(.gray500)
-                Spacer()
+                barGraph(item)
             }
+        }
+    }
+    
+    @ViewBuilder
+    func barGraph(_ data: String) -> some View {
+        VStack(spacing: 0) {
+            RoundedRectangle(cornerRadius: 8)
+                .fill(.highlight)
+            Text(data)
+                .font(.caption_regular)
+                .foregroundStyle(.gray500)
+                .frame(height: 24)
         }
     }
 }
