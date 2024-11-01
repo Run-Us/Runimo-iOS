@@ -20,7 +20,7 @@ struct JoinPage: View {
     @State var showAddProfile = false
     @FocusState private var isTextFieldFocused: Bool
     @State var isPresentedError: Bool = false
-    let userInfo = UserDefaults.standard
+    let userDefaults = UserDefaults.standard
     
     var body: some View {
         NavigationView {
@@ -113,6 +113,7 @@ struct JoinPage: View {
                         .padding(.vertical)
                     Button(action: {
                         loginSuccess = true
+                        userDefaults.set(nickname, forKey: "nickname")
                         dismiss()
                     }, label: {
                         ZStack {
