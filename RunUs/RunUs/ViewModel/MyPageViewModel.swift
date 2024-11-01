@@ -59,14 +59,11 @@ class MyPageViewModel: ObservableObject {
         }
     }
     
-    // 월간 x선 데이터 값 필터 
-    func checkMonthlyXData(data: String) -> String {
-        if recordType != .monthly {
-            return data
-        }
+    // 그래프 날짜 데이터 값 필터
+    func checkMonthlyData(data: String) -> Bool {
         if ["6","13","20","27"].contains(data) {
-            return data
+            return true
         }
-        return ""
+        return false
     }
 }

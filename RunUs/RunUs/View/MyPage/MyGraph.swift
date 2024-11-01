@@ -100,13 +100,12 @@ struct MyGraph: View {
             // 날짜 text
             HStack(spacing: 0) {
                 ForEach(myPageVM.xData, id: \.self) { item in
-                    if !myPageVM.checkMonthlyXData(data: item).isEmpty {
+                    if myPageVM.checkMonthlyData(data: item) {
                         Text(item)
                             .font(.caption_regular)
                             .foregroundStyle(.gray500)
                             .lineLimit(1)
                             .frame(width: 15, height: 24, alignment: .center)
-                            .background(.blue)
                     } else {
                         Spacer()
                             .frame(height: 24)
