@@ -21,7 +21,7 @@ struct MyTab: View {
                 SegmentedPicker(selectedTab: $myPageVM.selectedTab, type: ["주간","월간","연간"], width: geometry.size.width)
                 
                 VStack(spacing: 24) {
-                    RecordCard(selectedTab: $myPageVM.selectedTab)
+                    RecordCard(myPageVM: myPageVM)
                     MyGraph(myPageVM: myPageVM)
                         .frame(height: 160)
                     recentActivity()
@@ -78,7 +78,7 @@ struct MyTab: View {
                 }
             }
             
-            // 임시 코드 
+            // 임시 코드
             PostCard()
             PostCard()
             PostCard()

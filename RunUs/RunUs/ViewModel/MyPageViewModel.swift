@@ -22,14 +22,51 @@ class MyPageViewModel: ObservableObject {
         }
     }
     
+    var periodText: String {
+        switch (recordType) {
+        case .weekly: return "이번 주"
+        case .monthly: return "2024년 10월"
+        case .yearly: return "2024년"
+        }
+    }
+    
     var xData: [String] {
         switch (recordType) {
         case .weekly:
             return ["월","화","수","목","금","토","일"]
         case .monthly:
-            return [6,13,20,27].map{String($0)}
+            return Array(1...31).map{String($0)}
         case .yearly:
             return Array(1...12).map{String($0)}
         }
+    }
+    
+    // 막대 그래프 cornerRadius
+    var barGraphCornerRadius: CGFloat {
+        switch (recordType) {
+        case .weekly: return 12
+        case .monthly: return 4
+        case .yearly: return 8
+        }
+    }
+    
+    // 막대 그래프 사이 spacing
+    var graphSpacing: CGFloat {
+        switch (recordType) {
+        case .weekly: return 10
+        case .monthly: return 4
+        case .yearly: return 6
+        }
+    }
+    
+    // 월간 x선 데이터 값 필터 
+    func checkMonthlyXData(data: String) -> String {
+        if recordType != .monthly {
+            return data
+        }
+        if ["6","13","20","27"].contains(data) {
+            return data
+        }
+        return ""
     }
 }

@@ -35,6 +35,7 @@ struct MyGraph: View {
         }
     }
     
+    // 가로선 
     @ViewBuilder
     func xLine(km: Double) -> some View {
         HStack(alignment: .bottom, spacing: 12) {
@@ -51,22 +52,67 @@ struct MyGraph: View {
     
     @ViewBuilder
     func totalGraph() -> some View {
-        HStack {
-            ForEach(myPageVM.xData, id: \.self) { item in
-                barGraph(item)
+        switch (myPageVM.recordType) {
+        case .monthly: monthlyGraph()
+        case .weekly, .yearly: weekYearGraph()
+        }
+    }
+    
+    // 주간, 연간 그래프
+    @ViewBuilder
+    func weekYearGraph() -> some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
+                ForEach(myPageVM.xData, id: \.self) { item in
+                    weekYearBarGraph(data: item)
+                }
             }
         }
     }
     
+    // 주간, 연간 막대 바 하나
     @ViewBuilder
-    func barGraph(_ data: String) -> some View {
+    func weekYearBarGraph(data: String) -> some View {
         VStack(spacing: 0) {
-            RoundedRectangle(cornerRadius: 8)
+            RoundedRectangle(cornerRadius: myPageVM.barGraphCornerRadius)
                 .fill(.highlight)
+                .padding(.horizontal, myPageVM.graphSpacing/2)
             Text(data)
                 .font(.caption_regular)
                 .foregroundStyle(.gray500)
-                .frame(height: 24)
+                .lineLimit(1)
+                .frame(width: 15, height: 24)
+        }
+    }
+    
+    // 월간 그래프
+    @ViewBuilder
+    func monthlyGraph() -> some View {
+        VStack(spacing: 0) {
+            // 막대 그래프
+            HStack(spacing: 0) {
+                ForEach(myPageVM.xData, id: \.self) { item in
+                    RoundedRectangle(cornerRadius: myPageVM.barGraphCornerRadius)
+                        .fill(.highlight)
+                        .padding(.horizontal, myPageVM.graphSpacing/2)
+                }
+            }
+            // 날짜 text
+            HStack(spacing: 0) {
+                ForEach(myPageVM.xData, id: \.self) { item in
+                    if !myPageVM.checkMonthlyXData(data: item).isEmpty {
+                        Text(item)
+                            .font(.caption_regular)
+                            .foregroundStyle(.gray500)
+                            .lineLimit(1)
+                            .frame(width: 15, height: 24, alignment: .center)
+                            .background(.blue)
+                    } else {
+                        Spacer()
+                            .frame(height: 24)
+                    }
+                }
+            }
         }
     }
 }

@@ -8,22 +8,13 @@
 import SwiftUI
 
 struct RecordCard: View {
-    @Binding var selectedTab: Int
-    // TODO: 1과 2일 경우에는 수정 필요
-    private var periodText: String {
-        switch (selectedTab) {
-        case 0: return "이번 주"
-        case 1: return "2024년 10월"
-        case 2: return "2024년"
-        default: return ""
-        }
-    }
+    @ObservedObject var myPageVM: MyPageViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
                 // 기간
-                Text(periodText)
+                Text(myPageVM.periodText)
                     .font(.body2_semibold)
                     .foregroundStyle(.gray900)
                 Spacer()
@@ -65,5 +56,5 @@ struct RecordCard: View {
 }
 
 #Preview {
-    RecordCard(selectedTab: .constant(0))
+    RecordCard(myPageVM: .init())
 }
