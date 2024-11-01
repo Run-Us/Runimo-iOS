@@ -7,13 +7,6 @@
 
 import Foundation
 
-struct Participant: Identifiable {
-    let id = UUID()
-    let name: String
-    let distance: Double
-    let pace: Double
-}
-
 struct ParticipationResponse: Codable {
     let success: Bool
     let message: String

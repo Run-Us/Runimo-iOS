@@ -56,7 +56,7 @@ struct CreateGroupRunPage: View {
                     }
                     .padding(72)
                     
-                    
+//                    AggregateParticipants(nikName: "최강 조성훈", level: 2, totalDistance: 12)
                     Divider()
                     Button(action: {
                         showStartGroupRunAlter = true
@@ -75,7 +75,6 @@ struct CreateGroupRunPage: View {
             .ignoresSafeArea()
         }
         .onAppear {
-            print("getParticipantList || runningId: \(runningSession.latestSessionResponse?.payload.runningKey ?? "empty")")
             participationService.getParticipantList(runningId: runningSession.latestSessionResponse?.payload.runningKey ?? "") { success in
                 if !success {
                     print("참가자 정보 불러오기 실패")
