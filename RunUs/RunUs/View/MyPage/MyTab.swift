@@ -24,6 +24,7 @@ struct MyTab: View {
                     RecordCard(selectedTab: $myPageVM.selectedTab)
                     MyGraph(myPageVM: myPageVM)
                         .frame(height: 160)
+                    recentActivity()
                 }
                 .padding(.vertical, 24)
                 .padding(.horizontal, 16)
@@ -57,6 +58,30 @@ struct MyTab: View {
                 Image("edit_profile")
             }
 
+        }
+    }
+    
+    @ViewBuilder
+    func recentActivity() -> some View {
+        VStack(spacing: 20) {
+            HStack {
+                Text("최근 활동")
+                    .font(.title5_bold)
+                    .foregroundStyle(.gray900)
+                Spacer()
+                Button {
+                    
+                } label: {
+                    Text("전체보기")
+                        .font(.caption_regular)
+                        .foregroundStyle(.gray500)
+                }
+            }
+            
+            // 임시 코드 
+            PostCard()
+            PostCard()
+            PostCard()
         }
     }
 }

@@ -34,7 +34,7 @@ struct PostCard: View {
                 .resizable()
                 .frame(width: 40, height: 40)
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 5) {
                 Text("닉네임")
                     .font(.title5_medium)
                     .foregroundStyle(.gray900)
@@ -69,7 +69,7 @@ struct PostCard: View {
     
     @ViewBuilder
     func detailInfo(title: String, contents: String) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 5) {
             Text(title)
                 .font(.caption_regular)
                 .foregroundStyle(.gray500)
