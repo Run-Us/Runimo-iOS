@@ -51,12 +51,10 @@
 		888648F22C981ECC00B040BA /* StartGroupRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648F12C981ECC00B040BA /* StartGroupRunPage.swift */; };
 		888648F52C981F7800B040BA /* CreateGroupRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648F42C981F7800B040BA /* CreateGroupRunPage.swift */; };
 		888648F92C9824A500B040BA /* NoticeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648F82C9824A500B040BA /* NoticeBar.swift */; };
-		888648FB2C982FD500B040BA /* ParticipantProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648FA2C982FD500B040BA /* ParticipantProfile.swift */; };
 		8889DC022CD62C1300FD0B82 /* PollingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8889DC012CD62C1300FD0B82 /* PollingManager.swift */; };
+		8889DC042CD66E0A00FD0B82 /* RunningParticipants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8889DC032CD66E0A00FD0B82 /* RunningParticipants.swift */; };
 		88A882ED2CD3CE670048F09A /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A882EC2CD3CE510048F09A /* Participant.swift */; };
 		88D3BF0D2C9F6B35009E4365 /* JoinGroupRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D3BF0C2C9F6B35009E4365 /* JoinGroupRunPage.swift */; };
-		88D3BF0F2C9F6C42009E4365 /* ParticipantList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D3BF0E2C9F6C42009E4365 /* ParticipantList.swift */; };
-		88D3BF112C9F7540009E4365 /* RunningParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D3BF102C9F7540009E4365 /* RunningParticipant.swift */; };
 		88D3BF212CA95FB4009E4365 /* WebSocketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D3BF202CA95FB4009E4365 /* WebSocketService.swift */; };
 		88D3BF252CA9702E009E4365 /* SwiftStomp in Frameworks */ = {isa = PBXBuildFile; productRef = 88D3BF242CA9702E009E4365 /* SwiftStomp */; };
 		88E556052C8F208F003789B7 /* HomeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E556042C8F208F003789B7 /* HomeTab.swift */; };
@@ -110,12 +108,10 @@
 		888648F12C981ECC00B040BA /* StartGroupRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGroupRunPage.swift; sourceTree = "<group>"; };
 		888648F42C981F7800B040BA /* CreateGroupRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupRunPage.swift; sourceTree = "<group>"; };
 		888648F82C9824A500B040BA /* NoticeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBar.swift; sourceTree = "<group>"; };
-		888648FA2C982FD500B040BA /* ParticipantProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantProfile.swift; sourceTree = "<group>"; };
 		8889DC012CD62C1300FD0B82 /* PollingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingManager.swift; sourceTree = "<group>"; };
+		8889DC032CD66E0A00FD0B82 /* RunningParticipants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningParticipants.swift; sourceTree = "<group>"; };
 		88A882EC2CD3CE510048F09A /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		88D3BF0C2C9F6B35009E4365 /* JoinGroupRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupRunPage.swift; sourceTree = "<group>"; };
-		88D3BF0E2C9F6C42009E4365 /* ParticipantList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantList.swift; sourceTree = "<group>"; };
-		88D3BF102C9F7540009E4365 /* RunningParticipant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningParticipant.swift; sourceTree = "<group>"; };
 		88D3BF202CA95FB4009E4365 /* WebSocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketService.swift; sourceTree = "<group>"; };
 		88E556042C8F208F003789B7 /* HomeTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTab.swift; sourceTree = "<group>"; };
 		88E556062C8F20C8003789B7 /* CrewTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewTab.swift; sourceTree = "<group>"; };
@@ -297,9 +293,7 @@
 		887DAB582CAD8D320028516D /* Participants */ = {
 			isa = PBXGroup;
 			children = (
-				88D3BF102C9F7540009E4365 /* RunningParticipant.swift */,
-				888648FA2C982FD500B040BA /* ParticipantProfile.swift */,
-				88D3BF0E2C9F6C42009E4365 /* ParticipantList.swift */,
+				8889DC032CD66E0A00FD0B82 /* RunningParticipants.swift */,
 			);
 			path = Participants;
 			sourceTree = "<group>";
@@ -409,7 +403,6 @@
 				88E556052C8F208F003789B7 /* HomeTab.swift in Sources */,
 				88E556092C8F20E8003789B7 /* RunningPage.swift in Sources */,
 				230314EF2C89920100B299D5 /* AuthViewModel.swift in Sources */,
-				88D3BF0F2C9F6C42009E4365 /* ParticipantList.swift in Sources */,
 				230314E92C88A48D00B299D5 /* LoginPage.swift in Sources */,
 				233ED1FD2CABA0E7001EF0BC /* RunningSessionInfo.swift in Sources */,
 				233ED1FE2CABA0E7001EF0BC /* AggregateParticipants.swift in Sources */,
@@ -424,7 +417,7 @@
 				887940F62CAB2D680018C035 /* JoinService.swift in Sources */,
 				237B430E2C8F0193002163B9 /* MapPage.swift in Sources */,
 				236343142C917B3E00336D67 /* MapViewModel.swift in Sources */,
-				88D3BF112C9F7540009E4365 /* RunningParticipant.swift in Sources */,
+				8889DC042CD66E0A00FD0B82 /* RunningParticipants.swift in Sources */,
 				238E78F22C83147200D04F58 /* RunUsApp.swift in Sources */,
 				2355F66C2C9E9CE700A65108 /* MotionManager.swift in Sources */,
 				88D3BF212CA95FB4009E4365 /* WebSocketService.swift in Sources */,
@@ -444,7 +437,6 @@
 				88E5560D2C8F213E003789B7 /* MyTab.swift in Sources */,
 				883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */,
 				8889DC022CD62C1300FD0B82 /* PollingManager.swift in Sources */,
-				888648FB2C982FD500B040BA /* ParticipantProfile.swift in Sources */,
 				88D3BF0D2C9F6B35009E4365 /* JoinGroupRunPage.swift in Sources */,
 				888648F22C981ECC00B040BA /* StartGroupRunPage.swift in Sources */,
 				233831012CC69B430075E73A /* PopUp.swift in Sources */,

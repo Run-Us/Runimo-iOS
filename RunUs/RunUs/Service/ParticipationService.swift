@@ -52,9 +52,9 @@ class ParticipationService: ObservableObject {
         }.resume()
         
     }
-    func getParticipantList(runningId: String, completion: @escaping (Bool) -> Void) {
+    func getParticipantList(runningId: String, completion: @escaping (Bool, [AggregateParticipants]?) -> Void) {
         guard let url = URL(string: "\(baseUrl)/runnings/\(runningId)/participants") else {
-            completion(false)
+            completion(false, nil)
             return
         }
         let jwtToken = keychain.get("accessToken") ?? ""
@@ -66,7 +66,7 @@ class ParticipationService: ObservableObject {
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 DispatchQueue.main.async {
-                    completion(false)
+                    completion(false, nil)
                 }
                 return
             }
@@ -76,14 +76,14 @@ class ParticipationService: ObservableObject {
                     if decodedResponse.success {
                         print("getParticipantList || Response success: \(decodedResponse.success)")
                         self.aggregateParticipants = decodedResponse.payload
-                        completion(true)
+                        completion(true, self.aggregateParticipants)
                     } else {
-                        completion(false)
+                        completion(false, nil)
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(false)
+                    completion(false, nil)
                 }
             }
         }.resume()

@@ -12,10 +12,13 @@ struct CreateGroupRunPage: View {
     @StateObject var mapVM: MapViewModel
     @ObservedObject var runningSession: RunningSessionService
     @StateObject var participationService = ParticipationService()
+    @ObservedObject private var pollingManager = PollingManager(pollingInterval: 2.0)
     @State var showStartGroupRunAlter = false
     @State var startGroupRun = false
     @State var passcode: String
     @State private var isValid: Bool = true
+    @State var aggregateParticipants: [AggregateParticipants]?
+    
     
     var body: some View {
         NavigationView {
@@ -26,7 +29,7 @@ struct CreateGroupRunPage: View {
                     Text("더 많은 보상 받아보세요!")
                         .font(.title4_semibold)
                         .foregroundStyle(.gray900)
-                        .padding(12)
+                        .padding(.top, 80)
                     
                     Button(action: {
                         
@@ -56,7 +59,17 @@ struct CreateGroupRunPage: View {
                     }
                     .padding(72)
                     
-//                    AggregateParticipants(nikName: "최강 조성훈", level: 2, totalDistance: 12)
+                    List {
+                        if let participants = aggregateParticipants {
+                            ForEach(participants.indices, id: \.self) { index in
+                                Participant(nikName: participants[index].name, profileImage: participants[index].imgUrl, totalDistance: participants[index].totalDistanceInMeters)
+                            }
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                        }
+                    }
+                    .scrollContentBackground(.hidden)
+                    .padding(.horizontal, 36)
                     Divider()
                     Button(action: {
                         showStartGroupRunAlter = true
@@ -71,18 +84,17 @@ struct CreateGroupRunPage: View {
                     .padding(8)
                     
                 }
+                .padding(.vertical, 36)
             }
             .ignoresSafeArea()
         }
         .onAppear {
-            participationService.getParticipantList(runningId: runningSession.latestSessionResponse?.payload.runningKey ?? "") { success in
-                if !success {
-                    print("참가자 정보 불러오기 실패")
-                }
-                else {
-                    print("getParticipantList || response: \(success)")
-                }
+            pollingManager.startPolling {
+//                self.pollingAction()
             }
+        }
+        .onDisappear {
+            pollingManager.stopPolling()
         }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -113,6 +125,7 @@ struct CreateGroupRunPage: View {
             RunningPage(runningType: .group, mapVM: mapVM)
         })
     }
+    
     func startRun() {
         let startRunningInfo = [
             "userId": UserDefaults.standard.string(forKey: "userId") ?? "",
@@ -121,6 +134,20 @@ struct CreateGroupRunPage: View {
         ]
         WebSocketService.sharedSocket.sendMessage(body: startRunningInfo, destination: "/app/runnings/start")
         startGroupRun = true
+    }
+    
+    func pollingAction() {
+        print("Polling...")
+        participationService.getParticipantList(runningId: runningSession.latestSessionResponse?.payload.runningKey ?? "") { success, data in
+            if !success {
+                print("참가자 정보 불러오기 실패")
+            }
+            else {
+                print("getParticipantList || response: \(success)")
+                aggregateParticipants = data
+            }
+            
+        }
     }
 }
 

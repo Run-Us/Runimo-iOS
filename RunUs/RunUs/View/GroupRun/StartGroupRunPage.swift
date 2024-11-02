@@ -62,7 +62,7 @@ struct StartGroupRunPage: View {
                     .cornerRadius(8)
                     .padding(8)
                     .navigationDestination(isPresented: $showCreateGroupRunPage, destination: {
-                        CreateGroupRunPage(mapVM: mapVM, runningSession: runningSession, passcode: runningSession.latestSessionResponse?.payload.passcode ?? "0000" )
+                        CreateGroupRunPage(mapVM: mapVM, runningSession: runningSession, passcode: runningSession.latestSessionResponse?.payload.passcode ?? "0000")
                             .navigationBarBackButtonHidden()
                     })
                     

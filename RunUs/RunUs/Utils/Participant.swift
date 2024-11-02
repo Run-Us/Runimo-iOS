@@ -49,6 +49,7 @@ struct Participant: View {
                     }
                     .padding(.trailing, 20)
                 }
+                Spacer()
                 
                 // 캐릭터
                 Image("character_default")
