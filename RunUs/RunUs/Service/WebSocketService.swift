@@ -11,13 +11,12 @@ import Combine
 import CoreLocation
 
 class WebSocketService: ObservableObject, SwiftStompDelegate {
-    static let sharedSocket = WebSocketService(userId: UserDefaults.standard.string(forKey: "userId") ?? "")
+    static let sharedSocket = WebSocketService()
     private var swiftStomp: SwiftStomp?
-    var runningSessionService: RunningSessionService?
     let WebSocketURL = Bundle.main.object(forInfoDictionaryKey: "WEBSOCKET_URL") as? String
-    let userId = UserDefaults.standard.string(forKey: "userId") ?? "userId is nil"
+    var userId: String?
+    var runningId: String?
     private var subscriptions = Set<AnyCancellable>()
-    var runningSessionInfo: RunningSessionInfo?
     var locationList: [LocationWithCount] = []
     var count: Int = 0
     
@@ -27,15 +26,20 @@ class WebSocketService: ObservableObject, SwiftStompDelegate {
     @Published var errors = [String]()
     
     // URL and initialization
-    init(userId: String, passcode: String = "") {
+    init() {
         guard let url = URL(string: "ws://" + WebSocketURL!) else {
             print("Invalid URL string.")
             return
         }
+        guard let userId = UserDefaults.standard.string(forKey: "userId") else {
+            print("Invalid userId")
+            return
+        }
+        self.userId = userId
+        
         let headers = [
             "accept-version": "1.2,1.1,1.0",
             "heart-beat": "10000,10000",
-            "passcode": passcode,
             "user-id": userId
         ]
         swiftStomp = SwiftStomp(host: url, headers: headers)
@@ -45,8 +49,12 @@ class WebSocketService: ObservableObject, SwiftStompDelegate {
     }
     
     // Connect to the WebSocket server
-    func connect(runningSessionInfo: RunningSessionInfo?, passcode: String = "") {
-        self.runningSessionInfo = runningSessionInfo
+    func connect(runningId: String?) {
+        guard let runningId = runningId else {
+            print("Invalid runningId")
+            return
+        }
+        self.runningId = runningId
         swiftStomp?.connect(acceptVersion: "1.2,1.1,1.0")
     }
     
@@ -84,11 +92,14 @@ class WebSocketService: ObservableObject, SwiftStompDelegate {
             print("Connection is fully established with STOMP protocol.")
             isConnected = true
             
-            if let runningId = runningSessionInfo?.runningKey {
-                subscribe(topic: "/user/queue/logs")
-                subscribe(topic: "/topic/runnings/\(runningId)")
-                print("subscribe is started.. || runningId: \(runningId)")
+            subscribe(topic: "/user/queue/logs")
+            
+            guard let runningId = runningId else {
+                print("Inavalid runningId")
+                return
             }
+            subscribe(topic: "/topic/runnings/\(runningId)")
+            print("subscribe is started.. || runningId: \(runningId)")
         }
     }
     
@@ -134,7 +145,7 @@ class WebSocketService: ObservableObject, SwiftStompDelegate {
         
         let runningUpdateInfo = RunningUpdateInfo (
             runningId: UserDefaults.standard.string(forKey: "runningId") ?? "",
-            userId: userId,
+            userId: userId!,
             latitude: currentUserLocation.coordinate.latitude,
             longitude: currentUserLocation.coordinate.longitude,
             count: self.count)
@@ -156,7 +167,7 @@ class WebSocketService: ObservableObject, SwiftStompDelegate {
     func sendMessagePause() {
         let pauseInfo = [
             "userId": userId,
-            "runningId": runningSessionInfo?.runningKey
+            "runningId": runningId!
         ]
 
         print("webSockeet || sendMessage || Pause || \(pauseInfo)")
@@ -166,7 +177,7 @@ class WebSocketService: ObservableObject, SwiftStompDelegate {
     func sendMessageStop() {
         let stopInfo = [
             "userId": userId,
-            "runningId": runningSessionInfo?.runningKey
+            "runningId": runningId!
         ]
         print("webSockeet || sendMessage || Stop || \(stopInfo)")
         sendMessage(body: stopInfo, destination: "/app/hello")
@@ -176,8 +187,8 @@ class WebSocketService: ObservableObject, SwiftStompDelegate {
         let receiptId = "msg-\(Int.random(in: 0..<1000))"
         
         let aggregateInfo = AggregateInfo(
-            userId: userId,
-            runningId: runningSessionInfo?.runningKey ?? "runningKey is nil",
+            userId: userId!,
+            runningId: self.runningId!,
             dataList: locationList
         )
         print("webSockeet || sendMessage || Aggregate || \(aggregateInfo)")
@@ -187,7 +198,7 @@ class WebSocketService: ObservableObject, SwiftStompDelegate {
     func sendMessageResume() {
         let resumeInfo = [
             "userId": UserDefaults.standard.string(forKey: "userId"),
-            "runningId": runningSessionInfo?.runningKey
+            "runningId": runningId!
         ]
         print("webSockeet || sendMessage || Stop || \(resumeInfo)")
         sendMessage(body: resumeInfo, destination: "/app/users/runnings/resume")

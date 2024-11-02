@@ -88,14 +88,6 @@ struct CreateGroupRunPage: View {
             }
             .ignoresSafeArea()
         }
-        .onAppear {
-            pollingManager.startPolling {
-                self.pollingAction()
-            }
-        }
-        .onDisappear {
-            pollingManager.stopPolling()
-        }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 HStack(spacing: 10) {
@@ -122,9 +114,18 @@ struct CreateGroupRunPage: View {
               showStartGroupRunAlter = false
           },
           buttonAction: {
+              dismiss()
               startRun()
               startGroupRun = true
           })
+        .onAppear {
+            pollingManager.startPolling {
+                self.pollingAction()
+            }
+        }
+        .onDisappear {
+            pollingManager.stopPolling()
+        }
         .navigationDestination(isPresented: $startGroupRun, destination:{
             RunningPage(runningType: .group, mapVM: mapVM)
         })
