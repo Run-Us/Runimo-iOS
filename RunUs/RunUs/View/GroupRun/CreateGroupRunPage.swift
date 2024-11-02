@@ -90,7 +90,7 @@ struct CreateGroupRunPage: View {
         }
         .onAppear {
             pollingManager.startPolling {
-//                self.pollingAction()
+                self.pollingAction()
             }
         }
         .onDisappear {
@@ -112,15 +112,19 @@ struct CreateGroupRunPage: View {
             }
         }
         .foregroundStyle(.gray900)
-        .alert(isPresented: $showStartGroupRunAlter) {
-            Alert(
-                title: Text("그룹 달리기를 시작할까요?"),
-                primaryButton: .default(Text("시작하기"), action: {
-                    startRun()
-                }),
-                secondaryButton: .cancel(Text("취소"))
-            )
-        }
+        .popup(
+          isPresented: $showStartGroupRunAlter,
+          title: "그룹 달리기를 시작할까요?",
+          subtitle: "user_name님을 포함해 총 12명이 모였어요",
+          buttonText: "시작하기",
+          buttonColor: .primary400,
+          cancelAction: {
+              showStartGroupRunAlter = false
+          },
+          buttonAction: {
+              startRun()
+              startGroupRun = true
+          })
         .navigationDestination(isPresented: $startGroupRun, destination:{
             RunningPage(runningType: .group, mapVM: mapVM)
         })
@@ -137,13 +141,11 @@ struct CreateGroupRunPage: View {
     }
     
     func pollingAction() {
-        print("Polling...")
         participationService.getParticipantList(runningId: runningSession.latestSessionResponse?.payload.runningKey ?? "") { success, data in
             if !success {
                 print("참가자 정보 불러오기 실패")
             }
             else {
-                print("getParticipantList || response: \(success)")
                 aggregateParticipants = data
             }
             

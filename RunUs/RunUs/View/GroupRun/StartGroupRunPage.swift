@@ -99,7 +99,6 @@ struct StartGroupRunPage: View {
     func createGroup() {
         runningSession.createRunningSession(currentLatitude: mapVM.userLocation.coordinate.latitude, currentLongitude: mapVM.userLocation.coordinate.longitude) { success, result in
             if success {
-                print("Try WebSocket Connect || runningId: \(result?.payload.runningKey ?? "error")")
                 UserDefaults.standard.set(result?.payload.runningKey, forKey: "runningId")
                 WebSocketService.sharedSocket.connect(runningSessionInfo: result?.payload)
                 showCreateGroupRunPage = true
