@@ -52,6 +52,7 @@
 		888648F52C981F7800B040BA /* CreateGroupRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648F42C981F7800B040BA /* CreateGroupRunPage.swift */; };
 		888648F92C9824A500B040BA /* NoticeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648F82C9824A500B040BA /* NoticeBar.swift */; };
 		888648FB2C982FD500B040BA /* ParticipantProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648FA2C982FD500B040BA /* ParticipantProfile.swift */; };
+		8889DC022CD62C1300FD0B82 /* PollingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8889DC012CD62C1300FD0B82 /* PollingManager.swift */; };
 		88A882ED2CD3CE670048F09A /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A882EC2CD3CE510048F09A /* Participant.swift */; };
 		88D3BF0D2C9F6B35009E4365 /* JoinGroupRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D3BF0C2C9F6B35009E4365 /* JoinGroupRunPage.swift */; };
 		88D3BF0F2C9F6C42009E4365 /* ParticipantList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D3BF0E2C9F6C42009E4365 /* ParticipantList.swift */; };
@@ -110,6 +111,7 @@
 		888648F42C981F7800B040BA /* CreateGroupRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupRunPage.swift; sourceTree = "<group>"; };
 		888648F82C9824A500B040BA /* NoticeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBar.swift; sourceTree = "<group>"; };
 		888648FA2C982FD500B040BA /* ParticipantProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantProfile.swift; sourceTree = "<group>"; };
+		8889DC012CD62C1300FD0B82 /* PollingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingManager.swift; sourceTree = "<group>"; };
 		88A882EC2CD3CE510048F09A /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		88D3BF0C2C9F6B35009E4365 /* JoinGroupRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupRunPage.swift; sourceTree = "<group>"; };
 		88D3BF0E2C9F6C42009E4365 /* ParticipantList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantList.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 		233ED1FC2CABA0E7001EF0BC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8889DC012CD62C1300FD0B82 /* PollingManager.swift */,
 				233ED1F82CABA0E7001EF0BC /* MemberInfo.swift */,
 				233ED1F92CABA0E7001EF0BC /* AggregateParticipants.swift */,
 				233ED1FA2CABA0E7001EF0BC /* RunningInfo.swift */,
@@ -440,6 +443,7 @@
 				88E556132C8F5E49003789B7 /* CharacterTab.swift in Sources */,
 				88E5560D2C8F213E003789B7 /* MyTab.swift in Sources */,
 				883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */,
+				8889DC022CD62C1300FD0B82 /* PollingManager.swift in Sources */,
 				888648FB2C982FD500B040BA /* ParticipantProfile.swift in Sources */,
 				88D3BF0D2C9F6B35009E4365 /* JoinGroupRunPage.swift in Sources */,
 				888648F22C981ECC00B040BA /* StartGroupRunPage.swift in Sources */,
