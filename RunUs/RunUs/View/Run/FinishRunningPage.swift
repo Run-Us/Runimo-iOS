@@ -25,17 +25,22 @@ struct FinishRunningPage: View {
         NavigationStack {
             GeometryReader { geometry in
                 Divider()
-                VStack(spacing: 25) {
-                    // 지도 이미지
-                    RunPath(mapVM: mapVM)
-                    
-                    // 제목
-                    textField(title: "제목", contents: $title, maxCount: 20)
-                    
-                    // 설명
-                    textField(title: "설명", contents: $explanation, maxCount: 200)
-                    
-                    Spacer()
+                ZStack(alignment: .bottom) {
+                    ScrollView {
+                        VStack(spacing: 25) {
+                            // 지도 이미지
+                            RunPath(mapVM: mapVM)
+                                .frame(height: geometry.size.width - 32)
+                            
+                            // 제목
+                            textField(title: "제목", contents: $title, maxCount: 20)
+                            
+                            // 설명
+                            textField(title: "설명", contents: $explanation, maxCount: 200)
+                            
+                        }
+                        .padding(16)
+                    }
                     
                     // 저장 버튼
                     Button {
@@ -50,8 +55,6 @@ struct FinishRunningPage: View {
                             )
                     }
                 }
-                .padding(16)
-
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {

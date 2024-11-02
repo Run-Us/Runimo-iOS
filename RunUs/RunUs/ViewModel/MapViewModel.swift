@@ -87,10 +87,10 @@ extension MapViewModel {
             coordinatesRange = (location.latitude, location.latitude, location.longitude, location.longitude)
         }
         
-        coordinatesRange.maxLat = max(coordinatesRange.maxLat, location.latitude)
-        coordinatesRange.minLat = min(coordinatesRange.minLat, location.latitude)
-        coordinatesRange.maxLng = max(coordinatesRange.maxLng, location.longitude)
-        coordinatesRange.minLng = min(coordinatesRange.minLng, location.longitude)
+        coordinatesRange.maxLat = max(coordinatesRange.maxLat, location.latitude + 0.00002)
+        coordinatesRange.minLat = min(coordinatesRange.minLat, location.latitude - 0.00002)
+        coordinatesRange.maxLng = max(coordinatesRange.maxLng, location.longitude + 0.00002)
+        coordinatesRange.minLng = min(coordinatesRange.minLng, location.longitude - 0.00002)
     }
     
     // 좌표 스크린 사이즈로 정규화

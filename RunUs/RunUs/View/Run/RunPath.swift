@@ -11,7 +11,7 @@ struct RunPath: View {
     @ObservedObject var mapVM: MapViewModel
     
     var body: some View {
-        GeometryReader { geometry in
+        VStack {
             Canvas { context, size in
                 var path = Path()
                 
@@ -19,19 +19,18 @@ struct RunPath: View {
                 
                 // 시작점
                 if let firstPoint = mapVM.userPath.first {
-                    let startPoint = mapVM.coordinateToCGPoint(point: firstPoint, size: geometry.size)
+                    let startPoint = mapVM.coordinateToCGPoint(point: firstPoint, size: size)
                     path.move(to: startPoint)
                 }
                 
                 // 이어 그리기
                 for point in mapVM.userPath {
-                    let point = mapVM.coordinateToCGPoint(point: point, size: geometry.size)
+                    let point = mapVM.coordinateToCGPoint(point: point, size: size)
                     path.addLine(to: point)
                 }
                 
                 context.stroke(path, with: .color(.primary500), lineWidth: 8)
             }
-            .frame(height: geometry.size.width)
         }
     }
 }
