@@ -17,6 +17,8 @@ class MapViewModel: NSObject, ObservableObject {
     @Published var userPath: [NMGLatLng] = []
     @Published var isRunning: Bool = false
     
+    // Run Path
+    @Published var coordinatesRange: (minLat: Double, maxLat: Double, minLng: Double, maxLng: Double) = (0,0,0,0)
     
     override init() {
         locationManager = CLLocationManager()
@@ -52,6 +54,7 @@ extension MapViewModel: CLLocationManagerDelegate {
         guard let newLocation = locations.last else { return }
         userLocation = newLocation
         userPath.append(NMGLatLng(from: newLocation.coordinate))
+        calculateCoordinateRange(location: newLocation.coordinate)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
@@ -72,4 +75,32 @@ extension MapViewModel: CLLocationManagerDelegate {
         motionManager.stopRunningMotionData()
     }
     
+}
+
+// MARK: Path
+extension MapViewModel {
+    
+    // 경로 그릴 좌표 범위 구하기
+    func calculateCoordinateRange(location: CLLocationCoordinate2D)  {
+        // first update
+        if coordinatesRange.minLat == 0.0 && coordinatesRange.maxLat == 0.0 {
+            coordinatesRange = (location.latitude, location.latitude, location.longitude, location.longitude)
+        }
+        
+        coordinatesRange.maxLat = max(coordinatesRange.maxLat, location.latitude)
+        coordinatesRange.minLat = min(coordinatesRange.minLat, location.latitude)
+        coordinatesRange.maxLng = max(coordinatesRange.maxLng, location.longitude)
+        coordinatesRange.minLng = min(coordinatesRange.minLng, location.longitude)
+    }
+    
+    // 좌표 스크린 사이즈로 정규화
+    func coordinateToCGPoint(point: NMGLatLng, size: CGSize) -> CGPoint {
+        let normalizedX = (point.lng - coordinatesRange.minLng) / (coordinatesRange.maxLng - coordinatesRange.minLng)
+        let normalizedY = 1 - (point.lat - coordinatesRange.minLat) / (coordinatesRange.maxLat - coordinatesRange.minLat)
+        
+        let lng = normalizedX * size.width
+        let lat = normalizedY * size.height
+        
+        return CGPoint(x: lng, y: lat)
+    }
 }

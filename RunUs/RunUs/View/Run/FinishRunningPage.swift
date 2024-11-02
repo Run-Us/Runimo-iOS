@@ -27,6 +27,7 @@ struct FinishRunningPage: View {
                 Divider()
                 VStack(spacing: 25) {
                     // 지도 이미지
+                    RunPath(mapVM: mapVM)
                     
                     // 제목
                     textField(title: "제목", contents: $title, maxCount: 20)
