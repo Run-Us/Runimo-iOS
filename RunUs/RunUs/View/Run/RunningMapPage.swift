@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RunningMapPage: View {
-    @StateObject var mapVM: MapViewModel
+    @EnvironmentObject var mapVM: MapViewModel
     @StateObject var motionManager: MotionManager
     let runningType: RunningType
     @Binding var showStopAlert: Bool
@@ -21,7 +21,7 @@ struct RunningMapPage: View {
                 
                 // 상단 지도
                 ZStack(alignment: .bottom) {
-                    MapPage(mapVM: mapVM)
+                    MapPage()
                         .frame(height: geometry.size.width)
                     
                     // 일시정지 버튼
@@ -108,5 +108,5 @@ struct RunningMapPage: View {
 }
 
 #Preview {
-    RunningMapPage(mapVM: MapViewModel(), motionManager: MotionManager(), runningType: .group, showStopAlert: .constant(false), selectedTab: .constant(1), showFinishPage: .constant(false))
+    RunningMapPage(motionManager: MotionManager(), runningType: .group, showStopAlert: .constant(false), selectedTab: .constant(1), showFinishPage: .constant(false))
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RunningPostPage: View {
-    @StateObject var mapVM: MapViewModel
+    @EnvironmentObject var mapVM: MapViewModel
     let runningPost: RunningPost
     @State private var backToTabBar: Bool = false
     
