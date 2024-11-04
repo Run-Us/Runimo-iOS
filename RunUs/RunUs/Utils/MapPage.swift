@@ -9,19 +9,15 @@ import NMapsMap
 import SwiftUI
 
 struct MapPage: View {
-    @StateObject var mapVM: MapViewModel
+    @EnvironmentObject var mapVM: MapViewModel
     
     var body: some View {
-        Map(mapVM: mapVM)
+        Map()
     }
 }
 
 struct Map: UIViewRepresentable {
-    @ObservedObject var mapVM: MapViewModel
-    
-    init(mapVM: MapViewModel) {
-        self.mapVM = mapVM
-    }
+    @EnvironmentObject var mapVM: MapViewModel
     
     func makeUIView(context: Context) -> NMFNaverMapView {
         let map = NMFNaverMapView()
@@ -58,5 +54,5 @@ struct Map: UIViewRepresentable {
 }
 
 #Preview {
-    MapPage(mapVM: MapViewModel())
+    MapPage()
 }
