@@ -72,7 +72,7 @@ struct MyTab: View {
                 Button {
                     
                 } label: {
-                    Text("전체보기")
+                    Text("더보기")
                         .font(.caption_regular)
                         .foregroundStyle(.gray500)
                 }
