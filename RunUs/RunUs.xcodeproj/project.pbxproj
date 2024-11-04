@@ -45,6 +45,7 @@
 		2398F4B12CB8303E001D922B /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AC2CB8303E001D922B /* Pretendard-Medium.ttf */; };
 		2398F4B22CB8303E001D922B /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */; };
 		23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C27B012CBF819200978DC9 /* ProgressBar.swift */; };
+		23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B762CD8BA2C0073732C /* PostCardList.swift */; };
 		883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883764102CBCF6360046EC7B /* GenderPickerSheet.swift */; };
 		883764132CBD277E0046EC7B /* AddProfileSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883764122CBD277E0046EC7B /* AddProfileSheet.swift */; };
 		886684D32CBE769C00BD30E8 /* PasscodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */; };
@@ -106,6 +107,7 @@
 		2398F4AC2CB8303E001D922B /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.ttf"; sourceTree = "<group>"; };
 		2398F4AD2CB8303E001D922B /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
 		23C27B012CBF819200978DC9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		23CE0B762CD8BA2C0073732C /* PostCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardList.swift; sourceTree = "<group>"; };
 		883764102CBCF6360046EC7B /* GenderPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderPickerSheet.swift; sourceTree = "<group>"; };
 		883764122CBD277E0046EC7B /* AddProfileSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileSheet.swift; sourceTree = "<group>"; };
 		886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeGenerator.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				2347D9AB2CD25927003776BC /* RecordCard.swift */,
 				2347D9AD2CD34101003776BC /* MyGraph.swift */,
 				235D38A42CD3E7F000487952 /* PostCard.swift */,
+				23CE0B762CD8BA2C0073732C /* PostCardList.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				88E556052C8F208F003789B7 /* HomeTab.swift in Sources */,
 				88E556092C8F20E8003789B7 /* RunningPage.swift in Sources */,
 				235D38A32CD3BF8F00487952 /* MyPageViewModel.swift in Sources */,
+				23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */,
 				230314EF2C89920100B299D5 /* AuthViewModel.swift in Sources */,
 				235D38A52CD3E7F000487952 /* PostCard.swift in Sources */,
 				88D3BF0F2C9F6C42009E4365 /* ParticipantList.swift in Sources */,
