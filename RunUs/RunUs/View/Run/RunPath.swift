@@ -21,6 +21,9 @@ struct RunPath: View {
                 if let firstPoint = mapVM.userPath.first {
                     let startPoint = mapVM.coordinateToCGPoint(point: firstPoint, size: size)
                     path.move(to: startPoint)
+                    
+                    let circle = Path(ellipseIn: CGRect(origin: startPoint, size: CGSize(width: 22, height: 22)))
+                    context.fill(circle, with: .color(.primary500))
                 }
                 
                 // 이어 그리기
@@ -30,6 +33,15 @@ struct RunPath: View {
                 }
                 
                 context.stroke(path, with: .color(.primary500), lineWidth: 8)
+                
+                // 끝점
+                if let lastPoint = mapVM.userPath.last {
+                    let endPoint = mapVM.coordinateToCGPoint(point: lastPoint, size: size)
+                    path.move(to: endPoint)
+                    
+                    let circle = Path(ellipseIn: CGRect(origin: endPoint, size: CGSize(width: 22, height: 22)))
+                    context.fill(circle, with: .color(.primary500))
+                }
             }
         }
     }
