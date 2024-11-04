@@ -29,7 +29,7 @@ struct FinishRunningPage: View {
                     ScrollView {
                         VStack(spacing: 25) {
                             // 지도 이미지
-                            RunPath(mapVM: mapVM)
+                            RunPath()
                                 .frame(height: geometry.size.width - 32)
                             
                             // 제목

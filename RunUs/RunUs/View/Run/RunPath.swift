@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RunPath: View {
-    @ObservedObject var mapVM: MapViewModel
+    @EnvironmentObject var mapVM: MapViewModel
     
     var body: some View {
         VStack {
@@ -48,5 +48,5 @@ struct RunPath: View {
 }
 
 #Preview {
-    RunPath(mapVM: .init())
+    RunPath()
 }
