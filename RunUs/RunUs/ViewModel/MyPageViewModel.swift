@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum RecordType {
     case weekly, monthly, yearly
 }
 
 class MyPageViewModel: ObservableObject {
+    @ObservedObject var dateManager: DateManager = DateManager()
     @Published var selectedTab: Int = 0
     
     var recordType: RecordType {
@@ -23,10 +25,8 @@ class MyPageViewModel: ObservableObject {
     }
     
     var periodText: String {
-        switch (recordType) {
-        case .weekly: return "이번 주"
-        case .monthly: return "2024년 10월"
-        case .yearly: return "2024년"
+        get {
+            dateManager.getDateString(type: recordType)
         }
     }
     
