@@ -38,7 +38,7 @@ struct StartGroupRunPage: View {
                     Divider()
                     // Join Group Button
                     Button(action: {
-                        showInputJoinCode.toggle()
+                        showInputJoinCode = true
                     }, label: {
                         Text("이미 친구가 방을 만들었나요?")
                             .font(.caption_medium)
@@ -70,27 +70,7 @@ struct StartGroupRunPage: View {
                 
             }
         }
-        .alert(Text("그룹 참가하기"), isPresented: $showInputJoinCode, actions: {
-            VStack {
-                TextField("인증코드", text: $joinCode)
-                HStack {
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("취소")
-                    })
-                    Button(action: {
-                        joinGroup()
-                        showJoinGroupRunPage = true
-                    }, label: {
-                        Text("참가하기")
-                    })
-                }
-            }
-        }, message: {
-            Text("생성된 대기방의 인증코드를 입력해주세요")
-        })
-        .navigationDestination(isPresented: $showJoinGroupRunPage, destination: {
+        .navigationDestination(isPresented: $showInputJoinCode, destination: {
             JoinGroupRunPage(RunningSession: runningSession)
         })
 
