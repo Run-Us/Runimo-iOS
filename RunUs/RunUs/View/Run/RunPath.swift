@@ -22,7 +22,7 @@ struct RunPath: View {
                     let startPoint = mapVM.coordinateToCGPoint(point: firstPoint, size: size)
                     path.move(to: startPoint)
                     
-                    let circle = Path(ellipseIn: CGRect(origin: startPoint, size: CGSize(width: 22, height: 22)))
+                    let circle = Path(ellipseIn: CGRect(x: startPoint.x-11, y: startPoint.y-11, width: 22, height: 22))
                     context.fill(circle, with: .color(.primary500))
                 }
                 
@@ -39,7 +39,7 @@ struct RunPath: View {
                     let endPoint = mapVM.coordinateToCGPoint(point: lastPoint, size: size)
                     path.move(to: endPoint)
                     
-                    let circle = Path(ellipseIn: CGRect(origin: endPoint, size: CGSize(width: 22, height: 22)))
+                    let circle = Path(ellipseIn: CGRect(x: endPoint.x-11, y: endPoint.y-11, width: 22, height: 22))
                     context.fill(circle, with: .color(.primary500))
                 }
             }
