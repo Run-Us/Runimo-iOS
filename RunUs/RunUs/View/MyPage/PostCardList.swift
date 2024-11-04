@@ -8,14 +8,21 @@
 import SwiftUI
 
 struct PostCardList: View {
+    var postList: [RunningPost] = []
+    
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
                 Divider()
+                header()
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 24)
                 
-                VStack {
-                    header()
-                    
+                ScrollView {
+                    ForEach(postList) { post in
+                        PostCard(runningPost: post)
+                            .padding(.bottom, 14)
+                    }
                 }
                 .padding(.horizontal, 16)
             }

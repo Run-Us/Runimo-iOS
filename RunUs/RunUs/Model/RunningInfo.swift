@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RunningInfo {
+struct RunningInfo: Codable {
     var startDate: Date?
     var endDate: Date?
     var runningTime: String?
@@ -55,7 +55,9 @@ struct LocationWithCount: Codable {
     var count: Int
 }
 
-struct RunningPost {
+struct RunningPost: Identifiable, Codable {
+    let id = UUID()
+    var createdAt: String   // Date로 수정 필요, string은 임시
     var title: String
     var contents: String
     var runningInfo: RunningInfo

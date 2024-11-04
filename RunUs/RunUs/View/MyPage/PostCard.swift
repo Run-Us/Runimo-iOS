@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PostCard: View {
+    var runningPost: RunningPost
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -28,15 +29,15 @@ struct PostCard: View {
         HStack {
             // 러닝 정보
             VStack(alignment: .leading, spacing: 12) {
-                Text("9월 30일 월요일")
+                Text(runningPost.createdAt)
                     .font(.body2_semibold)
                     .foregroundStyle(.gray500)
-                Text("10k 러닝")
+                Text(runningPost.title)
                     .font(.title5_bold)
                 HStack(spacing: 20) {
-                    detailInfo(title: "거리", contents: "12.42km")
-                    detailInfo(title: "페이스", contents: "5'55")
-                    detailInfo(title: "시간", contents: "1h 5m")
+                    detailInfo(title: "거리", contents: String(format: "%.2f", runningPost.runningInfo.distance ?? 0))
+                    detailInfo(title: "페이스", contents: runningPost.runningInfo.averagePace ?? "")
+                    detailInfo(title: "시간", contents: runningPost.runningInfo.runningTime ?? "")
                 }
             }
             .foregroundStyle(.gray900)
@@ -61,5 +62,5 @@ struct PostCard: View {
 }
 
 #Preview {
-    PostCard()
+    PostCard(runningPost: RunningPost(createdAt: "9월 20일 월요일", title: "10K 러닝", contents: "", runningInfo: RunningInfo()))
 }

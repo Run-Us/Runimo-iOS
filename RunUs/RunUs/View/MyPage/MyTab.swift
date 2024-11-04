@@ -78,10 +78,6 @@ struct MyTab: View {
                 }
             }
             
-            // 임시 코드
-            PostCard()
-            PostCard()
-            PostCard()
         }
     }
 }
