@@ -9,21 +9,40 @@ import SwiftUI
 
 struct PostCardList: View {
     var body: some View {
-        VStack(alignment: .leading) {
-            header()
+        NavigationStack {
+            VStack(alignment: .leading) {
+                Divider()
+                
+                VStack {
+                    header()
+                    
+                }
+                .padding(.horizontal, 16)
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack(spacing: 8) {
+                        Button {} label: {
+                            Image(systemName: "xmark")
+                                .resizable()
+                                .frame(width: 14, height: 14)
+                        }
+                        Text("모든 활동")
+                            .font(.body1_medium)
+                    }
+                    .foregroundStyle(.gray900)
+                }
+            }
         }
-        .padding(.horizontal, 16)
     }
-    
+
     @ViewBuilder
     private func header() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text("2024년 10월")
                     .font(.title4_semibold)
-                Button {
-                    
-                } label: {
+                Button {} label: {
                     Image("arrow_down")
                 }
                 Spacer()
