@@ -11,6 +11,7 @@ struct RunningPostPage: View {
     @EnvironmentObject var mapVM: MapViewModel
     let runningPost: RunningPost
     @State private var backToTabBar: Bool = false
+    @State private var mapImage: UIImage? = nil
     
     var body: some View {
         NavigationStack {
@@ -70,7 +71,11 @@ struct RunningPostPage: View {
                         .font(.body2_medium)
                     
                     // 지도 이미지
-                    
+                    if let image = mapImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .frame(width: geometry.size.width - 32, height: geometry.size.width - 32)
+                    }
                     // 구간별 페이스
                     
                 }
@@ -99,6 +104,9 @@ struct RunningPostPage: View {
                 TabBar()
             }
         }
+        .onAppear(perform: {
+            mapImage = mapVM.decodeBase64ToUIImage(url: mapVM.mapImageURL)
+        })
     }
 }
 

@@ -8,18 +8,13 @@
 import SwiftUI
 
 struct FinishRunningPage: View {
-    var mapVM: MapViewModel
-    var runningInfo: RunningInfo
+    @EnvironmentObject var mapVM: MapViewModel
+    @State private var runningInfo: RunningInfo = RunningInfo()
     @State private var showRunningPostPage: Bool = false
     @State private var title: String = ""
     @State private var explanation: String = ""
     @State private var showDeletePopUp: Bool = false
     @FocusState private var isEditorFocused: Bool
-    
-    init(mapVM: MapViewModel) {
-        self.mapVM = mapVM
-        runningInfo = mapVM.motionManager.runningInfo
-    }
     
     var body: some View {
         NavigationStack {
@@ -29,8 +24,8 @@ struct FinishRunningPage: View {
                     ScrollView {
                         VStack(spacing: 25) {
                             // 지도 이미지
-                            RunPath()
-                                .frame(height: geometry.size.width - 32)
+//                            RunPath()
+//                                .frame(width: geometry.size.width - 32, height: geometry.size.height - 32)
                             
                             // 제목
                             textField(title: "제목", contents: $title, maxCount: 20)
@@ -83,6 +78,9 @@ struct FinishRunningPage: View {
                     // TODO: 활동 삭제
                 })
         }
+        .onAppear(perform: {
+            runningInfo = mapVM.motionManager.runningInfo
+        })
         .onTapGesture {
             isEditorFocused = false
         }
@@ -131,5 +129,5 @@ struct FinishRunningPage: View {
 }
 
 #Preview {
-    FinishRunningPage(mapVM: MapViewModel())
+    FinishRunningPage()
 }

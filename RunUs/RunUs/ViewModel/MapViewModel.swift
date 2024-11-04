@@ -19,6 +19,7 @@ class MapViewModel: NSObject, ObservableObject {
     
     // Run Path
     @Published var coordinatesRange: (minLat: Double, maxLat: Double, minLng: Double, maxLng: Double) = (0,0,0,0)
+    @Published var mapImageURL: String = ""
     
     override init() {
         locationManager = CLLocationManager()
@@ -102,5 +103,27 @@ extension MapViewModel {
         let lat = normalizedY * size.height
         
         return CGPoint(x: lng, y: lat)
+    }
+    
+    // canvas로 그린 경로 이미지 url로 저장
+    func savePathAsImage() -> String {
+        let renderer = ImageRenderer(content: RunPath())
+        print("check in", renderer)
+        if let uiImage = renderer.uiImage, let pngData = uiImage.pngData() {
+            let base64String = pngData.base64EncodedString()
+            print("check2 ", base64String)
+            return "data:image/png;base64,\(base64String)"
+        }
+        print("check3 ")
+        return "nil"
+    }
+    
+    // base64로 저장된 url을 UIImage로 디코딩
+    func decodeBase64ToUIImage(url: String) -> UIImage? {
+        print("check, \(url)")
+        if let data = Data(base64Encoded: url.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
+            return UIImage(data: data)
+        }
+        return nil
     }
 }

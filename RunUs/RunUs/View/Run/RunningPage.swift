@@ -58,8 +58,7 @@ struct RunningPage: View {
                             motionManager: mapVM.motionManager,
                             runningType: .alone,
                             showStopAlert: $showStopPopUp,
-                            selectedTab: $selectedTab,
-                            showFinishPage: $showFinishPage
+                            selectedTab: $selectedTab
                         )
                         .tag(1)
                         
@@ -68,8 +67,7 @@ struct RunningPage: View {
                             motionManager: mapVM.motionManager,
                             runningType: .group,
                             showStopAlert: $showStopPopUp,
-                            selectedTab: $selectedTab,
-                            showFinishPage: $showFinishPage
+                            selectedTab: $selectedTab
                         )
                         .tag(2)
                     }
@@ -101,6 +99,9 @@ struct RunningPage: View {
                     WebSocketService.sharedSocket.sendMessageAggregate()
                     showFinishPage = true
             })
+            .navigationDestination(isPresented: $showFinishPage) {
+                FinishRunningPage()
+            }
             .navigationBarBackButtonHidden()
             .onAppear {
                 

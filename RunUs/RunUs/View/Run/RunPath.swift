@@ -43,6 +43,10 @@ struct RunPath: View {
                     context.fill(circle, with: .color(.primary500))
                 }
             }
+            .background(.clear)
+        }
+        .onAppear {
+            mapVM.mapImageURL = mapVM.savePathAsImage()
         }
     }
 }

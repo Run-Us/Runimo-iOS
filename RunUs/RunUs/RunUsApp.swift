@@ -11,6 +11,8 @@ import SwiftUI
 
 @main
 struct RunUsApp: App {
+    @StateObject private var mapVM = MapViewModel()
+    
     init() {
         // kakao sdk 초기화
         let kakaoNativeAppKey = (Bundle.main.infoDictionary?["KAKAO_NATIVE_APP_KEY"] as? String) ?? ""
@@ -25,7 +27,7 @@ struct RunUsApp: App {
                         _ = AuthController.handleOpenUrl(url: url)
                     }
                 })
-                .environmentObject(MapViewModel())
+                .environmentObject(mapVM)
         }
     }
 }
