@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PostCardList: View {
+    @Environment(\.dismiss) var dismiss
     var postList: [RunningPost] = []
     
     var body: some View {
@@ -29,7 +30,9 @@ struct PostCardList: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     HStack(spacing: 8) {
-                        Button {} label: {
+                        Button {
+                            dismiss()
+                        } label: {
                             Image(systemName: "xmark")
                                 .resizable()
                                 .frame(width: 14, height: 14)
@@ -41,6 +44,7 @@ struct PostCardList: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden()
     }
 
     @ViewBuilder
