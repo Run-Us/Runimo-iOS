@@ -14,7 +14,7 @@ struct StartGroupRunPage: View {
     @State var showCreateGroupRunPage = false
     @State var joinCode: String = ""
     @ObservedObject var runningSession: RunningSessionService
-    @StateObject var mapVM: MapViewModel
+    @EnvironmentObject var mapVM: MapViewModel
     
     var body: some View {
         GeometryReader { geometry in
@@ -115,5 +115,5 @@ struct StartGroupRunPage: View {
 }
 
 #Preview {
-    StartGroupRunPage(runningSession: RunningSessionService(), mapVM: MapViewModel())
+    StartGroupRunPage(runningSession: RunningSessionService())
 }

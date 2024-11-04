@@ -14,7 +14,7 @@ enum RunningType {
 
 struct RunningPage: View {
     let runningType: RunningType
-    @StateObject var mapVM: MapViewModel
+    @EnvironmentObject var mapVM: MapViewModel
     @State private var selectedTab: Int = 0
     @State private var showFinishPage: Bool = false
     @State private var showStopPopUp: Bool = false
@@ -48,7 +48,6 @@ struct RunningPage: View {
                     TabView(selection: $selectedTab) {
                         // 개요
                         RunningProgressPage(
-                            mapVM: mapVM,
                             motionManager: mapVM.motionManager,
                             selectedTab: $selectedTab
                         )
@@ -56,7 +55,6 @@ struct RunningPage: View {
                         
                         // 지도
                         RunningMapPage(
-                            mapVM: mapVM,
                             motionManager: mapVM.motionManager,
                             runningType: .alone,
                             showStopAlert: $showStopPopUp,
@@ -67,7 +65,6 @@ struct RunningPage: View {
                         
                         // 그룹원
                         RunningMapPage(
-                            mapVM: mapVM,
                             motionManager: mapVM.motionManager,
                             runningType: .group,
                             showStopAlert: $showStopPopUp,

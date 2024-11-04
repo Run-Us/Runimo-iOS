@@ -111,7 +111,7 @@ struct CreateGroupRunPage: View {
             )
         }
         .navigationDestination(isPresented: $startGroupRun, destination:{
-            RunningPage(runningType: .group, mapVM: mapVM)
+            RunningPage(runningType: .group)
         })
     }
     func startRun() {
