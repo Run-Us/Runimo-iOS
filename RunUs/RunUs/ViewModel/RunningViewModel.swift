@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum RunningType {
+    case alone
+    case group
+}
+
 class RunningViewModel: ObservableObject {
     @Published var selectedRunningTab: Int = 0  // alone or group
     @Published var runningTab: Int = 0  // 러닝 진행 중 picker tab
@@ -16,6 +21,13 @@ class RunningViewModel: ObservableObject {
         switch (selectedRunningTab) {
         case 0: return .alone
         default: return .group
+        }
+    }
+    
+    var runningPickerTexts: [String] {
+        switch (runningType) {
+        case .alone:  return ["개요", "지도"]
+        case .group:  return ["개요", "지도", "그룹원"]
         }
     }
 }

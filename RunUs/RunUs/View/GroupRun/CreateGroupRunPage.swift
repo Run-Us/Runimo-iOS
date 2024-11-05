@@ -128,7 +128,7 @@ struct CreateGroupRunPage: View {
             pollingManager.stopPolling()
         }
         .navigationDestination(isPresented: $startGroupRun, destination:{
-            RunningPage(runningType: runVM.runningType)
+            RunningPage()
         })
     }
     
