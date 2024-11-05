@@ -26,7 +26,7 @@ class MyPageViewModel: ObservableObject {
     
     var periodText: String {
         get {
-            dateManager.getDateString(type: recordType)
+            dateManager.getRecordDateRange(type: recordType)
         }
     }
     

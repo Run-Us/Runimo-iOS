@@ -8,6 +8,7 @@
 import Foundation
 
 class DateManager: ObservableObject {
+    let calendar = Calendar.current
     var date = Date()
     var formatter = DateFormatter()
     
@@ -15,8 +16,16 @@ class DateManager: ObservableObject {
         formatter.locale = Locale(identifier: "ko_kr")
     }
     
+    // RecordCard 기간용
+    func getRecordDateRange(type: RecordType) -> String {
+        switch (type) {
+        case .weekly: getWeekDateRange(date: date)
+        case .monthly, .yearly: getDateString(date: date, type: type)
+        }
+    }
+    
     // 주간, 월간, 연간 별 날짜 string으로 반환
-    func getDateString(type: RecordType) -> String {
+    func getDateString(date: Date, type: RecordType) -> String {
         switch (type) {
         case .weekly:
             formatter.dateFormat = "MM월 dd일"
@@ -26,5 +35,21 @@ class DateManager: ObservableObject {
             formatter.dateFormat = "yyyy년"
         }
         return formatter.string(from: date)
+    }
+    
+    func getWeekDateRange(date: Date) -> String {
+        if isThisWeek(date) { return "이번주" }
+        if let week = calendar.dateInterval(of: .weekOfYear, for: date) {
+            let startOfWeek = week.start
+            let endOfWeek = week.end
+            
+            return getDateString(date: startOfWeek, type: .weekly) + " - " + getDateString(date: endOfWeek, type: .weekly)
+        }
+        return ""
+    }
+    
+    // 날짜가 이번주인지 확인
+    private func isThisWeek(_ date: Date) -> Bool {
+        return calendar.isDate(date, equalTo: Date(), toGranularity: .weekOfYear)
     }
 }
