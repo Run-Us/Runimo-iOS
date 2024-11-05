@@ -15,6 +15,7 @@ enum RecordType {
 class MyPageViewModel: ObservableObject {
     @ObservedObject var dateManager: DateManager = DateManager()
     @Published var selectedTab: Int = 0
+    @Published var showDateSheet: Bool = false
     
     var recordType: RecordType {
         switch (selectedTab) {

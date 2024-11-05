@@ -19,7 +19,7 @@ struct RecordCard: View {
                     .foregroundStyle(.gray900)
                 Spacer()
                 Button {
-                    
+                    myPageVM.showDateSheet = true
                 } label: {
                     Image(systemName: "chevron.down")
                         .resizable()

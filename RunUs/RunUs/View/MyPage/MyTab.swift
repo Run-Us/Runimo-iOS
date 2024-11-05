@@ -32,7 +32,11 @@ struct MyTab: View {
             }
             
         }
-        
+        .sheet(isPresented: $myPageVM.showDateSheet) {
+            DateSheet()
+                .presentationDragIndicator(.visible)
+                .presentationDetents([.fraction(0.35)])
+        }
     }
     
     @ViewBuilder

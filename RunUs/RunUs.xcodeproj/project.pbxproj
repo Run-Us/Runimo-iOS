@@ -47,6 +47,7 @@
 		23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C27B012CBF819200978DC9 /* ProgressBar.swift */; };
 		23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B762CD8BA2C0073732C /* PostCardList.swift */; };
 		23CE0B7D2CD8D6390073732C /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B7C2CD8D6390073732C /* DateManager.swift */; };
+		23F056B42CDA7B0100EC3A40 /* DateSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F056B32CDA7B0100EC3A40 /* DateSheet.swift */; };
 		883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883764102CBCF6360046EC7B /* GenderPickerSheet.swift */; };
 		883764132CBD277E0046EC7B /* AddProfileSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883764122CBD277E0046EC7B /* AddProfileSheet.swift */; };
 		886684D32CBE769C00BD30E8 /* PasscodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */; };
@@ -110,6 +111,7 @@
 		23C27B012CBF819200978DC9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		23CE0B762CD8BA2C0073732C /* PostCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardList.swift; sourceTree = "<group>"; };
 		23CE0B7C2CD8D6390073732C /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		23F056B32CDA7B0100EC3A40 /* DateSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSheet.swift; sourceTree = "<group>"; };
 		883764102CBCF6360046EC7B /* GenderPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderPickerSheet.swift; sourceTree = "<group>"; };
 		883764122CBD277E0046EC7B /* AddProfileSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileSheet.swift; sourceTree = "<group>"; };
 		886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeGenerator.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				2347D9AD2CD34101003776BC /* MyGraph.swift */,
 				235D38A42CD3E7F000487952 /* PostCard.swift */,
 				23CE0B762CD8BA2C0073732C /* PostCardList.swift */,
+				23F056B32CDA7B0100EC3A40 /* DateSheet.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				88E556112C8F5CCC003789B7 /* TabBar.swift in Sources */,
 				23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */,
 				230314E52C88851100B299D5 /* FontExtension.swift in Sources */,
+				23F056B42CDA7B0100EC3A40 /* DateSheet.swift in Sources */,
 				888648F52C981F7800B040BA /* CreateGroupRunPage.swift in Sources */,
 				233831032CC7C4B40075E73A /* RunningPostPage.swift in Sources */,
 				887940F62CAB2D680018C035 /* JoinService.swift in Sources */,
