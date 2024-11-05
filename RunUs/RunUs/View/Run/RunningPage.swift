@@ -55,7 +55,7 @@ struct RunningPage: View {
                         // 지도
                         RunningMapPage(
                             motionManager: mapVM.motionManager,
-                            runningType: .alone,
+                            runningType: runVM.runningType,
                             showStopAlert: $showStopPopUp,
                             showFinishPage: $showFinishPage
                         )
@@ -65,7 +65,7 @@ struct RunningPage: View {
                         if runningType == .group {
                             RunningMapPage(
                                 motionManager: mapVM.motionManager,
-                                runningType: .group,
+                                runningType: runVM.runningType,
                                 showStopAlert: $showStopPopUp,
                                 showFinishPage: $showFinishPage
                             )
