@@ -24,13 +24,19 @@ class MyPageViewModel: ObservableObject {
         default: return .yearly
         }
     }
-    
+}
+
+// MARK: RecordCard
+extension MyPageViewModel {
     var periodText: String {
         get {
             dateManager.getRecordDateRange(type: recordType)
         }
     }
-    
+}
+
+// MARK: Graph
+extension MyPageViewModel {
     var xData: [String] {
         switch (recordType) {
         case .weekly:
