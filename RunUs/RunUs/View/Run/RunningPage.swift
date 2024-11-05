@@ -64,14 +64,16 @@ struct RunningPage: View {
                         .tag(1)
                         
                         // 그룹원
-                        RunningMapPage(
-                            motionManager: mapVM.motionManager,
-                            runningType: .group,
-                            showStopAlert: $showStopPopUp,
-                            selectedTab: $selectedTab,
-                            showFinishPage: $showFinishPage
-                        )
-                        .tag(2)
+                        if runningType == .group {
+                            RunningMapPage(
+                                motionManager: mapVM.motionManager,
+                                runningType: .group,
+                                showStopAlert: $showStopPopUp,
+                                selectedTab: $selectedTab,
+                                showFinishPage: $showFinishPage
+                            )
+                            .tag(2)
+                        }
                     }
                     .tabViewStyle(PageTabViewStyle())
                     
