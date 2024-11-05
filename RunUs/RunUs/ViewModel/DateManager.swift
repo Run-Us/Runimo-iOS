@@ -15,15 +15,10 @@ class DateManager: ObservableObject {
     init() {
         formatter.locale = Locale(identifier: "ko_kr")
     }
-    
-    // RecordCard 기간용
-    func getRecordDateRange(type: RecordType) -> String {
-        switch (type) {
-        case .weekly: getWeekDateRange(date: date)
-        case .monthly, .yearly: getDateString(date: date, type: type)
-        }
-    }
-    
+}
+
+// MARK: Formatting
+extension DateManager {
     // 주간, 월간, 연간 별 날짜 string으로 반환
     func getDateString(date: Date, type: RecordType) -> String {
         switch (type) {
@@ -36,8 +31,20 @@ class DateManager: ObservableObject {
         }
         return formatter.string(from: date)
     }
+}
+
+// MARK: RecordCard
+extension DateManager {
+    // RecordCard 기간용
+    func getRecordDateRange(type: RecordType) -> String {
+        switch (type) {
+        case .weekly: getWeekDateRange(date: date)
+        case .monthly, .yearly: getDateString(date: date, type: type)
+        }
+    }
     
-    func getWeekDateRange(date: Date) -> String {
+    // 주간 기간 string 얻기
+    private func getWeekDateRange(date: Date) -> String {
         if isThisWeek(date) { return "이번주" }
         if let week = calendar.dateInterval(of: .weekOfYear, for: date) {
             let startOfWeek = week.start
