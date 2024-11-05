@@ -10,6 +10,7 @@ import SwiftUI
 struct RunTab: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var mapVM: MapViewModel
+    @EnvironmentObject var runVM: RunningViewModel
     @ObservedObject var runningSession: RunningSessionService = .init()
     @State private var selectedRunning = 0
     @State private var showRunningPage: Bool = false
