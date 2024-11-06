@@ -15,7 +15,7 @@ enum RunningType {
 struct RunningPage: View {
     let runningType: RunningType
     @EnvironmentObject var mapVM: MapViewModel
-    @State private var selectedTab: Int = 0
+    @EnvironmentObject var runVM: RunningViewModel
     @State private var showFinishPage: Bool = false
     @State private var showStopPopUp: Bool = false
     
@@ -39,39 +39,38 @@ struct RunningPage: View {
                     
                     // picker
                     SegmentedPicker(
-                        selectedTab: $selectedTab,
+                        selectedTab: $runVM.runningTab,
                         type: pickerList,
                         width: geometry.size.width
                     )
                     
                     // runningType으로 group 러닝일 때 RunningMapPage 재사용
-                    TabView(selection: $selectedTab) {
+                    TabView(selection: $runVM.runningTab) {
                         // 개요
                         RunningProgressPage(
-                            motionManager: mapVM.motionManager,
-                            selectedTab: $selectedTab
+                            motionManager: mapVM.motionManager
                         )
                         .tag(0)
                         
                         // 지도
                         RunningMapPage(
                             motionManager: mapVM.motionManager,
-                            runningType: .alone,
+                            runningType: runVM.runningType,
                             showStopAlert: $showStopPopUp,
-                            selectedTab: $selectedTab,
                             showFinishPage: $showFinishPage
                         )
                         .tag(1)
                         
                         // 그룹원
-                        RunningMapPage(
-                            motionManager: mapVM.motionManager,
-                            runningType: .group,
-                            showStopAlert: $showStopPopUp,
-                            selectedTab: $selectedTab,
-                            showFinishPage: $showFinishPage
-                        )
-                        .tag(2)
+                        if runningType == .group {
+                            RunningMapPage(
+                                motionManager: mapVM.motionManager,
+                                runningType: runVM.runningType,
+                                showStopAlert: $showStopPopUp,
+                                showFinishPage: $showFinishPage
+                            )
+                            .tag(2)
+                        }
                     }
                     .tabViewStyle(PageTabViewStyle())
                     
@@ -80,7 +79,7 @@ struct RunningPage: View {
                         ForEach(pickerList.indices, id: \.self) { index in
                             Circle()
                                 .frame(width: 8, height: 8)
-                                .foregroundStyle(index == selectedTab ? .primary500 : .primary200)
+                                .foregroundStyle(index == runVM.runningTab ? .primary500 : .primary200)
                         }
                     }
                 }

@@ -26,6 +26,7 @@ struct RunUsApp: App {
                     }
                 })
                 .environmentObject(MapViewModel())
+                .environmentObject(RunningViewModel())
         }
     }
 }

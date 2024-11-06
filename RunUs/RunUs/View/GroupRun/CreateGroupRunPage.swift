@@ -10,6 +10,7 @@ import SwiftUI
 struct CreateGroupRunPage: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var mapVM: MapViewModel
+    @EnvironmentObject var runVM: RunningViewModel
     @ObservedObject var runningSession: RunningSessionService
     @StateObject var participationService = ParticipationService()
     @State var showStartGroupRunAlter = false
@@ -111,7 +112,7 @@ struct CreateGroupRunPage: View {
             )
         }
         .navigationDestination(isPresented: $startGroupRun, destination:{
-            RunningPage(runningType: .group)
+            RunningPage(runningType: runVM.runningType)
         })
     }
     func startRun() {

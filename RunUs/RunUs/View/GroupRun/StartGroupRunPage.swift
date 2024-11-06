@@ -15,6 +15,7 @@ struct StartGroupRunPage: View {
     @State var joinCode: String = ""
     @ObservedObject var runningSession: RunningSessionService
     @EnvironmentObject var mapVM: MapViewModel
+    @EnvironmentObject var runVM: RunningViewModel
     
     var body: some View {
         GeometryReader { geometry in
