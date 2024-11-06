@@ -9,10 +9,10 @@ import SwiftUI
 
 struct RunningMapPage: View {
     @EnvironmentObject var mapVM: MapViewModel
+    @EnvironmentObject var runVM: RunningViewModel
     @StateObject var motionManager: MotionManager
     let runningType: RunningType
     @Binding var showStopAlert: Bool
-    @Binding var selectedTab: Int
     @Binding var showFinishPage: Bool
     
     var body: some View {
@@ -28,7 +28,7 @@ struct RunningMapPage: View {
                     if mapVM.isRunning {
                         Button(action: {
                             mapVM.stopUpdatingLocation()
-                            selectedTab = 1
+                            runVM.runningTab = 1
                         }, label: {
                             Image("run_pause")
                                 .shadow(radius: 2, x: 0, y: 4)
@@ -108,5 +108,5 @@ struct RunningMapPage: View {
 }
 
 #Preview {
-    RunningMapPage(motionManager: MotionManager(), runningType: .group, showStopAlert: .constant(false), selectedTab: .constant(1), showFinishPage: .constant(false))
+    RunningMapPage(motionManager: MotionManager(), runningType: .group, showStopAlert: .constant(false), showFinishPage: .constant(false))
 }
