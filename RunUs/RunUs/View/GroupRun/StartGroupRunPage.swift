@@ -62,7 +62,7 @@ struct StartGroupRunPage: View {
                     .cornerRadius(8)
                     .padding(8)
                     .navigationDestination(isPresented: $showCreateGroupRunPage, destination: {
-                        CreateGroupRunPage(mapVM: mapVM, runningSession: runningSession, passcode: runningSession.latestSessionResponse?.payload.passcode ?? "0000")
+                        CreateGroupRunPage(mapVM: mapVM, runningSession: runningSession, passcode: runningSession.runningSessionInfo?.passcode ?? "0000")
                             .navigationBarBackButtonHidden()
                     })
                     
@@ -79,8 +79,8 @@ struct StartGroupRunPage: View {
     func createGroup() {
         runningSession.createRunningSession(currentLatitude: mapVM.userLocation.coordinate.latitude, currentLongitude: mapVM.userLocation.coordinate.longitude) { success, result in
             if success {
-                UserDefaults.standard.set(result?.payload.runningKey, forKey: "runningId")
-                WebSocketService.sharedSocket.connect(runningId: result?.payload.runningKey)
+                UserDefaults.standard.set(result?.runningId, forKey: "runningId")
+                WebSocketService.sharedSocket.connect(runningId: result?.runningId)
                 showCreateGroupRunPage = true
             } else {
                 print("createRunningSession || error")

@@ -14,9 +14,9 @@ class RunningSessionService: ObservableObject {
     let keychain = KeychainSwift()
     let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     let idToken = UserDefaults.standard.integer(forKey: "idToken")
-    @Published var latestSessionResponse: RunningSessionResponse?
+    @Published var runningSessionInfo: RunningSessionInfo?
 
-    func createRunningSession(currentLatitude: Double, currentLongitude: Double, completion: @escaping (Bool, RunningSessionResponse?) -> Void) {
+    func createRunningSession(currentLatitude: Double, currentLongitude: Double, completion: @escaping (Bool, RunningSessionInfo?) -> Void) {
         let url = URL(string: "\(baseUrl)/runnings")!
         let headers = [
             "Content-Type": "application/json"
@@ -29,6 +29,9 @@ class RunningSessionService: ObservableObject {
         )
         
         var request = URLRequest(url: url)
+        if let accessToken = keychain.get("accessToken") {
+            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        }
         request.allHTTPHeaderFields = headers
         request.httpMethod = "POST"
         
@@ -37,32 +40,32 @@ class RunningSessionService: ObservableObject {
             request.httpBody = jsonData
         } catch {
             print("Error encoding JSON: \(error)")
-            completion(false, latestSessionResponse)
+            completion(false, runningSessionInfo)
             return
         }
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
                 print("Network request failed: \(error?.localizedDescription ?? "No error info")")
-                completion(false, self.latestSessionResponse)
+                completion(false, self.runningSessionInfo)
                 return
             }
             
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
                 do {
-                    let response = try JSONDecoder().decode(RunningSessionResponse.self, from: data)
+                    let response = try JSONDecoder().decode(BaseResponse<RunningSessionInfo>.self, from: data)
                     DispatchQueue.main.async {
-                        print("createRunningSession || Response success: \(response.success)|| runningKey : " + response.payload.runningKey)
-                        self.latestSessionResponse = response
-                        completion(true, response)
+                        print("createRunningSession || Response success: \(response.success)|| runningKey : " + (response.payload!.runningId))
+                        self.runningSessionInfo = response.payload
+                        completion(true, self.runningSessionInfo)
                     }
                 } catch {
                     print("Failed to decode JSON response: \(error)")
-                    completion(false, self.latestSessionResponse)
+                    completion(false, self.runningSessionInfo)
                 }
             } else {
                 print("HTTP Status Code: \((response as? HTTPURLResponse)?.statusCode ?? 0)")
-                completion(false, self.latestSessionResponse)
+                completion(false, self.runningSessionInfo)
             }
         }.resume()
     }

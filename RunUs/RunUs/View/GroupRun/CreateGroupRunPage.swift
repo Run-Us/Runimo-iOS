@@ -135,15 +135,14 @@ struct CreateGroupRunPage: View {
     func startRun() {
         let startRunningInfo = [
             "userId": UserDefaults.standard.string(forKey: "userId") ?? "",
-            "runningId": runningSession.latestSessionResponse?.payload.runningKey ?? "",
-            "runningKey": runningSession.latestSessionResponse?.payload.runningKey ?? ""
+            "runningId": runningSession.runningSessionInfo?.runningId ?? ""
         ]
         WebSocketService.sharedSocket.sendMessage(body: startRunningInfo, destination: "/app/runnings/start")
         startGroupRun = true
     }
     
     func pollingAction() {
-        participationService.getParticipantList(runningId: runningSession.latestSessionResponse?.payload.runningKey ?? "") { success, data in
+        participationService.getParticipantList(runningId: runningSession.runningSessionInfo?.runningId ?? "") { success, data in
             if !success {
                 print("참가자 정보 불러오기 실패")
             }
