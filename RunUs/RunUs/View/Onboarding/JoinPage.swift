@@ -113,9 +113,9 @@ struct JoinPage: View {
                         .foregroundStyle(.gray200)
                         .padding(.vertical)
                     Button(action: {
-                        loginSuccess = true
                         joinService.signup(nickName: nickname, provider: "KAKAO", gender: genderType.rawValue) { result in
                             if result {
+                                loginSuccess = true
                                 dismiss()
                             }
                         }

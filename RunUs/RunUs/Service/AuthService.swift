@@ -44,8 +44,8 @@ class AuthService: ObservableObject {
                     let response = try JSONDecoder().decode(JoinResponse.self, from: data)
                     DispatchQueue.main.async {
                         if response.success {
-                            self.keychain.set(response.payload.accessToken, forKey: "accessToken")
-                            self.keychain.set(response.payload.refreshToken, forKey: "refreshToken")
+                            self.keychain.set(response.payload.access_token, forKey: "accessToken")
+                            self.keychain.set(response.payload.refresh_token, forKey: "refreshToken")
                             completion(true)
                         } else {
                             completion(false)
@@ -56,7 +56,7 @@ class AuthService: ObservableObject {
                     completion(false)
                 }
             } else {
-                print("data: \(data)")
+                print("not code 200 : \(response)")
                 completion(false)
             }
         }.resume()
@@ -93,12 +93,8 @@ class AuthService: ObservableObject {
                     let response = try JSONDecoder().decode(JoinResponse.self, from: data)
                     DispatchQueue.main.async {
                         if response.success {
-                            if self.keychain.get("accessToken") != nil {
-                                self.keychain.delete("accessToken")
-                                self.keychain.delete("refreshToken")
-                            }
-                            self.keychain.set(response.payload.accessToken, forKey: "accessToken")
-                            self.keychain.set(response.payload.refreshToken, forKey: "refreshToken")
+                            self.keychain.set(response.payload.access_token, forKey: "accessToken")
+                            self.keychain.set(response.payload.refresh_token, forKey: "refreshToken")
                             completion(true)
                         } else {
                             completion(false)
