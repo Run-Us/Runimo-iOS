@@ -23,17 +23,12 @@ struct JoinGroupRunPage: View {
                         Spacer()
                     }
                 }
-                if participationService.participantNames.isEmpty {
+                if let participantsList = participationService.aggregateParticipants{
                     Text("참가자 목록을 불러오는 중...")
                         .onAppear {
-                            participationService.getParticipantList(runningId: RunningSession.latestSessionResponse?.payload.runningKey ?? "") { success in
-                                if !success {
-                                    print("참가자 정보 불러오기 실패")
-                                }
-                            }
+                            
                         }
                 } else {
-                    ParticipantList(grouprunParticipants: participationService.participantNames)
                 }
             }
         }

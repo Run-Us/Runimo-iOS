@@ -29,7 +29,6 @@ class RunningSessionService: ObservableObject {
         )
         
         var request = URLRequest(url: url)
-        request.setValue("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwMTIzIiwiaXNzIjoiUnVuVVNBdXRoU2VydmljZSIsImV4cCI6MTczMTA0OTI1MywiaWF0IjoxNzMxMDQ4OTUzfQ.djqcZisCN01v0naDDfHBk3j_5Z42WFSLJruKAAhl-xA", forHTTPHeaderField: "Authorization")
         request.allHTTPHeaderFields = headers
         request.httpMethod = "POST"
         
