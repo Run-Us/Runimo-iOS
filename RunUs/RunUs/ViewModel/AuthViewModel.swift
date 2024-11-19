@@ -16,7 +16,7 @@ class AuthViewModel: ObservableObject {
         // 카카오톡 실행 가능 여부 확인
         if UserApi.isKakaoTalkLoginAvailable() {
             // 카카오톡 로그인
-            UserApi.shared.loginWithKakaoTalk { oauthToken, error in
+            UserApi.shared.loginWithKakaoTalk(nonce: generateRandomString()) { oauthToken, error in
                 if let error = error {
                     print(error)
                     completion(false)
@@ -31,7 +31,7 @@ class AuthViewModel: ObservableObject {
             }
         } else {
             // 카카오계정 로그인
-            UserApi.shared.loginWithKakaoAccount { oauthToken, error in
+            UserApi.shared.loginWithKakaoAccount(nonce: generateRandomString()) { oauthToken, error in
                 if let error = error {
                     print(error)
                     completion(false)
@@ -49,7 +49,7 @@ class AuthViewModel: ObservableObject {
     
     // 로그인된 토큰이 존재하는지 확인
     func checkTokenExists() -> Bool {
-        if let idToken = UserDefaults.standard.string(forKey: "idToken") {
+        if let idToken = keychain.get("accessToken") {
             // TODO: 서버 API 연결
             
             return true
@@ -64,4 +64,16 @@ class AuthViewModel: ObservableObject {
         }
         return false
     }
+    
+}
+
+func generateRandomString() -> String {
+    var result = ""
+    
+    for _ in 0..<8 {
+        let randomValue = Int.random(in: 0...255)
+        result += String(format: "%02X", randomValue)
+    }
+    
+    return result
 }
