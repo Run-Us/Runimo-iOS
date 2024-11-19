@@ -9,7 +9,8 @@ import SwiftUI
 
 struct RunTab: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var mapVM: MapViewModel = .init()
+    @EnvironmentObject var mapVM: MapViewModel
+    @EnvironmentObject var runVM: RunningViewModel
     @ObservedObject var runningSession: RunningSessionService = .init()
     @State private var selectedRunning = 0
     @State private var showRunningPage: Bool = false
@@ -27,7 +28,7 @@ struct RunTab: View {
                     
                     switch(selectedRunning) {
                     case 0: runAlone()
-                    case 1: StartGroupRunPage(runningSession: runningSession, mapVM: mapVM)
+                    case 1: StartGroupRunPage(runningSession: runningSession)
                     default: EmptyView()
                     }
                 }
@@ -55,7 +56,7 @@ struct RunTab: View {
     @ViewBuilder
     func runAlone() -> some View {
         ZStack(alignment: .bottom) {
-            MapPage(mapVM: mapVM)
+            MapPage()
                 .ignoresSafeArea()
             // 지도 위 흰색 그라데이션 효과
             LinearGradient(colors: [.white.opacity(0.5), .white.opacity(0)], startPoint: .top, endPoint: .bottom)
@@ -70,7 +71,7 @@ struct RunTab: View {
             .buttonStyle(.plain)
             .offset(y: -15)
             .navigationDestination(isPresented: $showRunningPage) {
-                RunningPage(runningType: .alone, mapVM: mapVM)
+                RunningPage(runningType: runVM.runningType)
             }
             
         }

@@ -10,12 +10,16 @@ import SwiftUI
 struct CreateGroupRunPage: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var mapVM: MapViewModel
+    @EnvironmentObject var runVM: RunningViewModel
     @ObservedObject var runningSession: RunningSessionService
     @StateObject var participationService = ParticipationService()
+    @ObservedObject private var pollingManager = PollingManager(pollingInterval: 2.0)
     @State var showStartGroupRunAlter = false
     @State var startGroupRun = false
     @State var passcode: String
     @State private var isValid: Bool = true
+    @State var aggregateParticipants: [AggregateParticipants]?
+    
     
     var body: some View {
         NavigationView {
@@ -26,7 +30,7 @@ struct CreateGroupRunPage: View {
                     Text("더 많은 보상 받아보세요!")
                         .font(.title4_semibold)
                         .foregroundStyle(.gray900)
-                        .padding(12)
+                        .padding(.top, 80)
                     
                     Button(action: {
                         
@@ -56,7 +60,17 @@ struct CreateGroupRunPage: View {
                     }
                     .padding(72)
                     
-                    
+                    List {
+                        if let participants = aggregateParticipants {
+                            ForEach(participants.indices, id: \.self) { index in
+                                Participant(nikName: participants[index].name, profileImage: participants[index].imgUrl, totalDistance: participants[index].totalDistanceInMeters)
+                            }
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                        }
+                    }
+                    .scrollContentBackground(.hidden)
+                    .padding(.horizontal, 36)
                     Divider()
                     Button(action: {
                         showStartGroupRunAlter = true
@@ -71,19 +85,9 @@ struct CreateGroupRunPage: View {
                     .padding(8)
                     
                 }
+                .padding(.vertical, 36)
             }
             .ignoresSafeArea()
-        }
-        .onAppear {
-            print("getParticipantList || runningId: \(runningSession.latestSessionResponse?.payload.runningKey ?? "empty")")
-            participationService.getParticipantList(runningId: runningSession.latestSessionResponse?.payload.runningKey ?? "") { success in
-                if !success {
-                    print("참가자 정보 불러오기 실패")
-                }
-                else {
-                    print("getParticipantList || response: \(success)")
-                }
-            }
         }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -101,19 +105,33 @@ struct CreateGroupRunPage: View {
             }
         }
         .foregroundStyle(.gray900)
-        .alert(isPresented: $showStartGroupRunAlter) {
-            Alert(
-                title: Text("그룹 달리기를 시작할까요?"),
-                primaryButton: .default(Text("시작하기"), action: {
-                    startRun()
-                }),
-                secondaryButton: .cancel(Text("취소"))
-            )
+        .popup(
+          isPresented: $showStartGroupRunAlter,
+          title: "그룹 달리기를 시작할까요?",
+          subtitle: "user_name님을 포함해 총 12명이 모였어요",
+          buttonText: "시작하기",
+          buttonColor: .primary400,
+          cancelAction: {
+              showStartGroupRunAlter = false
+          },
+          buttonAction: {
+              dismiss()
+              startRun()
+              startGroupRun = true
+          })
+        .onAppear {
+            pollingManager.startPolling {
+                self.pollingAction()
+            }
+        }
+        .onDisappear {
+            pollingManager.stopPolling()
         }
         .navigationDestination(isPresented: $startGroupRun, destination:{
-            RunningPage(runningType: .group, mapVM: mapVM)
+            RunningPage(runningType: runVM.runningType)
         })
     }
+    
     func startRun() {
         let startRunningInfo = [
             "userId": UserDefaults.standard.string(forKey: "userId") ?? "",
@@ -122,6 +140,18 @@ struct CreateGroupRunPage: View {
         ]
         WebSocketService.sharedSocket.sendMessage(body: startRunningInfo, destination: "/app/runnings/start")
         startGroupRun = true
+    }
+    
+    func pollingAction() {
+        participationService.getParticipantList(runningId: runningSession.latestSessionResponse?.payload.runningKey ?? "") { success, data in
+            if !success {
+                print("참가자 정보 불러오기 실패")
+            }
+            else {
+                aggregateParticipants = data
+            }
+            
+        }
     }
 }
 

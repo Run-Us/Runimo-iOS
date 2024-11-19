@@ -10,11 +10,11 @@ import SwiftUI
 struct StartGroupRunPage: View {
     @Environment(\.dismiss) var dismiss
     @State var showInputJoinCode = false
-    @State var showJoinGroupRunPage = false
     @State var showCreateGroupRunPage = false
     @State var joinCode: String = ""
     @ObservedObject var runningSession: RunningSessionService
-    @StateObject var mapVM: MapViewModel
+    @EnvironmentObject var mapVM: MapViewModel
+    @EnvironmentObject var runVM: RunningViewModel
     
     var body: some View {
         GeometryReader { geometry in
@@ -62,7 +62,7 @@ struct StartGroupRunPage: View {
                     .cornerRadius(8)
                     .padding(8)
                     .navigationDestination(isPresented: $showCreateGroupRunPage, destination: {
-                        CreateGroupRunPage(mapVM: mapVM, runningSession: runningSession, passcode: runningSession.latestSessionResponse?.payload.passcode ?? "0000" )
+                        CreateGroupRunPage(mapVM: mapVM, runningSession: runningSession, passcode: runningSession.latestSessionResponse?.payload.passcode ?? "0000")
                             .navigationBarBackButtonHidden()
                     })
                     
@@ -79,9 +79,8 @@ struct StartGroupRunPage: View {
     func createGroup() {
         runningSession.createRunningSession(currentLatitude: mapVM.userLocation.coordinate.latitude, currentLongitude: mapVM.userLocation.coordinate.longitude) { success, result in
             if success {
-                print("Try WebSocket Connect || runningId: \(result?.payload.runningKey ?? "error")")
                 UserDefaults.standard.set(result?.payload.runningKey, forKey: "runningId")
-                WebSocketService.sharedSocket.connect(runningSessionInfo: result?.payload)
+                WebSocketService.sharedSocket.connect(runningId: result?.payload.runningKey)
                 showCreateGroupRunPage = true
             } else {
                 print("createRunningSession || error")
@@ -89,11 +88,11 @@ struct StartGroupRunPage: View {
         }
     }
     func joinGroup() {
-        WebSocketService.sharedSocket.connect(runningSessionInfo: nil, passcode: joinCode)
+        
     }
         
 }
 
 #Preview {
-    StartGroupRunPage(runningSession: RunningSessionService(), mapVM: MapViewModel())
+    StartGroupRunPage(runningSession: RunningSessionService())
 }

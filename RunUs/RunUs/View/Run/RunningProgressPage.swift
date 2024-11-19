@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct RunningProgressPage: View {
-    @StateObject var mapVM: MapViewModel
+    @EnvironmentObject var mapVM: MapViewModel
+    @EnvironmentObject var runVM: RunningViewModel
     @StateObject var motionManager: MotionManager
-    
-    @Binding var selectedTab: Int
     
     var body: some View {
         VStack(spacing: 50) {
@@ -44,7 +43,7 @@ struct RunningProgressPage: View {
             }
             
             Button(action: {
-                selectedTab = 1
+                runVM.runningTab = 1
                 mapVM.stopUpdatingLocation()
             }, label: {
                 Image("run_pause")
@@ -58,5 +57,5 @@ struct RunningProgressPage: View {
 }
 
 #Preview {
-    RunningProgressPage(mapVM: MapViewModel(), motionManager: MotionManager() ,selectedTab: .constant(0))
+    RunningProgressPage(motionManager: MotionManager())
 }

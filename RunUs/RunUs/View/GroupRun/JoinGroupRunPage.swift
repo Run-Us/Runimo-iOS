@@ -22,14 +22,6 @@ struct JoinGroupRunPage: View {
                         print("on tap \(isTextFieldFocused)")
                         isTextFieldFocused = true
                     }
-                Text("생성된 대기방의 인증코드 4자리를 입력해주세요.")
-                    .font(.body2_medium)
-                    .foregroundStyle(.gray500)
-                TextField("", text: $text)
-                    .foregroundStyle(.white)
-                    .focused($isTextFieldFocused)
-                    .frame(width: 100, height: 50)
-                    .opacity(1)
             }
         }
         .ignoresSafeArea()

@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct RunningMapPage: View {
-    @StateObject var mapVM: MapViewModel
+    @EnvironmentObject var mapVM: MapViewModel
+    @EnvironmentObject var runVM: RunningViewModel
     @StateObject var motionManager: MotionManager
     let runningType: RunningType
     @Binding var showStopAlert: Bool
-    @Binding var selectedTab: Int
     @Binding var showFinishPage: Bool
     
     var body: some View {
@@ -21,14 +21,14 @@ struct RunningMapPage: View {
                 
                 // 상단 지도
                 ZStack(alignment: .bottom) {
-                    MapPage(mapVM: mapVM)
+                    MapPage()
                         .frame(height: geometry.size.width)
                     
                     // 일시정지 버튼
                     if mapVM.isRunning {
                         Button(action: {
                             mapVM.stopUpdatingLocation()
-                            selectedTab = 1
+                            runVM.runningTab = 1
                         }, label: {
                             Image("run_pause")
                                 .shadow(radius: 2, x: 0, y: 4)
@@ -60,7 +60,7 @@ struct RunningMapPage: View {
                 // 하단 러닝 정보
                 switch (runningType) {
                 case .alone: mapTabInfo(width: geometry.size.width/2)
-                case .group: RunningParticipant()
+                case .group: RunningParticipants()
                 }
             }
             .navigationDestination(isPresented: $showFinishPage) {
@@ -108,5 +108,5 @@ struct RunningMapPage: View {
 }
 
 #Preview {
-    RunningMapPage(mapVM: MapViewModel(), motionManager: MotionManager(), runningType: .group, showStopAlert: .constant(false), selectedTab: .constant(1), showFinishPage: .constant(false))
+    RunningMapPage(motionManager: MotionManager(), runningType: .group, showStopAlert: .constant(false), showFinishPage: .constant(false))
 }
