@@ -11,7 +11,7 @@ struct JoinResponse: Codable {
     let message: String
     let success: Bool
     let code: String
-    let payload: UserToken
+    let payload: UserToken?
 }
 
 struct UserToken: Codable {

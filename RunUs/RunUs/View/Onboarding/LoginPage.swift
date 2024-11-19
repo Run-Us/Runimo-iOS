@@ -45,8 +45,14 @@ struct LoginPage: View {
                     VStack {
                         // kakao login
                         Button(action: {
-                            authVM.kakaoLogin { isSuccess in
-                                showJoinPage = isSuccess
+                            authVM.kakaoLogin { result in
+                                if result == 403 {
+                                    // 회원가입
+                                    showJoinPage = true
+                                } else if result == 200 {
+                                    // 로그인
+                                    loginSuccess = true
+                                }
                             }
                         }, label: {
                             Image("kakao_login_button")
@@ -68,7 +74,7 @@ struct LoginPage: View {
             }
             .ignoresSafeArea()
             .onAppear {
-                if authVM.checkUserIdExists() {
+                if authVM.checkTokenExists() {
                     loginSuccess = true
                 }
             }

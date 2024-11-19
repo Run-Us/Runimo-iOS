@@ -5,15 +5,16 @@
 //  Created by 가은 on 9/29/24.
 //
 
+import Alamofire
 import Foundation
 import KeychainSwift
 
 class AuthService: ObservableObject {
     let keychain = KeychainSwift()
     let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
-    let idToken = UserDefaults.standard.string(forKey: "idToken")
+    let idToken = UserDefaults.standard.string(forKey: "idToken") ?? ""
     
-    
+    // 회원가입
     func signup(nickName: String, provider: String, gender: String, completion: @escaping (Bool) -> Void) {
         let url = URL(string: "\(baseUrl)/auth/signup")!
         let headers = ["Content-Type": "application/json"]
@@ -44,8 +45,11 @@ class AuthService: ObservableObject {
                     let response = try JSONDecoder().decode(JoinResponse.self, from: data)
                     DispatchQueue.main.async {
                         if response.success {
-                            self.keychain.set(response.payload.access_token, forKey: "accessToken")
-                            self.keychain.set(response.payload.refresh_token, forKey: "refreshToken")
+                            if let payload = response.payload {
+                                self.keychain.set(payload.access_token, forKey: "accessToken")
+                                self.keychain.set(payload.refresh_token, forKey: "refreshToken")
+                                UserDefaults.standard.set(nickName, forKey: "nickname")
+                            }
                             completion(true)
                         } else {
                             completion(false)
@@ -56,58 +60,41 @@ class AuthService: ObservableObject {
                     completion(false)
                 }
             } else {
-                print("not code 200 : \(response)")
+                print("SignUp Failed : \(String(decoding: data, as: UTF8.self))")
                 completion(false)
             }
         }.resume()
-        
     }
-    func login(provider: String, completion: @escaping (Bool) -> Void) {
+    
+    // 로그인
+    func login(provider: String, completion: @escaping (Int) -> Void) {
+        let url = "\(baseUrl)/auth/login"
+        let headers: HTTPHeaders = ["Content-Type": "application/json"]
+        let body: [String: Any] = [
+            "oidc_token": keychain.get("idToken") ?? "",
+            "provider": provider
+        ]
         
-        let url = URL(string: "\(baseUrl)/auth/login")!
-        let headers = ["Content-Type": "application/json"]
-        let loginData = ["oidc_token": idToken, "provider": provider]
+        let dataRequest = AF.request(url, method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers)
         
-        var request = URLRequest(url: url)
-        request.allHTTPHeaderFields = headers
-        request.httpMethod = "GET"
-        
-        do {
-            let jsonData = try JSONEncoder().encode(loginData)
-            request.httpBody = jsonData
-        } catch {
-            print("Error encoding JSON: \(error)")
-            completion(false)
-            return
-        }
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                print("Network request failed: \(error?.localizedDescription ?? "No error info")")
-                completion(false)
-                return
-            }
-            
-            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                do {
-                    let response = try JSONDecoder().decode(JoinResponse.self, from: data)
-                    DispatchQueue.main.async {
-                        if response.success {
-                            self.keychain.set(response.payload.access_token, forKey: "accessToken")
-                            self.keychain.set(response.payload.refresh_token, forKey: "refreshToken")
-                            completion(true)
-                        } else {
-                            completion(false)
-                        }
+        dataRequest.responseDecodable(of: JoinResponse.self) { response in
+            switch response.result {
+            case .success(let response):
+                if response.code == "UEH4031" {
+                    // 회원가입
+                    completion(403)
+                } else if response.code == "USH2003" {
+                    // 로그인 성공
+                    if let payload = response.payload {
+                        self.keychain.set(payload.access_token, forKey: "accessToken")
+                        self.keychain.set(payload.refresh_token, forKey: "refreshToken")
                     }
-                } catch {
-                    print("Failed to decode JSON response: \(error)")
-                    completion(false)
+                    completion(200)
                 }
-            } else {
-                print("HTTP Status Code: \((response as? HTTPURLResponse)?.statusCode ?? 0)")
-                completion(false)
+            case .failure(let error):
+                print("Login Failed: \(error)")
+                completion(0)
             }
-        }.resume()
+        }
     }
 }
