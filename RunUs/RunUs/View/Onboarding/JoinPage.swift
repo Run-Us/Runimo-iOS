@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct JoinPage: View {
-    @ObservedObject var joinService: JoinService = JoinService()
+    @ObservedObject var joinService = AuthService()
     @Environment(\.dismiss) var dismiss
     @Binding var loginSuccess: Bool
     @State var selectedProfile: [UIImage] = []
@@ -20,6 +20,7 @@ struct JoinPage: View {
     @State var showAddProfile = false
     @FocusState private var isTextFieldFocused: Bool
     @State var isPresentedError: Bool = false
+    @State var genderType: GenderType = .none
     let userDefaults = UserDefaults.standard
     
     var body: some View {
@@ -100,7 +101,7 @@ struct JoinPage: View {
                                 .foregroundColor(gender == "성별을 선택해주세요" ? .gray500 : .gray700)
                         })
                         .sheet(isPresented: $showGenderPicker, content: {
-                            GenderPickerSheet(gender: $gender, showGenderPicker: $showGenderPicker)
+                            GenderPickerSheet(gender: $gender, showGenderPicker: $showGenderPicker, genderType: $genderType)
                                 .presentationDetents([.fraction(0.25)])
                         })
                     }
@@ -113,8 +114,11 @@ struct JoinPage: View {
                         .padding(.vertical)
                     Button(action: {
                         loginSuccess = true
-                        userDefaults.set(nickname, forKey: "nickname")
-                        dismiss()
+                        joinService.signup(nickName: nickname, provider: "KAKAO", gender: genderType.rawValue) { result in
+                            if result {
+                                dismiss()
+                            }
+                        }
                     }, label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)
