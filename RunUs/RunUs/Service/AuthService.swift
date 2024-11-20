@@ -12,14 +12,13 @@ import KeychainSwift
 class AuthService: ObservableObject {
     let keychain = KeychainSwift()
     let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
-    let idToken = UserDefaults.standard.string(forKey: "idToken") ?? ""
     
     // 회원가입
     func signup(nickName: String, provider: String, gender: String, completion: @escaping (Bool) -> Void) {
         let url = URL(string: "\(baseUrl)/auth/signup")!
         let headers = ["Content-Type": "application/json"]
         
-        let joinData = ["oidc_token": idToken, "provider": provider, "nickname": nickName, "gender": gender]
+        let joinData = ["oidc_token": keychain.get("idToken") ?? "", "provider": provider, "nickname": nickName, "gender": gender]
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = headers
         request.httpMethod = "POST"

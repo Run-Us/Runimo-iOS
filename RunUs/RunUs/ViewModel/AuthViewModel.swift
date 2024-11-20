@@ -24,7 +24,6 @@ class AuthViewModel: ObservableObject {
                     // idToken 저장
                     if let idToken = oauthToken?.idToken {
                         self.keychain.set(idToken, forKey: "idToken")
-                        UserDefaults.standard.set(idToken, forKey: "idToken")   // 기기에 저장 (자동로그인)
                         AuthService().login(provider: "KAKAO") { result in
                             completion(result)
                         }
@@ -41,7 +40,6 @@ class AuthViewModel: ObservableObject {
                     // idToken 저장
                     if let idToken = oauthToken?.idToken {
                         self.keychain.set(idToken, forKey: "idToken")
-                        UserDefaults.standard.set(idToken, forKey: "idToken")   // 기기에 저장 (자동로그인)
                         AuthService().login(provider: "KAKAO") { result in
                             completion(result)
                         }
