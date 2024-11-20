@@ -2,7 +2,7 @@
 //  BaseResponse.swift
 //  RunUs
 //
-//  Created by byeoungjik on 11/19/24.
+//  Created by byeoungjik on 11/20/24.
 //
 
 import Foundation

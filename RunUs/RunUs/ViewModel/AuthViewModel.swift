@@ -12,35 +12,37 @@ import KeychainSwift
 class AuthViewModel: ObservableObject {
     let keychain = KeychainSwift()
     
-    func kakaoLogin(completion: @escaping (_ isSuccess: Bool) -> Void) {
+    func kakaoLogin(completion: @escaping (_ result: Int) -> Void) {
         // 카카오톡 실행 가능 여부 확인
         if UserApi.isKakaoTalkLoginAvailable() {
             // 카카오톡 로그인
-            UserApi.shared.loginWithKakaoTalk { oauthToken, error in
+            UserApi.shared.loginWithKakaoTalk(nonce: generateRandomString()) { oauthToken, error in
                 if let error = error {
                     print(error)
-                    completion(false)
+                    completion(0)
                 } else {
                     // idToken 저장
                     if let idToken = oauthToken?.idToken {
                         self.keychain.set(idToken, forKey: "idToken")
-                        UserDefaults.standard.set(idToken, forKey: "idToken")   // 기기에 저장 (자동로그인)
-                        completion(true)
+                        AuthService().login(provider: "KAKAO") { result in
+                            completion(result)
+                        }
                     }
                 }
             }
         } else {
             // 카카오계정 로그인
-            UserApi.shared.loginWithKakaoAccount { oauthToken, error in
+            UserApi.shared.loginWithKakaoAccount(nonce: generateRandomString()) { oauthToken, error in
                 if let error = error {
                     print(error)
-                    completion(false)
+                    completion(0)
                 } else {
                     // idToken 저장
                     if let idToken = oauthToken?.idToken {
                         self.keychain.set(idToken, forKey: "idToken")
-                        UserDefaults.standard.set(idToken, forKey: "idToken")   // 기기에 저장 (자동로그인)
-                        completion(true)
+                        AuthService().login(provider: "KAKAO") { result in
+                            completion(result)
+                        }
                     }
                 }
             }
@@ -49,19 +51,20 @@ class AuthViewModel: ObservableObject {
     
     // 로그인된 토큰이 존재하는지 확인
     func checkTokenExists() -> Bool {
-        if let idToken = UserDefaults.standard.string(forKey: "idToken") {
-            // TODO: 서버 API 연결
-            
+        if let _ = keychain.get("accessToken") {
             return true
         }
         return false
     }
     
-    // 저장된 userId 존재 여부 확인
-    func checkUserIdExists() -> Bool {
-        if let userId = UserDefaults.standard.string(forKey: "userId") {
-            return true
+    func generateRandomString() -> String {
+        var result = ""
+        
+        for _ in 0..<8 {
+            let randomValue = Int.random(in: 0...255)
+            result += String(format: "%02X", randomValue)
         }
-        return false
+        
+        return result
     }
 }
