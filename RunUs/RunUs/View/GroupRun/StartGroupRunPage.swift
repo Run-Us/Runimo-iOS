@@ -63,7 +63,7 @@ struct StartGroupRunPage: View {
                     .cornerRadius(8)
                     .padding(8)
                     .navigationDestination(isPresented: $showCreateGroupRunPage, destination: {
-                        CreateGroupRunPage(mapVM: mapVM, runningSession: runningSession, passcode: runningSession.latestSessionResponse?.payload.passcode ?? "0000" )
+                        CreateGroupRunPage(mapVM: mapVM, runningSession: runningSession, passcode: runningSession.latestSessionResponse?.payload.passcode ?? "0000")
                             .navigationBarBackButtonHidden()
                     })
                     
@@ -71,26 +71,6 @@ struct StartGroupRunPage: View {
                 
             }
         }
-        .alert(Text("그룹 참가하기"), isPresented: $showInputJoinCode, actions: {
-            VStack {
-                TextField("인증코드", text: $joinCode)
-                HStack {
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("취소")
-                    })
-                    Button(action: {
-                        joinGroup()
-                        showJoinGroupRunPage = true
-                    }, label: {
-                        Text("참가하기")
-                    })
-                }
-            }
-        }, message: {
-            Text("생성된 대기방의 인증코드를 입력해주세요")
-        })
         .navigationDestination(isPresented: $showJoinGroupRunPage, destination: {
             JoinGroupRunPage(RunningSession: runningSession)
         })
@@ -100,9 +80,8 @@ struct StartGroupRunPage: View {
     func createGroup() {
         runningSession.createRunningSession(currentLatitude: mapVM.userLocation.coordinate.latitude, currentLongitude: mapVM.userLocation.coordinate.longitude) { success, result in
             if success {
-                print("Try WebSocket Connect || runningId: \(result?.payload.runningKey ?? "error")")
                 UserDefaults.standard.set(result?.payload.runningKey, forKey: "runningId")
-                WebSocketService.sharedSocket.connect(runningSessionInfo: result?.payload)
+                WebSocketService.sharedSocket.connect(runningId: result?.payload.runningKey)
                 showCreateGroupRunPage = true
             } else {
                 print("createRunningSession || error")
@@ -110,7 +89,7 @@ struct StartGroupRunPage: View {
         }
     }
     func joinGroup() {
-        WebSocketService.sharedSocket.connect(runningSessionInfo: nil, passcode: joinCode)
+        
     }
         
 }
