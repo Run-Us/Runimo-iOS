@@ -13,7 +13,6 @@ class RunningSessionService: ObservableObject {
     
     let keychain = KeychainSwift()
     let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
-    let idToken = UserDefaults.standard.integer(forKey: "idToken")
     @Published var latestSessionResponse: RunningSessionResponse?
 
     func createRunningSession(currentLatitude: Double, currentLongitude: Double, completion: @escaping (Bool, RunningSessionResponse?) -> Void) {
@@ -29,6 +28,10 @@ class RunningSessionService: ObservableObject {
         )
         
         var request = URLRequest(url: url)
+        if let accessToken = keychain.get("accessToken") {
+            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+            print("Successfully get access token: \(accessToken)")
+        }
         request.allHTTPHeaderFields = headers
         request.httpMethod = "POST"
         

@@ -7,10 +7,18 @@
 
 import SwiftUI
 
+enum GenderType: String {
+    case male = "MALE"
+    case female = "FEMALE"
+    case other = "OTHER"
+    case none = "NONE"
+}
+
 struct GenderPickerSheet: View {
     @Binding var gender: String
     @Binding var showGenderPicker: Bool
     @Environment(\.dismiss) var dismiss
+    @Binding var genderType: GenderType
     
     var body: some View {
         GeometryReader { geometry in
@@ -18,11 +26,11 @@ struct GenderPickerSheet: View {
                 Text("성별 선택")
                     .font(.title5_bold)
                     .foregroundColor(.gray900)
-                selectGenderButton(gender: "남성")
+                selectGenderButton(gender: "남성", .male)
                 
-                selectGenderButton(gender: "여성")
+                selectGenderButton(gender: "여성", .female)
                 
-                selectGenderButton(gender: "기타")
+                selectGenderButton(gender: "기타", .other)
                 
             }
             .padding()
@@ -37,10 +45,11 @@ struct GenderPickerSheet: View {
     }
     
     @ViewBuilder
-    func selectGenderButton(gender: String) -> some View {
+    func selectGenderButton(gender: String, _ genderType: GenderType) -> some View {
         Button(action: {
             self.gender = gender
             self.showGenderPicker = false
+            self.genderType = genderType
             dismiss()
         }, label: {
             Text(gender)
@@ -51,5 +60,5 @@ struct GenderPickerSheet: View {
 }
 
 #Preview {
-    GenderPickerSheet(gender: .constant(""), showGenderPicker: .constant(false))
+    GenderPickerSheet(gender: .constant(""), showGenderPicker: .constant(false), genderType: .constant(.none))
 }
