@@ -14,6 +14,7 @@
 		230314F42C89A00B00B299D5 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 230314F32C89A00B00B299D5 /* KakaoSDKCommon */; };
 		230314F62C89A00B00B299D5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 230314F52C89A00B00B299D5 /* KakaoSDKUser */; };
 		230315002C8A096D00B299D5 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 230314FF2C8A096D00B299D5 /* KeychainSwift */; };
+		23052EC92CEDDDCF002725A5 /* MyPageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23052EC82CEDDDCF002725A5 /* MyPageService.swift */; };
 		233831012CC69B430075E73A /* PopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233831002CC69B430075E73A /* PopUp.swift */; };
 		233831032CC7C4B40075E73A /* RunningPostPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233831022CC7C4B40075E73A /* RunningPostPage.swift */; };
 		233ED1CA2CA93D49001EF0BC /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233ED1C92CA93D49001EF0BC /* AuthService.swift */; };
@@ -79,6 +80,7 @@
 		230314EE2C89920100B299D5 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		230314F72C89A5E200B299D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		230314F82C89AD0800B299D5 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		23052EC82CEDDDCF002725A5 /* MyPageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageService.swift; sourceTree = "<group>"; };
 		233831002CC69B430075E73A /* PopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUp.swift; sourceTree = "<group>"; };
 		233831022CC7C4B40075E73A /* RunningPostPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningPostPage.swift; sourceTree = "<group>"; };
 		233ED1C92CA93D49001EF0BC /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				88D3BF202CA95FB4009E4365 /* WebSocketService.swift */,
 				887940FD2CAB35DB0018C035 /* ParticipationService.swift */,
 				233ED1C92CA93D49001EF0BC /* AuthService.swift */,
+				23052EC82CEDDDCF002725A5 /* MyPageService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23052EC92CEDDDCF002725A5 /* MyPageService.swift in Sources */,
 				23F056B62CDA880800EC3A40 /* RunningViewModel.swift in Sources */,
 				88E556052C8F208F003789B7 /* HomeTab.swift in Sources */,
 				88E556092C8F20E8003789B7 /* RunningPage.swift in Sources */,

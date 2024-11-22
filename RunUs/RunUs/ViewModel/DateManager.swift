@@ -31,6 +31,15 @@ extension DateManager {
         }
         return formatter.string(from: date)
     }
+    
+    // 날짜 차이 계산
+    func subDate(date: Date?) -> Int {
+        if let date = date {
+            let offset = Calendar.current.dateComponents([.day], from: date, to: Date())
+            return offset.day ?? -1
+        }
+        return -1
+    }
 }
 
 // MARK: RecordCard

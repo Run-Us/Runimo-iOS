@@ -62,3 +62,10 @@ struct RunningPost: Identifiable, Codable {
     var contents: String
     var runningInfo: RunningInfo
 }
+
+struct RunningRecord: Codable {
+    let started_at: Date
+    let running_distance_in_meters: Int
+    let running_duration_in_milliseconds: Int
+    let average_pace_in_milliseconds: Int
+}

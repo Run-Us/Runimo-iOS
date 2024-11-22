@@ -16,12 +16,39 @@ class MyPageViewModel: ObservableObject {
     @ObservedObject var dateManager: DateManager = DateManager()
     @Published var selectedTab: Int = 0
     @Published var showDateSheet: Bool = false
+    @Published var user: MyPage
+    
+    init() {
+        user = MyPage(profileImage: nil, nickname: "", totalDistance: 0, recentRunningDate: nil, runningRecords: [])
+    }
     
     var recordType: RecordType {
         switch (selectedTab) {
         case 0: return .weekly
         case 1: return .monthly
         default: return .yearly
+        }
+    }
+}
+
+// API
+extension MyPageViewModel {
+    // 누적 거리
+    func getTotalDistance() -> String {
+        return String(format: "%.2fkm", user.totalDistance/1000)
+    }
+    
+    // 최근 러닝
+    func lastRunning() -> String {
+        let day = dateManager.subDate(date: user.recentRunningDate)
+        if day == 0 {
+            return "오늘"
+        } else if day == 1 {
+            return "하루 전"
+        } else if day > 1 {
+            return "\(day)일 전"
+        } else {
+            return "없음"
         }
     }
 }

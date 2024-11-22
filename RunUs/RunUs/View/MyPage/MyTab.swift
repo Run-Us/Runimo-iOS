@@ -37,22 +37,27 @@ struct MyTab: View {
                 .presentationDragIndicator(.visible)
                 .presentationDetents([.fraction(0.35), .large])
         }
+        .onAppear {
+            MyPageService().getMyPage { data in
+                myPageVM.user = data
+            }
+        }
     }
     
     @ViewBuilder
     func userInfo() -> some View {
         HStack(spacing: 24) {
             // 프로필 사진
-            Image("default_user_profile")
+            Image(myPageVM.user.profileImage ?? "default_user_profile")
                 .resizable()
                 .frame(width: 80, height: 80)
             // 닉네임
             VStack(alignment: .leading, spacing: 10) {
-                Text(userDefaults.string(forKey: "nickname") ?? "닉네임")
+                Text(myPageVM.user.nickname)
                     .font(.title4_semibold)
                     .foregroundStyle(.gray900)
-                Text("누적 거리: 12km")
-                Text("최근 러닝: 3일 전")
+                Text("누적 거리: \(myPageVM.getTotalDistance())")
+                Text("최근 러닝: \(myPageVM.lastRunning())")
             }
             .font(.caption_regular)
             .foregroundStyle(.gray500)
@@ -87,6 +92,8 @@ struct MyTab: View {
                     PostCardList()
                 }
             }
+            
+            // postcard 추가
         }
     }
 }
