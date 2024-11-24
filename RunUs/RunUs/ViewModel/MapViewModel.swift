@@ -74,6 +74,7 @@ extension MapViewModel: CLLocationManagerDelegate {
     
     func stopRunning(runningType: RunningType) {
         stopUpdatingLocation()
+        userPath.removeAll()
         motionManager.initMotionManager()
         
         // 기록 저장 API
