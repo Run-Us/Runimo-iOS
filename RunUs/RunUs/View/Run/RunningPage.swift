@@ -80,7 +80,8 @@ struct RunningPage: View {
                 },
                 buttonAction: {
                     // 끝내기
-                    mapVM.stopUpdatingLocation()
+                    mapVM.stopRunning()
+                    runVM.initRunVM()
                     showFinishPage = true
             })
             .navigationBarBackButtonHidden()

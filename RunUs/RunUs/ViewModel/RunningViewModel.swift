@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum RunningType {
+enum RunningType: String {
     case alone
     case group
 }
@@ -15,6 +15,10 @@ enum RunningType {
 class RunningViewModel: ObservableObject {
     @Published var selectedRunningTab: Int = 0  // alone or group
     @Published var runningTab: Int = 0  // 러닝 진행 중 picker tab
+    
+    func initRunVM() {
+        runningTab = 0
+    }
     
     // 현재 선택된 러닝 타입
     var runningType: RunningType {

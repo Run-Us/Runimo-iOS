@@ -72,4 +72,8 @@ extension MapViewModel: CLLocationManagerDelegate {
         motionManager.stopRunningMotionData()
     }
     
+    func stopRunning() {
+        stopUpdatingLocation()
+        motionManager.initMotionManager()
+    }
 }
