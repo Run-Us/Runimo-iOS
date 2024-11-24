@@ -13,10 +13,14 @@ class MotionManager: ObservableObject {
     var timer: Timer?
     @Published var runningInfo: RunningInfo = RunningInfo()
     private var secondsElapsed = 0  // 경과한 시간 저장
+    private var pace = 0
     
     func initMotionManager() {
         secondsElapsed = 0
     }
+    
+    func getRunningTimeInt() -> Int { return secondsElapsed }
+    func getRunningPace() -> Int { return pace }
     
     // 실시간 러닝 정보 수집 시작 
     func startUpdatesMotion() {
@@ -36,7 +40,7 @@ class MotionManager: ObservableObject {
                     print("data is nil")
                     return
                 }
-                print(self.secondsElapsed)
+                
                 DispatchQueue.main.async {
                     self.getMotionData(data: pedometerData)
                 }
@@ -49,11 +53,11 @@ class MotionManager: ObservableObject {
         if  let averagePace = data.averageActivePace,
             let distance = data.distance
         {
+            pace = averagePace.intValue*1000
             let minPerKm = Int(averagePace.doubleValue * 1000) / 60
             let secPerKm = Int(averagePace.doubleValue * 1000) % 60
             self.runningInfo.averagePace = "\(minPerKm)\' \(secPerKm)\'\'"
             self.runningInfo.distance = distance.doubleValue / 1000
-            print(averagePace, distance)
         }
     }
     

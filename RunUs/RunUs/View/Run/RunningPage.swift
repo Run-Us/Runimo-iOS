@@ -80,7 +80,7 @@ struct RunningPage: View {
                 },
                 buttonAction: {
                     // 끝내기
-                    mapVM.stopRunning()
+                    mapVM.stopRunning(runningType: runVM.runningType)
                     runVM.initRunVM()
                     showFinishPage = true
             })

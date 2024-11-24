@@ -8,8 +8,8 @@
 import Foundation
 
 enum RunningType: String {
-    case alone
-    case group
+    case alone = "single"
+    case group = "multi"
 }
 
 class RunningViewModel: ObservableObject {
