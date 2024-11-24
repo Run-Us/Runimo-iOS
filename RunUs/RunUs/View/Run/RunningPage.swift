@@ -81,7 +81,6 @@ struct RunningPage: View {
                 buttonAction: {
                     // 끝내기
                     mapVM.stopUpdatingLocation()
-                    WebSocketService.sharedSocket.sendMessageAggregate()
                     showFinishPage = true
             })
             .navigationBarBackButtonHidden()
