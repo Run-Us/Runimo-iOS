@@ -23,6 +23,7 @@ class MapViewModel: NSObject, ObservableObject {
         motionManager = MotionManager()
         super.init()
         locationManager.delegate = self
+        locationManager.allowsBackgroundLocationUpdates = true
         checkLocationPermission()
     }
     
@@ -72,4 +73,17 @@ extension MapViewModel: CLLocationManagerDelegate {
         motionManager.stopRunningMotionData()
     }
     
+    func stopRunning(runningType: RunningType) {
+        stopUpdatingLocation()
+        userPath.removeAll()
+        motionManager.initMotionManager()
+        
+        // 기록 저장 API
+        RunningSessionService().postAggregate(
+            mode: runningType.rawValue,
+            runningId: UserDefaults.standard.string(forKey: "runningId"),
+            distance: Int(motionManager.runningInfo.distance ?? 0)*1000,
+            runningTime: motionManager.getRunningTimeInt(),
+            pace: motionManager.getRunningPace())
+    }
 }

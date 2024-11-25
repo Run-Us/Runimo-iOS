@@ -71,7 +71,7 @@ struct RunTab: View {
             .buttonStyle(.plain)
             .offset(y: -15)
             .navigationDestination(isPresented: $showRunningPage) {
-                RunningPage(runningType: runVM.runningType)
+                RunningPage()
             }
             
         }
