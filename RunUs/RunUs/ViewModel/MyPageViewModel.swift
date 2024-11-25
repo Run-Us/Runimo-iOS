@@ -8,18 +8,34 @@
 import Foundation
 import SwiftUI
 
-enum RecordType {
+enum RecordType: String {
     case weekly, monthly, yearly
+    
+    var calendarComponent: Calendar.Component {
+        switch self {
+        case .weekly: return .weekOfYear
+        case .monthly: return .month
+        case .yearly: return .year
+        }
+    }
 }
 
 class MyPageViewModel: ObservableObject {
     @ObservedObject var dateManager: DateManager = DateManager()
-    @Published var selectedTab: Int = 0
+    @Published var selectedTab: Int = 0 {
+        didSet {
+            getGraphAPI()
+        }
+    }
+    
     @Published var showDateSheet: Bool = false
     @Published var user: MyPage
+    @Published var graph: RunningGraph
     
     init() {
         user = MyPage(profileImage: nil, nickname: "", totalDistance: 0, recentRunningDate: nil, runningRecords: [])
+        graph = RunningGraph(total_count: 0, total_distance: 0, total_time: 0, distance_list: [])
+        getGraphAPI()
     }
     
     var recordType: RecordType {
@@ -55,6 +71,19 @@ extension MyPageViewModel {
     // yyyy-MM-dd 형식 날짜 String
     func getDateString(date: Date) -> String {
         return dateManager.getDateForAPI(date: date)
+    }
+    
+    // 마이페이지 통계 API 호출
+    func getGraphAPI() {
+        let (start, end) = dateManager.getDateRange(type: recordType)
+        guard start != nil, end != nil else { return }
+        
+        MyPageService().getMyRunningData(
+            type: recordType.rawValue,
+            startDate: getDateString(date: start ?? Date()),
+            endDate: getDateString(date: end ?? Date())) { data in
+            self.graph = data
+        }
     }
 }
 

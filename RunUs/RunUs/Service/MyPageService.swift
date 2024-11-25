@@ -45,8 +45,10 @@ class MyPageService {
         
         AF.request(url, method: .get, encoding: URLEncoding.default, headers: headers)
             .responseDecodable(of: BaseResponse<RunningGraph>.self) { response in
+                print(String(decoding: response.data ?? Data(), as: UTF8.self))
                 switch response.result {
                 case .success(let response):
+                    print(response)
                     if let data = response.payload {
                         completion(data)
                     }

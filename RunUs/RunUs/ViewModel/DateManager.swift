@@ -75,4 +75,14 @@ extension DateManager {
     private func isThisWeek(_ date: Date) -> Bool {
         return calendar.isDate(date, equalTo: Date(), toGranularity: .weekOfYear)
     }
+    
+    func getDateRange(type: RecordType) -> (start: Date?, end: Date?) {
+        if let range = calendar.dateInterval(of: type.calendarComponent, for: date) {
+            let start = range.start
+            let end = calendar.date(byAdding: .day, value: -1, to: range.end)!
+            
+            return (start, end)
+        }
+        return (nil, nil)
+    }
 }
