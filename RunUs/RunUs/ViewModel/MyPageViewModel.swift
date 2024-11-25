@@ -51,6 +51,11 @@ extension MyPageViewModel {
             return "없음"
         }
     }
+    
+    // yyyy-MM-dd 형식 날짜 String
+    func getDateString(date: Date) -> String {
+        return dateManager.getDateForAPI(date: date)
+    }
 }
 
 // MARK: RecordCard

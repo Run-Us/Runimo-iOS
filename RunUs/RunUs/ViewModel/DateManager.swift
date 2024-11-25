@@ -32,6 +32,12 @@ extension DateManager {
         return formatter.string(from: date)
     }
     
+    // API Request용
+    func getDateForAPI(date: Date) -> String {
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
+    }
+    
     // 날짜 차이 계산
     func subDate(date: Date?) -> Int {
         if let date = date {
