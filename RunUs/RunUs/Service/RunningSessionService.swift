@@ -73,7 +73,10 @@ class RunningSessionService: ObservableObject {
     // 달리기 기록 저장
     func postAggregate(mode: String, runningId: String?, distance: Int, runningTime: Int, pace: Int) {
         let url = "\(baseUrl)/runnings/aggregates?mode=\(mode)"
-        let headers: HTTPHeaders = ["Content-Type": "application/json"]
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
         var parameters: [String: Any] = [
             "recordData": "",    // TODO: 압축한 문자열
             "runningDistanceInMeters": distance,
