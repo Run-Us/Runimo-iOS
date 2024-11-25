@@ -23,6 +23,7 @@ class MapViewModel: NSObject, ObservableObject {
         motionManager = MotionManager()
         super.init()
         locationManager.delegate = self
+        locationManager.allowsBackgroundLocationUpdates = true
         checkLocationPermission()
     }
     
