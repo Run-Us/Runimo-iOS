@@ -31,7 +31,7 @@ class MyPageViewModel: ObservableObject {
     @Published var showDateSheet: Bool = false
     @Published var user: MyPage
     @Published var graph: RunningGraph
-    @Published var graphDisplay: (count: Int, distance: String, time: String, maxYLength: Double, distanceList: [Double]) = (0, "", "", 9.0, [])
+    @Published var graphDisplay: (count: Int, distance: String, time: String, maxYLength: Double, distanceList: [Double]) = (0, "0.00km", "0m 0s", 9.0, Array(repeating: 8.0, count: 30))
     
     init() {
         user = MyPage(profileImage: nil, nickname: "", totalDistance: 0, recentRunningDate: nil, runningRecords: [])
@@ -86,6 +86,7 @@ extension MyPageViewModel {
             self.graph = data
         }
         
+        // TODO: 서버 정상화 시 주석 해제
 //        getGraphData()
     }
     
@@ -94,7 +95,6 @@ extension MyPageViewModel {
         let distance = Double(graph.total_distance)/1000
         let minute = graph.total_time/60
         let second = graph.total_time%60
-        
         let maxYLength = ceil(distance)
         
         graphDisplay = (
@@ -123,7 +123,7 @@ extension MyPageViewModel {
         case .weekly:
             return ["월","화","수","목","금","토","일"]
         case .monthly:
-            return Array(1...31).map{String($0)}
+            return Array(1...graphDisplay.distanceList.count).map{String($0)}
         case .yearly:
             return Array(1...12).map{String($0)}
         }
