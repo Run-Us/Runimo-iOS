@@ -31,6 +31,7 @@ class MyPageViewModel: ObservableObject {
     @Published var showDateSheet: Bool = false
     @Published var user: MyPage
     @Published var graph: RunningGraph
+    @Published var graphDisplay: (count: Int, distance: String, time: String, maxYLength: Double, distanceList: [Double]) = (0, "", "", 9.0, [])
     
     init() {
         user = MyPage(profileImage: nil, nickname: "", totalDistance: 0, recentRunningDate: nil, runningRecords: [])
@@ -84,6 +85,25 @@ extension MyPageViewModel {
             endDate: getDateString(date: end ?? Date())) { data in
             self.graph = data
         }
+        
+//        getGraphData()
+    }
+    
+    // 통계 (화면 표시용)
+    func getGraphData() {
+        let distance = Double(graph.total_distance)/1000
+        let minute = graph.total_time/60
+        let second = graph.total_time%60
+        
+        let maxYLength = ceil(distance)
+        
+        graphDisplay = (
+            count: graph.total_count,
+            distance: String(format: "%.2fkm", distance),
+            time: "\(minute)m \(second)s",
+            maxYLength: maxYLength,
+            distanceList: graph.distance_list.map{ Double($0)/1000 }
+        )
     }
 }
 

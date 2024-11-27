@@ -29,9 +29,9 @@ struct RecordCard: View {
             }
             
             HStack(spacing: 53) {
-                infoText(title: "러닝", contents: "2")
-                infoText(title: "거리", contents: "7.71km")
-                infoText(title: "시간", contents: "51m 36s")
+                infoText(title: "러닝", contents: "\(myPageVM.graphDisplay.count)")
+                infoText(title: "거리", contents: myPageVM.graphDisplay.distance)
+                infoText(title: "시간", contents: myPageVM.graphDisplay.time)
             }
         }
         .padding(20)
