@@ -11,7 +11,6 @@ struct RunningMapPage: View {
     @EnvironmentObject var mapVM: MapViewModel
     @EnvironmentObject var runVM: RunningViewModel
     @StateObject var motionManager: MotionManager
-    let runningType: RunningType
     @Binding var showStopAlert: Bool
     @Binding var showFinishPage: Bool
     
@@ -58,7 +57,7 @@ struct RunningMapPage: View {
                 }
                 
                 // 하단 러닝 정보
-                switch (runningType) {
+                switch (runVM.runningType) {
                 case .alone: mapTabInfo(width: geometry.size.width/2)
                 case .group: RunningParticipants()
                 }
@@ -108,5 +107,5 @@ struct RunningMapPage: View {
 }
 
 #Preview {
-    RunningMapPage(motionManager: MotionManager(), runningType: .group, showStopAlert: .constant(false), showFinishPage: .constant(false))
+    RunningMapPage(motionManager: MotionManager(), showStopAlert: .constant(false), showFinishPage: .constant(false))
 }

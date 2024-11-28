@@ -7,25 +7,11 @@
 
 import SwiftUI
 
-enum RunningType {
-    case alone
-    case group
-}
-
 struct RunningPage: View {
-    let runningType: RunningType
     @EnvironmentObject var mapVM: MapViewModel
     @EnvironmentObject var runVM: RunningViewModel
     @State private var showFinishPage: Bool = false
     @State private var showStopPopUp: Bool = false
-    
-    var pickerList: [String] {
-        switch (runningType) {
-        case .alone:  return ["개요", "지도"]
-        case .group:  return ["개요", "지도", "그룹원"]
-        }
-    }
-
     
     var body: some View {
         NavigationStack {
@@ -40,7 +26,7 @@ struct RunningPage: View {
                     // picker
                     SegmentedPicker(
                         selectedTab: $runVM.runningTab,
-                        type: pickerList,
+                        type: runVM.runningPickerTexts,
                         width: geometry.size.width
                     )
                     
@@ -55,17 +41,15 @@ struct RunningPage: View {
                         // 지도
                         RunningMapPage(
                             motionManager: mapVM.motionManager,
-                            runningType: runVM.runningType,
                             showStopAlert: $showStopPopUp,
                             showFinishPage: $showFinishPage
                         )
                         .tag(1)
                         
                         // 그룹원
-                        if runningType == .group {
+                        if runVM.runningType == .group {
                             RunningMapPage(
                                 motionManager: mapVM.motionManager,
-                                runningType: runVM.runningType,
                                 showStopAlert: $showStopPopUp,
                                 showFinishPage: $showFinishPage
                             )
@@ -76,7 +60,7 @@ struct RunningPage: View {
                     
                     // custom page dots
                     HStack {
-                        ForEach(pickerList.indices, id: \.self) { index in
+                        ForEach(runVM.runningPickerTexts.indices, id: \.self) { index in
                             Circle()
                                 .frame(width: 8, height: 8)
                                 .foregroundStyle(index == runVM.runningTab ? .primary500 : .primary200)
@@ -96,8 +80,8 @@ struct RunningPage: View {
                 },
                 buttonAction: {
                     // 끝내기
-                    mapVM.stopUpdatingLocation()
-                    WebSocketService.sharedSocket.sendMessageAggregate()
+                    mapVM.stopRunning(runningType: runVM.runningType)
+                    runVM.initRunVM()
                     showFinishPage = true
             })
             .navigationBarBackButtonHidden()
@@ -117,5 +101,5 @@ struct RunningPage: View {
 }
 
 #Preview {
-    RunningPage(runningType: .group, mapVM: .init())
+    RunningPage(mapVM: .init())
 }

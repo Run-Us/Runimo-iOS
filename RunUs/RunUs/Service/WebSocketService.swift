@@ -150,15 +150,6 @@ class WebSocketService: ObservableObject, SwiftStompDelegate {
             longitude: currentUserLocation.coordinate.longitude,
             count: self.count)
         
-        // aggregate에 보낼 dataList 갱신
-        locationList.append(
-            LocationWithCount(
-                latitude: currentUserLocation.coordinate.latitude,
-                longitude: currentUserLocation.coordinate.longitude,
-                count: count
-            )
-        )
-        
         print("\(self.count) : webSockeet || sendMessage || UPDATELOCATION || \(receiptId)|| (\(currentUserLocation.coordinate.latitude), \(currentUserLocation.coordinate.longitude))")
         
         self.swiftStomp?.send(body: runningUpdateInfo, to: "/app/users/runnings/location", receiptId: receiptId, headers: ["content-type": "application/json"])
@@ -181,18 +172,6 @@ class WebSocketService: ObservableObject, SwiftStompDelegate {
         ]
         print("webSockeet || sendMessage || Stop || \(stopInfo)")
         sendMessage(body: stopInfo, destination: "/app/hello")
-    }
-    
-    func sendMessageAggregate() {
-        let receiptId = "msg-\(Int.random(in: 0..<1000))"
-        
-        let aggregateInfo = AggregateInfo(
-            userId: userId!,
-            runningId: self.runningId!,
-            dataList: locationList
-        )
-        print("webSockeet || sendMessage || Aggregate || \(aggregateInfo)")
-        swiftStomp?.send(body: aggregateInfo, to: "/app/users/runnings/aggregate", receiptId: receiptId, headers: ["Content-Type": "application/json"])
     }
     
     func sendMessageResume() {

@@ -10,6 +10,7 @@ import SwiftUI
 struct MyTab: View {
     @StateObject private var myPageVM = MyPageViewModel()
     let userDefaults = UserDefaults.standard
+    @State private var showRecentRunning: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -29,6 +30,17 @@ struct MyTab: View {
                 .padding(.vertical, 24)
                 .padding(.horizontal, 16)
             }
+            
+        }
+        .sheet(isPresented: $myPageVM.showDateSheet) {
+            DateSheet()
+                .presentationDragIndicator(.visible)
+                .presentationDetents([.fraction(0.35), .large])
+        }
+        .onAppear {
+            MyPageService().getMyPage { data in
+                myPageVM.user = data
+            }
         }
     }
     
@@ -36,16 +48,16 @@ struct MyTab: View {
     func userInfo() -> some View {
         HStack(spacing: 24) {
             // 프로필 사진
-            Image("default_user_profile")
+            Image(myPageVM.user.profileImage ?? "default_user_profile")
                 .resizable()
                 .frame(width: 80, height: 80)
             // 닉네임
             VStack(alignment: .leading, spacing: 10) {
-                Text(userDefaults.string(forKey: "nickname") ?? "닉네임")
+                Text(myPageVM.user.nickname)
                     .font(.title4_semibold)
                     .foregroundStyle(.gray900)
-                Text("누적 거리: 12km")
-                Text("최근 러닝: 3일 전")
+                Text("누적 거리: \(myPageVM.getTotalDistance())")
+                Text("최근 러닝: \(myPageVM.lastRunning())")
             }
             .font(.caption_regular)
             .foregroundStyle(.gray500)
@@ -70,18 +82,18 @@ struct MyTab: View {
                     .foregroundStyle(.gray900)
                 Spacer()
                 Button {
-                    
+                    showRecentRunning = true
                 } label: {
-                    Text("전체보기")
+                    Text("더보기")
                         .font(.caption_regular)
                         .foregroundStyle(.gray500)
                 }
+                .navigationDestination(isPresented: $showRecentRunning) {
+                    PostCardList()
+                }
             }
             
-            // 임시 코드
-            PostCard()
-            PostCard()
-            PostCard()
+            // postcard 추가
         }
     }
 }

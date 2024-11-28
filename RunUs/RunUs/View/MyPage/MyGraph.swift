@@ -16,8 +16,8 @@ struct MyGraph: View {
                 // 배경 라인 및 범위
                 background()
                 // 그래프
-                totalGraph()
-                    .frame(width: geometry.size.width-48)
+                totalGraph(geometry.size.height - 36)
+                    .frame(width: geometry.size.width - 48, height: geometry.size.height)
                     .padding(.top, 12)
             }
         }
@@ -26,16 +26,16 @@ struct MyGraph: View {
     @ViewBuilder
     func background() -> some View {
         VStack {
-            xLine(km: 9)
+            xLine(km: myPageVM.graphDisplay.maxYLength)
             Spacer()
-            xLine(km: 4.5)
+            xLine(km: myPageVM.graphDisplay.maxYLength/2)
             Spacer()
             xLine(km: 0)
                 .padding(.bottom, 24)
         }
     }
     
-    // 가로선 
+    // 가로선
     @ViewBuilder
     func xLine(km: Double) -> some View {
         HStack(alignment: .bottom, spacing: 12) {
@@ -51,20 +51,20 @@ struct MyGraph: View {
     }
     
     @ViewBuilder
-    func totalGraph() -> some View {
-        switch (myPageVM.recordType) {
-        case .monthly: monthlyGraph()
-        case .weekly, .yearly: weekYearGraph()
+    func totalGraph(_ height: Double) -> some View {
+        switch myPageVM.recordType {
+        case .monthly: monthlyGraph(height)
+        case .weekly, .yearly: weekYearGraph(height)
         }
     }
     
     // 주간, 연간 그래프
     @ViewBuilder
-    func weekYearGraph() -> some View {
+    func weekYearGraph(_ height: Double) -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
-                ForEach(myPageVM.xData, id: \.self) { item in
-                    weekYearBarGraph(data: item)
+                ForEach(myPageVM.xData.indices, id: \.self) { idx in
+                    weekYearBarGraph(xdata: myPageVM.xData[idx], ydata: myPageVM.graphDisplay.distanceList[idx], height: height)
                 }
             }
         }
@@ -72,12 +72,13 @@ struct MyGraph: View {
     
     // 주간, 연간 막대 바 하나
     @ViewBuilder
-    func weekYearBarGraph(data: String) -> some View {
+    func weekYearBarGraph(xdata: String, ydata: Double, height: Double) -> some View {
         VStack(spacing: 0) {
             RoundedRectangle(cornerRadius: myPageVM.barGraphCornerRadius)
                 .fill(.highlight)
+                .frame(height: (ydata/myPageVM.graphDisplay.maxYLength) * height)
                 .padding(.horizontal, myPageVM.graphSpacing/2)
-            Text(data)
+            Text(xdata)
                 .font(.caption_regular)
                 .foregroundStyle(.gray500)
                 .lineLimit(1)
@@ -87,13 +88,14 @@ struct MyGraph: View {
     
     // 월간 그래프
     @ViewBuilder
-    func monthlyGraph() -> some View {
+    func monthlyGraph(_ height: Double) -> some View {
         VStack(spacing: 0) {
             // 막대 그래프
             HStack(spacing: 0) {
-                ForEach(myPageVM.xData, id: \.self) { item in
+                ForEach(myPageVM.graphDisplay.distanceList, id: \.self) { item in
                     RoundedRectangle(cornerRadius: myPageVM.barGraphCornerRadius)
                         .fill(.highlight)
+                        .frame(height: (item/myPageVM.graphDisplay.maxYLength) * height)
                         .padding(.horizontal, myPageVM.graphSpacing/2)
                 }
             }
