@@ -13,7 +13,7 @@ class ParticipationService: ObservableObject {
     let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] as? String ?? "nil baseUrl")"
     let keychain = KeychainSwift()
     @Published var aggregateParticipants: [AggregateParticipants]? = []
-    @Published var runningId: runningId?
+    @Published var runningId: RunningId?
     
     func enterGroupRun(passCode: String, completion: @escaping (Bool) -> Void) {
         guard let url = URL(string: "/runnings/\(passCode)/sessionId") else {
@@ -34,7 +34,7 @@ class ParticipationService: ObservableObject {
                 return
             }
             do {
-                let decodedResponse = try JSONDecoder().decode(EnterGroupRunResponse.self, from: data)
+                let decodedResponse = try JSONDecoder().decode(BaseResponse<RunningId>.self, from: data)
                 DispatchQueue.main.async {
                     if decodedResponse.success {
                         print("enterGroupRun || Response success: \(decodedResponse.success)")
@@ -71,7 +71,7 @@ class ParticipationService: ObservableObject {
                 return
             }
             do {
-                let decodedResponse = try JSONDecoder().decode(ParticipationResponse.self, from: data)
+                let decodedResponse = try JSONDecoder().decode(BaseResponse<[AggregateParticipants]>.self, from: data)
                 DispatchQueue.main.async {
                     if decodedResponse.success {
                         print("getParticipantList || Response success: \(decodedResponse.success)")

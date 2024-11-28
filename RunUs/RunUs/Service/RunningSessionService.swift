@@ -5,7 +5,6 @@
 //  Created by byeoungjik on 9/30/24.
 //
 
-import Alamofire
 import Foundation
 import KeychainSwift
 import CoreLocation
@@ -17,7 +16,7 @@ class RunningSessionService: ObservableObject {
     @Published var runningSessionInfo: RunningSessionInfo?
 
     func createRunningSession(currentLatitude: Double, currentLongitude: Double, completion: @escaping (Bool, RunningSessionInfo?) -> Void) {
-        let url = URL(string: "\(baseUrl)/runnings")!
+        let url = URL(string: "\(baseUrl)/runnings?mode=normal")!
         let headers = [
             "Content-Type": "application/json"
         ]
@@ -29,9 +28,11 @@ class RunningSessionService: ObservableObject {
         )
         
         var request = URLRequest(url: url)
-        if let accessToken = keychain.get("accessToken") {
-            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        guard let accessToken = keychain.get("accessToken") else {
+            print("Fail get accessToken")
+            return
         }
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         request.allHTTPHeaderFields = headers
         request.httpMethod = "POST"
         
@@ -71,12 +72,6 @@ class RunningSessionService: ObservableObject {
     }
     
 }
-extension Data {
-    mutating func append(_ string: String) {
-        if let data = string.data(using: .utf8) {
-            append(data)
-        }
-    }
-}
+
 
 

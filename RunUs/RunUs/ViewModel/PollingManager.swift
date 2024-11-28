@@ -8,11 +8,13 @@
 import Foundation
 
 class PollingManager: ObservableObject {
+    static let shared = PollingManager(pollingInterval: 2.0)
+    
     let pollingInterval: TimeInterval
     private var pollingTimer: Timer?
     private var pollingAction: (() -> Void)?
 
-    init(pollingInterval: TimeInterval) {
+    private init(pollingInterval: TimeInterval) {
         self.pollingInterval = pollingInterval
     }
 
@@ -21,8 +23,8 @@ class PollingManager: ObservableObject {
         self.pollingTimer = Timer.scheduledTimer(
             withTimeInterval: pollingInterval,
             repeats: true
-        ) { _ in
-            self.pollingAction?()
+        ) { [weak self] _ in
+            self?.pollingAction?()
         }
     }
 
@@ -30,5 +32,6 @@ class PollingManager: ObservableObject {
         pollingTimer?.invalidate()
         pollingTimer = nil
         pollingAction = nil
+        print("stop polling")
     }
 }

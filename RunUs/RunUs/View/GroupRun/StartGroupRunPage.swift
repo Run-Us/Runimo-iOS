@@ -49,6 +49,8 @@ struct StartGroupRunPage: View {
                     // create Group Button
                     Button(action: {
                         createGroup()
+                        //TODO: When API is activate, below code need to remove
+                        showCreateGroupRunPage = true
                     }, label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)

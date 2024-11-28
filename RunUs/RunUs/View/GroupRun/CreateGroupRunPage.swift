@@ -13,13 +13,15 @@ struct CreateGroupRunPage: View {
     @EnvironmentObject var runVM: RunningViewModel
     @ObservedObject var runningSession: RunningSessionService
     @StateObject var participationService = ParticipationService()
-    @ObservedObject private var pollingManager = PollingManager(pollingInterval: 2.0)
     @State var showStartGroupRunAlter = false
+    @State var showStartAloneRunAlter = false
+    @State var showGroupRunCancelAlter = false
     @State var startGroupRun = false
+    @State var totalAggregateNum: Int = 0
     @State var passcode: String
     @State private var isValid: Bool = true
     @State var aggregateParticipants: [AggregateParticipants]?
-    
+    let nickname = UserDefaults.standard.string(forKey: "nickname") ?? "user_name"
     
     var body: some View {
         NavigationView {
@@ -50,7 +52,7 @@ struct CreateGroupRunPage: View {
                                 .stroke(Color.gray300, lineWidth: 1)
                         )
                     })
-                    // 인증번호
+                    // passcode
                     VStack {
                         PasscodeGenerator(passcode: $passcode, isValid: $isValid, passCodeMode: false)
                             .padding(.bottom, 5)
@@ -73,7 +75,12 @@ struct CreateGroupRunPage: View {
                     .padding(.horizontal, 36)
                     Divider()
                     Button(action: {
-                        showStartGroupRunAlter = true
+                        totalAggregateNum = aggregateParticipants?.capacity ?? 0
+                        if totalAggregateNum == 0 {
+                            showStartAloneRunAlter = true
+                        } else {
+                            showStartGroupRunAlter = true
+                        }
                     }, label: {
                         Text("달리기 시작!")
                             .font(.title5_bold)
@@ -93,7 +100,7 @@ struct CreateGroupRunPage: View {
             ToolbarItem(placement: .topBarLeading) {
                 HStack(spacing: 10) {
                     Button(action: {
-                        dismiss()
+                        showGroupRunCancelAlter = true
                     }, label: {
                         Image(systemName: "chevron.left")
                             .resizable()
@@ -108,27 +115,51 @@ struct CreateGroupRunPage: View {
         .popup(
           isPresented: $showStartGroupRunAlter,
           title: "그룹 달리기를 시작할까요?",
-          subtitle: "user_name님을 포함해 총 12명이 모였어요",
+          subtitle: "\(nickname)님을 포함해 총 \(totalAggregateNum)명이 모였어요",
           buttonText: "시작하기",
           buttonColor: .primary400,
           cancelAction: {
               showStartGroupRunAlter = false
           },
           buttonAction: {
-              dismiss()
               startRun()
               startGroupRun = true
           })
+        .popup(
+          isPresented: $showStartAloneRunAlter,
+          title: "혼자서 달리시나요?",
+          subtitle: "아직 입장한 그룹원이 존재하지 않아요.",
+          buttonText: "혼자 달리기",
+          buttonColor: .primary400,
+          cancelAction: {
+
+          },
+          buttonAction: {
+              
+              startGroupRun = true
+          })
+        .popup(
+          isPresented: $showGroupRunCancelAlter,
+          title: "대기방을 삭제하시겠습니까?",
+          subtitle: "\(nickname)님을 포함해 총 \(totalAggregateNum)명이 모였어요",
+          buttonText: "삭제하기",
+          buttonColor: .error,
+          cancelAction: {
+
+          },
+          buttonAction: {
+              dismiss()
+          })
         .onAppear {
-            pollingManager.startPolling {
+            PollingManager.shared.startPolling {
                 self.pollingAction()
             }
         }
         .onDisappear {
-            pollingManager.stopPolling()
+            PollingManager.shared.stopPolling()
         }
         .navigationDestination(isPresented: $startGroupRun, destination:{
-            RunningPage(runningType: runVM.runningType)
+            RunningPage(runningType: .group)
         })
     }
     
@@ -144,7 +175,7 @@ struct CreateGroupRunPage: View {
     func pollingAction() {
         participationService.getParticipantList(runningId: runningSession.runningSessionInfo?.runningId ?? "") { success, data in
             if !success {
-                print("참가자 정보 불러오기 실패")
+                print("Failed to get participant list")
             }
             else {
                 aggregateParticipants = data
