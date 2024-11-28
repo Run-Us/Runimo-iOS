@@ -8,15 +8,12 @@
 import SwiftUI
 
 struct PostCard: View {
+    var runningPost: RunningPost
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            // 유저 정보
-            userInfo()
             // 러닝 정보
             runningInfo()
-            // 러닝 설명
-            runningExplanation(contents: "runningingingingin")
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 20)
@@ -28,35 +25,19 @@ struct PostCard: View {
     }
     
     @ViewBuilder
-    func userInfo() -> some View {
-        HStack(spacing: 24) {
-            Image("default_user_profile")
-                .resizable()
-                .frame(width: 40, height: 40)
-            
-            VStack(alignment: .leading, spacing: 5) {
-                Text("닉네임")
-                    .font(.title5_medium)
-                    .foregroundStyle(.gray900)
-                Text("9월 30일 월요일 오전 2:36")
-                    .font(.caption_regular)
-                    .foregroundStyle(.gray500)
-            }
-            Spacer()
-        }
-    }
-    
-    @ViewBuilder
     func runningInfo() -> some View {
         HStack {
             // 러닝 정보
             VStack(alignment: .leading, spacing: 12) {
-                Text("10k 러닝")
+                Text(runningPost.createdAt)
+                    .font(.body2_semibold)
+                    .foregroundStyle(.gray500)
+                Text(runningPost.title)
                     .font(.title5_bold)
                 HStack(spacing: 20) {
-                    detailInfo(title: "거리", contents: "12.42km")
-                    detailInfo(title: "페이스", contents: "5'55")
-                    detailInfo(title: "시간", contents: "1h 5m")
+                    detailInfo(title: "거리", contents: String(format: "%.2f", runningPost.runningInfo.distance ?? 0))
+                    detailInfo(title: "페이스", contents: runningPost.runningInfo.averagePace ?? "")
+                    detailInfo(title: "시간", contents: runningPost.runningInfo.runningTime ?? "")
                 }
             }
             .foregroundStyle(.gray900)
@@ -78,17 +59,8 @@ struct PostCard: View {
                 .foregroundStyle(.gray900)
         }
     }
-    
-    @ViewBuilder
-    func runningExplanation(contents: String) -> some View {
-        if !contents.isEmpty {
-            Text(contents)
-                .font(.caption_regular)
-                .foregroundStyle(.gray500)
-        }
-    }
 }
 
 #Preview {
-    PostCard()
+    PostCard(runningPost: RunningPost(createdAt: "9월 20일 월요일", title: "10K 러닝", contents: "", runningInfo: RunningInfo()))
 }

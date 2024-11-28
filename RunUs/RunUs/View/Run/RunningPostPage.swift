@@ -28,7 +28,7 @@ struct RunningPostPage: View {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("닉네임")
                                 .font(.title5_medium)
-                            Text("2024년 9월 25일 (목) 오후 4:24")
+                            Text(runningPost.createdAt)
                                 .font(.caption_regular)
                                 .foregroundStyle(.gray500)
                         }
@@ -103,5 +103,5 @@ struct RunningPostPage: View {
 }
 
 #Preview {
-    RunningPostPage(mapVM: .init(), runningPost: RunningPost(title: "모닝런", contents: "휴우우우우우", runningInfo: RunningInfo()))
+    RunningPostPage(mapVM: .init(), runningPost: RunningPost(createdAt: "", title: "모닝런", contents: "휴우우우우우", runningInfo: RunningInfo()))
 }
