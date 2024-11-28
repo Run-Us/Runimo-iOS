@@ -10,6 +10,7 @@ import SwiftUI
 struct PostCardList: View {
     @Environment(\.dismiss) var dismiss
     var postList: [RunningPost] = []
+    private let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
     
     var body: some View {
         NavigationStack {
@@ -59,7 +60,7 @@ struct PostCardList: View {
                 Spacer()
             }
             .foregroundStyle(.gray900)
-            Text("닉네임은최대여덟님은 10월달에 총 22번을 달리셨어요.\n서울에서 부산까지의 거리를 달리셨네요! (250km)")
+            Text("\(nickname)님은 10월달에 총 22번을 달리셨어요.\n서울에서 부산까지의 거리를 달리셨네요! (250km)")
                 .font(.body2_medium)
                 .foregroundStyle(.gray500)
         }
