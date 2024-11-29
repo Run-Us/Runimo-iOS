@@ -17,6 +17,7 @@ struct CreateGroupRunPage: View {
     @State var showStartAloneRunAlter = false
     @State var showGroupRunCancelAlter = false
     @State var startGroupRun = false
+    @State var startRunAlone = false
     @State var totalAggregateNum: Int = 0
     @State var passcode: String
     @State private var isValid: Bool = true
@@ -136,7 +137,7 @@ struct CreateGroupRunPage: View {
           },
           buttonAction: {
               
-              startGroupRun = true
+              startRunAlone = true
           })
         .popup(
           isPresented: $showGroupRunCancelAlter,
@@ -159,6 +160,10 @@ struct CreateGroupRunPage: View {
             PollingManager.shared.stopPolling()
         }
         .navigationDestination(isPresented: $startGroupRun, destination:{
+            //TODO: need to change from .alone to .group
+            RunningPage()
+        })
+        .navigationDestination(isPresented: $startRunAlone, destination: {
             RunningPage()
         })
     }
