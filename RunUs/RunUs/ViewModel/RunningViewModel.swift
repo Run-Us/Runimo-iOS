@@ -13,8 +13,10 @@ enum RunningType: String {
 }
 
 class RunningViewModel: ObservableObject {
-    @Published var selectedRunningTab: Int = 0  // alone or group
+    @Published var selectedRunningTab: Int = 0  // single or group
     @Published var runningTab: Int = 0  // 러닝 진행 중 picker tab
+    private let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
+    @Published var totalAggregateNum: Int = 0
     
     func initRunVM() {
         runningTab = 0
@@ -32,6 +34,33 @@ class RunningViewModel: ObservableObject {
         switch (runningType) {
         case .alone:  return ["개요", "지도"]
         case .group:  return ["개요", "지도", "그룹원"]
+        }
+    }
+    
+    // 혼자달리기로 설정
+    func setRunningModeSingle() {
+        selectedRunningTab = 0
+    }
+    
+    // 그룹달리기로 설정
+    func setRunningModeGroup() {
+        selectedRunningTab = 1
+    }
+    
+    func getStartRunPopUpMessage() -> (title: String, subtitle: String, buttonText: String) {
+        switch runningType {
+        case .alone:
+            return (
+                "혼자서 달리시나요?",
+                "아직 입장한 그룹원이 존재하지 않아요.",
+                "혼자 달리기"
+            )
+        case .group:
+            return (
+                "그룹 달리기를 시작할까요?",
+                "\(nickname)님을 포함해 총 \(totalAggregateNum)명이 모였어요",
+                "시작하기"
+            )
         }
     }
 }

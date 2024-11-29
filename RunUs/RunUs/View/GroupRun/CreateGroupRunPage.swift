@@ -13,12 +13,9 @@ struct CreateGroupRunPage: View {
     @EnvironmentObject var runVM: RunningViewModel
     @ObservedObject var runningSession: RunningSessionService
     @StateObject var participationService = ParticipationService()
-    @State var showStartGroupRunAlter = false
-    @State var showStartAloneRunAlter = false
     @State var showGroupRunCancelAlter = false
-    @State var startGroupRun = false
-    @State var startRunAlone = false
-    @State var totalAggregateNum: Int = 0
+    @State private var showRunAlert = false
+    @State private var startRunning = false
     @State var passcode: String
     @State private var isValid: Bool = true
     @State var aggregateParticipants: [AggregateParticipants]?
@@ -76,12 +73,13 @@ struct CreateGroupRunPage: View {
                     .padding(.horizontal, 36)
                     Divider()
                     Button(action: {
-                        totalAggregateNum = aggregateParticipants?.capacity ?? 0
-                        if totalAggregateNum == 0 {
-                            showStartAloneRunAlter = true
+                        runVM.totalAggregateNum = aggregateParticipants?.capacity ?? 0
+                        if runVM.totalAggregateNum == 0 {
+                            runVM.setRunningModeSingle()
                         } else {
-                            showStartGroupRunAlter = true
+                            runVM.setRunningModeGroup()
                         }
+                        showRunAlert = true
                     }, label: {
                         Text("달리기 시작!")
                             .font(.title5_bold)
@@ -114,35 +112,24 @@ struct CreateGroupRunPage: View {
         }
         .foregroundStyle(.gray900)
         .popup(
-          isPresented: $showStartGroupRunAlter,
-          title: "그룹 달리기를 시작할까요?",
-          subtitle: "\(nickname)님을 포함해 총 \(totalAggregateNum)명이 모였어요",
-          buttonText: "시작하기",
+          isPresented: $showRunAlert,
+          title: runVM.getStartRunPopUpMessage().title,
+          subtitle: runVM.getStartRunPopUpMessage().subtitle,
+          buttonText: runVM.getStartRunPopUpMessage().buttonText,
           buttonColor: .primary400,
           cancelAction: {
-              showStartGroupRunAlter = false
+              showRunAlert = false
           },
           buttonAction: {
-              startRun()
-              startGroupRun = true
-          })
-        .popup(
-          isPresented: $showStartAloneRunAlter,
-          title: "혼자서 달리시나요?",
-          subtitle: "아직 입장한 그룹원이 존재하지 않아요.",
-          buttonText: "혼자 달리기",
-          buttonColor: .primary400,
-          cancelAction: {
-
-          },
-          buttonAction: {
-              
-              startRunAlone = true
+              if runVM.runningType == .group {
+                  startRun()
+              }
+              startRunning = true
           })
         .popup(
           isPresented: $showGroupRunCancelAlter,
           title: "대기방을 삭제하시겠습니까?",
-          subtitle: "\(nickname)님을 포함해 총 \(totalAggregateNum)명이 모였어요",
+          subtitle: "\(nickname)님을 포함해 총 \(runVM.totalAggregateNum)명이 모였어요",
           buttonText: "삭제하기",
           buttonColor: .error,
           cancelAction: {
@@ -159,11 +146,7 @@ struct CreateGroupRunPage: View {
         .onDisappear {
             PollingManager.shared.stopPolling()
         }
-        .navigationDestination(isPresented: $startGroupRun, destination:{
-            //TODO: need to change from .alone to .group
-            RunningPage()
-        })
-        .navigationDestination(isPresented: $startRunAlone, destination: {
+        .navigationDestination(isPresented: $startRunning, destination:{
             RunningPage()
         })
     }
@@ -174,7 +157,7 @@ struct CreateGroupRunPage: View {
             "runningId": runningSession.runningSessionInfo?.runningId ?? ""
         ]
         WebSocketService.sharedSocket.sendMessage(body: startRunningInfo, destination: "/app/runnings/start")
-        startGroupRun = true
+        startRunning = true
     }
     
     func pollingAction() {
