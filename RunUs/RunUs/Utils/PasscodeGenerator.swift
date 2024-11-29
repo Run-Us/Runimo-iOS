@@ -49,21 +49,17 @@ struct PasscodeGenerator: View {
         return paddedCode
     }
     
-    // 입력 처리 및 포커스 이동 로직
     private func handleInput(for index: Int, with newValue: String) {
         guard newValue.count <= 1 else {
-            // 한 글자 이상 입력 시 제한
             textFields[index] = String(newValue.prefix(1))
             return
         }
         if newValue.isEmpty {
-            // 백스페이스 입력으로 지운 경우 이전 필드로 이동
             if index > 0 {
                 focusedField = index - 1
             }
         } else {
             if index < 3 {
-                // 입력 완료 시 다음 필드로 포커스 이동
                 focusedField = index + 1
             }
         }

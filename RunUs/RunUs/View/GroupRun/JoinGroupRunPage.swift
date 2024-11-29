@@ -8,28 +8,33 @@
 import SwiftUI
 
 struct JoinGroupRunPage: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var participationService = ParticipationService()
-    @ObservedObject var RunningSession: RunningSessionService
+    @ObservedObject var runningSession: RunningSessionService
     @State var passcode: String
     @State var isValid: Bool = true
-//    @FocusState private var isTextFieldFocused: Bool
+    @State var showWaitingGroupRunPage: Bool = false
+
     var body: some View {
-        NavigationStack {
+        NavigationView {
             GeometryReader { geometry in
                 ZStack {
                     Color.tone
-                    VStack(spacing: 25) {
-                        PasscodeGenerator(passcode: $passcode, isValid: $isValid, isInitialize: passcode.isEmpty, writeMode: true)
-                            .padding(.top, 100)
-                        
-                        Text("생성된 대기방의 인증코드 4자리를 입력해주세요.")
-                            .font(.body2_medium)
-                            .foregroundStyle(.gray500)
+                    VStack {
+                        VStack {
+                            PasscodeGenerator(passcode: $passcode, isValid: $isValid, isInitialize: passcode.isEmpty, writeMode: true)
+                                .padding(.horizontal, 36)
+                            
+                            Text("생성된 대기방의 인증코드 4자리를 입력해주세요.")
+                                .font(.body2_medium)
+                                .foregroundStyle(.gray500)
+                        }
+                        .padding(.vertical, 72)
                         
                         Spacer()
                         Divider()
                         Button {
-                            print(passcode)
+                            showWaitingGroupRunPage = true
                         } label: {
                             Text("입장하기")
                                 .font(.title5_bold)
@@ -42,24 +47,28 @@ struct JoinGroupRunPage: View {
                         .padding(.vertical)
                         
                     }
-                    .padding(.vertical, 50)
+                    .padding(.vertical, 52)
                 }
                 .ignoresSafeArea()
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        
-                    } label: {
-                        HStack(spacing: 10) {
-                            Image(systemName: "chevron.left")
-                                .resizable()
-                                .frame(width: 8, height: 14)
-                            Text("대기방")
-                                .font(.body1_medium)
-                        }
-                        .foregroundStyle(.gray900)
+        }
+        .navigationDestination(isPresented: $showWaitingGroupRunPage, destination: {
+            WaitGroupRunPage(passcode: passcode, runningSession: runningSession)
+        })
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    HStack(spacing: 10) {
+                        Image(systemName: "chevron.left")
+                            .resizable()
+                            .frame(width: 8, height: 14)
+                        Text("대기방")
+                            .font(.body1_medium)
                     }
+                    .foregroundStyle(.gray900)
                 }
             }
         }
@@ -67,5 +76,5 @@ struct JoinGroupRunPage: View {
 }
 
 #Preview {
-    JoinGroupRunPage(RunningSession: RunningSessionService(), passcode: "0000")
+    JoinGroupRunPage(runningSession: RunningSessionService(), passcode: "0000")
 }

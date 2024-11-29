@@ -66,6 +66,7 @@
 		88D3BF0D2C9F6B35009E4365 /* JoinGroupRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D3BF0C2C9F6B35009E4365 /* JoinGroupRunPage.swift */; };
 		88D3BF212CA95FB4009E4365 /* WebSocketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D3BF202CA95FB4009E4365 /* WebSocketService.swift */; };
 		88D3BF252CA9702E009E4365 /* SwiftStomp in Frameworks */ = {isa = PBXBuildFile; productRef = 88D3BF242CA9702E009E4365 /* SwiftStomp */; };
+		88DDA2A22CFA2B3C00063DB2 /* WaitGroupRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DDA2A12CFA2B2700063DB2 /* WaitGroupRunPage.swift */; };
 		88E556052C8F208F003789B7 /* HomeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E556042C8F208F003789B7 /* HomeTab.swift */; };
 		88E556072C8F20C8003789B7 /* CrewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E556062C8F20C8003789B7 /* CrewTab.swift */; };
 		88E556092C8F20E8003789B7 /* RunningPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E556082C8F20E8003789B7 /* RunningPage.swift */; };
@@ -131,6 +132,7 @@
 		88A882EC2CD3CE510048F09A /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		88D3BF0C2C9F6B35009E4365 /* JoinGroupRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupRunPage.swift; sourceTree = "<group>"; };
 		88D3BF202CA95FB4009E4365 /* WebSocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketService.swift; sourceTree = "<group>"; };
+		88DDA2A12CFA2B2700063DB2 /* WaitGroupRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitGroupRunPage.swift; sourceTree = "<group>"; };
 		88E556042C8F208F003789B7 /* HomeTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTab.swift; sourceTree = "<group>"; };
 		88E556062C8F20C8003789B7 /* CrewTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewTab.swift; sourceTree = "<group>"; };
 		88E556082C8F20E8003789B7 /* RunningPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningPage.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 		888648F32C981F0700B040BA /* GroupRun */ = {
 			isa = PBXGroup;
 			children = (
+				88DDA2A12CFA2B2700063DB2 /* WaitGroupRunPage.swift */,
 				888648F12C981ECC00B040BA /* StartGroupRunPage.swift */,
 				888648F42C981F7800B040BA /* CreateGroupRunPage.swift */,
 				88D3BF0C2C9F6B35009E4365 /* JoinGroupRunPage.swift */,
@@ -484,6 +487,7 @@
 				8889DC022CD62C1300FD0B82 /* PollingManager.swift in Sources */,
 				88D3BF0D2C9F6B35009E4365 /* JoinGroupRunPage.swift in Sources */,
 				888648F22C981ECC00B040BA /* StartGroupRunPage.swift in Sources */,
+				88DDA2A22CFA2B3C00063DB2 /* WaitGroupRunPage.swift in Sources */,
 				233831012CC69B430075E73A /* PopUp.swift in Sources */,
 				233ED1CA2CA93D49001EF0BC /* AuthService.swift in Sources */,
 			);

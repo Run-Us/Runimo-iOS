@@ -73,7 +73,7 @@ struct StartGroupRunPage: View {
             }
         }
         .navigationDestination(isPresented: $showInputJoinCode, destination: {
-            JoinGroupRunPage(RunningSession: runningSession, passcode: "0000")
+            JoinGroupRunPage(runningSession: runningSession, passcode: "0000")
         })
 
     }
