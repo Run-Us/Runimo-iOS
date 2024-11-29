@@ -19,6 +19,9 @@ struct PasscodeGenerator: View {
         HStack {
             ForEach(Array(passcode.enumerated()), id: \.offset) { index, code in
                 createCodeBox(code: code, index: index ,isValid: isValid)
+                    .onChange(of: textFields) { _ in
+                        updatePasscode()
+                    }
             }
         }
     }
@@ -43,10 +46,17 @@ struct PasscodeGenerator: View {
             }
         }
     }
+    
     // 작성한 코드 외 나머지 글자는 0 으로 채워 4자리로 맞추기
     func fillZeroForCode(_ code: String) -> String {
         let paddedCode = code.padding(toLength: 4, withPad: "0", startingAt: 0)
         return paddedCode
+    }
+    
+    // 4자리 passcode를 업데이트
+    private func updatePasscode() {
+        let combined = textFields.joined()
+        passcode = fillZeroForCode(combined)
     }
     
     private func handleInput(for index: Int, with newValue: String) {
