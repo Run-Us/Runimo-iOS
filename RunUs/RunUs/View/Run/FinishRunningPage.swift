@@ -104,7 +104,7 @@ struct FinishRunningPage: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(contents.wrappedValue.count > 0 ? .secondaryGray : .gray300)
+                            .stroke(contents.wrappedValue.count > 0 ? .secondaryGray : .quaternaryGray)
                     )
                 // placeholder
                 if contents.wrappedValue.isEmpty {

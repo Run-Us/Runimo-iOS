@@ -47,7 +47,7 @@ struct CreateGroupRunPage: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.gray300, lineWidth: 1)
+                                .stroke(Color.quaternaryGray, lineWidth: 1)
                         )
                     })
                     // passcode

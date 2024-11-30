@@ -48,7 +48,7 @@ struct PopUp: ViewModifier {
                                 .frame(maxWidth: .infinity)
                                 .background(
                                     RoundedRectangle(cornerRadius: 8)
-                                        .stroke(.gray300, lineWidth: 1)
+                                        .stroke(.quaternaryGray, lineWidth: 1)
                                 )
                         }
                         

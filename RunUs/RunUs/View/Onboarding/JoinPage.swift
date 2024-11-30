@@ -74,7 +74,7 @@ struct JoinPage: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(!nicknameIsValid ? .error :
-                                                nickname.count > 0 ? .secondaryGray : .gray300, lineWidth: 1)
+                                                nickname.count > 0 ? .secondaryGray : .quaternaryGray, lineWidth: 1)
                             )
                             .padding(.vertical, 8)
                         
@@ -124,7 +124,7 @@ struct JoinPage: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .frame(height: 56)
                                 .padding(.horizontal)
-                                .foregroundColor(nickname.isEmpty || gender == "성별을 선택해주세요" || !nicknameIsValid ? .gray300 : .primary400)
+                                .foregroundColor(nickname.isEmpty || gender == "성별을 선택해주세요" || !nicknameIsValid ? .quaternaryGray : .primary400)
                             Text("시작하기")
                                 .font(.title5_bold)
                                 .foregroundColor(.white)
