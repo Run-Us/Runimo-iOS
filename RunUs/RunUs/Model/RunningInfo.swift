@@ -15,24 +15,10 @@ struct RunningInfo: Codable {
     var distance: Double?
 }
 
-struct LocationResponse: Codable {
-    var success: Bool
-    var message: String
-    var code: String
-    var payload: UserLocation?
-}
-
 struct Location: Codable {
     var userKey: String
     var x: Double
     var y: Double
-}
-
-struct LocationUpdateResponse: Codable {
-    var success: Bool
-    var message: String
-    var code: String
-    var payload: Location?
 }
 
 struct RunningUpdateInfo: Codable {

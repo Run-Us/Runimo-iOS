@@ -41,7 +41,7 @@ class AuthService: ObservableObject {
             
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
                 do {
-                    let response = try JSONDecoder().decode(JoinResponse.self, from: data)
+                    let response = try JSONDecoder().decode(BaseResponse<UserToken>.self, from: data)
                     DispatchQueue.main.async {
                         if response.success {
                             if let payload = response.payload {
@@ -76,7 +76,7 @@ class AuthService: ObservableObject {
         
         let dataRequest = AF.request(url, method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers)
         
-        dataRequest.responseDecodable(of: JoinResponse.self) { response in
+        dataRequest.responseDecodable(of: BaseResponse<UserToken>.self) { response in
             switch response.result {
             case .success(let response):
                 if response.code == "UEH4031" {
