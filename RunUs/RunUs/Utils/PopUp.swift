@@ -32,7 +32,7 @@ struct PopUp: ViewModifier {
                         Text(title)
                             .font(.title4_semibold)
                         Text(subtitle)
-                            .foregroundStyle(.gray600)
+                            .foregroundStyle(.tertiaryGray)
                             .font(.body2_medium)
                     }
                     
