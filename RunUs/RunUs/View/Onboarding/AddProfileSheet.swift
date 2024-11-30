@@ -32,7 +32,7 @@ struct AddProfileSheet: View {
                         Image("imageIcon")
                         Text("갤러리에서 추가하기")
                             .font(.body2_medium)
-                            .foregroundColor(.gray700)
+                            .foregroundColor(.secondaryGray)
                     }
                 }
                 .onChange(of: selectedProfile) { _, newValue in

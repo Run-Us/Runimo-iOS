@@ -54,7 +54,7 @@ struct GenderPickerSheet: View {
         }, label: {
             Text(gender)
                 .font(.body2_medium)
-                .foregroundColor(.gray700)
+                .foregroundColor(.secondaryGray)
         })
     }
 }

@@ -60,7 +60,7 @@ struct JoinPage: View {
                     VStack(alignment: .leading) {
                         Text("닉네임")
                             .font(.body1_bold)
-                            .foregroundColor(nicknameIsValid ? .gray700 : .error)
+                            .foregroundColor(nicknameIsValid ? .secondaryGray : .error)
                         
                         TextField("한글, 영어, 숫자만 입력 가능해요", text: $nickname)
                             .onChange(of: nickname) { _,newValue in
@@ -74,7 +74,7 @@ struct JoinPage: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(!nicknameIsValid ? .error :
-                                                nickname.count > 0 ? .gray700 : .gray300, lineWidth: 1)
+                                                nickname.count > 0 ? .secondaryGray : .gray300, lineWidth: 1)
                             )
                             .padding(.vertical, 8)
                         
@@ -91,14 +91,14 @@ struct JoinPage: View {
                     HStack {
                         Text("성별")
                             .font(.body1_bold)
-                            .foregroundColor(.gray700)
+                            .foregroundColor(.secondaryGray)
                         Spacer()
                         Button(action: {
                             showGenderPicker = true
                         }, label: {
                             Text("\(gender)")
                                 .font(.body1_medium)
-                                .foregroundColor(gender == "성별을 선택해주세요" ? .gray500 : .gray700)
+                                .foregroundColor(gender == "성별을 선택해주세요" ? .gray500 : .secondaryGray)
                         })
                         .sheet(isPresented: $showGenderPicker, content: {
                             GenderPickerSheet(gender: $gender, showGenderPicker: $showGenderPicker, genderType: $genderType)
