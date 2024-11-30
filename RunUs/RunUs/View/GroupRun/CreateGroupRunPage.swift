@@ -24,7 +24,7 @@ struct CreateGroupRunPage: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(.tone)
+                Color(.secondaryBG)
                 VStack(alignment: .center) {
                     // goal
                     Text("더 많은 보상 받아보세요!")

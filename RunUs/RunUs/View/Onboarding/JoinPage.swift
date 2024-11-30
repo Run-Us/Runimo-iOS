@@ -26,7 +26,7 @@ struct JoinPage: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(.tone)
+                Color(.secondaryBG)
                     .onTapGesture {
                         if isTextFieldFocused {
                             isTextFieldFocused = false

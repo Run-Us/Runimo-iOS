@@ -18,7 +18,7 @@ struct WaitGroupRunPage: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(.tone)
+                Color(.secondaryBG)
                 VStack {
                     VStack {
                         PasscodeGenerator(passcode: $passcode, isValid: $isValid, writeMode: false)

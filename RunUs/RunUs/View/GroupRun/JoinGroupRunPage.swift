@@ -19,7 +19,7 @@ struct JoinGroupRunPage: View {
         NavigationView {
             GeometryReader { geometry in
                 ZStack {
-                    Color.tone
+                    Color.secondaryBG
                     VStack {
                         VStack {
                             PasscodeGenerator(passcode: $passcode, isValid: $isValid, isInitialize: passcode.isEmpty, writeMode: true)

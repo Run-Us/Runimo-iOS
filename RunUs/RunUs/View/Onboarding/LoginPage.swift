@@ -19,7 +19,7 @@ struct LoginPage: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(.tone)
+                Color(.secondaryBG)
                 VStack(alignment: .center, spacing: 24) {
                     Image("app_logo")
                     TabView(selection: $currentIndex) {
