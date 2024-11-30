@@ -10,7 +10,6 @@ import SwiftUI
 struct StartGroupRunPage: View {
     @Environment(\.dismiss) var dismiss
     @State var showInputJoinCode = false
-    @State var showJoinGroupRunPage = false
     @State var showCreateGroupRunPage = false
     @State var joinCode: String = ""
     @ObservedObject var runningSession: RunningSessionService
@@ -39,7 +38,7 @@ struct StartGroupRunPage: View {
                     Divider()
                     // Join Group Button
                     Button(action: {
-                        showInputJoinCode.toggle()
+                        showInputJoinCode = true
                     }, label: {
                         Text("이미 친구가 방을 만들었나요?")
                             .font(.caption_medium)
@@ -50,6 +49,8 @@ struct StartGroupRunPage: View {
                     // create Group Button
                     Button(action: {
                         createGroup()
+                        //TODO: When API is activate, below code need to remove
+                        showCreateGroupRunPage = true
                     }, label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 8)
@@ -63,7 +64,7 @@ struct StartGroupRunPage: View {
                     .cornerRadius(8)
                     .padding(8)
                     .navigationDestination(isPresented: $showCreateGroupRunPage, destination: {
-                        CreateGroupRunPage(mapVM: mapVM, runningSession: runningSession, passcode: runningSession.latestSessionResponse?.payload.passcode ?? "0000")
+                        CreateGroupRunPage(mapVM: mapVM, runningSession: runningSession, passcode: runningSession.runningSessionInfo?.passcode ?? "0000")
                             .navigationBarBackButtonHidden()
                     })
                     
@@ -71,7 +72,7 @@ struct StartGroupRunPage: View {
                 
             }
         }
-        .navigationDestination(isPresented: $showJoinGroupRunPage, destination: {
+        .navigationDestination(isPresented: $showInputJoinCode, destination: {
             JoinGroupRunPage(RunningSession: runningSession)
         })
 
@@ -80,8 +81,8 @@ struct StartGroupRunPage: View {
     func createGroup() {
         runningSession.createRunningSession(currentLatitude: mapVM.userLocation.coordinate.latitude, currentLongitude: mapVM.userLocation.coordinate.longitude) { success, result in
             if success {
-                UserDefaults.standard.set(result?.payload.runningKey, forKey: "runningId")
-                WebSocketService.sharedSocket.connect(runningId: result?.payload.runningKey)
+                UserDefaults.standard.set(result?.runningId, forKey: "runningId")
+                WebSocketService.sharedSocket.connect(runningId: result?.runningId)
                 showCreateGroupRunPage = true
             } else {
                 print("createRunningSession || error")

@@ -53,7 +53,7 @@
 		883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883764102CBCF6360046EC7B /* GenderPickerSheet.swift */; };
 		883764132CBD277E0046EC7B /* AddProfileSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883764122CBD277E0046EC7B /* AddProfileSheet.swift */; };
 		886684D32CBE769C00BD30E8 /* PasscodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */; };
-		886CA2A72CEDE39100A8E1A8 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886CA2A62CEDE38A00A8E1A8 /* BaseResponse.swift */; };
+		886CA2A52CEC547600A8E1A8 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886CA2A42CEC547600A8E1A8 /* BaseResponse.swift */; };
 		887940EE2CAAFEC80018C035 /* RunningSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887940ED2CAAFEC80018C035 /* RunningSessionService.swift */; };
 		887940F42CAB2AD30018C035 /* JoinPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887940F32CAB2AD30018C035 /* JoinPage.swift */; };
 		887940FE2CAB35DB0018C035 /* ParticipationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887940FD2CAB35DB0018C035 /* ParticipationService.swift */; };
@@ -119,7 +119,7 @@
 		883764102CBCF6360046EC7B /* GenderPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderPickerSheet.swift; sourceTree = "<group>"; };
 		883764122CBD277E0046EC7B /* AddProfileSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProfileSheet.swift; sourceTree = "<group>"; };
 		886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeGenerator.swift; sourceTree = "<group>"; };
-		886CA2A62CEDE38A00A8E1A8 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		886CA2A42CEC547600A8E1A8 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		887940ED2CAAFEC80018C035 /* RunningSessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningSessionService.swift; sourceTree = "<group>"; };
 		887940F32CAB2AD30018C035 /* JoinPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinPage.swift; sourceTree = "<group>"; };
 		887940FD2CAB35DB0018C035 /* ParticipationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationService.swift; sourceTree = "<group>"; };
@@ -197,6 +197,7 @@
 		230314ED2C8991ED00B299D5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				8889DC012CD62C1300FD0B82 /* PollingManager.swift */,
 				230314EE2C89920100B299D5 /* AuthViewModel.swift */,
 				236343132C917B3E00336D67 /* MapViewModel.swift */,
 				2355F66B2C9E9CE700A65108 /* MotionManager.swift */,
@@ -222,12 +223,11 @@
 		233ED1FC2CABA0E7001EF0BC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				886CA2A62CEDE38A00A8E1A8 /* BaseResponse.swift */,
 				233ED1F82CABA0E7001EF0BC /* UserToken.swift */,
-				8889DC012CD62C1300FD0B82 /* PollingManager.swift */,
 				233ED1F92CABA0E7001EF0BC /* AggregateParticipants.swift */,
 				233ED1FA2CABA0E7001EF0BC /* RunningInfo.swift */,
 				233ED1FB2CABA0E7001EF0BC /* RunningSessionInfo.swift */,
+				886CA2A42CEC547600A8E1A8 /* BaseResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -447,7 +447,7 @@
 				2347D9AE2CD34101003776BC /* MyGraph.swift in Sources */,
 				233ED1FD2CABA0E7001EF0BC /* RunningSessionInfo.swift in Sources */,
 				233ED1FE2CABA0E7001EF0BC /* AggregateParticipants.swift in Sources */,
-				886CA2A72CEDE39100A8E1A8 /* BaseResponse.swift in Sources */,
+				886CA2A52CEC547600A8E1A8 /* BaseResponse.swift in Sources */,
 				2347D9AC2CD25927003776BC /* RecordCard.swift in Sources */,
 				233ED1FE2CABA0E7001EF0BC /* AggregateParticipants.swift in Sources */,
 				233ED1FF2CABA0E7001EF0BC /* UserToken.swift in Sources */,
@@ -633,7 +633,6 @@
 				INFOPLIST_KEY_NSMotionUsageDescription = "러닝 현황 기록을 위해 디바이스의 모션 데이터에 접근 권한이 필요합니다. ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -672,7 +671,6 @@
 				INFOPLIST_KEY_NSMotionUsageDescription = "러닝 현황 기록을 위해 디바이스의 모션 데이터에 접근 권한이 필요합니다. ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;

@@ -8,30 +8,23 @@
 import SwiftUI
 
 struct JoinGroupRunPage: View {
-    @State var noticeBar = NoticeBar(noticeContent: .constant("곧 그룹 러닝이 시작됩니다!"))
     @StateObject var participationService = ParticipationService()
     @ObservedObject var RunningSession: RunningSessionService
+    @State var text: String = ""
+    @State var isValid: Bool = true
+    @FocusState private var isTextFieldFocused: Bool
     var body: some View {
-        GeometryReader { geometry in
+        ZStack {
+            Color.tone
             VStack {
-                ZStack {
-                    MapPage(mapVM: .init())
-                    VStack {
-                        noticeBar
-                            .frame(width: geometry.size.width)
-                            .padding(.top, 40)
-                        Spacer()
+                PasscodeGenerator(passcode: $text, isValid: $isValid, isInitialize: text.isEmpty, passCodeMode: true)
+                    .onTapGesture {
+                        print("on tap \(isTextFieldFocused)")
+                        isTextFieldFocused = true
                     }
-                }
-                if let participantsList = participationService.aggregateParticipants{
-                    Text("참가자 목록을 불러오는 중...")
-                        .onAppear {
-                            
-                        }
-                } else {
-                }
             }
         }
+        .ignoresSafeArea()
     }
 }
 

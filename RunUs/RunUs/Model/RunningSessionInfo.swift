@@ -7,14 +7,8 @@
 
 import Foundation
 
-struct RunningSessionResponse: Codable {
-    let success: Bool
-    let message: String
-    let code: String
-    let payload: RunningSessionInfo
-}
 struct RunningSessionInfo: Codable {
-    let runningKey: String
+    let runningId: String
     let passcode: String
 }
 
