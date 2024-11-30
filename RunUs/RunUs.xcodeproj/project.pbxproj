@@ -59,7 +59,6 @@
 		887940FE2CAB35DB0018C035 /* ParticipationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887940FD2CAB35DB0018C035 /* ParticipationService.swift */; };
 		888648F22C981ECC00B040BA /* StartGroupRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648F12C981ECC00B040BA /* StartGroupRunPage.swift */; };
 		888648F52C981F7800B040BA /* CreateGroupRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648F42C981F7800B040BA /* CreateGroupRunPage.swift */; };
-		888648F92C9824A500B040BA /* NoticeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648F82C9824A500B040BA /* NoticeBar.swift */; };
 		8889DC022CD62C1300FD0B82 /* PollingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8889DC012CD62C1300FD0B82 /* PollingManager.swift */; };
 		8889DC042CD66E0A00FD0B82 /* RunningParticipants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8889DC032CD66E0A00FD0B82 /* RunningParticipants.swift */; };
 		88A882ED2CD3CE670048F09A /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A882EC2CD3CE510048F09A /* Participant.swift */; };
@@ -125,7 +124,6 @@
 		887940FD2CAB35DB0018C035 /* ParticipationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationService.swift; sourceTree = "<group>"; };
 		888648F12C981ECC00B040BA /* StartGroupRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGroupRunPage.swift; sourceTree = "<group>"; };
 		888648F42C981F7800B040BA /* CreateGroupRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupRunPage.swift; sourceTree = "<group>"; };
-		888648F82C9824A500B040BA /* NoticeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBar.swift; sourceTree = "<group>"; };
 		8889DC012CD62C1300FD0B82 /* PollingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingManager.swift; sourceTree = "<group>"; };
 		8889DC032CD66E0A00FD0B82 /* RunningParticipants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningParticipants.swift; sourceTree = "<group>"; };
 		88A882EC2CD3CE510048F09A /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
@@ -332,7 +330,6 @@
 			children = (
 				88A882EC2CD3CE510048F09A /* Participant.swift */,
 				237B430D2C8F0193002163B9 /* MapPage.swift */,
-				888648F82C9824A500B040BA /* NoticeBar.swift */,
 				237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */,
 				233831002CC69B430075E73A /* PopUp.swift */,
 				886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */,
@@ -491,7 +488,6 @@
 				2398F4942CB29B11001D922B /* FinishRunningPage.swift in Sources */,
 				237299912CBCF12800D0E7F6 /* SegmentedPicker.swift in Sources */,
 				883764132CBD277E0046EC7B /* AddProfileSheet.swift in Sources */,
-				888648F92C9824A500B040BA /* NoticeBar.swift in Sources */,
 				887940FE2CAB35DB0018C035 /* ParticipationService.swift in Sources */,
 				88E556132C8F5E49003789B7 /* CharacterTab.swift in Sources */,
 				88E5560D2C8F213E003789B7 /* MyTab.swift in Sources */,
