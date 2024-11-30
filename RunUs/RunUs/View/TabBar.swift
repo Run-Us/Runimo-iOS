@@ -54,7 +54,7 @@ struct TabBar: View {
                             } label: {
                                 Image("tab_home")
                                     .renderingMode(.template)
-                                    .foregroundStyle(selectedTab == .home ? .gray900 : .gray400)
+                                    .foregroundStyle(selectedTab == .home ? .primaryGray : .gray400)
                             }
                             
                             Spacer()
@@ -73,7 +73,7 @@ struct TabBar: View {
                             } label: {
                                 Image("tab_user")
                                     .renderingMode(.template)
-                                    .foregroundStyle(selectedTab == .my ? .gray900 : .gray400)
+                                    .foregroundStyle(selectedTab == .my ? .primaryGray : .gray400)
                             }
                             
                             Spacer()

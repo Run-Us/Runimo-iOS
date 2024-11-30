@@ -92,7 +92,7 @@ struct LoginPage: View {
                     .aspectRatio(contentMode: .fit)
                 Text(title)
                     .font(.title4_semibold)
-                    .foregroundColor(.gray900)
+                    .foregroundColor(.primaryGray)
                     .padding(.top, 8)
                 Text(content)
                     .font(.body2_medium)

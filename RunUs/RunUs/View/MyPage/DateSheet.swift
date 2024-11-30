@@ -14,7 +14,7 @@ struct DateSheet: View {
                 .font(.title5_bold)
             
         }
-        .foregroundStyle(.gray900)
+        .foregroundStyle(.primaryGray)
     }
 }
 

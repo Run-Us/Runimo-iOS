@@ -74,7 +74,7 @@ struct RunningPostPage: View {
                     // 구간별 페이스
                     
                 }
-                .foregroundStyle(.gray900)
+                .foregroundStyle(.primaryGray)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 25)
             }
@@ -92,7 +92,7 @@ struct RunningPostPage: View {
                         Text("내 활동")
                             .font(.body1_medium)
                     }
-                    .foregroundStyle(.gray900)
+                    .foregroundStyle(.primaryGray)
                 }
             }
             .navigationDestination(isPresented: $backToTabBar) {

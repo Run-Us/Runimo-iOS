@@ -58,7 +58,7 @@ struct WaitGroupRunPage: View {
                         Text("대기방")
                             .font(.body1_medium)
                     }
-                    .foregroundStyle(.gray900)
+                    .foregroundStyle(.primaryGray)
                 }
             }
         }

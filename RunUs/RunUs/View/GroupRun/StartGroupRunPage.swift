@@ -26,7 +26,7 @@ struct StartGroupRunPage: View {
                     
                     Text("친구와 함께 달려보세요!")
                         .font(.title4_semibold)
-                        .foregroundStyle(.gray900)
+                        .foregroundStyle(.primaryGray)
                         
                     Text("그룹 달리기를 통해 친구와 같이 기록을 저장하세요")
                         .font(.body2_medium)

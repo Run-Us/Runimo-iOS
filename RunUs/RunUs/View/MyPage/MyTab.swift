@@ -55,7 +55,7 @@ struct MyTab: View {
             VStack(alignment: .leading, spacing: 10) {
                 Text(myPageVM.user.nickname)
                     .font(.title4_semibold)
-                    .foregroundStyle(.gray900)
+                    .foregroundStyle(.primaryGray)
                 Text("누적 거리: \(myPageVM.getTotalDistance())")
                 Text("최근 러닝: \(myPageVM.lastRunning())")
             }
@@ -79,7 +79,7 @@ struct MyTab: View {
             HStack {
                 Text("최근 활동")
                     .font(.title5_bold)
-                    .foregroundStyle(.gray900)
+                    .foregroundStyle(.primaryGray)
                 Spacer()
                 Button {
                     showRecentRunning = true

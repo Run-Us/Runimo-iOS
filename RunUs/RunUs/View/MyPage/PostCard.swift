@@ -40,7 +40,7 @@ struct PostCard: View {
                     detailInfo(title: "시간", contents: runningPost.runningInfo.runningTime ?? "")
                 }
             }
-            .foregroundStyle(.gray900)
+            .foregroundStyle(.primaryGray)
             
             Spacer()
             
@@ -56,7 +56,7 @@ struct PostCard: View {
                 .foregroundStyle(.gray500)
             Text(contents)
                 .font(.caption_bold)
-                .foregroundStyle(.gray900)
+                .foregroundStyle(.primaryGray)
         }
     }
 }

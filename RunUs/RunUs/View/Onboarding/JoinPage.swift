@@ -36,7 +36,7 @@ struct JoinPage: View {
                     
                     Text("만나서 반가워요!")
                         .font(.title4_semibold)
-                        .foregroundStyle(.gray900)
+                        .foregroundStyle(.primaryGray)
                         .padding(.top, 64)
                     Text("러너 프로필을 만들어 볼까요?")
                         .font(.body2_medium)
@@ -69,7 +69,7 @@ struct JoinPage: View {
                             .focused($isTextFieldFocused)
                             .autocapitalization(.none)
                             .disableAutocorrection(false)
-                            .foregroundColor(nickname.count > 0 ? .gray900 : .gray500)
+                            .foregroundColor(nickname.count > 0 ? .primaryGray : .gray500)
                             .padding(10)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
@@ -140,10 +140,10 @@ struct JoinPage: View {
             dismiss()
         }) {
             Image(systemName: "chevron.left")
-                .foregroundColor(.gray900)
+                .foregroundColor(.primaryGray)
             Text("프로필 설정")
                 .font(.body1_medium)
-                .foregroundColor(.gray900)
+                .foregroundColor(.primaryGray)
             
         })
         

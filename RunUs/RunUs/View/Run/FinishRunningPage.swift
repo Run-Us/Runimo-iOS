@@ -65,7 +65,7 @@ struct FinishRunningPage: View {
                         Text("활동 저장하기")
                             .font(.body1_medium)
                     }
-                    .foregroundStyle(.gray900)
+                    .foregroundStyle(.primaryGray)
                 }
             }
             .popup(
@@ -100,7 +100,7 @@ struct FinishRunningPage: View {
                     .font(.body2_medium)
                     .padding(8)
                     .frame(height: title == "제목" ? 47 : 110)
-                    .foregroundColor(.gray900)
+                    .foregroundColor(.primaryGray)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)

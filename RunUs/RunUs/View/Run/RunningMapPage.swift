@@ -76,14 +76,14 @@ struct RunningMapPage: View {
                 VStack(spacing: 10) {
                     Text(motionManager.runningInfo.runningTime ?? "00:00")
                         .font(.title3_bold)
-                        .foregroundStyle(.gray900)
+                        .foregroundStyle(.primaryGray)
                     Text("시간")
                 }
                 Spacer()
                 VStack(spacing: 10) {
                     Text(motionManager.runningInfo.averagePace ?? "-’--”")
                         .font(.title3_bold)
-                        .foregroundStyle(.gray900)
+                        .foregroundStyle(.primaryGray)
                     Text("평균 페이스")
                 }
                 Spacer()
@@ -92,11 +92,11 @@ struct RunningMapPage: View {
                 if let distance = motionManager.runningInfo.distance {
                     Text("\(distance, specifier: "%.2f")km")
                         .font(.title2_bold)
-                        .foregroundStyle(.gray900)
+                        .foregroundStyle(.primaryGray)
                 } else {
                     Text("0.00")
                         .font(.title2_bold)
-                        .foregroundStyle(.gray900)
+                        .foregroundStyle(.primaryGray)
                 }
                 Text("거리 (km)")
             }

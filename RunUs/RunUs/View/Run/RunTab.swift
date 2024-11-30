@@ -44,7 +44,7 @@ struct RunTab: View {
                                 Text("달리기")
                                     .font(.body1_medium)
                             }
-                            .foregroundStyle(.gray900)
+                            .foregroundStyle(.primaryGray)
                         }
                     }
                 }

@@ -16,7 +16,7 @@ struct RecordCard: View {
                 // 기간
                 Text(myPageVM.periodText)
                     .font(.body2_semibold)
-                    .foregroundStyle(.gray900)
+                    .foregroundStyle(.primaryGray)
                 Spacer()
                 Button {
                     myPageVM.showDateSheet = true
@@ -50,7 +50,7 @@ struct RecordCard: View {
                 .foregroundStyle(.gray500)
             Text(contents)
                 .font(.title5_bold)
-                .foregroundStyle(.gray900)
+                .foregroundStyle(.primaryGray)
         }
     }
 }

@@ -29,7 +29,7 @@ struct CreateGroupRunPage: View {
                     // goal
                     Text("더 많은 보상 받아보세요!")
                         .font(.title4_semibold)
-                        .foregroundStyle(.gray900)
+                        .foregroundStyle(.primaryGray)
                         .padding(.top, 80)
                     
                     Button(action: {
@@ -40,7 +40,7 @@ struct CreateGroupRunPage: View {
                                 .frame(width: 24, height: 24)
                             Text("목표 추가하기")
                                 .font(.title5_bold)
-                                .foregroundStyle(.gray900)
+                                .foregroundStyle(.primaryGray)
                         }
                         .padding(EdgeInsets(top: 16, leading: 18, bottom: 16, trailing: 18))
                         .background(.white)
@@ -110,7 +110,7 @@ struct CreateGroupRunPage: View {
                 }
             }
         }
-        .foregroundStyle(.gray900)
+        .foregroundStyle(.primaryGray)
         .popup(
           isPresented: $showRunAlert,
           title: runVM.getStartRunPopUpMessage().title,

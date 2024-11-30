@@ -67,7 +67,7 @@ struct PopUp: ViewModifier {
                     }
                     .font(.body1_bold)
                 }
-                .foregroundStyle(.gray900)
+                .foregroundStyle(.primaryGray)
                 .padding()
                 .background(.white)
                 .cornerRadius(12)
