@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Participant: View {
-    let nikName: String
+    let nickname: String
     let profileImage: String?
     var level: Int = 1
     var totalDistance: Int?
@@ -25,7 +25,7 @@ struct Participant: View {
                 
                 //닉네임 및 러닝 정보
                 VStack(alignment: .leading) {
-                    Text(nikName)
+                    Text(nickname)
                         .foregroundStyle(.primaryGray)
                         .font(.title5_medium)
                     if totalDistance != nil {
@@ -71,5 +71,5 @@ struct Participant: View {
 }
 
 #Preview {
-    Participant(nikName: "최강 성훈", profileImage: "", level: 1, totalDistance: 12)
+    Participant(nickname: "최강 성훈", profileImage: "", level: 1, totalDistance: 12)
 }

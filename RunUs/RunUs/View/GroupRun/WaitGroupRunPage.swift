@@ -32,7 +32,7 @@ struct WaitGroupRunPage: View {
                     List {
                         if let participants = aggregateParticipants {
                             ForEach(participants.indices, id: \.self) { index in
-                                Participant(nikName: participants[index].name, profileImage: participants[index].imgUrl, totalDistance: participants[index].totalDistanceInMeters)
+                                Participant(nickname: participants[index].name, profileImage: participants[index].imgUrl, totalDistance: participants[index].totalDistanceInMeters)
                             }
                             .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)

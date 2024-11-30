@@ -59,7 +59,6 @@
 		887940FE2CAB35DB0018C035 /* ParticipationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887940FD2CAB35DB0018C035 /* ParticipationService.swift */; };
 		888648F22C981ECC00B040BA /* StartGroupRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648F12C981ECC00B040BA /* StartGroupRunPage.swift */; };
 		888648F52C981F7800B040BA /* CreateGroupRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648F42C981F7800B040BA /* CreateGroupRunPage.swift */; };
-		888648F92C9824A500B040BA /* NoticeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648F82C9824A500B040BA /* NoticeBar.swift */; };
 		8889DC022CD62C1300FD0B82 /* PollingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8889DC012CD62C1300FD0B82 /* PollingManager.swift */; };
 		8889DC042CD66E0A00FD0B82 /* RunningParticipants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8889DC032CD66E0A00FD0B82 /* RunningParticipants.swift */; };
 		88A882ED2CD3CE670048F09A /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A882EC2CD3CE510048F09A /* Participant.swift */; };
@@ -68,7 +67,6 @@
 		88D3BF252CA9702E009E4365 /* SwiftStomp in Frameworks */ = {isa = PBXBuildFile; productRef = 88D3BF242CA9702E009E4365 /* SwiftStomp */; };
 		88DDA2A22CFA2B3C00063DB2 /* WaitGroupRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DDA2A12CFA2B2700063DB2 /* WaitGroupRunPage.swift */; };
 		88E556052C8F208F003789B7 /* HomeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E556042C8F208F003789B7 /* HomeTab.swift */; };
-		88E556072C8F20C8003789B7 /* CrewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E556062C8F20C8003789B7 /* CrewTab.swift */; };
 		88E556092C8F20E8003789B7 /* RunningPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E556082C8F20E8003789B7 /* RunningPage.swift */; };
 		88E5560D2C8F213E003789B7 /* MyTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E5560C2C8F213E003789B7 /* MyTab.swift */; };
 		88E556112C8F5CCC003789B7 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E556102C8F5CCC003789B7 /* TabBar.swift */; };
@@ -126,7 +124,6 @@
 		887940FD2CAB35DB0018C035 /* ParticipationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationService.swift; sourceTree = "<group>"; };
 		888648F12C981ECC00B040BA /* StartGroupRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGroupRunPage.swift; sourceTree = "<group>"; };
 		888648F42C981F7800B040BA /* CreateGroupRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupRunPage.swift; sourceTree = "<group>"; };
-		888648F82C9824A500B040BA /* NoticeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBar.swift; sourceTree = "<group>"; };
 		8889DC012CD62C1300FD0B82 /* PollingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingManager.swift; sourceTree = "<group>"; };
 		8889DC032CD66E0A00FD0B82 /* RunningParticipants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningParticipants.swift; sourceTree = "<group>"; };
 		88A882EC2CD3CE510048F09A /* Participant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
@@ -134,7 +131,6 @@
 		88D3BF202CA95FB4009E4365 /* WebSocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketService.swift; sourceTree = "<group>"; };
 		88DDA2A12CFA2B2700063DB2 /* WaitGroupRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitGroupRunPage.swift; sourceTree = "<group>"; };
 		88E556042C8F208F003789B7 /* HomeTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTab.swift; sourceTree = "<group>"; };
-		88E556062C8F20C8003789B7 /* CrewTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewTab.swift; sourceTree = "<group>"; };
 		88E556082C8F20E8003789B7 /* RunningPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningPage.swift; sourceTree = "<group>"; };
 		88E5560C2C8F213E003789B7 /* MyTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTab.swift; sourceTree = "<group>"; };
 		88E556102C8F5CCC003789B7 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
@@ -184,14 +180,13 @@
 		230314E72C88A43300B299D5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				230C605A2CFB70420060CCF7 /* Character */,
+				230C60592CFB70350060CCF7 /* Home */,
 				23B708DD2C99523E006E9547 /* Onboarding */,
 				23B708DC2C995136006E9547 /* Run */,
 				888648F32C981F0700B040BA /* GroupRun */,
 				2347D9AA2CD2578C003776BC /* MyPage */,
-				88E556042C8F208F003789B7 /* HomeTab.swift */,
-				88E556062C8F20C8003789B7 /* CrewTab.swift */,
 				88E556102C8F5CCC003789B7 /* TabBar.swift */,
-				88E556122C8F5E49003789B7 /* CharacterTab.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -208,6 +203,22 @@
 				23F056B52CDA880800EC3A40 /* RunningViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		230C60592CFB70350060CCF7 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				88E556042C8F208F003789B7 /* HomeTab.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		230C605A2CFB70420060CCF7 /* Character */ = {
+			isa = PBXGroup;
+			children = (
+				88E556122C8F5E49003789B7 /* CharacterTab.swift */,
+			);
+			path = Character;
 			sourceTree = "<group>";
 		};
 		233ED1C82CA93D38001EF0BC /* Service */ = {
@@ -319,7 +330,6 @@
 			children = (
 				88A882EC2CD3CE510048F09A /* Participant.swift */,
 				237B430D2C8F0193002163B9 /* MapPage.swift */,
-				888648F82C9824A500B040BA /* NoticeBar.swift */,
 				237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */,
 				233831002CC69B430075E73A /* PopUp.swift */,
 				886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */,
@@ -478,8 +488,6 @@
 				2398F4942CB29B11001D922B /* FinishRunningPage.swift in Sources */,
 				237299912CBCF12800D0E7F6 /* SegmentedPicker.swift in Sources */,
 				883764132CBD277E0046EC7B /* AddProfileSheet.swift in Sources */,
-				88E556072C8F20C8003789B7 /* CrewTab.swift in Sources */,
-				888648F92C9824A500B040BA /* NoticeBar.swift in Sources */,
 				887940FE2CAB35DB0018C035 /* ParticipationService.swift in Sources */,
 				88E556132C8F5E49003789B7 /* CharacterTab.swift in Sources */,
 				88E5560D2C8F213E003789B7 /* MyTab.swift in Sources */,

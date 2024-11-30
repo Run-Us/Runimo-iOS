@@ -7,13 +7,6 @@
 
 import Foundation
 
-struct JoinResponse: Codable {
-    let message: String
-    let success: Bool
-    let code: String
-    let payload: UserToken?
-}
-
 struct UserToken: Codable {
     let access_token: String
     let refresh_token: String

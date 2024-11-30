@@ -120,7 +120,7 @@ class WebSocketService: ObservableObject, SwiftStompDelegate {
         }
         
         do {
-            let decodedMessage = try JSONDecoder().decode(LocationUpdateResponse.self, from: jsonData)
+            let decodedMessage = try JSONDecoder().decode(BaseResponse<Location>.self, from: jsonData)
             messages.append("\(decodedMessage.code) [id: \(messageId), at: \(destination)]: \(decodedMessage.message)")
             print("Message received at \(destination): \(decodedMessage.message)")
         } catch {
