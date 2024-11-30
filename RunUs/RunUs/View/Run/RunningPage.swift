@@ -17,7 +17,7 @@ struct RunningPage: View {
         NavigationStack {
             GeometryReader { geometry in
                 ZStack {
-                    Color.primaryBG
+                    Color.secondaryBG
                         .ignoresSafeArea()
                     VStack(spacing: 0) {
                         ProgressBar(progress: $mapVM.motionManager.runningInfo.distance)
@@ -59,7 +59,7 @@ struct RunningPage: View {
                                 .tag(2)
                             }
                         }
-                        .tabViewStyle(PageTabViewStyle())
+                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                         
                         // custom page dots
                         HStack {

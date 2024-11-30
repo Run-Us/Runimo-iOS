@@ -26,7 +26,7 @@ struct JoinPage: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(.secondaryBG)
+                Color(.primaryBG)
                     .onTapGesture {
                         if isTextFieldFocused {
                             isTextFieldFocused = false
@@ -124,10 +124,10 @@ struct JoinPage: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .frame(height: 56)
                                 .padding(.horizontal)
-                                .foregroundColor(nickname.isEmpty || gender == "성별을 선택해주세요" || !nicknameIsValid ? .quaternaryGray : .primary400)
+                                .foregroundColor(nickname.isEmpty || gender == "성별을 선택해주세요" || !nicknameIsValid ? .secondaryFill : .primary400)
                             Text("시작하기")
                                 .font(.title5_bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(nickname.isEmpty || gender == "성별을 선택해주세요" || !nicknameIsValid ? .primaryFill : .white)
                         }
                     })
                     .disabled(nickname.count <= 2 || gender == "성별을 선택해주세요" || !nicknameIsValid)
@@ -146,8 +146,6 @@ struct JoinPage: View {
                 .foregroundColor(.primaryGray)
             
         })
-        
-        
     }
     
     var profileImage: some View {
