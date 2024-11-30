@@ -24,12 +24,12 @@ struct CreateGroupRunPage: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(.tone)
+                Color(.secondaryBG)
                 VStack(alignment: .center) {
                     // goal
                     Text("더 많은 보상 받아보세요!")
                         .font(.title4_semibold)
-                        .foregroundStyle(.gray900)
+                        .foregroundStyle(.primaryGray)
                         .padding(.top, 80)
                     
                     Button(action: {
@@ -40,14 +40,14 @@ struct CreateGroupRunPage: View {
                                 .frame(width: 24, height: 24)
                             Text("목표 추가하기")
                                 .font(.title5_bold)
-                                .foregroundStyle(.gray900)
+                                .foregroundStyle(.primaryGray)
                         }
                         .padding(EdgeInsets(top: 16, leading: 18, bottom: 16, trailing: 18))
                         .background(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.gray300, lineWidth: 1)
+                                .stroke(Color.quaternaryGray, lineWidth: 1)
                         )
                     })
                     // passcode
@@ -56,7 +56,7 @@ struct CreateGroupRunPage: View {
                             .padding(.bottom, 5)
                         Text("러너에게 인증코드 4자리를 보여주세요")
                             .font(.body2_medium)
-                            .foregroundStyle(.gray500)
+                            .foregroundStyle(.quaternaryGray)
                     }
                     .padding(72)
                     
@@ -110,7 +110,7 @@ struct CreateGroupRunPage: View {
                 }
             }
         }
-        .foregroundStyle(.gray900)
+        .foregroundStyle(.primaryGray)
         .popup(
           isPresented: $showRunAlert,
           title: runVM.getStartRunPopUpMessage().title,

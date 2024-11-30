@@ -26,7 +26,7 @@ struct JoinPage: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(.tone)
+                Color(.primaryBG)
                     .onTapGesture {
                         if isTextFieldFocused {
                             isTextFieldFocused = false
@@ -36,11 +36,11 @@ struct JoinPage: View {
                     
                     Text("만나서 반가워요!")
                         .font(.title4_semibold)
-                        .foregroundStyle(.gray900)
+                        .foregroundStyle(.primaryGray)
                         .padding(.top, 64)
                     Text("러너 프로필을 만들어 볼까요?")
                         .font(.body2_medium)
-                        .foregroundColor(.gray500)
+                        .foregroundColor(.quaternaryGray)
                         .padding(8)
                     
                     Button(action: {
@@ -60,7 +60,7 @@ struct JoinPage: View {
                     VStack(alignment: .leading) {
                         Text("닉네임")
                             .font(.body1_bold)
-                            .foregroundColor(nicknameIsValid ? .gray700 : .error)
+                            .foregroundColor(nicknameIsValid ? .secondaryGray : .error)
                         
                         TextField("한글, 영어, 숫자만 입력 가능해요", text: $nickname)
                             .onChange(of: nickname) { _,newValue in
@@ -69,12 +69,12 @@ struct JoinPage: View {
                             .focused($isTextFieldFocused)
                             .autocapitalization(.none)
                             .disableAutocorrection(false)
-                            .foregroundColor(nickname.count > 0 ? .gray900 : .gray500)
+                            .foregroundColor(nickname.count > 0 ? .primaryGray : .quaternaryGray)
                             .padding(10)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(!nicknameIsValid ? .error :
-                                                nickname.count > 0 ? .gray700 : .gray300, lineWidth: 1)
+                                                nickname.count > 0 ? .secondaryGray : .quaternaryGray, lineWidth: 1)
                             )
                             .padding(.vertical, 8)
                         
@@ -91,14 +91,14 @@ struct JoinPage: View {
                     HStack {
                         Text("성별")
                             .font(.body1_bold)
-                            .foregroundColor(.gray700)
+                            .foregroundColor(.secondaryGray)
                         Spacer()
                         Button(action: {
                             showGenderPicker = true
                         }, label: {
                             Text("\(gender)")
                                 .font(.body1_medium)
-                                .foregroundColor(gender == "성별을 선택해주세요" ? .gray500 : .gray700)
+                                .foregroundColor(gender == "성별을 선택해주세요" ? .quaternaryGray : .secondaryGray)
                         })
                         .sheet(isPresented: $showGenderPicker, content: {
                             GenderPickerSheet(gender: $gender, showGenderPicker: $showGenderPicker, genderType: $genderType)
@@ -110,7 +110,7 @@ struct JoinPage: View {
                     Spacer()
                     
                     Divider()
-                        .foregroundStyle(.gray200)
+                        .foregroundStyle(.secondaryFill)
                         .padding(.vertical)
                     Button(action: {
                         joinService.signup(nickName: nickname, provider: "KAKAO", gender: genderType.rawValue) { result in
@@ -124,10 +124,10 @@ struct JoinPage: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .frame(height: 56)
                                 .padding(.horizontal)
-                                .foregroundColor(nickname.isEmpty || gender == "성별을 선택해주세요" || !nicknameIsValid ? .gray300 : .primary400)
+                                .foregroundColor(nickname.isEmpty || gender == "성별을 선택해주세요" || !nicknameIsValid ? .secondaryFill : .primary400)
                             Text("시작하기")
                                 .font(.title5_bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(nickname.isEmpty || gender == "성별을 선택해주세요" || !nicknameIsValid ? .primaryFill : .white)
                         }
                     })
                     .disabled(nickname.count <= 2 || gender == "성별을 선택해주세요" || !nicknameIsValid)
@@ -140,14 +140,12 @@ struct JoinPage: View {
             dismiss()
         }) {
             Image(systemName: "chevron.left")
-                .foregroundColor(.gray900)
+                .foregroundColor(.primaryGray)
             Text("프로필 설정")
                 .font(.body1_medium)
-                .foregroundColor(.gray900)
+                .foregroundColor(.primaryGray)
             
         })
-        
-        
     }
     
     var profileImage: some View {

@@ -16,7 +16,7 @@ struct RecordCard: View {
                 // 기간
                 Text(myPageVM.periodText)
                     .font(.body2_semibold)
-                    .foregroundStyle(.gray900)
+                    .foregroundStyle(.primaryGray)
                 Spacer()
                 Button {
                     myPageVM.showDateSheet = true
@@ -24,7 +24,7 @@ struct RecordCard: View {
                     Image(systemName: "chevron.down")
                         .resizable()
                         .frame(width: 14, height: 8)
-                        .foregroundStyle(.gray500)
+                        .foregroundStyle(.quaternaryGray)
                 }
             }
             
@@ -37,8 +37,8 @@ struct RecordCard: View {
         .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 24)
-                .fill(.tone)
-                .stroke(.gray200, lineWidth: 1)
+                .fill(.primaryFill)
+                .stroke(.secondaryFill, lineWidth: 1)
         )
     }
     
@@ -47,10 +47,10 @@ struct RecordCard: View {
         VStack(alignment: .leading, spacing: 7) {
             Text(title)
                 .font(.caption_regular)
-                .foregroundStyle(.gray500)
+                .foregroundStyle(.quaternaryGray)
             Text(contents)
                 .font(.title5_bold)
-                .foregroundStyle(.gray900)
+                .foregroundStyle(.primaryGray)
         }
     }
 }

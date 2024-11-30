@@ -26,11 +26,11 @@ struct Participant: View {
                 //닉네임 및 러닝 정보
                 VStack(alignment: .leading) {
                     Text(nikName)
-                        .foregroundStyle(.gray900)
+                        .foregroundStyle(.primaryGray)
                         .font(.title5_medium)
                     if totalDistance != nil {
                         Text("Lv\(level) • \(totalDistance ?? 0)km")
-                            .foregroundStyle(.gray500)
+                            .foregroundStyle(.quaternaryGray)
                             .font(.caption_regular)
                     }
                 }
@@ -41,10 +41,10 @@ struct Participant: View {
                 if averagePace != nil {
                     VStack {
                         Text("\(averagePace ?? 0)")
-                            .foregroundStyle(.gray900)
+                            .foregroundStyle(.primaryGray)
                             .font(.title5_medium)
                         Text("평균 페이스")
-                            .foregroundStyle(.gray500)
+                            .foregroundStyle(.quaternaryGray)
                             .font(.caption_regular)
                     }
                     .padding(.trailing, 20)

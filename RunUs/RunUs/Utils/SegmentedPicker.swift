@@ -22,7 +22,7 @@ struct SegmentedPicker: View {
                         Text(type[index])
                             .frame(maxWidth: .infinity)
                             .font(.body1_medium)
-                            .foregroundStyle(selectedTab == index ? .gray900 : .gray400)
+                            .foregroundStyle(selectedTab == index ? .primaryGray : .gray400)
                             .padding(EdgeInsets(top: 15, leading: 0, bottom: 13, trailing: 0))
                     }
                     .buttonStyle(.plain)

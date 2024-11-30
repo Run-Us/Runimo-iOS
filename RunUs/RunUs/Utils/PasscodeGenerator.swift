@@ -34,7 +34,7 @@ struct PasscodeGenerator: View {
                     .focused($focusedField, equals: index)
                     .multilineTextAlignment(.center)
                     .font(.title2_bold)
-                    .foregroundStyle(!isValid || isInitialize ? .gray300 : .primary400)
+                    .foregroundStyle(!isValid || isInitialize ? .quaternaryGray : .primary400)
                     .onChange(of: textFields[index]) { newValue in
                         handleInput(for: index, with: newValue)
                     }
@@ -42,7 +42,7 @@ struct PasscodeGenerator: View {
             } else {
                 Text(String(!isValid || isInitialize ? "0" : code))
                     .font(.title2_bold)
-                    .foregroundStyle(!isValid || isInitialize ? .gray300 : .primary400)
+                    .foregroundStyle(!isValid || isInitialize ? .quaternaryGray : .primary400)
             }
         }
     }

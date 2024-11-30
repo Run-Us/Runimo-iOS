@@ -55,12 +55,12 @@ struct MyTab: View {
             VStack(alignment: .leading, spacing: 10) {
                 Text(myPageVM.user.nickname)
                     .font(.title4_semibold)
-                    .foregroundStyle(.gray900)
+                    .foregroundStyle(.primaryGray)
                 Text("누적 거리: \(myPageVM.getTotalDistance())")
                 Text("최근 러닝: \(myPageVM.lastRunning())")
             }
             .font(.caption_regular)
-            .foregroundStyle(.gray500)
+            .foregroundStyle(.quaternaryGray)
             
             Spacer()
             
@@ -79,14 +79,14 @@ struct MyTab: View {
             HStack {
                 Text("최근 활동")
                     .font(.title5_bold)
-                    .foregroundStyle(.gray900)
+                    .foregroundStyle(.primaryGray)
                 Spacer()
                 Button {
                     showRecentRunning = true
                 } label: {
                     Text("더보기")
                         .font(.caption_regular)
-                        .foregroundStyle(.gray500)
+                        .foregroundStyle(.quaternaryGray)
                 }
                 .navigationDestination(isPresented: $showRecentRunning) {
                     PostCardList()

@@ -19,7 +19,7 @@ struct LoginPage: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(.tone)
+                Color(.secondaryBG)
                 VStack(alignment: .center, spacing: 24) {
                     Image("app_logo")
                     TabView(selection: $currentIndex) {
@@ -92,11 +92,11 @@ struct LoginPage: View {
                     .aspectRatio(contentMode: .fit)
                 Text(title)
                     .font(.title4_semibold)
-                    .foregroundColor(.gray900)
+                    .foregroundColor(.primaryGray)
                     .padding(.top, 8)
                 Text(content)
                     .font(.body2_medium)
-                    .foregroundColor(.gray500)
+                    .foregroundColor(.quaternaryGray)
             }
             .padding()
         }

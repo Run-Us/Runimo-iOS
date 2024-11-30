@@ -14,19 +14,23 @@ struct PostCardList: View {
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading) {
-                Divider()
-                header()
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 24)
-                
-                ScrollView {
-                    ForEach(postList) { post in
-                        PostCard(runningPost: post)
-                            .padding(.bottom, 14)
+            ZStack {
+                Color.primaryBG
+                    .ignoresSafeArea()
+                VStack(alignment: .leading) {
+                    Divider()
+                    header()
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 24)
+                    
+                    ScrollView {
+                        ForEach(postList) { post in
+                            PostCard(runningPost: post)
+                                .padding(.bottom, 14)
+                        }
                     }
+                    .padding(.horizontal, 16)
                 }
-                .padding(.horizontal, 16)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -41,7 +45,7 @@ struct PostCardList: View {
                         Text("모든 활동")
                             .font(.body1_medium)
                     }
-                    .foregroundStyle(.gray900)
+                    .foregroundStyle(.primaryGray)
                 }
             }
         }
@@ -59,10 +63,10 @@ struct PostCardList: View {
                 }
                 Spacer()
             }
-            .foregroundStyle(.gray900)
+            .foregroundStyle(.primaryGray)
             Text("\(nickname)님은 10월달에 총 22번을 달리셨어요.\n서울에서 부산까지의 거리를 달리셨네요! (250km)")
                 .font(.body2_medium)
-                .foregroundStyle(.gray500)
+                .foregroundStyle(.quaternaryGray)
         }
     }
 }

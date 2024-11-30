@@ -23,7 +23,7 @@ struct PopUp: ViewModifier {
             
             if isPresented {
                 // 배경 어둡게
-                Color.gray700.opacity(0.7)
+                Color.secondaryGray.opacity(0.7)
                     .ignoresSafeArea()
                 
                 VStack(spacing: 25) {
@@ -32,7 +32,7 @@ struct PopUp: ViewModifier {
                         Text(title)
                             .font(.title4_semibold)
                         Text(subtitle)
-                            .foregroundStyle(.gray600)
+                            .foregroundStyle(.tertiaryGray)
                             .font(.body2_medium)
                     }
                     
@@ -48,7 +48,7 @@ struct PopUp: ViewModifier {
                                 .frame(maxWidth: .infinity)
                                 .background(
                                     RoundedRectangle(cornerRadius: 8)
-                                        .stroke(.gray300, lineWidth: 1)
+                                        .stroke(.quaternaryGray, lineWidth: 1)
                                 )
                         }
                         
@@ -67,9 +67,9 @@ struct PopUp: ViewModifier {
                     }
                     .font(.body1_bold)
                 }
-                .foregroundStyle(.gray900)
+                .foregroundStyle(.primaryGray)
                 .padding()
-                .background(.white)
+                .background(.primaryBG)
                 .cornerRadius(12)
                 .padding(.horizontal, 15)
             }

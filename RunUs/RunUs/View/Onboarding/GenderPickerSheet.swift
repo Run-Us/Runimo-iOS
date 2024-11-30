@@ -25,7 +25,7 @@ struct GenderPickerSheet: View {
             VStack(alignment: .leading, spacing: 32) {
                 Text("성별 선택")
                     .font(.title5_bold)
-                    .foregroundColor(.gray900)
+                    .foregroundColor(.primaryGray)
                 selectGenderButton(gender: "남성", .male)
                 
                 selectGenderButton(gender: "여성", .female)
@@ -54,7 +54,7 @@ struct GenderPickerSheet: View {
         }, label: {
             Text(gender)
                 .font(.body2_medium)
-                .foregroundColor(.gray700)
+                .foregroundColor(.secondaryGray)
         })
     }
 }

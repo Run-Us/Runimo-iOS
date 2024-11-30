@@ -16,54 +16,58 @@ struct RunningPage: View {
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
-                VStack(spacing: 0) {
-                    ProgressBar(progress: $mapVM.motionManager.runningInfo.distance)
-                        .padding(.horizontal, 50)
-                        .padding(.vertical, 25)
-                    
-                    Divider()
-                    
-                    // picker
-                    SegmentedPicker(
-                        selectedTab: $runVM.runningTab,
-                        type: runVM.runningPickerTexts,
-                        width: geometry.size.width
-                    )
-                    
-                    // runningType으로 group 러닝일 때 RunningMapPage 재사용
-                    TabView(selection: $runVM.runningTab) {
-                        // 개요
-                        RunningProgressPage(
-                            motionManager: mapVM.motionManager
-                        )
-                        .tag(0)
+                ZStack {
+                    Color.secondaryBG
+                        .ignoresSafeArea()
+                    VStack(spacing: 0) {
+                        ProgressBar(progress: $mapVM.motionManager.runningInfo.distance)
+                            .padding(.horizontal, 50)
+                            .padding(.vertical, 25)
                         
-                        // 지도
-                        RunningMapPage(
-                            motionManager: mapVM.motionManager,
-                            showStopAlert: $showStopPopUp,
-                            showFinishPage: $showFinishPage
-                        )
-                        .tag(1)
+                        Divider()
                         
-                        // 그룹원
-                        if runVM.runningType == .group {
+                        // picker
+                        SegmentedPicker(
+                            selectedTab: $runVM.runningTab,
+                            type: runVM.runningPickerTexts,
+                            width: geometry.size.width
+                        )
+                        
+                        // runningType으로 group 러닝일 때 RunningMapPage 재사용
+                        TabView(selection: $runVM.runningTab) {
+                            // 개요
+                            RunningProgressPage(
+                                motionManager: mapVM.motionManager
+                            )
+                            .tag(0)
+                            
+                            // 지도
                             RunningMapPage(
                                 motionManager: mapVM.motionManager,
                                 showStopAlert: $showStopPopUp,
                                 showFinishPage: $showFinishPage
                             )
-                            .tag(2)
+                            .tag(1)
+                            
+                            // 그룹원
+                            if runVM.runningType == .group {
+                                RunningMapPage(
+                                    motionManager: mapVM.motionManager,
+                                    showStopAlert: $showStopPopUp,
+                                    showFinishPage: $showFinishPage
+                                )
+                                .tag(2)
+                            }
                         }
-                    }
-                    .tabViewStyle(PageTabViewStyle())
-                    
-                    // custom page dots
-                    HStack {
-                        ForEach(runVM.runningPickerTexts.indices, id: \.self) { index in
-                            Circle()
-                                .frame(width: 8, height: 8)
-                                .foregroundStyle(index == runVM.runningTab ? .primary500 : .primary200)
+                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                        
+                        // custom page dots
+                        HStack {
+                            ForEach(runVM.runningPickerTexts.indices, id: \.self) { index in
+                                Circle()
+                                    .frame(width: 8, height: 8)
+                                    .foregroundStyle(index == runVM.runningTab ? .primary500 : .primary200)
+                            }
                         }
                     }
                 }

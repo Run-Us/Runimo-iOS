@@ -18,14 +18,14 @@ struct WaitGroupRunPage: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(.tone)
+                Color(.secondaryBG)
                 VStack {
                     VStack {
                         PasscodeGenerator(passcode: $passcode, isValid: $isValid, writeMode: false)
                             .padding(.bottom, 5)
                         Text("곧 그룹 달리기가 시작됩니다!")
                             .font(.body2_medium)
-                            .foregroundStyle(.gray500)
+                            .foregroundStyle(.quaternaryGray)
                     }
                     .padding(72)
                     
@@ -58,7 +58,7 @@ struct WaitGroupRunPage: View {
                         Text("대기방")
                             .font(.body1_medium)
                     }
-                    .foregroundStyle(.gray900)
+                    .foregroundStyle(.primaryGray)
                 }
             }
         }

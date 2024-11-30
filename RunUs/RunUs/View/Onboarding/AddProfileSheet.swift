@@ -24,7 +24,7 @@ struct AddProfileSheet: View {
             VStack(alignment: .leading, spacing: 34) {
                 Text("프로필 사진 추가")
                     .font(.title5_bold)
-                    .foregroundColor(.gray900)
+                    .foregroundColor(.primaryGray)
                     .padding(.top, 16)
                 
                 PhotosPicker(selection: $selectedProfile, maxSelectionCount: availableSelectedCount, matching: .images) {
@@ -32,7 +32,7 @@ struct AddProfileSheet: View {
                         Image("imageIcon")
                         Text("갤러리에서 추가하기")
                             .font(.body2_medium)
-                            .foregroundColor(.gray700)
+                            .foregroundColor(.secondaryGray)
                     }
                 }
                 .onChange(of: selectedProfile) { _, newValue in
