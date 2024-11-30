@@ -14,19 +14,23 @@ struct PostCardList: View {
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading) {
-                Divider()
-                header()
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 24)
-                
-                ScrollView {
-                    ForEach(postList) { post in
-                        PostCard(runningPost: post)
-                            .padding(.bottom, 14)
+            ZStack {
+                Color.primaryBG
+                    .ignoresSafeArea()
+                VStack(alignment: .leading) {
+                    Divider()
+                    header()
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 24)
+                    
+                    ScrollView {
+                        ForEach(postList) { post in
+                            PostCard(runningPost: post)
+                                .padding(.bottom, 14)
+                        }
                     }
+                    .padding(.horizontal, 16)
                 }
-                .padding(.horizontal, 16)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {

@@ -23,34 +23,38 @@ struct FinishRunningPage: View {
     
     var body: some View {
         NavigationStack {
-            GeometryReader { geometry in
-                Divider()
-                VStack(spacing: 25) {
-                    // 지도 이미지
-                    
-                    // 제목
-                    textField(title: "제목", contents: $title, maxCount: 20)
-                    
-                    // 설명
-                    textField(title: "설명", contents: $explanation, maxCount: 200)
-                    
-                    Spacer()
-                    
-                    // 저장 버튼
-                    Button {
-                        showRunningPostPage = true
-                    } label: {
-                        Text("저장하기")
-                            .font(.title5_bold)
-                            .foregroundStyle(.white)
-                            .background(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .frame(width: geometry.size.width - 32, height: 56)
-                            )
+            ZStack {
+                Color.primaryBG
+                    .ignoresSafeArea()
+                GeometryReader { geometry in
+                    Divider()
+                    VStack(spacing: 25) {
+                        // 지도 이미지
+                        
+                        // 제목
+                        textField(title: "제목", contents: $title, maxCount: 20)
+                        
+                        // 설명
+                        textField(title: "설명", contents: $explanation, maxCount: 200)
+                        
+                        Spacer()
+                        
+                        // 저장 버튼
+                        Button {
+                            showRunningPostPage = true
+                        } label: {
+                            Text("저장하기")
+                                .font(.title5_bold)
+                                .foregroundStyle(.white)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .frame(width: geometry.size.width - 32, height: 56)
+                                )
+                        }
                     }
+                    .padding(16)
+                    
                 }
-                .padding(16)
-
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -96,6 +100,7 @@ struct FinishRunningPage: View {
             ZStack(alignment: .topLeading) {
                 // input text
                 TextEditor(text: contents)
+                    .scrollContentBackground(.hidden)
                     .focused($isEditorFocused)
                     .font(.body2_medium)
                     .padding(8)

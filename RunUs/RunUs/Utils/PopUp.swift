@@ -69,7 +69,7 @@ struct PopUp: ViewModifier {
                 }
                 .foregroundStyle(.primaryGray)
                 .padding()
-                .background(.white)
+                .background(.primaryBG)
                 .cornerRadius(12)
                 .padding(.horizontal, 15)
             }
