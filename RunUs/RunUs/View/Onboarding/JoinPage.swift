@@ -110,7 +110,7 @@ struct JoinPage: View {
                     Spacer()
                     
                     Divider()
-                        .foregroundStyle(.gray200)
+                        .foregroundStyle(.secondaryFill)
                         .padding(.vertical)
                     Button(action: {
                         joinService.signup(nickName: nickname, provider: "KAKAO", gender: genderType.rawValue) { result in

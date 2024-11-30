@@ -38,7 +38,7 @@ struct RecordCard: View {
         .background(
             RoundedRectangle(cornerRadius: 24)
                 .fill(.tone)
-                .stroke(.gray200, lineWidth: 1)
+                .stroke(.secondaryFill, lineWidth: 1)
         )
     }
     
