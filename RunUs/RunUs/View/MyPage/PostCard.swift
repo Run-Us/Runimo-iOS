@@ -31,7 +31,7 @@ struct PostCard: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text(runningPost.createdAt)
                     .font(.body2_semibold)
-                    .foregroundStyle(.gray500)
+                    .foregroundStyle(.quaternaryGray)
                 Text(runningPost.title)
                     .font(.title5_bold)
                 HStack(spacing: 20) {
@@ -53,7 +53,7 @@ struct PostCard: View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
                 .font(.caption_regular)
-                .foregroundStyle(.gray500)
+                .foregroundStyle(.quaternaryGray)
             Text(contents)
                 .font(.caption_bold)
                 .foregroundStyle(.primaryGray)

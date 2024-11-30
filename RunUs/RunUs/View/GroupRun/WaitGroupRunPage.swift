@@ -25,7 +25,7 @@ struct WaitGroupRunPage: View {
                             .padding(.bottom, 5)
                         Text("곧 그룹 달리기가 시작됩니다!")
                             .font(.body2_medium)
-                            .foregroundStyle(.gray500)
+                            .foregroundStyle(.quaternaryGray)
                     }
                     .padding(72)
                     

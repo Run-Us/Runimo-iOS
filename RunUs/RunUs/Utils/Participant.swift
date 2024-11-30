@@ -30,7 +30,7 @@ struct Participant: View {
                         .font(.title5_medium)
                     if totalDistance != nil {
                         Text("Lv\(level) • \(totalDistance ?? 0)km")
-                            .foregroundStyle(.gray500)
+                            .foregroundStyle(.quaternaryGray)
                             .font(.caption_regular)
                     }
                 }
@@ -44,7 +44,7 @@ struct Participant: View {
                             .foregroundStyle(.primaryGray)
                             .font(.title5_medium)
                         Text("평균 페이스")
-                            .foregroundStyle(.gray500)
+                            .foregroundStyle(.quaternaryGray)
                             .font(.caption_regular)
                     }
                     .padding(.trailing, 20)

@@ -24,7 +24,7 @@ struct RecordCard: View {
                     Image(systemName: "chevron.down")
                         .resizable()
                         .frame(width: 14, height: 8)
-                        .foregroundStyle(.gray500)
+                        .foregroundStyle(.quaternaryGray)
                 }
             }
             
@@ -47,7 +47,7 @@ struct RecordCard: View {
         VStack(alignment: .leading, spacing: 7) {
             Text(title)
                 .font(.caption_regular)
-                .foregroundStyle(.gray500)
+                .foregroundStyle(.quaternaryGray)
             Text(contents)
                 .font(.title5_bold)
                 .foregroundStyle(.primaryGray)

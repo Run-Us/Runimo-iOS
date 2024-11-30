@@ -40,7 +40,7 @@ struct JoinPage: View {
                         .padding(.top, 64)
                     Text("러너 프로필을 만들어 볼까요?")
                         .font(.body2_medium)
-                        .foregroundColor(.gray500)
+                        .foregroundColor(.quaternaryGray)
                         .padding(8)
                     
                     Button(action: {
@@ -69,7 +69,7 @@ struct JoinPage: View {
                             .focused($isTextFieldFocused)
                             .autocapitalization(.none)
                             .disableAutocorrection(false)
-                            .foregroundColor(nickname.count > 0 ? .primaryGray : .gray500)
+                            .foregroundColor(nickname.count > 0 ? .primaryGray : .quaternaryGray)
                             .padding(10)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
@@ -98,7 +98,7 @@ struct JoinPage: View {
                         }, label: {
                             Text("\(gender)")
                                 .font(.body1_medium)
-                                .foregroundColor(gender == "성별을 선택해주세요" ? .gray500 : .secondaryGray)
+                                .foregroundColor(gender == "성별을 선택해주세요" ? .quaternaryGray : .secondaryGray)
                         })
                         .sheet(isPresented: $showGenderPicker, content: {
                             GenderPickerSheet(gender: $gender, showGenderPicker: $showGenderPicker, genderType: $genderType)

@@ -45,7 +45,7 @@ struct MyGraph: View {
                 
             Text("\(String(format: "%.1f", km)) km")
                 .font(.caption_regular)
-                .foregroundStyle(.gray500)
+                .foregroundStyle(.quaternaryGray)
         }
         .frame(height: 12)
     }
@@ -80,7 +80,7 @@ struct MyGraph: View {
                 .padding(.horizontal, myPageVM.graphSpacing/2)
             Text(xdata)
                 .font(.caption_regular)
-                .foregroundStyle(.gray500)
+                .foregroundStyle(.quaternaryGray)
                 .lineLimit(1)
                 .frame(width: 15, height: 24)
         }
@@ -105,7 +105,7 @@ struct MyGraph: View {
                     if myPageVM.checkMonthlyData(data: item) {
                         Text(item)
                             .font(.caption_regular)
-                            .foregroundStyle(.gray500)
+                            .foregroundStyle(.quaternaryGray)
                             .lineLimit(1)
                             .frame(width: 15, height: 24, alignment: .center)
                     } else {

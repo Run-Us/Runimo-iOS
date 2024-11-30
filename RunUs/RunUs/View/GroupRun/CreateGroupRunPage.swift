@@ -56,7 +56,7 @@ struct CreateGroupRunPage: View {
                             .padding(.bottom, 5)
                         Text("러너에게 인증코드 4자리를 보여주세요")
                             .font(.body2_medium)
-                            .foregroundStyle(.gray500)
+                            .foregroundStyle(.quaternaryGray)
                     }
                     .padding(72)
                     

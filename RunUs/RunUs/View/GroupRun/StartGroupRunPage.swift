@@ -30,7 +30,7 @@ struct StartGroupRunPage: View {
                         
                     Text("그룹 달리기를 통해 친구와 같이 기록을 저장하세요")
                         .font(.body2_medium)
-                        .foregroundStyle(.gray500)
+                        .foregroundStyle(.quaternaryGray)
                         .padding(8)
                     
                     Spacer()
@@ -43,7 +43,7 @@ struct StartGroupRunPage: View {
                         Text("이미 친구가 방을 만들었나요?")
                             .font(.caption_medium)
                             .underline()
-                            .foregroundColor(.gray500)
+                            .foregroundColor(.quaternaryGray)
                     })
                     .padding(.top, 8)
                     // create Group Button

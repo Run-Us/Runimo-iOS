@@ -62,7 +62,7 @@ struct PostCardList: View {
             .foregroundStyle(.primaryGray)
             Text("\(nickname)님은 10월달에 총 22번을 달리셨어요.\n서울에서 부산까지의 거리를 달리셨네요! (250km)")
                 .font(.body2_medium)
-                .foregroundStyle(.gray500)
+                .foregroundStyle(.quaternaryGray)
         }
     }
 }

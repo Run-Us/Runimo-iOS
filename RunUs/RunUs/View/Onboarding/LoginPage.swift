@@ -96,7 +96,7 @@ struct LoginPage: View {
                     .padding(.top, 8)
                 Text(content)
                     .font(.body2_medium)
-                    .foregroundColor(.gray500)
+                    .foregroundColor(.quaternaryGray)
             }
             .padding()
         }

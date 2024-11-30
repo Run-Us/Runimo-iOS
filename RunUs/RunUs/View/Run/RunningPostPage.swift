@@ -30,7 +30,7 @@ struct RunningPostPage: View {
                                 .font(.title5_medium)
                             Text(runningPost.createdAt)
                                 .font(.caption_regular)
-                                .foregroundStyle(.gray500)
+                                .foregroundStyle(.quaternaryGray)
                         }
                     }
                     
@@ -43,7 +43,7 @@ struct RunningPostPage: View {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("거리")
                                 .font(.caption_regular)
-                                .foregroundStyle(.gray500)
+                                .foregroundStyle(.quaternaryGray)
                             Text(String(format: "%.2fkm", runningPost.runningInfo.distance ?? 0.0))
                                 .font(.title5_bold)
                         }
@@ -51,7 +51,7 @@ struct RunningPostPage: View {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("페이스")
                                 .font(.caption_regular)
-                                .foregroundStyle(.gray500)
+                                .foregroundStyle(.quaternaryGray)
                             Text(runningPost.runningInfo.averagePace ?? "-’--”")
                                 .font(.title5_bold)
                         }
@@ -59,7 +59,7 @@ struct RunningPostPage: View {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("시간")
                                 .font(.caption_regular)
-                                .foregroundStyle(.gray500)
+                                .foregroundStyle(.quaternaryGray)
                             Text(runningPost.runningInfo.runningTime ?? "0h 0m")
                                 .font(.title5_bold)
                         }

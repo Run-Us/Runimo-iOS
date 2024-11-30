@@ -27,7 +27,7 @@ struct JoinGroupRunPage: View {
                             
                             Text("생성된 대기방의 인증코드 4자리를 입력해주세요.")
                                 .font(.body2_medium)
-                                .foregroundStyle(.gray500)
+                                .foregroundStyle(.quaternaryGray)
                         }
                         .padding(.vertical, 72)
                         

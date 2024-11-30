@@ -60,7 +60,7 @@ struct MyTab: View {
                 Text("최근 러닝: \(myPageVM.lastRunning())")
             }
             .font(.caption_regular)
-            .foregroundStyle(.gray500)
+            .foregroundStyle(.quaternaryGray)
             
             Spacer()
             
@@ -86,7 +86,7 @@ struct MyTab: View {
                 } label: {
                     Text("더보기")
                         .font(.caption_regular)
-                        .foregroundStyle(.gray500)
+                        .foregroundStyle(.quaternaryGray)
                 }
                 .navigationDestination(isPresented: $showRecentRunning) {
                     PostCardList()

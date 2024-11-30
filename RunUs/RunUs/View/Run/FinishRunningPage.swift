@@ -110,7 +110,7 @@ struct FinishRunningPage: View {
                 if contents.wrappedValue.isEmpty {
                     Text(title == "제목" ? "이 활동의 제목을 지어주세요" : "오늘 러닝은 어떠셨는지 궁금해요")
                         .font(.body2_medium)
-                        .foregroundStyle(.gray500)
+                        .foregroundStyle(.quaternaryGray)
                         .padding(EdgeInsets(top: 15, leading: 12, bottom: 15, trailing: 12))
                 }
             }
