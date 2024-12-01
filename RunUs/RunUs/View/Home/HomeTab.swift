@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeTab: View {
+    @State private var sessionCardIndex: Int = 0
     
     var body: some View {
         ScrollView {
@@ -16,6 +17,7 @@ struct HomeTab: View {
                 VStack(spacing: 24) {
                     userProfile()
                     RecordCard()
+                    scheduledRunning()
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 24)
@@ -38,6 +40,39 @@ struct HomeTab: View {
             Image("default_user_profile")
                 .resizable()
                 .frame(width: 60, height: 60)
+        }
+    }
+    
+    @ViewBuilder
+    private func scheduledRunning() -> some View {
+        VStack(spacing: 12) {
+            HStack {
+                Text("예정 러닝세션")
+                    .font(.title5_bold)
+                    .foregroundStyle(.primaryGray)
+                Spacer()
+                Button {
+                    
+                } label: {
+                    Text("더 보기")
+                        .font(.caption_regular)
+                        .foregroundStyle(.quaternaryGray)
+                }
+            }
+            
+            TabView(selection: $sessionCardIndex) {
+                // TODO: 세션카드 (JIS-48)
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            
+            // page dots
+            HStack {
+                ForEach(0..<3, id: \.self) { index in
+                    Circle()
+                        .frame(width: 8, height: 8)
+                        .foregroundStyle(index == sessionCardIndex ? .primary500 : .primary200)
+                }
+            }
         }
     }
 }
