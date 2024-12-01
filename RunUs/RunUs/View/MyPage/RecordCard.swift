@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecordCard: View {
-    @ObservedObject var myPageVM: MyPageViewModel
+    @EnvironmentObject var myPageVM: MyPageViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -56,5 +56,5 @@ struct RecordCard: View {
 }
 
 #Preview {
-    RecordCard(myPageVM: .init())
+    RecordCard()
 }
