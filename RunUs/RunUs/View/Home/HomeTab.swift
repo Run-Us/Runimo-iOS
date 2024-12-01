@@ -13,7 +13,7 @@ struct HomeTab: View {
         ScrollView {
             ZStack {
                 Color.primaryBG
-                VStack {
+                VStack(spacing: 24) {
                     userProfile()
                 }
                 .padding(.horizontal, 16)
