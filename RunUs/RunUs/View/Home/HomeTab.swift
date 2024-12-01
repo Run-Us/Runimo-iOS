@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeTab: View {
+    @EnvironmentObject var myPageVM: MyPageViewModel
     @State private var sessionCardIndex: Int = 0
     
     var body: some View {
@@ -17,7 +18,7 @@ struct HomeTab: View {
                 VStack(spacing: 24) {
                     userProfile()
                     RecordCard()
-                    scheduledRunning()
+                    runningSession()
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 24)
@@ -40,6 +41,33 @@ struct HomeTab: View {
             Image("default_user_profile")
                 .resizable()
                 .frame(width: 60, height: 60)
+        }
+    }
+    
+    @ViewBuilder
+    private func runningSession() -> some View {
+        // 러닝 세션 없을 때
+        if true {
+            Button {
+                myPageVM.currentMainTab = .session
+            } label: {
+                HStack(spacing: 8) {
+                    Image("globe_box")
+                    Text("러닝세션 찾아보기")
+                        .font(.title5_bold)
+                        .foregroundStyle(.primaryGray)
+                }
+                .padding(16)
+                .frame(maxWidth: .infinity)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(.secondaryFill, lineWidth: 1)
+                )
+            }
+        }
+        // 러닝 세션 있을 떄
+        else {
+            scheduledRunning()
         }
     }
     
