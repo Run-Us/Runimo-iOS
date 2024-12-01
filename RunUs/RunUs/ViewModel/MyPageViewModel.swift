@@ -33,6 +33,8 @@ class MyPageViewModel: ObservableObject {
     @Published var graph: RunningGraph
     @Published var graphDisplay: (count: Int, distance: String, time: String, maxYLength: Double, distanceList: [Double]) = (0, "0.00km", "0m 0s", 9.0, Array(repeating: 8.0, count: 30))
     
+    @Published var currentMainTab: Tab = .home
+    
     init() {
         user = MyPage(profileImage: nil, nickname: "", totalDistance: 0, recentRunningDate: nil, runningRecords: [])
         graph = RunningGraph(total_count: 0, total_distance: 0, total_time: 0, distance_list: [])

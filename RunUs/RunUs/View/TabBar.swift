@@ -13,7 +13,7 @@ enum Tab {
 }
 
 struct TabBar: View {
-    @State private var selectedTab: Tab = .home
+    @EnvironmentObject var myPageVM: MyPageViewModel
 
     var body: some View {
         NavigationStack {
@@ -38,7 +38,7 @@ struct TabBar: View {
                         Spacer()
                         
                         // 탭 별 보여줄 페이지
-                        switch (selectedTab) {
+                        switch (myPageVM.currentMainTab) {
                         case .home: HomeTab()
                         case .my:   MyTab()
                         }
@@ -54,11 +54,11 @@ struct TabBar: View {
                                 
                                 // 홈
                                 Button {
-                                    selectedTab = .home
+                                    myPageVM.currentMainTab = .home
                                 } label: {
                                     Image("tab_home")
                                         .renderingMode(.template)
-                                        .foregroundStyle(selectedTab == .home ? .primaryGray : .gray400)
+                                        .foregroundStyle(myPageVM.currentMainTab == .home ? .primaryGray : .gray400)
                                 }
                                 
                                 Spacer()
@@ -73,11 +73,11 @@ struct TabBar: View {
                                 
                                 // 마이페이지
                                 Button {
-                                    selectedTab = .my
+                                    myPageVM.currentMainTab = .my
                                 } label: {
                                     Image("tab_user")
                                         .renderingMode(.template)
-                                        .foregroundStyle(selectedTab == .my ? .primaryGray : .gray400)
+                                        .foregroundStyle(myPageVM.currentMainTab == .my ? .primaryGray : .gray400)
                                 }
                                 
                                 Spacer()

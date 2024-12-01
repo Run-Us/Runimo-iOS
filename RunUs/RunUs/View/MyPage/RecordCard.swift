@@ -18,13 +18,15 @@ struct RecordCard: View {
                     .font(.body2_semibold)
                     .foregroundStyle(.primaryGray)
                 Spacer()
-                Button {
-                    myPageVM.showDateSheet = true
-                } label: {
-                    Image(systemName: "chevron.down")
-                        .resizable()
-                        .frame(width: 14, height: 8)
-                        .foregroundStyle(.quaternaryGray)
+                if myPageVM.currentMainTab == .my {
+                    Button {
+                        myPageVM.showDateSheet = true
+                    } label: {
+                        Image(systemName: "chevron.down")
+                            .resizable()
+                            .frame(width: 14, height: 8)
+                            .foregroundStyle(.quaternaryGray)
+                    }
                 }
             }
             

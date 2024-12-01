@@ -15,6 +15,7 @@ struct HomeTab: View {
                 Color.primaryBG
                 VStack(spacing: 24) {
                     userProfile()
+                    RecordCard()
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 24)
