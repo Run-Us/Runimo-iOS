@@ -11,6 +11,13 @@ struct HomeTab: View {
     @EnvironmentObject var myPageVM: MyPageViewModel
     @State private var sessionCardIndex: Int = 0
     
+    private let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
     var body: some View {
         ScrollView {
             ZStack {
@@ -19,6 +26,7 @@ struct HomeTab: View {
                     userProfile()
                     RecordCard()
                     runningSession()
+                    myCrewList()
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 24)
@@ -101,6 +109,46 @@ struct HomeTab: View {
                         .foregroundStyle(index == sessionCardIndex ? .primary500 : .primary200)
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func myCrewList() -> some View {
+        VStack(alignment: .leading, spacing: 24) {
+            Text("내 크루")
+                .font(.title5_bold)
+                .foregroundStyle(.primaryGray)
+            LazyVGrid(columns: columns, spacing: 30) {
+                // TODO: 리스트로 변경
+                crew(imageURL: nil, crewName: "런런런")
+                crew(imageURL: nil, crewName: "런어스")
+                crew(imageURL: nil, crewName: "러닝크루")
+                crew(imageURL: nil, crewName: "런잉클우")
+                crew(imageURL: nil, crewName: "Run with US 공식크루")
+                crew(imageURL: "search_crew", crewName: "크루 찾기")
+            }
+        }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 16)
+        .background(
+            RoundedRectangle(cornerRadius: 24)
+                .fill(.primaryFill)
+                .stroke(.secondaryFill, lineWidth: 1)
+        )
+    }
+    
+    @ViewBuilder
+    private func crew(imageURL: String?, crewName: String) -> some View {
+        VStack(spacing: 8) {
+            Image(imageURL ?? "crew_default_profile")
+                .resizable()
+                .frame(width: 60, height: 60)
+            Text(crewName)
+                .font(.caption_regular)
+                .foregroundStyle(.quaternaryGray)
+                .lineLimit(2)
+                .frame(width: 60, height: 25, alignment: .top)
+                .truncationMode(.tail)
         }
     }
 }
