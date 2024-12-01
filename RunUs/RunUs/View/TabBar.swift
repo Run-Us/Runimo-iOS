@@ -9,6 +9,8 @@ import SwiftUI
 
 enum Tab {
     case home
+    case session
+    case character
     case my
 }
 
@@ -40,6 +42,8 @@ struct TabBar: View {
                         // 탭 별 보여줄 페이지
                         switch (myPageVM.currentMainTab) {
                         case .home: HomeTab()
+                        case .session: EmptyView()
+                        case .character: EmptyView()
                         case .my:   MyTab()
                         }
                         
@@ -59,6 +63,19 @@ struct TabBar: View {
                                     Image("tab_home")
                                         .renderingMode(.template)
                                         .foregroundStyle(myPageVM.currentMainTab == .home ? .primaryGray : .gray400)
+                                        .frame(width: 32, height: 32)
+                                }
+                                
+                                Spacer()
+                                Spacer()
+                                
+                                Button {
+                                    myPageVM.currentMainTab = .session
+                                } label: {
+                                    Image("tab_globe")
+                                        .renderingMode(.template)
+                                        .foregroundStyle(myPageVM.currentMainTab == .session ? .primaryGray : .gray400)
+                                        .frame(width: 32, height: 32)
                                 }
                                 
                                 Spacer()
@@ -67,8 +84,21 @@ struct TabBar: View {
                                 NavigationLink(destination: RunTab()) {
                                     Image("tab_play")
                                         .offset(y: -10)
+                                        .frame(width: 60, height: 60)
                                 }
                                 
+                                Spacer()
+                                
+                                Button {
+                                    myPageVM.currentMainTab = .character
+                                } label: {
+                                    Image("tab_character")
+                                        .renderingMode(.template)
+                                        .foregroundStyle(myPageVM.currentMainTab == .character ? .primaryGray : .gray400)
+                                        .frame(width: 32, height: 32)
+                                }
+                                
+                                Spacer()
                                 Spacer()
                                 
                                 // 마이페이지
@@ -78,6 +108,7 @@ struct TabBar: View {
                                     Image("tab_user")
                                         .renderingMode(.template)
                                         .foregroundStyle(myPageVM.currentMainTab == .my ? .primaryGray : .gray400)
+                                        .frame(width: 32, height: 32)
                                 }
                                 
                                 Spacer()
