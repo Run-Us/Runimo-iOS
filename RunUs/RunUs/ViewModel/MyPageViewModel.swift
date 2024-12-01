@@ -113,7 +113,11 @@ extension MyPageViewModel {
 extension MyPageViewModel {
     var periodText: String {
         get {
-            dateManager.getRecordDateRange(type: recordType)
+            if currentMainTab == .home {
+                "이번주 기록"
+            } else {
+                dateManager.getRecordDateRange(type: recordType)
+            }
         }
     }
 }
