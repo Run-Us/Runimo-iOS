@@ -140,9 +140,15 @@ struct HomeTab: View {
     @ViewBuilder
     private func crew(imageURL: String?, crewName: String) -> some View {
         VStack(spacing: 8) {
-            Image(imageURL ?? "crew_default_profile")
-                .resizable()
-                .frame(width: 60, height: 60)
+            if let profile = imageURL {
+                AsyncImage(url: URL(string: profile))
+                    .clipShape(RoundedRectangle(cornerRadius: 24))
+            } else {
+                Image("crew_default_profile")
+                    .resizable()
+                    .frame(width: 60, height: 60)
+            }
+            
             Text(crewName)
                 .font(.caption_regular)
                 .foregroundStyle(.quaternaryGray)
