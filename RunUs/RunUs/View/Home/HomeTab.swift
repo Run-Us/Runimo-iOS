@@ -125,7 +125,24 @@ struct HomeTab: View {
                 crew(imageURL: nil, crewName: "러닝크루")
                 crew(imageURL: nil, crewName: "런잉클우")
                 crew(imageURL: nil, crewName: "Run with US 공식크루")
-                crew(imageURL: "search_crew", crewName: "크루 찾기")
+                
+                // find crew button
+                Button {
+                    // TODO: add action
+                } label: {
+                    VStack(spacing: 8) {
+                        Image("search_crew")
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                        
+                        Text("크루 찾기")
+                            .font(.caption_regular)
+                            .foregroundStyle(.quaternaryGray)
+                            .lineLimit(2)
+                            .frame(width: 60, height: 25, alignment: .top)
+                            .truncationMode(.tail)
+                    }
+                }
             }
         }
         .padding(.horizontal, 20)
@@ -139,26 +156,31 @@ struct HomeTab: View {
     
     @ViewBuilder
     private func crew(imageURL: String?, crewName: String) -> some View {
-        VStack(spacing: 8) {
-            if let profile = imageURL {
-                AsyncImage(url: URL(string: profile))
-                    .clipShape(RoundedRectangle(cornerRadius: 24))
-            } else {
-                Image("crew_default_profile")
-                    .resizable()
-                    .frame(width: 60, height: 60)
+        Button {
+            // TODO: move to crew home
+        } label: {
+            VStack(spacing: 8) {
+                if let profile = imageURL {
+                    AsyncImage(url: URL(string: profile))
+                        .clipShape(RoundedRectangle(cornerRadius: 24))
+                } else {
+                    Image("crew_default_profile")
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                }
+                
+                Text(crewName)
+                    .font(.caption_regular)
+                    .foregroundStyle(.quaternaryGray)
+                    .lineLimit(2)
+                    .frame(width: 60, height: 25, alignment: .top)
+                    .truncationMode(.tail)
             }
-            
-            Text(crewName)
-                .font(.caption_regular)
-                .foregroundStyle(.quaternaryGray)
-                .lineLimit(2)
-                .frame(width: 60, height: 25, alignment: .top)
-                .truncationMode(.tail)
         }
     }
 }
 
 #Preview {
     HomeTab()
+        .environmentObject(MyPageViewModel())
 }
