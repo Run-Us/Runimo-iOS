@@ -8,22 +8,28 @@
 import SwiftUI
 
 struct FindCrewPage: View {
+    @State private var showCreateCrewPage: Bool = false
     
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            Color.primaryBG
-                .ignoresSafeArea()
-            VStack {
-                
+        NavigationStack {
+            ZStack(alignment: .bottomTrailing) {
+                Color.primaryBG
+                    .ignoresSafeArea()
+                VStack {
+                    
+                }
+                createCrewButton()
             }
-            createCrewButton()
+            .navigationDestination(isPresented: $showCreateCrewPage) {
+                CreateCrew1TagTypePage()
+            }
         }
     }
     
     @ViewBuilder
     private func createCrewButton() -> some View {
         Button {
-            
+            showCreateCrewPage = true
         } label: {
             Image("plus_floating_button")
                 .resizable()
