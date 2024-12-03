@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyTab: View {
-    @StateObject private var myPageVM = MyPageViewModel()
+    @EnvironmentObject var myPageVM: MyPageViewModel
     let userDefaults = UserDefaults.standard
     @State private var showRecentRunning: Bool = false
     
@@ -22,8 +22,8 @@ struct MyTab: View {
                 SegmentedPicker(selectedTab: $myPageVM.selectedTab, type: ["주간","월간","연간"], width: geometry.size.width)
                 
                 VStack(spacing: 24) {
-                    RecordCard(myPageVM: myPageVM)
-                    MyGraph(myPageVM: myPageVM)
+                    RecordCard()
+                    MyGraph()
                         .frame(height: 160)
                     recentActivity()
                 }
