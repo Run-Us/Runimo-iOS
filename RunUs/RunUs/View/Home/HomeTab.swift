@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeTab: View {
     @EnvironmentObject var myPageVM: MyPageViewModel
     @State private var sessionCardIndex: Int = 0
+    @State private var showFindCrewPage: Bool = false
     
     private let columns = [
         GridItem(.flexible()),
@@ -128,7 +129,7 @@ struct HomeTab: View {
                 
                 // find crew button
                 Button {
-                    // TODO: add action
+                    showFindCrewPage = true
                 } label: {
                     VStack(spacing: 8) {
                         Image("search_crew")
@@ -142,6 +143,9 @@ struct HomeTab: View {
                             .frame(width: 60, height: 25, alignment: .top)
                             .truncationMode(.tail)
                     }
+                }
+                .navigationDestination(isPresented: $showFindCrewPage) {
+                    FindCrewPage()
                 }
             }
         }
