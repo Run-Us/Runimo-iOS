@@ -38,7 +38,7 @@ struct CreateCrew1TagTypePage: View {
                             Button {
                                 selectedCrewIndex = index
                             } label: {
-                                tagType(title: crew[0], explanation: crew[1], idx: index)
+                                TypeCheckbox(selectedBox: selectedCrewIndex, typeIdx: index, title: crew[0], explanation: crew[1])
                             }
                             .buttonStyle(.plain)
                         }
@@ -68,24 +68,6 @@ struct CreateCrew1TagTypePage: View {
                 CreateCrew2DetailPage()
             }
         }
-    }
-    
-    @ViewBuilder
-    private func tagType(title: String, explanation: String, idx: Int) -> some View {
-        HStack(alignment: .top, spacing: 12) {
-            Image(idx == selectedCrewIndex ? "checkbox_selected" : "checkbox")
-                .resizable()
-                .frame(width: 20, height: 20)
-            VStack(alignment: .leading, spacing: 5) {
-                Text(title)
-                    .font(.body1_bold)
-                    .foregroundStyle(.secondaryGray)
-                Text(explanation)
-                    .font(.caption_regular)
-                    .foregroundStyle(.quaternaryGray)
-            }
-        }
-        .padding(.top, 32)
     }
 }
 

@@ -9,16 +9,53 @@ import SwiftUI
 
 struct CreateCrew3JoinTypePage: View {
     @Environment(\.dismiss) var dismiss
+    @State private var selectedJoinTypeIndex: Int = 0
+    private let joinTypeString: [[String]] = [
+        ["즉시 가입", "RunUS 서비스를 사용하는 누구나 바로 가입할 수 있어요."],
+        ["신청 가입", "가입 질문에 답변하여 신청하고, 검토 후 가입이 승인돼요."]
+    ]
     
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.primaryBG
                     .ignoresSafeArea()
-                VStack {
+                VStack(alignment: .leading) {
                     Divider()
                         .frame(height: 0.5)
                         .background(.secondaryFill)
+                    
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text("마지막이에요!")
+                            .font(.title5_bold)
+                            .foregroundStyle(.primaryGray)
+                        Text("크루 가입 방식을 선택해주세요")
+                            .font(.body2_medium)
+                            .foregroundStyle(.quaternaryGray)
+                    
+                        HStack {
+                            Text("가입 방식")
+                                .font(.body1_bold)
+                            Spacer()
+                            Text(joinTypeString[selectedJoinTypeIndex][0])
+                                .font(.body1_medium)
+                        }
+                        .foregroundStyle(.secondaryGray)
+                        .padding(.top, 32)
+                        
+                        ForEach(Array(joinTypeString.enumerated()), id: \.offset) { index, join in
+                            Button {
+                                selectedJoinTypeIndex = index
+                            } label: {
+                                TypeCheckbox(selectedBox: selectedJoinTypeIndex, typeIdx: index, title: join[0], explanation: join[1])
+                            }
+                            .buttonStyle(.plain)
+                        }
+                        
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 24)
+                    
                     Spacer()
                     CTAButton(text: "크루 만들기", disabled: false) {
                         // TODO: Create Crew API
