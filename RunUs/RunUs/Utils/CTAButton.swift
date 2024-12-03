@@ -11,7 +11,7 @@ import SwiftUI
 // 좌우 padding은 따로 설정
 struct CTAButton: View {
     let text: String
-    @Binding var disabled: Bool
+    var disabled: Bool
     let action: () -> Void
     
     var body: some View {

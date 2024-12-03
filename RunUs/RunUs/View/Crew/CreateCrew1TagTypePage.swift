@@ -46,7 +46,7 @@ struct CreateCrew1TagTypePage: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical, 24)
                     Spacer()
-                    CTAButton(text: "다음", disabled: .constant(false)) {
+                    CTAButton(text: "다음", disabled: false) {
                         showNextPage = true
                     }
                 }
