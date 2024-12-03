@@ -14,6 +14,7 @@ struct CreateCrew2DetailPage: View {
     @State private var crewName: String = ""
     @State private var crewExplanation: String = ""
     @State private var activeArea: String = ""
+    @State private var showNextJoinPage: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -45,7 +46,10 @@ struct CreateCrew2DetailPage: View {
                     .padding(.vertical, 24)
                     
                     CTAButton(text: "다음", disabled: crewName.isEmpty || crewExplanation.isEmpty || activeArea.isEmpty) {
-                        
+                        showNextJoinPage = true
+                    }
+                    .navigationDestination(isPresented: $showNextJoinPage) {
+                        CreateCrew3JoinTypePage()
                     }
                 }
             }

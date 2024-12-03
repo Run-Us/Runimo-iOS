@@ -18,7 +18,7 @@ struct CreateCrew1TagTypePage: View {
         ["MBTI", "성격이 잘 맞는 러너들과 함께 재밌게 달려봐요!"],
         ["대회 준비", "목표가 같은 러너들과 함께 더 멀리, 더 빠르게 달려요."]
     ]
-    @State private var showNextPage: Bool = false
+    @State private var showNextJoinPage: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -47,7 +47,7 @@ struct CreateCrew1TagTypePage: View {
                     .padding(.vertical, 24)
                     Spacer()
                     CTAButton(text: "다음", disabled: false) {
-                        showNextPage = true
+                        showNextJoinPage = true
                     }
                 }
             }
@@ -64,7 +64,7 @@ struct CreateCrew1TagTypePage: View {
                     }
                 }
             }
-            .navigationDestination(isPresented: $showNextPage) {
+            .navigationDestination(isPresented: $showNextJoinPage) {
                 CreateCrew2DetailPage()
             }
         }
