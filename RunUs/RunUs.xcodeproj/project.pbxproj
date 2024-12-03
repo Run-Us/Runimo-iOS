@@ -50,6 +50,7 @@
 		23CE0B7D2CD8D6390073732C /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B7C2CD8D6390073732C /* DateManager.swift */; };
 		23E1B9E02CFD89D200846F22 /* FindCrewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9DF2CFD89D200846F22 /* FindCrewPage.swift */; };
 		23E1B9E22CFD8C0B00846F22 /* CreateCrew1TagTypePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9E12CFD8C0B00846F22 /* CreateCrew1TagTypePage.swift */; };
+		23E1B9E42CFF066A00846F22 /* CTAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9E32CFF066A00846F22 /* CTAButton.swift */; };
 		23F056B42CDA7B0100EC3A40 /* DateSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F056B32CDA7B0100EC3A40 /* DateSheet.swift */; };
 		23F056B62CDA880800EC3A40 /* RunningViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F056B52CDA880800EC3A40 /* RunningViewModel.swift */; };
 		883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883764102CBCF6360046EC7B /* GenderPickerSheet.swift */; };
@@ -117,6 +118,7 @@
 		23CE0B7C2CD8D6390073732C /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		23E1B9DF2CFD89D200846F22 /* FindCrewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindCrewPage.swift; sourceTree = "<group>"; };
 		23E1B9E12CFD8C0B00846F22 /* CreateCrew1TagTypePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrew1TagTypePage.swift; sourceTree = "<group>"; };
+		23E1B9E32CFF066A00846F22 /* CTAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTAButton.swift; sourceTree = "<group>"; };
 		23F056B32CDA7B0100EC3A40 /* DateSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSheet.swift; sourceTree = "<group>"; };
 		23F056B52CDA880800EC3A40 /* RunningViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningViewModel.swift; sourceTree = "<group>"; };
 		883764102CBCF6360046EC7B /* GenderPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderPickerSheet.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */,
 				233831002CC69B430075E73A /* PopUp.swift */,
 				886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */,
+				23E1B9E32CFF066A00846F22 /* CTAButton.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */,
 				230314EF2C89920100B299D5 /* AuthViewModel.swift in Sources */,
 				235D38A52CD3E7F000487952 /* PostCard.swift in Sources */,
+				23E1B9E42CFF066A00846F22 /* CTAButton.swift in Sources */,
 				230314E92C88A48D00B299D5 /* LoginPage.swift in Sources */,
 				2347D9AE2CD34101003776BC /* MyGraph.swift in Sources */,
 				233ED1FD2CABA0E7001EF0BC /* RunningSessionInfo.swift in Sources */,

@@ -23,6 +23,7 @@ struct CreateCrew1TagTypePage: View {
         NavigationStack {
             ZStack {
                 Color.primaryBG
+                    .ignoresSafeArea()
                 VStack(alignment: .leading) {
                     Divider()
                     VStack(alignment: .leading, spacing: 8) {
@@ -44,6 +45,11 @@ struct CreateCrew1TagTypePage: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical, 24)
                     Spacer()
+                    CTAButton(text: "다음") {
+                        
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 15)
                 }
             }
             .toolbar {
