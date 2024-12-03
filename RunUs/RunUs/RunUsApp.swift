@@ -27,6 +27,7 @@ struct RunUsApp: App {
                 })
                 .environmentObject(MapViewModel())
                 .environmentObject(RunningViewModel())
+                .environmentObject(MyPageViewModel())
         }
     }
 }

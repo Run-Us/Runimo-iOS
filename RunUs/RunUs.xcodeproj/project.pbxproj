@@ -326,7 +326,6 @@
 				2372998E2CBCDD2100D0E7F6 /* RunTab.swift */,
 				2398F4932CB29B11001D922B /* FinishRunningPage.swift */,
 				233831022CC7C4B40075E73A /* RunningPostPage.swift */,
-				23C27B012CBF819200978DC9 /* ProgressBar.swift */,
 			);
 			path = Run;
 			sourceTree = "<group>";
@@ -352,6 +351,7 @@
 				886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */,
 				23E1B9E32CFF066A00846F22 /* CTAButton.swift */,
 				23E1B9ED2CFF54D800846F22 /* InputTextArea.swift */,
+				23C27B012CBF819200978DC9 /* ProgressBar.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";

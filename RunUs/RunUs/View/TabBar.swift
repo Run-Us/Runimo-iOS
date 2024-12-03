@@ -9,11 +9,13 @@ import SwiftUI
 
 enum Tab {
     case home
+    case session
+    case character
     case my
 }
 
 struct TabBar: View {
-    @State private var selectedTab: Tab = .home
+    @EnvironmentObject var myPageVM: MyPageViewModel
 
     var body: some View {
         NavigationStack {
@@ -38,8 +40,10 @@ struct TabBar: View {
                         Spacer()
                         
                         // 탭 별 보여줄 페이지
-                        switch (selectedTab) {
+                        switch (myPageVM.currentMainTab) {
                         case .home: HomeTab()
+                        case .session: EmptyView()
+                        case .character: EmptyView()
                         case .my:   MyTab()
                         }
                         
@@ -54,11 +58,24 @@ struct TabBar: View {
                                 
                                 // 홈
                                 Button {
-                                    selectedTab = .home
+                                    myPageVM.currentMainTab = .home
                                 } label: {
                                     Image("tab_home")
                                         .renderingMode(.template)
-                                        .foregroundStyle(selectedTab == .home ? .primaryGray : .gray400)
+                                        .foregroundStyle(myPageVM.currentMainTab == .home ? .primaryGray : .gray400)
+                                        .frame(width: 32, height: 32)
+                                }
+                                
+                                Spacer()
+                                Spacer()
+                                
+                                Button {
+                                    myPageVM.currentMainTab = .session
+                                } label: {
+                                    Image("tab_globe")
+                                        .renderingMode(.template)
+                                        .foregroundStyle(myPageVM.currentMainTab == .session ? .primaryGray : .gray400)
+                                        .frame(width: 32, height: 32)
                                 }
                                 
                                 Spacer()
@@ -67,17 +84,31 @@ struct TabBar: View {
                                 NavigationLink(destination: RunTab()) {
                                     Image("tab_play")
                                         .offset(y: -10)
+                                        .frame(width: 60, height: 60)
                                 }
                                 
                                 Spacer()
                                 
+                                Button {
+                                    myPageVM.currentMainTab = .character
+                                } label: {
+                                    Image("tab_character")
+                                        .renderingMode(.template)
+                                        .foregroundStyle(myPageVM.currentMainTab == .character ? .primaryGray : .gray400)
+                                        .frame(width: 32, height: 32)
+                                }
+                                
+                                Spacer()
+                                Spacer()
+                                
                                 // 마이페이지
                                 Button {
-                                    selectedTab = .my
+                                    myPageVM.currentMainTab = .my
                                 } label: {
                                     Image("tab_user")
                                         .renderingMode(.template)
-                                        .foregroundStyle(selectedTab == .my ? .primaryGray : .gray400)
+                                        .foregroundStyle(myPageVM.currentMainTab == .my ? .primaryGray : .gray400)
+                                        .frame(width: 32, height: 32)
                                 }
                                 
                                 Spacer()
