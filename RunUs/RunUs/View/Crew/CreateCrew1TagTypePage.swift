@@ -8,8 +8,33 @@
 import SwiftUI
 
 struct CreateCrew1TagTypePage: View {
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            ZStack {
+                Color.primaryBG
+                VStack {
+                    Divider()
+                    VStack {
+                        
+                    }
+                    Spacer()
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .resizable()
+                            .frame(width: 14, height: 14)
+                            .foregroundStyle(.primaryGray)
+                    }
+                }
+            }
+        }
     }
 }
 
