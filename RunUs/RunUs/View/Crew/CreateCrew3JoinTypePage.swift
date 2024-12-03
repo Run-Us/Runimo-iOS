@@ -14,6 +14,8 @@ struct CreateCrew3JoinTypePage: View {
         ["즉시 가입", "RunUS 서비스를 사용하는 누구나 바로 가입할 수 있어요."],
         ["신청 가입", "가입 질문에 답변하여 신청하고, 검토 후 가입이 승인돼요."]
     ]
+    @State private var answer: String = ""
+    @FocusState private var isEditorFocused: Bool
     
     var body: some View {
         NavigationStack {
@@ -52,6 +54,10 @@ struct CreateCrew3JoinTypePage: View {
                             .buttonStyle(.plain)
                         }
                         
+                        if selectedJoinTypeIndex == 1 {
+                            InputTextArea(title: "가입 질문", placeholder: "같이 달릴 러너를 위해, 크루에 대해 간단히 소개해주세요", maxCount: 300, contents: $answer, height: 110, isEditorFocused: _isEditorFocused)
+                                .padding(.top, 32)
+                        }
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 24)
