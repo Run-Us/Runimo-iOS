@@ -87,6 +87,8 @@ struct CreateCrew3JoinTypePage: View {
                     .frame(width: 14)
                 }
             }
+            .toolbarBackground(.primaryBG, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
     }
 }

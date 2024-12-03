@@ -67,6 +67,8 @@ struct CreateCrew2DetailPage: View {
                     .frame(width: 14)
                 }
             }
+            .toolbarBackground(.primaryBG, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
         .onTapGesture {
             isEditorFocused = false
