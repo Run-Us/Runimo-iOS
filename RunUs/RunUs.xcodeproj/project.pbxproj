@@ -55,6 +55,7 @@
 		23E1B9E82CFF1C3200846F22 /* CreateCrew3JoinTypePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9E72CFF1C3200846F22 /* CreateCrew3JoinTypePage.swift */; };
 		23E1B9EC2CFF51B600846F22 /* TypeCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9EB2CFF51B600846F22 /* TypeCheckbox.swift */; };
 		23E1B9EE2CFF54D800846F22 /* InputTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9ED2CFF54D800846F22 /* InputTextArea.swift */; };
+		23E1B9F02CFF5D5600846F22 /* CrewHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9EF2CFF5D5600846F22 /* CrewHomePage.swift */; };
 		23F056B42CDA7B0100EC3A40 /* DateSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F056B32CDA7B0100EC3A40 /* DateSheet.swift */; };
 		23F056B62CDA880800EC3A40 /* RunningViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F056B52CDA880800EC3A40 /* RunningViewModel.swift */; };
 		883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883764102CBCF6360046EC7B /* GenderPickerSheet.swift */; };
@@ -127,6 +128,7 @@
 		23E1B9E72CFF1C3200846F22 /* CreateCrew3JoinTypePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrew3JoinTypePage.swift; sourceTree = "<group>"; };
 		23E1B9EB2CFF51B600846F22 /* TypeCheckbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCheckbox.swift; sourceTree = "<group>"; };
 		23E1B9ED2CFF54D800846F22 /* InputTextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextArea.swift; sourceTree = "<group>"; };
+		23E1B9EF2CFF5D5600846F22 /* CrewHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewHomePage.swift; sourceTree = "<group>"; };
 		23F056B32CDA7B0100EC3A40 /* DateSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSheet.swift; sourceTree = "<group>"; };
 		23F056B52CDA880800EC3A40 /* RunningViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningViewModel.swift; sourceTree = "<group>"; };
 		883764102CBCF6360046EC7B /* GenderPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderPickerSheet.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				23E1B9E52CFF0CF500846F22 /* CreateCrew2DetailPage.swift */,
 				23E1B9E72CFF1C3200846F22 /* CreateCrew3JoinTypePage.swift */,
 				23E1B9EB2CFF51B600846F22 /* TypeCheckbox.swift */,
+				23E1B9EF2CFF5D5600846F22 /* CrewHomePage.swift */,
 			);
 			path = Crew;
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 				883764132CBD277E0046EC7B /* AddProfileSheet.swift in Sources */,
 				887940FE2CAB35DB0018C035 /* ParticipationService.swift in Sources */,
 				88E556132C8F5E49003789B7 /* CharacterTab.swift in Sources */,
+				23E1B9F02CFF5D5600846F22 /* CrewHomePage.swift in Sources */,
 				88E5560D2C8F213E003789B7 /* MyTab.swift in Sources */,
 				883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */,
 				8889DC022CD62C1300FD0B82 /* PollingManager.swift in Sources */,

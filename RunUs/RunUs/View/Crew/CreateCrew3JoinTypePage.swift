@@ -16,6 +16,7 @@ struct CreateCrew3JoinTypePage: View {
     ]
     @State private var answer: String = ""
     @FocusState private var isEditorFocused: Bool
+    @State private var showCrewHomePage: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -63,8 +64,12 @@ struct CreateCrew3JoinTypePage: View {
                     .padding(.vertical, 24)
                     
                     Spacer()
-                    CTAButton(text: "크루 만들기", disabled: false) {
+                    CTAButton(text: "크루 만들기", disabled: selectedJoinTypeIndex==1 && answer.isEmpty) {
                         // TODO: Create Crew API
+                        showCrewHomePage = true
+                    }
+                    .navigationDestination(isPresented: $showCrewHomePage) {
+                        CrewHomePage()
                     }
                 }
             }
