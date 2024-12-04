@@ -25,14 +25,14 @@ struct TabBar: View {
                 VStack {
                     // 상단 바
                     VStack(alignment: .leading, spacing: 0) {
-                        HStack {
+                        if [Tab.home, Tab.my].contains(myPageVM.currentMainTab) {
                             Image("logo_black")
                                 .resizable()
                                 .frame(width: 104, height: 24)
                                 .foregroundStyle(.primaryGray)
+                                .padding(16)
+                            Divider()
                         }
-                        .padding(16)
-                        Divider()
                     }
                     
                     // 커스텀 탭바
@@ -42,7 +42,7 @@ struct TabBar: View {
                         // 탭 별 보여줄 페이지
                         switch (myPageVM.currentMainTab) {
                         case .home: HomeTab()
-                        case .session: EmptyView()
+                        case .session: SessionTab()
                         case .character: EmptyView()
                         case .my:   MyTab()
                         }
