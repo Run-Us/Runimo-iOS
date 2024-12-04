@@ -9,12 +9,13 @@ import SwiftUI
 
 struct CreateCrew2DetailPage: View {
     @Environment(\.dismiss) var dismiss
-    @State private var selectedProfile: UIImage? = nil
+    @State var selectedProfile: [UIImage] = []
     @FocusState private var isEditorFocused: Bool
     @State private var crewName: String = ""
     @State private var crewExplanation: String = ""
     @State private var activeArea: String = ""
     @State private var showNextJoinPage: Bool = false
+    @State private var showAddProfileSheet: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -78,8 +79,9 @@ struct CreateCrew2DetailPage: View {
     @ViewBuilder
     func profileImage() -> some View {
         Button {
+            showAddProfileSheet = true
         } label: {
-            Image(uiImage: selectedProfile ?? UIImage(named: "default_user_profile")!)   // TODO: change to crew default image
+            Image(uiImage: selectedProfile.last ?? UIImage(named: "default_user_profile")!)   // TODO: change to crew default image
                 .resizable()
                 .scaledToFill()
                 .frame(width: 120, height: 120)
@@ -89,6 +91,10 @@ struct CreateCrew2DetailPage: View {
             Image("plus_profile_button")
         }
         .padding(36)
+        .sheet(isPresented: $showAddProfileSheet, content: {
+            AddProfileSheet(selectedImages: $selectedProfile, isPresentedError: .constant(false))
+                .presentationDetents([.fraction(0.21)])
+        })
     }
 }
 
