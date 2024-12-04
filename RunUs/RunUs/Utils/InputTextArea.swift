@@ -32,7 +32,7 @@ struct InputTextArea: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke($contents.wrappedValue.count > 0 ? .secondaryGray : .quaternaryGray)
+                            .stroke($contents.wrappedValue.count > 0 ? .secondaryGray : .secondaryFill)
                     )
                 // placeholder
                 if $contents.wrappedValue.isEmpty {
@@ -51,6 +51,7 @@ struct InputTextArea: View {
                     .font(.caption_regular)
             }
         }
+        .padding(.horizontal, 1)
     }
 }
 
