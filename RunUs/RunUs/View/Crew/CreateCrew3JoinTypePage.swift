@@ -90,6 +90,9 @@ struct CreateCrew3JoinTypePage: View {
             .toolbarBackground(.primaryBG, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
         }
+        .onTapGesture {
+            isEditorFocused = false
+        }
     }
 }
 
