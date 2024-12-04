@@ -56,7 +56,7 @@ struct CreateCrew3JoinTypePage: View {
                         }
                         
                         if selectedJoinTypeIndex == 1 {
-                            InputTextArea(title: "가입 질문", placeholder: "같이 달릴 러너를 위해, 크루에 대해 간단히 소개해주세요", maxCount: 300, contents: $answer, height: 110, isEditorFocused: _isEditorFocused)
+                            InputTextArea(title: "가입 질문", placeholder: "예시: 평소 러닝 페이스와 목표 거리를 알려주세요.", maxCount: 50, contents: $answer, height: 110, isEditorFocused: _isEditorFocused)
                                 .padding(.top, 32)
                         }
                     }
