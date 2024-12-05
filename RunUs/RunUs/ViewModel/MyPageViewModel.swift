@@ -21,7 +21,7 @@ enum RecordType: String {
 }
 
 class MyPageViewModel: ObservableObject {
-    @ObservedObject var dateManager: DateManager = DateManager()
+    let dateManager = DateManager.shared
     @Published var selectedTab: Int = 0 {
         didSet {
             getGraphAPI()
