@@ -8,11 +8,12 @@
 import Foundation
 
 class DateManager: ObservableObject {
+    static let shared = DateManager()
     var calendar = Calendar.current
     var date = Date()
     var formatter = DateFormatter()
     
-    init() {
+    private init() {
         formatter.locale = Locale(identifier: "ko_kr")
         calendar.firstWeekday = 2
     }
@@ -39,6 +40,18 @@ extension DateManager {
         return formatter.string(from: date)
     }
     
+    // 날짜 string
+    func getDay(date: Date) -> String {
+        formatter.dateFormat = "d"
+        return formatter.string(from: date)
+    }
+    
+    // 요일 string
+    func getWeekday(date: Date) -> String {
+        formatter.dateFormat = "E"
+        return formatter.string(from: date)
+    }
+    
     // 날짜 차이 계산
     func subDate(date: Date?) -> Int {
         if let date = date {
@@ -46,6 +59,19 @@ extension DateManager {
             return offset.day ?? -1
         }
         return -1
+    }
+}
+
+// MARK: SessionTab week
+extension DateManager {
+    // 오늘 ~ +7일 정보
+    func getDayTodayTo7days() -> [(day: String, weekday: String)] {
+        var week: [(String, String)] = []
+        for i in 0..<8 {
+            let date: Date = calendar.date(byAdding: .day, value: i, to: Date()) ?? Date()
+            week.append((getDay(date: date), getWeekday(date: date)))
+        }
+        return week
     }
 }
 
