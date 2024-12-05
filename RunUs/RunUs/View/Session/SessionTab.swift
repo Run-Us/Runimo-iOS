@@ -13,15 +13,18 @@ struct SessionTab: View {
     var body: some View {
         ZStack {
             Color.primaryBG.ignoresSafeArea()
-            VStack(spacing: 16) {
+            VStack(alignment: .leading, spacing: 16) {
                 navigationBar()
                 week()
                     .padding(.leading, 16)
+                filter()
+                    .padding(.horizontal, 16)
                 Spacer()
             }
         }
     }
     
+    // top navigation bar
     @ViewBuilder
     private func navigationBar() -> some View {
         VStack(spacing: 0) {
@@ -39,6 +42,7 @@ struct SessionTab: View {
         }
     }
     
+    // date filter
     @ViewBuilder
     private func week() -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -47,7 +51,7 @@ struct SessionTab: View {
                     Button {
                         selectedDateIndex = index
                     } label: {
-                        day(days: element.day, weekday: element.weekday, selected: index == selectedDateIndex)
+                        dayItem(days: element.day, weekday: element.weekday, selected: index == selectedDateIndex)
                     }
                 }
             }
@@ -55,7 +59,7 @@ struct SessionTab: View {
     }
     
     @ViewBuilder
-    private func day(days: String, weekday: String, selected: Bool) -> some View {
+    private func dayItem(days: String, weekday: String, selected: Bool) -> some View {
         VStack {
             Text(days)
                 .font(.body1_bold)
@@ -68,6 +72,39 @@ struct SessionTab: View {
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(selected ? .primary400 : .clear)
+        )
+    }
+    
+    // category filter
+    @ViewBuilder
+    private func filter() -> some View {
+        HStack {
+            filterItem(text: "내 크루")
+            filterItem(text: "게스트 참가")
+            filterItem(text: "페이스")
+        }
+    }
+    
+    @ViewBuilder
+    private func filterItem(text: String) -> some View {
+        HStack(spacing: 8) {
+            Text(text)
+                .font(.body1_medium)
+                .foregroundStyle(.tertiaryGray)
+            if text == "페이스" {
+                Image("arrow_down")
+                    .renderingMode(.template)
+                    .resizable()
+                    .frame(width: 24, height: 24)
+                    .foregroundStyle(.quaternaryGray)
+            }
+        }
+        .frame(height: 24)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 4)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(.gray400, lineWidth: 1)
         )
     }
 }
