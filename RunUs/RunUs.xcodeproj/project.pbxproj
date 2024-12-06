@@ -48,6 +48,14 @@
 		23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C27B012CBF819200978DC9 /* ProgressBar.swift */; };
 		23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B762CD8BA2C0073732C /* PostCardList.swift */; };
 		23CE0B7D2CD8D6390073732C /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B7C2CD8D6390073732C /* DateManager.swift */; };
+		23E1B9E02CFD89D200846F22 /* FindCrewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9DF2CFD89D200846F22 /* FindCrewPage.swift */; };
+		23E1B9E22CFD8C0B00846F22 /* CreateCrew1TagTypePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9E12CFD8C0B00846F22 /* CreateCrew1TagTypePage.swift */; };
+		23E1B9E42CFF066A00846F22 /* CTAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9E32CFF066A00846F22 /* CTAButton.swift */; };
+		23E1B9E62CFF0CF500846F22 /* CreateCrew2DetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9E52CFF0CF500846F22 /* CreateCrew2DetailPage.swift */; };
+		23E1B9E82CFF1C3200846F22 /* CreateCrew3JoinTypePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9E72CFF1C3200846F22 /* CreateCrew3JoinTypePage.swift */; };
+		23E1B9EC2CFF51B600846F22 /* TypeCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9EB2CFF51B600846F22 /* TypeCheckbox.swift */; };
+		23E1B9EE2CFF54D800846F22 /* InputTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9ED2CFF54D800846F22 /* InputTextArea.swift */; };
+		23E1B9F02CFF5D5600846F22 /* CrewHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9EF2CFF5D5600846F22 /* CrewHomePage.swift */; };
 		23F056B42CDA7B0100EC3A40 /* DateSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F056B32CDA7B0100EC3A40 /* DateSheet.swift */; };
 		23F056B62CDA880800EC3A40 /* RunningViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F056B52CDA880800EC3A40 /* RunningViewModel.swift */; };
 		883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883764102CBCF6360046EC7B /* GenderPickerSheet.swift */; };
@@ -113,6 +121,14 @@
 		23C27B012CBF819200978DC9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		23CE0B762CD8BA2C0073732C /* PostCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardList.swift; sourceTree = "<group>"; };
 		23CE0B7C2CD8D6390073732C /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		23E1B9DF2CFD89D200846F22 /* FindCrewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindCrewPage.swift; sourceTree = "<group>"; };
+		23E1B9E12CFD8C0B00846F22 /* CreateCrew1TagTypePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrew1TagTypePage.swift; sourceTree = "<group>"; };
+		23E1B9E32CFF066A00846F22 /* CTAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTAButton.swift; sourceTree = "<group>"; };
+		23E1B9E52CFF0CF500846F22 /* CreateCrew2DetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrew2DetailPage.swift; sourceTree = "<group>"; };
+		23E1B9E72CFF1C3200846F22 /* CreateCrew3JoinTypePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrew3JoinTypePage.swift; sourceTree = "<group>"; };
+		23E1B9EB2CFF51B600846F22 /* TypeCheckbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCheckbox.swift; sourceTree = "<group>"; };
+		23E1B9ED2CFF54D800846F22 /* InputTextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextArea.swift; sourceTree = "<group>"; };
+		23E1B9EF2CFF5D5600846F22 /* CrewHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewHomePage.swift; sourceTree = "<group>"; };
 		23F056B32CDA7B0100EC3A40 /* DateSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSheet.swift; sourceTree = "<group>"; };
 		23F056B52CDA880800EC3A40 /* RunningViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningViewModel.swift; sourceTree = "<group>"; };
 		883764102CBCF6360046EC7B /* GenderPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderPickerSheet.swift; sourceTree = "<group>"; };
@@ -180,6 +196,7 @@
 		230314E72C88A43300B299D5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				23E1B9DE2CFD89C400846F22 /* Crew */,
 				230C605A2CFB70420060CCF7 /* Character */,
 				230C60592CFB70350060CCF7 /* Home */,
 				23B708DD2C99523E006E9547 /* Onboarding */,
@@ -332,9 +349,24 @@
 				237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */,
 				233831002CC69B430075E73A /* PopUp.swift */,
 				886684D22CBE769C00BD30E8 /* PasscodeGenerator.swift */,
+				23E1B9E32CFF066A00846F22 /* CTAButton.swift */,
+				23E1B9ED2CFF54D800846F22 /* InputTextArea.swift */,
 				23C27B012CBF819200978DC9 /* ProgressBar.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		23E1B9DE2CFD89C400846F22 /* Crew */ = {
+			isa = PBXGroup;
+			children = (
+				23E1B9DF2CFD89D200846F22 /* FindCrewPage.swift */,
+				23E1B9E12CFD8C0B00846F22 /* CreateCrew1TagTypePage.swift */,
+				23E1B9E52CFF0CF500846F22 /* CreateCrew2DetailPage.swift */,
+				23E1B9E72CFF1C3200846F22 /* CreateCrew3JoinTypePage.swift */,
+				23E1B9EB2CFF51B600846F22 /* TypeCheckbox.swift */,
+				23E1B9EF2CFF5D5600846F22 /* CrewHomePage.swift */,
+			);
+			path = Crew;
 			sourceTree = "<group>";
 		};
 		887DAB582CAD8D320028516D /* Participants */ = {
@@ -448,14 +480,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23E1B9E22CFD8C0B00846F22 /* CreateCrew1TagTypePage.swift in Sources */,
 				23052EC92CEDDDCF002725A5 /* MyPageService.swift in Sources */,
 				23F056B62CDA880800EC3A40 /* RunningViewModel.swift in Sources */,
 				88E556052C8F208F003789B7 /* HomeTab.swift in Sources */,
+				23E1B9EE2CFF54D800846F22 /* InputTextArea.swift in Sources */,
+				23E1B9E82CFF1C3200846F22 /* CreateCrew3JoinTypePage.swift in Sources */,
 				88E556092C8F20E8003789B7 /* RunningPage.swift in Sources */,
+				23E1B9E62CFF0CF500846F22 /* CreateCrew2DetailPage.swift in Sources */,
 				235D38A32CD3BF8F00487952 /* MyPageViewModel.swift in Sources */,
 				23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */,
 				230314EF2C89920100B299D5 /* AuthViewModel.swift in Sources */,
 				235D38A52CD3E7F000487952 /* PostCard.swift in Sources */,
+				23E1B9E42CFF066A00846F22 /* CTAButton.swift in Sources */,
 				230314E92C88A48D00B299D5 /* LoginPage.swift in Sources */,
 				2347D9AE2CD34101003776BC /* MyGraph.swift in Sources */,
 				233ED1FD2CABA0E7001EF0BC /* RunningSessionInfo.swift in Sources */,
@@ -482,6 +519,7 @@
 				887940EE2CAAFEC80018C035 /* RunningSessionService.swift in Sources */,
 				236343122C90386D00336D67 /* RunningMapPage.swift in Sources */,
 				887940F42CAB2AD30018C035 /* JoinPage.swift in Sources */,
+				23E1B9EC2CFF51B600846F22 /* TypeCheckbox.swift in Sources */,
 				236343162C9180D000336D67 /* RunningProgressPage.swift in Sources */,
 				23CE0B7D2CD8D6390073732C /* DateManager.swift in Sources */,
 				886684D32CBE769C00BD30E8 /* PasscodeGenerator.swift in Sources */,
@@ -490,6 +528,7 @@
 				883764132CBD277E0046EC7B /* AddProfileSheet.swift in Sources */,
 				887940FE2CAB35DB0018C035 /* ParticipationService.swift in Sources */,
 				88E556132C8F5E49003789B7 /* CharacterTab.swift in Sources */,
+				23E1B9F02CFF5D5600846F22 /* CrewHomePage.swift in Sources */,
 				88E5560D2C8F213E003789B7 /* MyTab.swift in Sources */,
 				883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */,
 				8889DC022CD62C1300FD0B82 /* PollingManager.swift in Sources */,
@@ -497,6 +536,7 @@
 				888648F22C981ECC00B040BA /* StartGroupRunPage.swift in Sources */,
 				88DDA2A22CFA2B3C00063DB2 /* WaitGroupRunPage.swift in Sources */,
 				233831012CC69B430075E73A /* PopUp.swift in Sources */,
+				23E1B9E02CFD89D200846F22 /* FindCrewPage.swift in Sources */,
 				233ED1CA2CA93D49001EF0BC /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
