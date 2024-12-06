@@ -45,6 +45,7 @@
 		2398F4AF2CB8303E001D922B /* Pretendard-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AD2CB8303E001D922B /* Pretendard-Regular.ttf */; };
 		2398F4B12CB8303E001D922B /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AC2CB8303E001D922B /* Pretendard-Medium.ttf */; };
 		2398F4B22CB8303E001D922B /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */; };
+		23A26B182D03068000CD4A3A /* SessionDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A26B172D03068000CD4A3A /* SessionDetailPage.swift */; };
 		23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C27B012CBF819200978DC9 /* ProgressBar.swift */; };
 		23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B762CD8BA2C0073732C /* PostCardList.swift */; };
 		23CE0B7D2CD8D6390073732C /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B7C2CD8D6390073732C /* DateManager.swift */; };
@@ -56,6 +57,8 @@
 		23E1B9EC2CFF51B600846F22 /* TypeCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9EB2CFF51B600846F22 /* TypeCheckbox.swift */; };
 		23E1B9EE2CFF54D800846F22 /* InputTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9ED2CFF54D800846F22 /* InputTextArea.swift */; };
 		23E1B9F02CFF5D5600846F22 /* CrewHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9EF2CFF5D5600846F22 /* CrewHomePage.swift */; };
+		23E1B9F42D00993C00846F22 /* SessionTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9F32D00993C00846F22 /* SessionTab.swift */; };
+		23E1B9F62D01CC5100846F22 /* SessionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9F52D01CC5100846F22 /* SessionCard.swift */; };
 		23F056B42CDA7B0100EC3A40 /* DateSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F056B32CDA7B0100EC3A40 /* DateSheet.swift */; };
 		23F056B62CDA880800EC3A40 /* RunningViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F056B52CDA880800EC3A40 /* RunningViewModel.swift */; };
 		883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883764102CBCF6360046EC7B /* GenderPickerSheet.swift */; };
@@ -118,6 +121,7 @@
 		2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.ttf"; sourceTree = "<group>"; };
 		2398F4AC2CB8303E001D922B /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.ttf"; sourceTree = "<group>"; };
 		2398F4AD2CB8303E001D922B /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
+		23A26B172D03068000CD4A3A /* SessionDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailPage.swift; sourceTree = "<group>"; };
 		23C27B012CBF819200978DC9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		23CE0B762CD8BA2C0073732C /* PostCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardList.swift; sourceTree = "<group>"; };
 		23CE0B7C2CD8D6390073732C /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 		23E1B9EB2CFF51B600846F22 /* TypeCheckbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCheckbox.swift; sourceTree = "<group>"; };
 		23E1B9ED2CFF54D800846F22 /* InputTextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextArea.swift; sourceTree = "<group>"; };
 		23E1B9EF2CFF5D5600846F22 /* CrewHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewHomePage.swift; sourceTree = "<group>"; };
+		23E1B9F32D00993C00846F22 /* SessionTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTab.swift; sourceTree = "<group>"; };
+		23E1B9F52D01CC5100846F22 /* SessionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCard.swift; sourceTree = "<group>"; };
 		23F056B32CDA7B0100EC3A40 /* DateSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSheet.swift; sourceTree = "<group>"; };
 		23F056B52CDA880800EC3A40 /* RunningViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningViewModel.swift; sourceTree = "<group>"; };
 		883764102CBCF6360046EC7B /* GenderPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderPickerSheet.swift; sourceTree = "<group>"; };
@@ -197,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				23E1B9DE2CFD89C400846F22 /* Crew */,
+				23E1B9F22D00992200846F22 /* Session */,
 				230C605A2CFB70420060CCF7 /* Character */,
 				230C60592CFB70350060CCF7 /* Home */,
 				23B708DD2C99523E006E9547 /* Onboarding */,
@@ -367,6 +374,16 @@
 				23E1B9EF2CFF5D5600846F22 /* CrewHomePage.swift */,
 			);
 			path = Crew;
+            sourceTree = "<group>";
+        };
+		23E1B9F22D00992200846F22 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				23E1B9F32D00993C00846F22 /* SessionTab.swift */,
+				23E1B9F52D01CC5100846F22 /* SessionCard.swift */,
+				23A26B172D03068000CD4A3A /* SessionDetailPage.swift */,
+			);
+			path = Session;
 			sourceTree = "<group>";
 		};
 		887DAB582CAD8D320028516D /* Participants */ = {
@@ -483,6 +500,7 @@
 				23E1B9E22CFD8C0B00846F22 /* CreateCrew1TagTypePage.swift in Sources */,
 				23052EC92CEDDDCF002725A5 /* MyPageService.swift in Sources */,
 				23F056B62CDA880800EC3A40 /* RunningViewModel.swift in Sources */,
+				23E1B9F62D01CC5100846F22 /* SessionCard.swift in Sources */,
 				88E556052C8F208F003789B7 /* HomeTab.swift in Sources */,
 				23E1B9EE2CFF54D800846F22 /* InputTextArea.swift in Sources */,
 				23E1B9E82CFF1C3200846F22 /* CreateCrew3JoinTypePage.swift in Sources */,
@@ -490,6 +508,7 @@
 				23E1B9E62CFF0CF500846F22 /* CreateCrew2DetailPage.swift in Sources */,
 				235D38A32CD3BF8F00487952 /* MyPageViewModel.swift in Sources */,
 				23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */,
+				23A26B182D03068000CD4A3A /* SessionDetailPage.swift in Sources */,
 				230314EF2C89920100B299D5 /* AuthViewModel.swift in Sources */,
 				235D38A52CD3E7F000487952 /* PostCard.swift in Sources */,
 				23E1B9E42CFF066A00846F22 /* CTAButton.swift in Sources */,
@@ -514,6 +533,7 @@
 				8889DC042CD66E0A00FD0B82 /* RunningParticipants.swift in Sources */,
 				238E78F22C83147200D04F58 /* RunUsApp.swift in Sources */,
 				2355F66C2C9E9CE700A65108 /* MotionManager.swift in Sources */,
+				23E1B9F42D00993C00846F22 /* SessionTab.swift in Sources */,
 				88D3BF212CA95FB4009E4365 /* WebSocketService.swift in Sources */,
 				2372998F2CBCDD2100D0E7F6 /* RunTab.swift in Sources */,
 				887940EE2CAAFEC80018C035 /* RunningSessionService.swift in Sources */,
