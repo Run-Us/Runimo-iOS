@@ -29,6 +29,7 @@ enum RunningPace: String {
 
 struct SessionTab: View {
     @State private var selectedDateIndex: Int = 0
+    @State private var showSessionDetailPage: Bool = false
     
     var body: some View {
         ZStack {
@@ -136,7 +137,15 @@ struct SessionTab: View {
         // 확인용 더미데이터 넣어놓음
         ScrollView {
             VStack(spacing: 12) {
-                SessionCard(sessionCardData: SessionCardInfo(runing_public_id: "", top_message: "", title: "제목", description: "설명", start_at: "", pace: ["500","600"], participant_count: 3, created_by: SessionCreator(nickname: "생성자2", profile_image: nil), crew: SessionCrew(crew_public_id: "", profile_image: nil, name: "크루2")))
+                // 테스트용으로 하나만 버튼 이벤트 추가
+                Button {
+                    showSessionDetailPage = true
+                } label: {
+                    SessionCard(sessionCardData: SessionCardInfo(runing_public_id: "", top_message: "", title: "제목", description: "설명", start_at: "", pace: ["500","600"], participant_count: 3, created_by: SessionCreator(nickname: "생성자2", profile_image: nil), crew: SessionCrew(crew_public_id: "", profile_image: nil, name: "크루2")))
+                }
+                .navigationDestination(isPresented: $showSessionDetailPage) {
+                    SessionDetailPage()
+                }
                 SessionCard(sessionCardData: SessionCardInfo(runing_public_id: "", top_message: "‘올공특공대’ 정기런", title: "제목2", description: "설명2", start_at: "", pace: ["500"], participant_count: 2, created_by: SessionCreator(nickname: "생성자1", profile_image: nil), crew: SessionCrew(crew_public_id: "", profile_image: nil, name: "크루1")))
                 SessionCard(sessionCardData: SessionCardInfo(runing_public_id: "", top_message: "게스트 모집 중", title: "제목3", description: "설명3", start_at: "", pace: ["600"], participant_count: 4, created_by: SessionCreator(nickname: "생성자2", profile_image: nil), crew: SessionCrew(crew_public_id: "", profile_image: nil, name: "크루2")))
                 
