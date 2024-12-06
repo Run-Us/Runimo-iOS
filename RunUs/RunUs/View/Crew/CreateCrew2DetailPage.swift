@@ -27,7 +27,7 @@ struct CreateCrew2DetailPage: View {
                         .frame(height: 0.5)
                         .background(.secondaryFill)
                     ScrollView {
-                        VStack(spacing: 32) {
+                        VStack(spacing: 20) {
                             VStack(spacing: 5) {
                                 Text("크루를 만들어볼까요?")
                                     .font(.title5_bold)
@@ -44,7 +44,7 @@ struct CreateCrew2DetailPage: View {
                         }
                     }
                     .padding(.horizontal, 16)
-                    .padding(.vertical, 24)
+                    .padding(.top, 24)
                     
                     CTAButton(text: "다음", disabled: crewName.isEmpty || crewExplanation.isEmpty || activeArea.isEmpty) {
                         showNextJoinPage = true
@@ -81,7 +81,7 @@ struct CreateCrew2DetailPage: View {
         Button {
             showAddProfileSheet = true
         } label: {
-            Image(uiImage: selectedProfile.last ?? UIImage(named: "default_user_profile")!)   // TODO: change to crew default image
+            Image(uiImage: selectedProfile.last ?? UIImage(named: "crew_default_profile")!)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 120, height: 120)
