@@ -12,19 +12,21 @@ struct CrewHomePage: View {
     @State private var selectedTab: Int = 0
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottomTrailing) {
             Color.primaryBG.ignoresSafeArea()
             ScrollView {
                 crewProfile()
                     .padding(.horizontal, 16)
                     .padding(.vertical, 20)
+                
                 SegmentedPicker(selectedTab: $selectedTab, type: ["일정","피드","크루원"])
                 switch selectedTab {
-                case 0: EmptyView()     // 일정
+                case 0: scheduleTab()     // 일정
                 case 1: EmptyView()     // 피드
                 default: EmptyView()    // 크루원
                 }
             }
+            createSessionButton()
         }
         .navigationBarBackButtonHidden()
         .toolbar {
@@ -54,6 +56,7 @@ struct CrewHomePage: View {
                         .foregroundStyle(.primaryGray)
                         .frame(width: 20, height: 20)
                 }
+                .padding(.vertical, 10)
             }
         }
         .toolbarBackground(.primaryBG, for: .navigationBar)
@@ -79,6 +82,89 @@ struct CrewHomePage: View {
             .foregroundStyle(.quaternaryGray)
             Spacer()
         }
+    }
+    
+    @ViewBuilder
+    private func scheduleTab() -> some View {
+        VStack(alignment: .leading, spacing: 24) {
+            RecordCard()
+                .padding(.top, 20)
+            regularRunningSession()
+            irregularRunningSession()
+        }
+        .padding(.horizontal, 16)
+    }
+    
+    @ViewBuilder
+    private func regularRunningSession() -> some View {
+        VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 5) {
+                Text("다음 정기 러닝세션")
+                    .font(.title5_bold)
+                    .foregroundStyle(.primaryGray)
+                Text("크루장이 생성한 공식 일정이에요")
+                    .font(.body2_medium)
+                    .foregroundStyle(.quaternaryGray)
+            }
+            
+            Button {
+                // TODO: 정기런 만들기
+                print("click")
+            } label: {
+                createRegularButton()
+            }
+            .padding(.vertical, 40)
+        }
+    }
+    
+    @ViewBuilder
+    private func createRegularButton() -> some View {
+        HStack(spacing: 8) {
+            Image("goal_flag")
+                .resizable()
+                .frame(width: 24, height: 24)
+            Text("정기런 만들기")
+                .font(.title5_bold)
+                .foregroundStyle(.primaryGray)
+        }
+        .padding(.vertical, 16)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(.secondaryFill, lineWidth: 1)
+        )
+    }
+    
+    @ViewBuilder
+    private func irregularRunningSession() -> some View {
+        VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 5) {
+                Text("번개 러닝세션")
+                    .font(.title5_bold)
+                    .foregroundStyle(.primaryGray)
+                Text("크루원이 생성한 번개런에 참여해보세요")
+                    .font(.body2_medium)
+                    .foregroundStyle(.quaternaryGray)
+            }
+            
+            Text("달리는 크루원이 없나보네요")
+                .font(.title4_semibold)
+                .foregroundStyle(.primaryGray)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 40)
+        }
+    }
+    
+    @ViewBuilder
+    private func createSessionButton() -> some View {
+        Button {
+            // TODO: Add Action
+        } label: {
+            Image("plus_floating_button")
+                .resizable()
+                .frame(width: 80, height: 80)
+        }
+        .padding(24)
     }
 }
 
