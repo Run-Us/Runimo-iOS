@@ -106,6 +106,7 @@ struct SessionTab: View {
         }
     }
     
+    // TODO: 필터 적용에 따른 뷰 바꾸기 (JIS-17)
     @ViewBuilder
     private func filterItem(text: String) -> some View {
         HStack(spacing: 8) {
@@ -117,7 +118,7 @@ struct SessionTab: View {
                     .renderingMode(.template)
                     .resizable()
                     .frame(width: 24, height: 24)
-                    .foregroundStyle(.quaternaryGray)
+                    .foregroundStyle(.tertiaryGray)
             }
         }
         .frame(height: 24)
