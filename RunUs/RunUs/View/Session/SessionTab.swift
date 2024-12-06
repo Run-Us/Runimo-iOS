@@ -7,6 +7,26 @@
 
 import SwiftUI
 
+enum RunningPace: String {
+    case above500 = "ABOVE_500"
+    case pace500 = "500"
+    case pace530 = "530"
+    case pace600 = "600"
+    case pace630 = "630"
+    case pace700 = "700"
+    case pace730 = "730"
+    case pace800 = "800"
+    case fastWalk = "FAST_WALK"
+    
+    var description: String {
+        switch self {
+        case .above500: return "5’00” 이하"
+        case .fastWalk: return "빠른 걸음"
+        default: return "\(self.rawValue.dropLast(2))’\(self.rawValue.dropFirst())”"
+        }
+    }
+}
+
 struct SessionTab: View {
     @State private var selectedDateIndex: Int = 0
     
@@ -19,7 +39,8 @@ struct SessionTab: View {
                     .padding(.leading, 16)
                 filter()
                     .padding(.horizontal, 16)
-                Spacer()
+                sessionCardList()
+                    .padding(.horizontal, 16)
             }
         }
     }
@@ -106,6 +127,21 @@ struct SessionTab: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(.gray400, lineWidth: 1)
         )
+    }
+    
+    @ViewBuilder
+    private func sessionCardList() -> some View {
+        // TODO: API 연결 후 리스트로 변경
+        // 확인용 더미데이터 넣어놓음
+        ScrollView {
+            VStack(spacing: 12) {
+                SessionCard(sessionCardData: SessionCardInfo(runing_public_id: "", top_message: "", title: "제목", description: "설명", start_at: "", pace: ["500","600"], participant_count: 3, created_by: SessionCreator(nickname: "생성자2", profile_image: nil), crew: SessionCrew(crew_public_id: "", profile_image: nil, name: "크루2")))
+                SessionCard(sessionCardData: SessionCardInfo(runing_public_id: "", top_message: "‘올공특공대’ 정기런", title: "제목2", description: "설명2", start_at: "", pace: ["500"], participant_count: 2, created_by: SessionCreator(nickname: "생성자1", profile_image: nil), crew: SessionCrew(crew_public_id: "", profile_image: nil, name: "크루1")))
+                SessionCard(sessionCardData: SessionCardInfo(runing_public_id: "", top_message: "게스트 모집 중", title: "제목3", description: "설명3", start_at: "", pace: ["600"], participant_count: 4, created_by: SessionCreator(nickname: "생성자2", profile_image: nil), crew: SessionCrew(crew_public_id: "", profile_image: nil, name: "크루2")))
+                
+                SessionCard(sessionCardData: SessionCardInfo(runing_public_id: "", top_message: "‘올공특공대’ 번개런", title: "제목4", description: "설명4", start_at: "", pace: ["600"], participant_count: 5, created_by: SessionCreator(nickname: "생성자3", profile_image: nil), crew: SessionCrew(crew_public_id: "", profile_image: nil, name: "크루3")))
+            }
+        }
     }
 }
 
