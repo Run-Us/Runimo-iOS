@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CrewHomePage: View {
     @Environment(\.dismiss) var dismiss
+    @State private var selectedTab: Int = 0
     
     var body: some View {
         ZStack {
@@ -17,6 +18,12 @@ struct CrewHomePage: View {
                 crewProfile()
                     .padding(.horizontal, 16)
                     .padding(.vertical, 20)
+                SegmentedPicker(selectedTab: $selectedTab, type: ["일정","피드","크루원"])
+                switch selectedTab {
+                case 0: EmptyView()     // 일정
+                case 1: EmptyView()     // 피드
+                default: EmptyView()    // 크루원
+                }
             }
         }
         .navigationBarBackButtonHidden()
