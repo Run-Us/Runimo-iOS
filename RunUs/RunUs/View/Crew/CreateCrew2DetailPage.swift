@@ -78,23 +78,23 @@ struct CreateCrew2DetailPage: View {
     
     @ViewBuilder
     func profileImage() -> some View {
-        Button {
-            showAddProfileSheet = true
-        } label: {
-            Image(uiImage: selectedProfile.last ?? UIImage(named: "crew_default_profile")!)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 120, height: 120)
-                .clipShape(RoundedRectangle(cornerRadius: 52))
-        }
-        .overlay(alignment: .bottomTrailing) {
-            Image("plus_profile_button")
-        }
-        .padding(36)
-        .sheet(isPresented: $showAddProfileSheet, content: {
-            AddProfileSheet(selectedImages: $selectedProfile, isPresentedError: .constant(false))
-                .presentationDetents([.fraction(0.21)])
-        })
+        Image(uiImage: selectedProfile.last ?? UIImage(named: "crew_default_profile")!)
+            .resizable()
+            .scaledToFill()
+            .frame(width: 120, height: 120)
+            .clipShape(RoundedRectangle(cornerRadius: 52))
+            .overlay(alignment: .bottomTrailing) {
+                Button {
+                    showAddProfileSheet = true
+                } label: {
+                    Image("plus_profile_button")
+                }
+            }
+            .padding(16)
+            .sheet(isPresented: $showAddProfileSheet, content: {
+                AddProfileSheet(selectedImages: $selectedProfile, isPresentedError: .constant(false))
+                    .presentationDetents([.fraction(0.21)])
+            })
     }
 }
 
