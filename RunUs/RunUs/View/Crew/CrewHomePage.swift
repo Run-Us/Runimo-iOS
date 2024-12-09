@@ -12,55 +12,57 @@ struct CrewHomePage: View {
     @State private var selectedTab: Int = 0
     
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            Color.primaryBG.ignoresSafeArea()
-            ScrollView {
-                crewProfile()
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 20)
-                
-                SegmentedPicker(selectedTab: $selectedTab, type: ["일정","피드","크루원"])
-                switch selectedTab {
-                case 0: scheduleTab()     // 일정
-                case 1: EmptyView()     // 피드
-                default: EmptyView()    // 크루원
+        NavigationStack {
+            ZStack(alignment: .bottomTrailing) {
+                Color.primaryBG.ignoresSafeArea()
+                ScrollView {
+                    crewProfile()
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 20)
+                    
+                    SegmentedPicker(selectedTab: $selectedTab, type: ["일정","피드","크루원"])
+                    switch selectedTab {
+                    case 0: scheduleTab()     // 일정
+                    case 1: EmptyView()     // 피드
+                    default: EmptyView()    // 크루원
+                    }
                 }
+                createSessionButton()
             }
-            createSessionButton()
-        }
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                HStack {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "chevron.left")
-                            .resizable()
-                            .frame(width: 8, height: 14)
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .resizable()
+                                .frame(width: 8, height: 14)
+                                .foregroundStyle(.primaryGray)
+                        }
+                        .frame(width: 14)
+                        Text("Run with US 공식크루")
+                            .font(.body1_medium)
                             .foregroundStyle(.primaryGray)
                     }
-                    .frame(width: 14)
-                    Text("Run with US 공식크루")
-                        .font(.body1_medium)
-                        .foregroundStyle(.primaryGray)
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        // TODO: Add Action
+                    } label: {
+                        Image("vertical_dots")
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundStyle(.primaryGray)
+                            .frame(width: 20, height: 20)
+                    }
+                    .padding(.vertical, 10)
                 }
             }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    // TODO: Add Action
-                } label: {
-                    Image("vertical_dots")
-                        .resizable()
-                        .renderingMode(.template)
-                        .foregroundStyle(.primaryGray)
-                        .frame(width: 20, height: 20)
-                }
-                .padding(.vertical, 10)
-            }
+            .toolbarBackground(.primaryBG, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
-        .toolbarBackground(.primaryBG, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
     }
     
     @ViewBuilder

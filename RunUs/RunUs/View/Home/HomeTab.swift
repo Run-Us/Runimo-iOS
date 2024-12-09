@@ -11,6 +11,7 @@ struct HomeTab: View {
     @EnvironmentObject var myPageVM: MyPageViewModel
     @State private var sessionCardIndex: Int = 0
     @State private var showFindCrewPage: Bool = false
+    @State private var showCrewHomePage: Bool = false
     
     private let columns = [
         GridItem(.flexible()),
@@ -32,6 +33,9 @@ struct HomeTab: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 24)
             }
+        }
+        .navigationDestination(isPresented: $showCrewHomePage) {
+            CrewHomePage()
         }
     }
     
@@ -161,7 +165,7 @@ struct HomeTab: View {
     @ViewBuilder
     private func crew(imageURL: String?, crewName: String) -> some View {
         Button {
-            // TODO: move to crew home
+            showCrewHomePage = true
         } label: {
             VStack(spacing: 8) {
                 if let profile = imageURL {
