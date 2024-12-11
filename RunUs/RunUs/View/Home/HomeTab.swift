@@ -35,7 +35,8 @@ struct HomeTab: View {
             }
         }
         .navigationDestination(isPresented: $showCrewHomePage) {
-            CrewHomePage()
+            // dummy TODO: API 연결
+            CrewHomePage(crew: Crew(crew_public_id: "", title: "Run with Us", profile_image: "", location: "서울 광진구", intro: "런어스 공식크루", join_type: "자유", crew_type: "동네친구", member_count: 5, created_at: "", exist_new_join_request: false, this_month_record: CrewMonthRecord(running_count: 2, total_distance: 2000, total_time: 500), regular_running: nil, irregular_running: nil))
         }
     }
     

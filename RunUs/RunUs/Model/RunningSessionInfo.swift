@@ -41,7 +41,7 @@ struct SessionCardInfo: Codable {
     let title: String
     let description: String
     let start_at: String
-    let pace: [String]
+    let pace_list: [String]
     let participant_count: Int
     let created_by: SessionCreator
     let crew: SessionCrew

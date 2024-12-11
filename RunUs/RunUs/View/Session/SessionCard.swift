@@ -22,7 +22,7 @@ struct SessionCard: View {
                 .font(.title5_bold)
             Text(sessionCardData.description)
                 .font(.body1_bold)
-            Text("페이스 \(sessionCardData.pace.map{RunningPace(rawValue: $0)!.description}.joined(separator: " - "))")
+            Text("페이스 \(sessionCardData.pace_list.map{RunningPace(rawValue: $0)!.description}.joined(separator: " - "))")
                 .font(.body1_medium)
                 .foregroundStyle(.gray400)
             creator(isCreator: sessionCardData.top_message != "게스트 모집 중")
@@ -71,5 +71,5 @@ struct SessionCard: View {
 }
 
 #Preview {
-    SessionCard(sessionCardData: SessionCardInfo(runing_public_id: "", top_message: "‘올공특공대’ 정기런", title: "", description: "", start_at: "", pace: [], participant_count: 1, created_by: SessionCreator(nickname: "생성자", profile_image: nil), crew: SessionCrew(crew_public_id: "", profile_image: nil, name: "크루명")))
+    SessionCard(sessionCardData: SessionCardInfo(runing_public_id: "", top_message: "‘올공특공대’ 정기런", title: "", description: "", start_at: "", pace_list: [], participant_count: 1, created_by: SessionCreator(nickname: "생성자", profile_image: nil), crew: SessionCrew(crew_public_id: "", profile_image: nil, name: "크루명")))
 }

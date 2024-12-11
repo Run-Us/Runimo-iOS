@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CrewHomePage: View {
+    let crew: Crew
     @Environment(\.dismiss) var dismiss
     @State private var selectedTab: Int = 0
     
@@ -42,7 +43,7 @@ struct CrewHomePage: View {
                                 .foregroundStyle(.primaryGray)
                         }
                         .frame(width: 14)
-                        Text("Run with US 공식크루")
+                        Text(crew.title)
                             .font(.body1_medium)
                             .foregroundStyle(.primaryGray)
                     }
@@ -72,13 +73,13 @@ struct CrewHomePage: View {
                 .resizable()
                 .frame(width: 80, height: 80)
             VStack(alignment: .leading, spacing: 8) {
-                Text("Run US 공식크루")
+                Text(crew.title)
                     .font(.title4_semibold)
                     .foregroundStyle(.primaryGray)
-                Text("Run with Us! 런어스의 공식크루 입니다.Run with Us! 런어스의 공식크루 입니다.")
+                Text(crew.intro)
                     .lineLimit(1)
                     .truncationMode(.tail)
-                Text("크루원 100명 · 동네친구")
+                Text("크루원 \(crew.member_count)명 · \(crew.crew_type)")
             }
             .font(.body2_medium)
             .foregroundStyle(.quaternaryGray)
@@ -109,13 +110,15 @@ struct CrewHomePage: View {
                     .foregroundStyle(.quaternaryGray)
             }
             
-            Button {
-                // TODO: 정기런 만들기
-                print("click")
-            } label: {
-                createRegularButton()
+            if crew.regular_running == nil {
+                Button {
+                    // TODO: 정기런 만들기
+                    print("click")
+                } label: {
+                    createRegularButton()
+                }
+                .padding(.vertical, 40)
             }
-            .padding(.vertical, 40)
         }
     }
     
@@ -149,11 +152,13 @@ struct CrewHomePage: View {
                     .foregroundStyle(.quaternaryGray)
             }
             
-            Text("달리는 크루원이 없나보네요")
-                .font(.title4_semibold)
-                .foregroundStyle(.primaryGray)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 40)
+            if crew.irregular_running == nil {
+                Text("달리는 크루원이 없나보네요")
+                    .font(.title4_semibold)
+                    .foregroundStyle(.primaryGray)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 40)
+            }
         }
     }
     
@@ -171,5 +176,5 @@ struct CrewHomePage: View {
 }
 
 #Preview {
-    CrewHomePage()
+    CrewHomePage(crew: Crew(crew_public_id: "", title: "Run with Us", profile_image: "", location: "서울 광진구", intro: "런어스 공식크루", join_type: "자유", crew_type: "동네친구", member_count: 5, created_at: "", exist_new_join_request: false, this_month_record: CrewMonthRecord(running_count: 2, total_distance: 2000, total_time: 500), regular_running: nil, irregular_running: nil))
 }
