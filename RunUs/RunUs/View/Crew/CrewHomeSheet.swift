@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct CrewHomeSheet: View {
-    @Binding var selectedButtonIndex: Int?
+    @Binding var selectedButtonIndex: Int
     private let buttonText: [(image: String, text: String)] = [("edit","크루 정보 수정하기"), ("enter","가입 방식 변경하기"), ("trash","크루 삭제하기")]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 22) {
+        VStack {
             ForEach(Array(buttonText.enumerated()), id: \.offset) { index, item in
                 button(image: item.image, contents: item.text, index: index)
             }
         }
         .padding(.horizontal, 20)
+        .padding(.vertical, 10)
     }
     
     @ViewBuilder
@@ -32,6 +33,7 @@ struct CrewHomeSheet: View {
                     .foregroundStyle(image == "trash" ? .error : .secondaryGray)
                 Spacer()
             }
+            .padding(.vertical, 10)
         }
     }
 }

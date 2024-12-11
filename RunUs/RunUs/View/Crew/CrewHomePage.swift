@@ -12,6 +12,8 @@ struct CrewHomePage: View {
     let crew: Crew
     @Environment(\.dismiss) var dismiss
     @State private var selectedTab: Int = 0
+    @State private var showSheet: Bool = false
+    @State private var selectedSheetButton: Int = -1
     
     var body: some View {
         NavigationStack {
@@ -51,7 +53,7 @@ struct CrewHomePage: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        // TODO: Add Action
+                        showSheet = true
                     } label: {
                         Image("vertical_dots")
                             .resizable()
@@ -64,6 +66,10 @@ struct CrewHomePage: View {
             }
             .toolbarBackground(.primaryBG, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .sheet(isPresented: $showSheet) {
+                CrewHomeSheet(selectedButtonIndex: $selectedSheetButton)
+                    .presentationDetents([.fraction(0.21)])
+            }
         }
     }
     
