@@ -11,6 +11,7 @@ struct HomeTab: View {
     @EnvironmentObject var myPageVM: MyPageViewModel
     @State private var sessionCardIndex: Int = 0
     @State private var showFindCrewPage: Bool = false
+    @State private var showCrewHomePage: Bool = false
     
     private let columns = [
         GridItem(.flexible()),
@@ -32,6 +33,10 @@ struct HomeTab: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 24)
             }
+        }
+        .navigationDestination(isPresented: $showCrewHomePage) {
+            // dummy TODO: API 연결
+            CrewHomePage(crew: Crew(crew_public_id: "", title: "Run with Us", profile_image: "", location: "서울 광진구", intro: "런어스 공식크루", join_type: "자유", crew_type: "동네친구", member_count: 5, created_at: "", exist_new_join_request: false, this_month_record: CrewMonthRecord(running_count: 2, total_distance: 2000, total_time: 500), regular_running: nil, irregular_running: nil))
         }
     }
     
@@ -161,7 +166,7 @@ struct HomeTab: View {
     @ViewBuilder
     private func crew(imageURL: String?, crewName: String) -> some View {
         Button {
-            // TODO: move to crew home
+            showCrewHomePage = true
         } label: {
             VStack(spacing: 8) {
                 if let profile = imageURL {

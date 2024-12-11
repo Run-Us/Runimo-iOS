@@ -10,7 +10,7 @@ import SwiftUI
 struct SegmentedPicker: View {
     @Binding var selectedTab: Int
     var type: [String] = []
-    var width: CGFloat
+    var width: CGFloat = UIScreen.main.bounds.width
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
