@@ -28,6 +28,8 @@ struct CrewHomeSheet: View {
         } label: {
             HStack(spacing: 12) {
                 Image(image)
+                    .renderingMode(.template)
+                    .foregroundStyle(.primaryGray)
                 Text(contents)
                     .font(.body2_medium)
                     .foregroundStyle(image == "trash" ? .error : .secondaryGray)

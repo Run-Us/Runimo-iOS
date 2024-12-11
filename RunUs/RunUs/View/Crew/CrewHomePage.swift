@@ -12,8 +12,9 @@ struct CrewHomePage: View {
     let crew: Crew
     @Environment(\.dismiss) var dismiss
     @State private var selectedTab: Int = 0
-    @State private var showSheet: Bool = false
+    @State private var showEditInfoSheet: Bool = false
     @State private var selectedSheetButton: Int = -1
+    @State private var showNextPage: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -53,7 +54,7 @@ struct CrewHomePage: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        showSheet = true
+                        showEditInfoSheet = true
                     } label: {
                         Image("vertical_dots")
                             .resizable()
@@ -66,9 +67,20 @@ struct CrewHomePage: View {
             }
             .toolbarBackground(.primaryBG, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-            .sheet(isPresented: $showSheet) {
+            .sheet(isPresented: $showEditInfoSheet) {
                 CrewHomeSheet(selectedButtonIndex: $selectedSheetButton)
                     .presentationDetents([.fraction(0.21)])
+            }
+            .onChange(of: selectedSheetButton) { oldValue, newValue in
+                showNextPage = (0...2 ~= newValue)
+                showEditInfoSheet = !(0...2 ~= newValue)
+            }
+            .fullScreenCover(isPresented: $showNextPage) {
+                switch selectedSheetButton {
+                case 0: CreateCrew2DetailPage()
+                case 1: EmptyView()
+                default: EmptyView()
+                }
             }
         }
     }
