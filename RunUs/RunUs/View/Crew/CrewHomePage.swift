@@ -15,6 +15,7 @@ struct CrewHomePage: View {
     @State private var showEditInfoSheet: Bool = false
     @State private var selectedSheetButton: Int = -1
     @State private var showNextPage: Bool = false
+    @State private var showDeletePopup: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -72,8 +73,9 @@ struct CrewHomePage: View {
                     .presentationDetents([.fraction(0.21)])
             }
             .onChange(of: selectedSheetButton) { oldValue, newValue in
-                showNextPage = (0...2 ~= newValue)
+                showNextPage = (0...1 ~= newValue)
                 showEditInfoSheet = false
+                showDeletePopup = (newValue == 2)
             }
             .fullScreenCover(isPresented: $showNextPage) {
                 switch selectedSheetButton {
@@ -82,6 +84,14 @@ struct CrewHomePage: View {
                 default: EmptyView()
                 }
             }
+            .popup(isPresented: $showDeletePopup, title: "크루를 삭제할까요?", subtitle: "크루를 삭제하면, 해당 데이터를 복구할 수 없어요.", buttonText: "삭제하기", buttonColor: .error) {
+                selectedSheetButton = -1
+            } buttonAction: {
+                selectedSheetButton = -1
+                // TODO: 크루 삭제 API 연결
+                dismiss()
+            }
+
         }
     }
     
