@@ -16,6 +16,7 @@ struct CreateCrew2DetailPage: View {
     @State private var activeArea: String = ""
     @State private var showNextJoinPage: Bool = false
     @State private var showAddProfileSheet: Bool = false
+    let crew: Crew?
     
     var body: some View {
         NavigationStack {
@@ -46,8 +47,13 @@ struct CreateCrew2DetailPage: View {
                     .padding(.horizontal, 16)
                     .padding(.top, 24)
                     
-                    CTAButton(text: "다음", disabled: crewName.isEmpty || crewExplanation.isEmpty || activeArea.isEmpty) {
-                        showNextJoinPage = true
+                    CTAButton(text: crew == nil ? "다음" : "정보 수정하기", disabled: crewName.isEmpty || crewExplanation.isEmpty || activeArea.isEmpty) {
+                        if isEditPage() {
+                            // TODO: 크루 정보 수정 API 연결
+                            dismiss()
+                        } else {
+                            showNextJoinPage = true
+                        }
                     }
                     .navigationDestination(isPresented: $showNextJoinPage) {
                         CreateCrew3JoinTypePage()
@@ -74,12 +80,18 @@ struct CreateCrew2DetailPage: View {
         .onTapGesture {
             isEditorFocused = false
         }
+        .onAppear {
+            if isEditPage() {
+                crewName = crew!.title
+                crewExplanation = crew!.intro
+                activeArea = crew!.location
+            }
+        }
     }
     
     @ViewBuilder
     func profileImage() -> some View {
-        Image(uiImage: selectedProfile.last ?? UIImage(named: "crew_default_profile")!)
-            .resizable()
+        asyncImage()
             .scaledToFill()
             .frame(width: 120, height: 120)
             .clipShape(RoundedRectangle(cornerRadius: 52))
@@ -96,8 +108,24 @@ struct CreateCrew2DetailPage: View {
                     .presentationDetents([.fraction(0.21)])
             })
     }
+    
+    @ViewBuilder
+    func asyncImage() -> some View {
+        if let crew = crew, let url = crew.profile_image {
+            AsyncImage(url: URL(string: url))
+                .clipShape(RoundedRectangle(cornerRadius: 24))
+        } else {
+            Image(uiImage: selectedProfile.last ?? UIImage(named: "crew_default_profile")!)
+                .resizable()
+        }
+    }
+    
+    // 크루 정보 수정 페이지인지
+    func isEditPage() -> Bool {
+        return crew != nil
+    }
 }
 
 #Preview {
-    CreateCrew2DetailPage()
+    CreateCrew2DetailPage(crew: nil)
 }

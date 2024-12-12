@@ -65,7 +65,7 @@ struct CreateCrew1TagTypePage: View {
                 }
             }
             .navigationDestination(isPresented: $showNextJoinPage) {
-                CreateCrew2DetailPage()
+                CreateCrew2DetailPage(crew: nil)
             }
         }
     }
