@@ -80,7 +80,7 @@ struct CrewHomePage: View {
             .fullScreenCover(isPresented: $showNextPage) {
                 switch selectedSheetButton {
                 case 0: CreateCrew2DetailPage(crew: crew, showEditCrewInfoIndex: $selectedSheetButton)
-                case 1: EmptyView()
+                case 1: CreateCrew3JoinTypePage(selectedIndex: crew.join_type == "OPEN" ? 0 : 1)
                 default: EmptyView()
                 }
             }
