@@ -73,11 +73,11 @@ struct CrewHomePage: View {
             }
             .onChange(of: selectedSheetButton) { oldValue, newValue in
                 showNextPage = (0...2 ~= newValue)
-                showEditInfoSheet = !(0...2 ~= newValue)
+                showEditInfoSheet = false
             }
             .fullScreenCover(isPresented: $showNextPage) {
                 switch selectedSheetButton {
-                case 0: CreateCrew2DetailPage(crew: crew)
+                case 0: CreateCrew2DetailPage(crew: crew, showEditCrewInfoIndex: $selectedSheetButton)
                 case 1: EmptyView()
                 default: EmptyView()
                 }

@@ -16,7 +16,10 @@ struct CreateCrew2DetailPage: View {
     @State private var activeArea: String = ""
     @State private var showNextJoinPage: Bool = false
     @State private var showAddProfileSheet: Bool = false
+    
+    // Edit Crew
     let crew: Crew?
+    @Binding var showEditCrewInfoIndex: Int
     
     var body: some View {
         NavigationStack {
@@ -87,6 +90,9 @@ struct CreateCrew2DetailPage: View {
                 activeArea = crew!.location
             }
         }
+        .onDisappear {
+            showEditCrewInfoIndex = -1
+        }
     }
     
     @ViewBuilder
@@ -127,5 +133,5 @@ struct CreateCrew2DetailPage: View {
 }
 
 #Preview {
-    CreateCrew2DetailPage(crew: nil)
+    CreateCrew2DetailPage(crew: nil, showEditCrewInfoIndex: .constant(-1))
 }
