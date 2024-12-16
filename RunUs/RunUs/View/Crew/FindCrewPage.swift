@@ -12,6 +12,7 @@ struct FindCrewPage: View {
     @StateObject private var crewVM: CrewViewModel = CrewViewModel()
     @State private var showCreateCrewPage: Bool = false
     @State private var searchText: String = ""
+    @FocusState private var isTextFieldFocused: Bool
     
     var body: some View {
         NavigationStack {
@@ -64,6 +65,9 @@ struct FindCrewPage: View {
             }
         }
         .navigationBarBackButtonHidden()
+        .onTapGesture {
+            isTextFieldFocused = false
+        }
     }
     
     @ViewBuilder
@@ -77,6 +81,7 @@ struct FindCrewPage: View {
         )
         .font(.caption_regular)
         .foregroundStyle(.primaryGray)
+        .focused($isTextFieldFocused)
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .background(
