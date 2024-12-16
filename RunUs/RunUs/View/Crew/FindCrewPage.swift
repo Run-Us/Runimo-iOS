@@ -19,13 +19,16 @@ struct FindCrewPage: View {
                 Color.primaryBG
                     .ignoresSafeArea()
                 VStack {
-                    searchBar()
-                    crewFilter()
-                    crewCardList()
+                    Divider()
+                    VStack {
+                        searchBar()
+                        crewFilter()
+                        crewCardList()
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
                     Spacer()
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
                 createCrewButton()
             }
             .navigationDestination(isPresented: $showCreateCrewPage) {
