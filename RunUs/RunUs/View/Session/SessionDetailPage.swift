@@ -8,8 +8,43 @@
 import SwiftUI
 
 struct SessionDetailPage: View {
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            ZStack(alignment: .bottom) {
+                Color.primaryBG.ignoresSafeArea()
+                ScrollView {
+                    
+                }
+                CTAButton(text: "세션 참가하기", disabled: false) {
+                    // TODO: Add action
+                }
+            }
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .resizable()
+                            .frame(width: 8, height: 14)
+                            .foregroundStyle(.primaryGray)
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image("vertical_dots")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundStyle(.primaryGray)
+                    }
+                }
+            }
+        }
     }
 }
 
