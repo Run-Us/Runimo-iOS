@@ -10,6 +10,7 @@ import SwiftUI
 struct FindCrewPage: View {
     @State private var showCreateCrewPage: Bool = false
     @State private var searchText: String = ""
+    private let tagList: [String] = ["동네 친구", "또래 친구", "대회 준비", "직장인", "학생", "MBTI"]
     
     var body: some View {
         NavigationStack {
@@ -18,6 +19,7 @@ struct FindCrewPage: View {
                     .ignoresSafeArea()
                 VStack {
                     searchBar()
+                    crewFilter()
                     Spacer()
                 }
                 .padding(.horizontal, 16)
@@ -60,17 +62,51 @@ struct FindCrewPage: View {
     
     @ViewBuilder
     private func searchBar() -> some View {
-        TextField("크루 이름으로 검색", text: $searchText)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+        TextField(
+            "",
+            text: $searchText,
+            prompt: Text("크루 이름으로 검색")
+                .font(.caption_regular)
+                .foregroundStyle(.gray400)
+        )
+        .font(.caption_regular)
+        .foregroundStyle(.primaryGray)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.primaryFill)
+                .stroke(searchText.isEmpty ? .clear : .gray400, lineWidth: 1)
+        )
+        .overlay(alignment: .trailing) {
+            Image("search")
+                .padding(.horizontal, 16)
+        }
+    }
+    
+    @ViewBuilder
+    private func crewTag(text: String) -> some View {
+        Text(text)
+            .font(.caption_medium)
+            .foregroundStyle(.secondaryGray)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 12)
             .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(.primaryFill)
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(.secondaryBG)
             )
-            .overlay(alignment: .trailing) {
-                Image("search")
-                    .padding(.horizontal, 16)
+    }
+    
+    @ViewBuilder
+    private func crewFilter() -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(tagList, id: \.self) { item in
+                    crewTag(text: item)
+                }
             }
+        }
+        .padding(.vertical, 8)
     }
     
     @ViewBuilder
