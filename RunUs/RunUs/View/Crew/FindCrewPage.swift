@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct FindCrewPage: View {
+    @Environment(\.dismiss) var dismiss
+    @StateObject private var crewVM: CrewViewModel = CrewViewModel()
     @State private var showCreateCrewPage: Bool = false
     @State private var searchText: String = ""
-    private let tagList: [String] = ["동네 친구", "또래 친구", "대회 준비", "직장인", "학생", "MBTI"]
-    var crewList: [CrewCard] = [CrewCard(crew_public_id: "1", title: "Run With Us", profileImage: nil, location: "서울 광진구", memberCount: 10, crewType: "동네 친구", createdAt: ""),CrewCard(crew_public_id: "1", title: "Run With Us", profileImage: nil, location: "서울 광진구", memberCount: 10, crewType: "동네 친구", createdAt: "")] // 더미
     
     var body: some View {
         NavigationStack {
@@ -35,7 +35,7 @@ struct FindCrewPage: View {
                 ToolbarItem(placement: .topBarLeading) {
                     HStack(spacing: 8) {
                         Button {
-                            // TODO: Add Action
+                            dismiss()
                         } label: {
                             Image(systemName: "chevron.left")
                                 .resizable()
@@ -60,6 +60,7 @@ struct FindCrewPage: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden()
     }
     
     @ViewBuilder
@@ -87,28 +88,49 @@ struct FindCrewPage: View {
     }
     
     @ViewBuilder
-    private func crewTag(text: String) -> some View {
-        Text(text)
-            .font(.caption_medium)
-            .foregroundStyle(.secondaryGray)
-            .padding(.vertical, 8)
-            .padding(.horizontal, 12)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(.secondaryBG)
-            )
-    }
-    
-    @ViewBuilder
     private func crewFilter() -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(tagList, id: \.self) { item in
-                    crewTag(text: item)
+                ForEach(crewVM.tagList.indices, id: \.self) { index in
+                    Button {
+                        crewVM.selectedTag[index].toggle()
+                    } label: {
+                        crewTag(index: index)
+                    }
                 }
             }
         }
         .padding(.vertical, 8)
+    }
+    
+    @ViewBuilder
+    private func crewTag(index: Int) -> some View {
+        Text(crewVM.tagList[index])
+            .font(.caption_medium)
+            .foregroundStyle(crewVM.selectedTag[index] ? .white : .secondaryGray)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(crewVM.selectedTag[index] ? .primary400 : .secondaryBG)
+            )
+    }
+    
+    @ViewBuilder
+    private func crewCardList() -> some View {
+        ScrollView {
+            ForEach(crewVM.crewCardData, id: \.crew_public_id) { item in
+                VStack {
+                    Button {
+                        // TODO: 화면 전환
+                    } label: {
+                        crewCard(crew: item)
+                            .padding(.vertical, 10)
+                    }
+                    Divider()
+                }
+            }
+        }
     }
     
     @ViewBuilder
@@ -133,21 +155,6 @@ struct FindCrewPage: View {
             .font(.caption_regular)
             .foregroundStyle(.tertiaryGray)
             Spacer()
-        }
-    }
-    
-    @ViewBuilder
-    private func crewCardList() -> some View {
-        ForEach(crewList, id: \.crew_public_id) { item in
-            VStack {
-                Button {
-                    // TODO: 화면 전환
-                } label: {
-                    crewCard(crew: item)
-                        .padding(.vertical, 10)
-                }
-                Divider()
-            }
         }
     }
     
