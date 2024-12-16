@@ -118,16 +118,20 @@ struct FindCrewPage: View {
     
     @ViewBuilder
     private func crewCardList() -> some View {
-        ScrollView {
-            ForEach(crewVM.crewCardData, id: \.crew_public_id) { item in
-                VStack {
-                    Button {
-                        // TODO: 화면 전환
-                    } label: {
-                        crewCard(crew: item)
-                            .padding(.vertical, 10)
+        if isCrewDataEmpty() {
+            noCrewDataView()
+        } else {
+            ScrollView {
+                ForEach(crewVM.crewCardData, id: \.crew_public_id) { item in
+                    VStack {
+                        Button {
+                            // TODO: 화면 전환
+                        } label: {
+                            crewCard(crew: item)
+                                .padding(.vertical, 10)
+                        }
+                        Divider()
                     }
-                    Divider()
                 }
             }
         }
@@ -159,6 +163,25 @@ struct FindCrewPage: View {
     }
     
     @ViewBuilder
+    private func noCrewDataView() -> some View {
+        VStack(spacing: 8) {
+            Text("해당 러닝크루가 없어요")
+                .font(.title4_semibold)
+                .foregroundStyle(.primaryGray)
+            Button {
+                crewVM.selectedTag = Array(repeating: false, count: crewVM.tagList.count)
+                searchText = ""
+            } label: {
+                Text("검색 해제하기")
+                    .font(.caption_regular)
+                    .foregroundStyle(.quaternaryGray)
+                    .underline()
+            }
+        }
+        .padding(.vertical, 40)
+    }
+    
+    @ViewBuilder
     private func createCrewButton() -> some View {
         Button {
             showCreateCrewPage = true
@@ -168,6 +191,10 @@ struct FindCrewPage: View {
                 .frame(width: 80, height: 80)
         }
         .padding(24)
+    }
+    
+    private func isCrewDataEmpty() -> Bool {
+        return crewVM.crewCardData.isEmpty
     }
 }
 
