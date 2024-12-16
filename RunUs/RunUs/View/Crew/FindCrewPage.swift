@@ -11,6 +11,7 @@ struct FindCrewPage: View {
     @State private var showCreateCrewPage: Bool = false
     @State private var searchText: String = ""
     private let tagList: [String] = ["동네 친구", "또래 친구", "대회 준비", "직장인", "학생", "MBTI"]
+    var crewList: [CrewCard] = [CrewCard(crew_public_id: "1", title: "Run With Us", profileImage: nil, location: "서울 광진구", memberCount: 10, crewType: "동네 친구", createdAt: ""),CrewCard(crew_public_id: "1", title: "Run With Us", profileImage: nil, location: "서울 광진구", memberCount: 10, crewType: "동네 친구", createdAt: "")] // 더미
     
     var body: some View {
         NavigationStack {
@@ -20,6 +21,7 @@ struct FindCrewPage: View {
                 VStack {
                     searchBar()
                     crewFilter()
+                    crewCardList()
                     Spacer()
                 }
                 .padding(.horizontal, 16)
@@ -107,6 +109,46 @@ struct FindCrewPage: View {
             }
         }
         .padding(.vertical, 8)
+    }
+    
+    @ViewBuilder
+    private func crewCard(crew: CrewCard) -> some View {
+        HStack(spacing: 24) {
+            if let profile = crew.profileImage {
+                AsyncImage(url: URL(string: profile))
+                    .clipShape(RoundedRectangle(cornerRadius: 24))
+                    .frame(width: 60, height: 60)
+            } else {
+                Image("crew_default_profile")
+                    .resizable()
+                    .frame(width: 60, height: 60)
+            }
+            VStack(alignment: .leading, spacing: 4) {
+                Text(crew.title)
+                    .font(.title5_bold)
+                    .foregroundStyle(.primaryGray)
+                Text("\(crew.location) · \(crew.crewType)")
+                Text("크루원 수: \(crew.memberCount)명")
+            }
+            .font(.caption_regular)
+            .foregroundStyle(.tertiaryGray)
+            Spacer()
+        }
+    }
+    
+    @ViewBuilder
+    private func crewCardList() -> some View {
+        ForEach(crewList, id: \.crew_public_id) { item in
+            VStack {
+                Button {
+                    // TODO: 화면 전환
+                } label: {
+                    crewCard(crew: item)
+                        .padding(.vertical, 10)
+                }
+                Divider()
+            }
+        }
     }
     
     @ViewBuilder
