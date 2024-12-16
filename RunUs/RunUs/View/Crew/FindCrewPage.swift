@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FindCrewPage: View {
     @State private var showCreateCrewPage: Bool = false
+    @State private var searchText: String = ""
     
     var body: some View {
         NavigationStack {
@@ -16,8 +17,11 @@ struct FindCrewPage: View {
                 Color.primaryBG
                     .ignoresSafeArea()
                 VStack {
-                    
+                    searchBar()
+                    Spacer()
                 }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
                 createCrewButton()
             }
             .navigationDestination(isPresented: $showCreateCrewPage) {
@@ -52,6 +56,21 @@ struct FindCrewPage: View {
                 }
             }
         }
+    }
+    
+    @ViewBuilder
+    private func searchBar() -> some View {
+        TextField("크루 이름으로 검색", text: $searchText)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(.primaryFill)
+            )
+            .overlay(alignment: .trailing) {
+                Image("search")
+                    .padding(.horizontal, 16)
+            }
     }
     
     @ViewBuilder
