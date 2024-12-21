@@ -12,7 +12,7 @@ struct SessionDetailPage: View {
     
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .bottom) {
+            ZStack(alignment: .top) {
                 Color.primaryBG.ignoresSafeArea()
                 VStack(spacing: 0) {
                     Divider()
@@ -23,12 +23,13 @@ struct SessionDetailPage: View {
                             sessionDetailEtc(title: "날짜와 시간", contents: "10월 4일 금요일 오후 4시 30분")
                             sessionDetailEtc(title: "만날 장소", contents: "올림픽공원 평화의 문")
                             sessionDetailEtc(title: "페이스 구간", contents: "5’30” - 6’00”")
+                            RunningMembersCard()
                         }
+                        .padding(16)
                     }
-                    .padding(.vertical, 16)
-                }
-                CTAButton(text: "세션 참가하기", disabled: false) {
-                    // TODO: Add action
+                    CTAButton(text: "세션 참가하기", disabled: false) {
+                        // TODO: Add action
+                    }
                 }
             }
             .navigationBarBackButtonHidden()
