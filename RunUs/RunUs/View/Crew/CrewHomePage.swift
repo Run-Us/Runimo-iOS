@@ -12,6 +12,7 @@ struct CrewHomePage: View {
     let crew: Crew
     @Environment(\.dismiss) var dismiss
     @State private var selectedTab: Int = 0
+    @State private var showSessionDetailPage: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -64,6 +65,9 @@ struct CrewHomePage: View {
             }
             .toolbarBackground(.primaryBG, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .navigationDestination(isPresented: $showSessionDetailPage) {
+                SessionDetailPage()
+            }
         }
     }
     
@@ -112,7 +116,11 @@ struct CrewHomePage: View {
             }
             
             if let regularRunning = crew.regular_running {
-                SessionCard(sessionCardData: regularRunning)
+                Button {
+                    showSessionDetailPage = true
+                } label: {
+                    SessionCard(sessionCardData: regularRunning)
+                }
             } else {
                 Button {
                     // TODO: 정기런 만들기
@@ -156,7 +164,11 @@ struct CrewHomePage: View {
             }
             
             if let irregularRunning = crew.irregular_running {
-                SessionCard(sessionCardData: irregularRunning)
+                Button {
+                    showSessionDetailPage = true
+                } label: {
+                    SessionCard(sessionCardData: irregularRunning)
+                }
             } else {
                 Text("달리는 크루원이 없나보네요")
                     .font(.title4_semibold)
