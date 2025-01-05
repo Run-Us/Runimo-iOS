@@ -46,7 +46,7 @@ struct LoginPage: View {
                         // kakao login
                         Button(action: {
                             authVM.kakaoLogin { result in
-                                if result == 403 {
+                                if result == 404 {
                                     // 회원가입
                                     showJoinPage = true
                                 } else if result == 200 {
@@ -75,7 +75,7 @@ struct LoginPage: View {
             .ignoresSafeArea()
             .onAppear {
                 if authVM.checkTokenExists() {
-                    loginSuccess = true
+//                    loginSuccess = true
                 }
             }
             .fullScreenCover(isPresented: $loginSuccess) {

@@ -79,9 +79,10 @@ class AuthService: ObservableObject {
         dataRequest.responseDecodable(of: BaseResponse<UserToken>.self) { response in
             switch response.result {
             case .success(let response):
-                if response.code == "UEH4031" {
+                print("login response code: \(response.code)")
+                if response.code == "UEH4041" {
                     // 회원가입
-                    completion(403)
+                    completion(404)
                 } else if response.code == "USH2003" {
                     // 로그인 성공
                     if let payload = response.payload {
