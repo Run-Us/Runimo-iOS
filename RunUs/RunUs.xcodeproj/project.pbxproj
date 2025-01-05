@@ -47,6 +47,7 @@
 		2398F4B22CB8303E001D922B /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */; };
 		23A26B182D03068000CD4A3A /* SessionDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A26B172D03068000CD4A3A /* SessionDetailPage.swift */; };
 		23A26B1C2D07653900CD4A3A /* Crew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A26B1B2D07653900CD4A3A /* Crew.swift */; };
+		23BF2BC22D10133700AC9FB8 /* CrewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BF2BC12D10133700AC9FB8 /* CrewViewModel.swift */; };
 		23A26B1E2D09D3EC00CD4A3A /* CrewHomeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A26B1D2D09D3EC00CD4A3A /* CrewHomeSheet.swift */; };
 		23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C27B012CBF819200978DC9 /* ProgressBar.swift */; };
 		23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B762CD8BA2C0073732C /* PostCardList.swift */; };
@@ -125,6 +126,7 @@
 		2398F4AD2CB8303E001D922B /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
 		23A26B172D03068000CD4A3A /* SessionDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailPage.swift; sourceTree = "<group>"; };
 		23A26B1B2D07653900CD4A3A /* Crew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crew.swift; sourceTree = "<group>"; };
+		23BF2BC12D10133700AC9FB8 /* CrewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewViewModel.swift; sourceTree = "<group>"; };
 		23A26B1D2D09D3EC00CD4A3A /* CrewHomeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewHomeSheet.swift; sourceTree = "<group>"; };
 		23C27B012CBF819200978DC9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		23CE0B762CD8BA2C0073732C /* PostCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardList.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				235D38A22CD3BF8F00487952 /* MyPageViewModel.swift */,
 				23CE0B7C2CD8D6390073732C /* DateManager.swift */,
 				23F056B52CDA880800EC3A40 /* RunningViewModel.swift */,
+				23BF2BC12D10133700AC9FB8 /* CrewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -566,6 +569,7 @@
 				233831012CC69B430075E73A /* PopUp.swift in Sources */,
 				23E1B9E02CFD89D200846F22 /* FindCrewPage.swift in Sources */,
 				233ED1CA2CA93D49001EF0BC /* AuthService.swift in Sources */,
+				23BF2BC22D10133700AC9FB8 /* CrewViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

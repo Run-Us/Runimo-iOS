@@ -30,3 +30,13 @@ struct CrewMonthRecord: Codable {
     let total_time: Int
 }
 
+// 크루 검색
+struct CrewCard: Codable {
+    let crew_public_id: String
+    let title: String
+    let profileImage: String?
+    let location: String
+    let memberCount: Int
+    let crewType: String
+    let createdAt: String
+}
