@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PostCardList: View {
     @Environment(\.dismiss) var dismiss
-    var postList: [RunningPost] = []
+    var runningSessionList: [RunningRecord] = []
     private let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
     
     var body: some View {
@@ -24,8 +24,8 @@ struct PostCardList: View {
                         .padding(.vertical, 24)
                     
                     ScrollView {
-                        ForEach(postList) { post in
-                            PostCard(runningPost: post)
+                        ForEach(runningSessionList, id: \.title) { record in
+                            PostCard(runningRecord: record)
                                 .padding(.bottom, 14)
                         }
                     }

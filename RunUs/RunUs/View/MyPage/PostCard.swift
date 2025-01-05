@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PostCard: View {
-    var runningPost: RunningPost
+    var runningRecord: RunningRecord
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -29,15 +29,15 @@ struct PostCard: View {
         HStack {
             // 러닝 정보
             VStack(alignment: .leading, spacing: 12) {
-                Text(runningPost.createdAt)
+                Text(DateManager.shared.getDateString(date: runningRecord.started_at, type: .weekly))
                     .font(.body2_semibold)
                     .foregroundStyle(.quaternaryGray)
-                Text(runningPost.title)
+                Text(runningRecord.title)
                     .font(.title5_bold)
                 HStack(spacing: 20) {
-                    detailInfo(title: "거리", contents: String(format: "%.2f", runningPost.runningInfo.distance ?? 0))
-                    detailInfo(title: "페이스", contents: runningPost.runningInfo.averagePace ?? "")
-                    detailInfo(title: "시간", contents: runningPost.runningInfo.runningTime ?? "")
+                    detailInfo(title: "거리", contents: String(format: "%.2f", Double(runningRecord.running_distance_in_meters)/Double(1000)))
+                    detailInfo(title: "페이스", contents: "\(runningRecord.average_pace_in_seconds)")
+                    detailInfo(title: "시간", contents: "\(runningRecord.running_duration_in_seconds)")
                 }
             }
             .foregroundStyle(.primaryGray)
@@ -62,5 +62,5 @@ struct PostCard: View {
 }
 
 #Preview {
-    PostCard(runningPost: RunningPost(createdAt: "9월 20일 월요일", title: "10K 러닝", contents: "", runningInfo: RunningInfo()))
+    PostCard(runningRecord: RunningRecord(title: "", started_at: Date(), running_distance_in_meters: 1000, running_duration_in_seconds: 1000, average_pace_in_seconds: 1000))
 }

@@ -99,6 +99,11 @@ struct MyTab: View {
             }
             
             // postcard 추가
+            ForEach(myPageVM.user.runningRecords.indices, id: \.self) { index in
+                if let record = myPageVM.user.runningRecords[index] {
+                    PostCard(runningRecord: record)
+                }
+            }
         }
     }
 }

@@ -75,7 +75,7 @@ struct LoginPage: View {
             .ignoresSafeArea()
             .onAppear {
                 if authVM.checkTokenExists() {
-                    loginSuccess = true
+//                    loginSuccess = true
                 }
             }
             .fullScreenCover(isPresented: $loginSuccess) {
