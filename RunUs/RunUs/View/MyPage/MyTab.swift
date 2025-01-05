@@ -48,12 +48,17 @@ struct MyTab: View {
     func userInfo() -> some View {
         HStack(spacing: 24) {
             // 프로필 사진
-            Image(myPageVM.user.profileImage ?? "default_user_profile")
-                .resizable()
-                .frame(width: 80, height: 80)
+            if let profile = myPageVM.user.profileImage {
+                AsyncImage(url: URL(string: profile))
+                    .clipShape(RoundedRectangle(cornerRadius: 32))
+            } else {
+                Image("default_user_profile")
+                    .resizable()
+                    .frame(width: 80, height: 80)
+            }
             // 닉네임
             VStack(alignment: .leading, spacing: 10) {
-                Text(myPageVM.user.nickname)
+                Text(userDefaults.string(forKey: "nickname") ?? "닉네임")
                     .font(.title4_semibold)
                     .foregroundStyle(.primaryGray)
                 Text("누적 거리: \(myPageVM.getTotalDistance())")
