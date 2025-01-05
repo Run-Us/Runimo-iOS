@@ -11,7 +11,7 @@ import Foundation
 struct Crew: Codable {
     let crew_public_id: String
     let title: String
-    let profile_image: String
+    let profile_image: String?
     let location: String
     let intro: String
     let join_type: String
