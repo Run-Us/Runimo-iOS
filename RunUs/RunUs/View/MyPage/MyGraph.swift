@@ -41,7 +41,7 @@ struct MyGraph: View {
         HStack(alignment: .bottom, spacing: 12) {
             Rectangle()
                 .frame(height: 1)
-                .foregroundStyle(.quaternaryGray)
+                .foregroundStyle(.secondaryFill)
                 
             Text("\(String(format: "%.1f", km)) km")
                 .font(.caption_regular)
