@@ -11,7 +11,7 @@ import Foundation
 struct Crew: Codable {
     let crew_public_id: String
     let title: String
-    let profile_image: String
+    let profile_image: String?
     let location: String
     let intro: String
     let join_type: String
@@ -30,3 +30,13 @@ struct CrewMonthRecord: Codable {
     let total_time: Int
 }
 
+// 크루 검색
+struct CrewCard: Codable {
+    let crew_public_id: String
+    let title: String
+    let profileImage: String?
+    let location: String
+    let memberCount: Int
+    let crewType: String
+    let createdAt: String
+}
