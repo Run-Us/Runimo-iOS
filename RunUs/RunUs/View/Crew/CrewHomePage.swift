@@ -12,6 +12,7 @@ struct CrewHomePage: View {
     let crew: Crew
     @Environment(\.dismiss) var dismiss
     @State private var selectedTab: Int = 0
+    @State private var showSessionDetailPage: Bool = false
     @State private var showEditInfoSheet: Bool = false
     @State private var selectedSheetButton: Int = -1
     @State private var showNextPage: Bool = false
@@ -68,6 +69,9 @@ struct CrewHomePage: View {
             }
             .toolbarBackground(.primaryBG, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .navigationDestination(isPresented: $showSessionDetailPage) {
+                SessionDetailPage()
+            }
             .sheet(isPresented: $showEditInfoSheet) {
                 CrewHomeSheet(selectedButtonIndex: $selectedSheetButton)
                     .presentationDetents([.fraction(0.21)])
@@ -91,7 +95,6 @@ struct CrewHomePage: View {
                 // TODO: 크루 삭제 API 연결
                 dismiss()
             }
-
         }
     }
     
@@ -140,7 +143,11 @@ struct CrewHomePage: View {
             }
             
             if let regularRunning = crew.regular_running {
-                SessionCard(sessionCardData: regularRunning)
+                Button {
+                    showSessionDetailPage = true
+                } label: {
+                    SessionCard(sessionCardData: regularRunning)
+                }
             } else {
                 Button {
                     // TODO: 정기런 만들기
@@ -184,7 +191,11 @@ struct CrewHomePage: View {
             }
             
             if let irregularRunning = crew.irregular_running {
-                SessionCard(sessionCardData: irregularRunning)
+                Button {
+                    showSessionDetailPage = true
+                } label: {
+                    SessionCard(sessionCardData: irregularRunning)
+                }
             } else {
                 Text("달리는 크루원이 없나보네요")
                     .font(.title4_semibold)
