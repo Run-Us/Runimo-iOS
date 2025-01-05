@@ -47,6 +47,7 @@
 		2398F4B22CB8303E001D922B /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */; };
 		23A26B182D03068000CD4A3A /* SessionDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A26B172D03068000CD4A3A /* SessionDetailPage.swift */; };
 		23A26B1C2D07653900CD4A3A /* Crew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A26B1B2D07653900CD4A3A /* Crew.swift */; };
+		23A26B1E2D09D3EC00CD4A3A /* CrewHomeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A26B1D2D09D3EC00CD4A3A /* CrewHomeSheet.swift */; };
 		23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C27B012CBF819200978DC9 /* ProgressBar.swift */; };
 		23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B762CD8BA2C0073732C /* PostCardList.swift */; };
 		23CE0B7D2CD8D6390073732C /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B7C2CD8D6390073732C /* DateManager.swift */; };
@@ -124,6 +125,7 @@
 		2398F4AD2CB8303E001D922B /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
 		23A26B172D03068000CD4A3A /* SessionDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailPage.swift; sourceTree = "<group>"; };
 		23A26B1B2D07653900CD4A3A /* Crew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crew.swift; sourceTree = "<group>"; };
+		23A26B1D2D09D3EC00CD4A3A /* CrewHomeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewHomeSheet.swift; sourceTree = "<group>"; };
 		23C27B012CBF819200978DC9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		23CE0B762CD8BA2C0073732C /* PostCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardList.swift; sourceTree = "<group>"; };
 		23CE0B7C2CD8D6390073732C /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				23E1B9E72CFF1C3200846F22 /* CreateCrew3JoinTypePage.swift */,
 				23E1B9EB2CFF51B600846F22 /* TypeCheckbox.swift */,
 				23E1B9EF2CFF5D5600846F22 /* CrewHomePage.swift */,
+				23A26B1D2D09D3EC00CD4A3A /* CrewHomeSheet.swift */,
 			);
 			path = Crew;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				887940FE2CAB35DB0018C035 /* ParticipationService.swift in Sources */,
 				88E556132C8F5E49003789B7 /* CharacterTab.swift in Sources */,
 				23E1B9F02CFF5D5600846F22 /* CrewHomePage.swift in Sources */,
+				23A26B1E2D09D3EC00CD4A3A /* CrewHomeSheet.swift in Sources */,
 				23A26B1C2D07653900CD4A3A /* Crew.swift in Sources */,
 				88E5560D2C8F213E003789B7 /* MyTab.swift in Sources */,
 				883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */,
