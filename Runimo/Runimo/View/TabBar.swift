@@ -26,11 +26,21 @@ struct TabBar: View {
                     // 상단 바
                     VStack(alignment: .leading, spacing: 0) {
                         if [Tab.home, Tab.my].contains(myPageVM.currentMainTab) {
-                            Image("logo_black")
-                                .resizable()
-                                .frame(width: 104, height: 24)
+                            HStack {
+                                Image("logo_black")
+                                    .padding(16)
+                                Spacer()
+                                HStack(spacing: 4) {
+                                    Image("icon_egg")
+                                    Text("0")
+                                    Image("icon_love")
+                                        .padding(.leading, 8)
+                                    Text("0")
+                                }
+                                .font(.title5_bold)
                                 .foregroundStyle(.primaryGray)
                                 .padding(16)
+                            }
                             Divider()
                         }
                     }
