@@ -11,12 +11,14 @@ struct HomeTab: View {
     var body: some View {
         ZStack(alignment: .top) {
             Color.primaryBG
-            VStack(spacing: 24) {
-                characterProfile()
-                eggCard()
+            GeometryReader { _ in
+                VStack(spacing: 24) {
+                    characterProfile()
+                    eggCard()
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 24)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 24)
         }
     }
 
