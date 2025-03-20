@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "character_dog.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
