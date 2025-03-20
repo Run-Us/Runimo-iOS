@@ -35,7 +35,7 @@
 		237299912CBCF12800D0E7F6 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */; };
 		237B430C2C8EFFF1002163B9 /* NaverMapSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 237B430B2C8EFFF1002163B9 /* NaverMapSDK */; };
 		237B430E2C8F0193002163B9 /* MapPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B430D2C8F0193002163B9 /* MapPage.swift */; };
-		238E78F22C83147200D04F58 /* RunUsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238E78F12C83147200D04F58 /* RunUsApp.swift */; };
+		238E78F22C83147200D04F58 /* RunimoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238E78F12C83147200D04F58 /* RunimoApp.swift */; };
 		238E78F62C83147300D04F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 238E78F52C83147300D04F58 /* Assets.xcassets */; };
 		238E78F92C83147300D04F58 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 238E78F82C83147300D04F58 /* Preview Assets.xcassets */; };
 		23931D9D2CBA369A00BD8BBA /* Paperlogy-6SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23931D9C2CBA369A00BD8BBA /* Paperlogy-6SemiBold.ttf */; };
@@ -48,8 +48,8 @@
 		2398F4B22CB8303E001D922B /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */; };
 		23A26B182D03068000CD4A3A /* SessionDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A26B172D03068000CD4A3A /* SessionDetailPage.swift */; };
 		23A26B1C2D07653900CD4A3A /* Crew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A26B1B2D07653900CD4A3A /* Crew.swift */; };
-		23BF2BC22D10133700AC9FB8 /* CrewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BF2BC12D10133700AC9FB8 /* CrewViewModel.swift */; };
 		23A26B1E2D09D3EC00CD4A3A /* CrewHomeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A26B1D2D09D3EC00CD4A3A /* CrewHomeSheet.swift */; };
+		23BF2BC22D10133700AC9FB8 /* CrewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BF2BC12D10133700AC9FB8 /* CrewViewModel.swift */; };
 		23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C27B012CBF819200978DC9 /* ProgressBar.swift */; };
 		23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B762CD8BA2C0073732C /* PostCardList.swift */; };
 		23CE0B7D2CD8D6390073732C /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B7C2CD8D6390073732C /* DateManager.swift */; };
@@ -114,8 +114,8 @@
 		2372998E2CBCDD2100D0E7F6 /* RunTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunTab.swift; sourceTree = "<group>"; };
 		237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPicker.swift; sourceTree = "<group>"; };
 		237B430D2C8F0193002163B9 /* MapPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPage.swift; sourceTree = "<group>"; };
-		238E78EE2C83147200D04F58 /* RunUs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunUs.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		238E78F12C83147200D04F58 /* RunUsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunUsApp.swift; sourceTree = "<group>"; };
+		238E78EE2C83147200D04F58 /* Runimo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runimo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		238E78F12C83147200D04F58 /* RunimoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunimoApp.swift; sourceTree = "<group>"; };
 		238E78F52C83147300D04F58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		238E78F82C83147300D04F58 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		23931D9C2CBA369A00BD8BBA /* Paperlogy-6SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Paperlogy-6SemiBold.ttf"; sourceTree = "<group>"; };
@@ -128,8 +128,8 @@
 		2398F4AD2CB8303E001D922B /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
 		23A26B172D03068000CD4A3A /* SessionDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailPage.swift; sourceTree = "<group>"; };
 		23A26B1B2D07653900CD4A3A /* Crew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crew.swift; sourceTree = "<group>"; };
-		23BF2BC12D10133700AC9FB8 /* CrewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewViewModel.swift; sourceTree = "<group>"; };
 		23A26B1D2D09D3EC00CD4A3A /* CrewHomeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewHomeSheet.swift; sourceTree = "<group>"; };
+		23BF2BC12D10133700AC9FB8 /* CrewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewViewModel.swift; sourceTree = "<group>"; };
 		23C27B012CBF819200978DC9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		23CE0B762CD8BA2C0073732C /* PostCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardList.swift; sourceTree = "<group>"; };
 		23CE0B7C2CD8D6390073732C /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
@@ -295,7 +295,7 @@
 		238E78E52C83147200D04F58 = {
 			isa = PBXGroup;
 			children = (
-				238E78F02C83147200D04F58 /* RunUs */,
+				238E78F02C83147200D04F58 /* Runimo */,
 				238E78EF2C83147200D04F58 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -303,12 +303,12 @@
 		238E78EF2C83147200D04F58 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				238E78EE2C83147200D04F58 /* RunUs.app */,
+				238E78EE2C83147200D04F58 /* Runimo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		238E78F02C83147200D04F58 /* RunUs */ = {
+		238E78F02C83147200D04F58 /* Runimo */ = {
 			isa = PBXGroup;
 			children = (
 				230314F72C89A5E200B299D5 /* Info.plist */,
@@ -318,12 +318,12 @@
 				233ED1C82CA93D38001EF0BC /* Service */,
 				230314ED2C8991ED00B299D5 /* ViewModel */,
 				230314E72C88A43300B299D5 /* View */,
-				238E78F12C83147200D04F58 /* RunUsApp.swift */,
+				238E78F12C83147200D04F58 /* RunimoApp.swift */,
 				238E78F52C83147300D04F58 /* Assets.xcassets */,
 				230314DE2C8884EC00B299D5 /* Extension */,
 				238E78F72C83147300D04F58 /* Preview Content */,
 			);
-			path = RunUs;
+			path = Runimo;
 			sourceTree = "<group>";
 		};
 		238E78F72C83147300D04F58 /* Preview Content */ = {
@@ -421,9 +421,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		238E78ED2C83147200D04F58 /* RunUs */ = {
+		238E78ED2C83147200D04F58 /* Runimo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 238E78FC2C83147300D04F58 /* Build configuration list for PBXNativeTarget "RunUs" */;
+			buildConfigurationList = 238E78FC2C83147300D04F58 /* Build configuration list for PBXNativeTarget "Runimo" */;
 			buildPhases = (
 				238E78EA2C83147200D04F58 /* Sources */,
 				238E78EB2C83147200D04F58 /* Frameworks */,
@@ -433,7 +433,7 @@
 			);
 			dependencies = (
 			);
-			name = RunUs;
+			name = Runimo;
 			packageProductDependencies = (
 				230314F12C89A00B00B299D5 /* KakaoSDKAuth */,
 				230314F32C89A00B00B299D5 /* KakaoSDKCommon */,
@@ -443,7 +443,7 @@
 				88D3BF242CA9702E009E4365 /* SwiftStomp */,
 			);
 			productName = RunUs;
-			productReference = 238E78EE2C83147200D04F58 /* RunUs.app */;
+			productReference = 238E78EE2C83147200D04F58 /* Runimo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -461,7 +461,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 238E78E92C83147200D04F58 /* Build configuration list for PBXProject "RunUs" */;
+			buildConfigurationList = 238E78E92C83147200D04F58 /* Build configuration list for PBXProject "Runimo" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -480,7 +480,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				238E78ED2C83147200D04F58 /* RunUs */,
+				238E78ED2C83147200D04F58 /* Runimo */,
 			);
 		};
 /* End PBXProject section */
@@ -544,7 +544,7 @@
 				237B430E2C8F0193002163B9 /* MapPage.swift in Sources */,
 				236343142C917B3E00336D67 /* MapViewModel.swift in Sources */,
 				8889DC042CD66E0A00FD0B82 /* RunningParticipants.swift in Sources */,
-				238E78F22C83147200D04F58 /* RunUsApp.swift in Sources */,
+				238E78F22C83147200D04F58 /* RunimoApp.swift in Sources */,
 				2355F66C2C9E9CE700A65108 /* MotionManager.swift in Sources */,
 				23E1B9F42D00993C00846F22 /* SessionTab.swift in Sources */,
 				88D3BF212CA95FB4009E4365 /* WebSocketService.swift in Sources */,
@@ -710,12 +710,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"RunUs/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Runimo/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = ZT27N85LQ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RunUs/Info.plist;
+				INFOPLIST_FILE = Runimo/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치를 기반으로 러닝 기능을 제공하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로 러닝 기능을 제공하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_NSMotionUsageDescription = "러닝 현황 기록을 위해 디바이스의 모션 데이터에 접근 권한이 필요합니다. ";
@@ -748,12 +748,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"RunUs/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Runimo/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = ZT27N85LQ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RunUs/Info.plist;
+				INFOPLIST_FILE = Runimo/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치를 기반으로 러닝 기능을 제공하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로 러닝 기능을 제공하기 위해 권한이 필요합니다.";
 				INFOPLIST_KEY_NSMotionUsageDescription = "러닝 현황 기록을 위해 디바이스의 모션 데이터에 접근 권한이 필요합니다. ";
@@ -780,7 +780,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		238E78E92C83147200D04F58 /* Build configuration list for PBXProject "RunUs" */ = {
+		238E78E92C83147200D04F58 /* Build configuration list for PBXProject "Runimo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				238E78FA2C83147300D04F58 /* Debug */,
@@ -789,7 +789,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		238E78FC2C83147300D04F58 /* Build configuration list for PBXNativeTarget "RunUs" */ = {
+		238E78FC2C83147300D04F58 /* Build configuration list for PBXNativeTarget "Runimo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				238E78FD2C83147300D04F58 /* Debug */,
