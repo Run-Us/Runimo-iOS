@@ -42,6 +42,17 @@ struct TabBar: View {
                                 .padding(16)
                             }
                             Divider()
+                        } else if myPageVM.currentMainTab == .character {
+                            HStack {
+                                Text("캐릭터")
+                                    .font(.title5_bold)
+                                Spacer()
+                                Text("0km")
+                                    .font(.body1_medium)
+                            }
+                            .foregroundStyle(.primaryGray)
+                            .padding(16)
+                            Divider()
                         }
                     }
                     
