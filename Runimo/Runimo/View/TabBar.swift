@@ -28,7 +28,6 @@ struct TabBar: View {
                         if [Tab.home, Tab.my].contains(myPageVM.currentMainTab) {
                             HStack {
                                 Image("logo_black")
-                                    .padding(16)
                                 Spacer()
                                 HStack(spacing: 4) {
                                     Image("icon_egg")
@@ -39,13 +38,14 @@ struct TabBar: View {
                                 }
                                 .font(.title5_bold)
                                 .foregroundStyle(.primaryGray)
-                                .padding(16)
                             }
+                            .padding(16)
                             Divider()
                         } else if myPageVM.currentMainTab == .character {
                             HStack {
                                 Text("캐릭터")
                                     .font(.title5_bold)
+                                    .frame(height: 24)
                                 Spacer()
                                 Text("0km")
                                     .font(.body1_medium)
@@ -64,7 +64,7 @@ struct TabBar: View {
                         switch (myPageVM.currentMainTab) {
                         case .home: HomeTab()
                         case .session: SessionTab()
-                        case .character: EmptyView()
+                        case .character: CharacterTab()
                         case .my:   MyTab()
                         }
                         
