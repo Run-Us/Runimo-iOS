@@ -8,12 +8,18 @@
 import SwiftUI
 
 struct HomeTab: View {
+    @EnvironmentObject var myPageVM: MyPageViewModel
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color.primaryBG
             GeometryReader { _ in
                 VStack(spacing: 24) {
-                    characterProfile()
+                    Button {
+                        myPageVM.currentMainTab = .character
+                    } label: {
+                        characterProfile()
+                    }
                     eggCard()
                 }
                 .padding(.horizontal, 16)
@@ -111,4 +117,5 @@ struct HomeTab: View {
 
 #Preview {
     HomeTab()
+        .environmentObject(MyPageViewModel())
 }
