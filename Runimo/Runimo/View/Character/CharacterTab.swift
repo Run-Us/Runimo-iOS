@@ -8,10 +8,18 @@
 import SwiftUI
 
 struct CharacterTab: View {
+    private let characterList: [CharacterItem] = [
+        CharacterItem(name: "강아지", imageName: "character_dog", disabled: false),
+        CharacterItem(name: "고양이", imageName: "character_cat", disabled: false),
+        CharacterItem(name: "토끼", imageName: "character_rabbit", disabled: true),
+        CharacterItem(name: "오리", imageName: "character_duck", disabled: true)
+    ]
     private let columns = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible())
     ]
+    
+    @State private var selectedCharacterIndex: Int = -1
 
     var body: some View {
         ScrollView {
@@ -37,10 +45,16 @@ struct CharacterTab: View {
             }
             .padding(.vertical, 6)
             LazyVGrid(columns: columns, spacing: 16) {
-                characterCard(name: "강아지", imageName: "character_dog", disabled: false, selected: true)
-                characterCard(name: "고양이", imageName: "character_cat", disabled: false)
-                characterCard(name: "토끼", imageName: "character_rabbit", disabled: true)
-                characterCard(name: "오리", imageName: "character_duck", disabled: true)
+                ForEach(Array(zip(characterList.indices, characterList)), id: \.0) { index, item in
+                    Button {
+                        if !item.disabled {
+                            selectedCharacterIndex = index
+                        }
+                    } label: {
+                        characterCard(name: item.name, imageName: item.imageName, disabled: item.disabled, selected: selectedCharacterIndex == index)
+                    }
+                    .disabled(item.disabled)
+                }
             }
         }
     }
