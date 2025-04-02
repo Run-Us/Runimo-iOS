@@ -19,7 +19,8 @@ struct CharacterTab: View {
         GridItem(.flexible())
     ]
     
-    @State private var selectedCharacterIndex: Int = -1
+    @Binding var selectedCharacterIndex: Int
+    @Binding var isPresentedPopUp: Bool
 
     var body: some View {
         ScrollView {
@@ -49,11 +50,13 @@ struct CharacterTab: View {
                     Button {
                         if !item.disabled {
                             selectedCharacterIndex = index
+                            isPresentedPopUp = true
                         }
                     } label: {
                         characterCard(name: item.name, imageName: item.imageName, disabled: item.disabled, selected: selectedCharacterIndex == index)
                     }
                     .disabled(item.disabled)
+                    
                 }
             }
         }
@@ -84,5 +87,5 @@ struct CharacterTab: View {
 }
 
 #Preview {
-    CharacterTab()
+    CharacterTab(selectedCharacterIndex: .constant(0), isPresentedPopUp: .constant(false))
 }

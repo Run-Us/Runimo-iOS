@@ -11,7 +11,7 @@ import KeychainSwift
 
 class AuthService: ObservableObject {
     let keychain = KeychainSwift()
-    let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
+    let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")/users"
     
     // 회원가입
     func signup(nickName: String, provider: String, gender: String, completion: @escaping (Bool) -> Void) {

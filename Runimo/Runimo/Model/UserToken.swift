@@ -8,6 +8,8 @@
 import Foundation
 
 struct UserToken: Codable {
+    let nickname: String
+    let img_url: String
     let access_token: String
     let refresh_token: String
 }

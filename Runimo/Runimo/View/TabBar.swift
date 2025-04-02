@@ -16,6 +16,8 @@ enum Tab {
 
 struct TabBar: View {
     @EnvironmentObject var myPageVM: MyPageViewModel
+    @State private var isPresentedCharacterPopUp: Bool = false
+    @State private var characterIndex: Int = 0
 
     var body: some View {
         NavigationStack {
@@ -64,7 +66,7 @@ struct TabBar: View {
                         switch (myPageVM.currentMainTab) {
                         case .home: HomeTab()
                         case .session: SessionTab()
-                        case .character: CharacterTab()
+                        case .character: CharacterTab(selectedCharacterIndex: $characterIndex, isPresentedPopUp: $isPresentedCharacterPopUp)
                         case .my:   MyTab()
                         }
                         
@@ -139,6 +141,7 @@ struct TabBar: View {
                 }
             }
             .navigationBarBackButtonHidden()
+            .popupCharacter(isPresented: $isPresentedCharacterPopUp, characterIndex: characterIndex)
         }
     }
 }
