@@ -16,6 +16,7 @@ enum Tab {
 
 struct TabBar: View {
     @EnvironmentObject var myPageVM: MyPageViewModel
+    @EnvironmentObject var sharedData: SharedData
     @State private var isPresentedCharacterPopUp: Bool = false
     @State private var characterIndex: Int = 0
 
@@ -33,10 +34,10 @@ struct TabBar: View {
                                 Spacer()
                                 HStack(spacing: 4) {
                                     Image("icon_egg")
-                                    Text("0")
+                                    Text("\(sharedData.egg_love.egg)")
                                     Image("icon_love")
                                         .padding(.leading, 8)
-                                    Text("0")
+                                    Text("\(sharedData.egg_love.love)")
                                 }
                                 .font(.title5_bold)
                                 .foregroundStyle(.primaryGray)

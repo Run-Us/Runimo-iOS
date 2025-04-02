@@ -28,6 +28,7 @@ struct RunimoApp: App {
                 .environmentObject(MapViewModel())
                 .environmentObject(RunningViewModel())
                 .environmentObject(MyPageViewModel())
+                .environmentObject(SharedData())
         }
     }
 }

@@ -9,6 +9,9 @@ import SwiftUI
 
 struct HomeTab: View {
     @EnvironmentObject var myPageVM: MyPageViewModel
+    @EnvironmentObject var sharedData: SharedData
+    @State private var data: HomeItem?
+    @State private var point: Int = 0
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -26,6 +29,12 @@ struct HomeTab: View {
                 .padding(.vertical, 24)
             }
         }
+        .onAppear {
+            HomeService.shared.getHome { item in
+                data = item
+                sharedData.egg_love = (item.total_egg_count, item.love_point)
+            }
+        }
     }
 
     @ViewBuilder
@@ -41,7 +50,7 @@ struct HomeTab: View {
                         Text("러닝")
                             .font(.caption_regular)
                             .foregroundStyle(.quaternaryGray)
-                        Text("1")
+                        Text("\(data?.total_running_count ?? 0)")
                             .font(.title5_bold)
                             .foregroundStyle(.primaryGray)
                     }
@@ -49,7 +58,7 @@ struct HomeTab: View {
                         Text("달린 거리")
                             .font(.caption_regular)
                             .foregroundStyle(.quaternaryGray)
-                        Text("3.43 km")
+                        Text(String(format: "%.2f km", (data?.total_distance_in_meters ?? 0)/1000))
                             .font(.title5_bold)
                             .foregroundStyle(.primaryGray)
                     }
@@ -75,12 +84,12 @@ struct HomeTab: View {
                     .font(.title5_bold)
                     .foregroundStyle(.primaryGray)
                 Spacer()
-                Text("0/10")
+                Text("\(point)/10")
                     .font(.caption_regular)
                     .foregroundStyle(.quaternaryGray)
             }
             .padding(.bottom, 12)
-            ProgressBar(progress: .constant(0.0))
+            ProgressBar(progress: Double(point)/10)
             giveLoveButton()
         }
         .padding(.horizontal, 20)
@@ -95,7 +104,7 @@ struct HomeTab: View {
     @ViewBuilder
     private func giveLoveButton() -> some View {
         Button {
-            
+            point = min(point+1, 10)
         } label: {
             HStack(spacing: 8) {
                 Image("icon_love")

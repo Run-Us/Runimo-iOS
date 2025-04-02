@@ -20,7 +20,7 @@ struct RunningPage: View {
                     Color.secondaryBG
                         .ignoresSafeArea()
                     VStack(spacing: 0) {
-                        ProgressBar(progress: $mapVM.motionManager.runningInfo.distance)
+                        ProgressBar(progress: mapVM.motionManager.runningInfo.distance)
                             .padding(.horizontal, 50)
                             .padding(.vertical, 25)
                         
