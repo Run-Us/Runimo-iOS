@@ -86,6 +86,7 @@ class AuthService: ObservableObject {
                 } else if response.code == "USH2003" {
                     // 로그인 성공
                     if let payload = response.payload {
+                        UserDefaults.standard.set(payload.nickname, forKey: "nickname")
                         self.keychain.set(payload.access_token, forKey: "accessToken")
                         self.keychain.set(payload.refresh_token, forKey: "refreshToken")
                     }
