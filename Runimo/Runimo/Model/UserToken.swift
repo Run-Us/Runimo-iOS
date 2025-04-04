@@ -14,6 +14,18 @@ struct UserToken: Codable {
     let refresh_token: String
 }
 
+struct SignUpResponse: Codable {
+    let user_id: Int
+    let nickname: String
+    let img_url: String
+    let token_pair: Token
+}
+
+struct Token: Codable {
+    let access_token: String
+    let refresh_token: String
+}
+
 struct MyPage: Codable {
     let profileImage: String?
     let nickname: String

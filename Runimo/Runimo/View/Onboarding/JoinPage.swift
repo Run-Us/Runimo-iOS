@@ -9,7 +9,6 @@ import SwiftUI
 import PhotosUI
 
 struct JoinPage: View {
-    @ObservedObject var joinService = AuthService()
     @Environment(\.dismiss) var dismiss
     @Binding var loginSuccess: Bool
     @State var selectedProfile: [UIImage] = []
@@ -113,7 +112,7 @@ struct JoinPage: View {
                         .foregroundStyle(.secondaryFill)
                         .padding(.vertical)
                     Button(action: {
-                        joinService.signup(nickName: nickname, provider: "KAKAO", gender: genderType.rawValue) { result in
+                        AuthService.shared.signup(nickname: nickname, imageURL: nil, provider: "KAKAO", gender: genderType.rawValue) { result in
                             if result {
                                 loginSuccess = true
                                 dismiss()

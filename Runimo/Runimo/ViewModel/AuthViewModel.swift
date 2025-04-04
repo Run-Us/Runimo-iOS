@@ -24,7 +24,7 @@ class AuthViewModel: ObservableObject {
                     // idToken 저장
                     if let idToken = oauthToken?.idToken {
                         self.keychain.set(idToken, forKey: "idToken")
-                        AuthService().login(provider: "KAKAO") { result in
+                        AuthService.shared.login(provider: "KAKAO") { result in
                             completion(result)
                         }
                     }
@@ -40,7 +40,7 @@ class AuthViewModel: ObservableObject {
                     // idToken 저장
                     if let idToken = oauthToken?.idToken {
                         self.keychain.set(idToken, forKey: "idToken")
-                        AuthService().login(provider: "KAKAO") { result in
+                        AuthService.shared.login(provider: "KAKAO") { result in
                             completion(result)
                         }
                     }

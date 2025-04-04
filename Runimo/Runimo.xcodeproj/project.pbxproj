@@ -38,6 +38,7 @@
 		237B430E2C8F0193002163B9 /* MapPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B430D2C8F0193002163B9 /* MapPage.swift */; };
 		237CEF412D9419FC002D9C86 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CEF402D9419FC002D9C86 /* Character.swift */; };
 		237CEF432D941E3C002D9C86 /* CharacterPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CEF422D941E3C002D9C86 /* CharacterPopUp.swift */; };
+		238264772D9FDD5E00B4C849 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238264762D9FDD5E00B4C849 /* NetworkManager.swift */; };
 		238E78F22C83147200D04F58 /* RunimoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238E78F12C83147200D04F58 /* RunimoApp.swift */; };
 		238E78F62C83147300D04F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 238E78F52C83147300D04F58 /* Assets.xcassets */; };
 		238E78F92C83147300D04F58 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 238E78F82C83147300D04F58 /* Preview Assets.xcassets */; };
@@ -122,6 +123,7 @@
 		237B430D2C8F0193002163B9 /* MapPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPage.swift; sourceTree = "<group>"; };
 		237CEF402D9419FC002D9C86 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		237CEF422D941E3C002D9C86 /* CharacterPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterPopUp.swift; sourceTree = "<group>"; };
+		238264762D9FDD5E00B4C849 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		238E78EE2C83147200D04F58 /* Runimo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runimo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		238E78F12C83147200D04F58 /* RunimoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunimoApp.swift; sourceTree = "<group>"; };
 		238E78F52C83147300D04F58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				233ED1C92CA93D49001EF0BC /* AuthService.swift */,
 				23052EC82CEDDDCF002725A5 /* MyPageService.swift */,
 				23E253122D9CF5BA0035F64D /* HomeService.swift */,
+				238264762D9FDD5E00B4C849 /* NetworkManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				883764132CBD277E0046EC7B /* AddProfileSheet.swift in Sources */,
 				887940FE2CAB35DB0018C035 /* ParticipationService.swift in Sources */,
 				88E556132C8F5E49003789B7 /* CharacterTab.swift in Sources */,
+				238264772D9FDD5E00B4C849 /* NetworkManager.swift in Sources */,
 				23E1B9F02CFF5D5600846F22 /* CrewHomePage.swift in Sources */,
 				23A26B1E2D09D3EC00CD4A3A /* CrewHomeSheet.swift in Sources */,
 				23A26B1C2D07653900CD4A3A /* Crew.swift in Sources */,
