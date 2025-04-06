@@ -11,30 +11,26 @@ import KeychainSwift
 
 class HomeService {
     static let shared = HomeService()
-    let keychain = KeychainSwift()
-    let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     
     private init() { }
     
     func getHome(completion: @escaping (HomeItem) -> Void) {
-        let url = "\(baseUrl)/main"
+        let path = "/main"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
         ]
         
-        AF.request(url, method: .get, encoding: URLEncoding.default, headers: headers)
-            .responseDecodable(of: BaseResponse<HomeItem>.self) { response in
-                print(String(decoding: response.data ?? Data(), as: UTF8.self))
-                switch response.result {
-                case .success(let response):
-                    print("getHome data: ", response)
-                    if let data = response.payload {
-                        completion(data)
-                    }
-                case .failure(let error):
-                    print("getHome Failed: \(error)")
-                }
+        let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default, headers: headers)
+        
+        NetworkManager.shared.request(dataRequest) { (result: Result<HomeItem, AFError>) in
+            switch result {
+            case .success(let data):
+                completion(data)
+            case .failure(let error):
+                print("\(error)")
             }
+        }
+        
     }
 }
