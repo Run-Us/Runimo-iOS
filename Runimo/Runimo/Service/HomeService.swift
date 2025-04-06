@@ -11,6 +11,7 @@ import KeychainSwift
 
 class HomeService {
     static let shared = HomeService()
+    let keychain = KeychainSwift()
     
     private init() { }
     
