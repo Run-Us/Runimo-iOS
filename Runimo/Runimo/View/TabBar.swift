@@ -145,6 +145,7 @@ struct TabBar: View {
             .popupCharacter(isPresented: $isPresentedCharacterPopUp, characterIndex: characterIndex)
         }
         .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { notification in
+            print("✅ completeSignUp notification received!")
             characterIndex = -1
             isPresentedCharacterPopUp = true
         }
