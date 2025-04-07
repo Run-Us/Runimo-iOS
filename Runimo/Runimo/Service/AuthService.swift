@@ -17,10 +17,9 @@ final class AuthService: ObservableObject {
     
     // 회원가입
     func signup(nickname: String, imageURL: String? = nil, provider: String, gender: String, completion: @escaping (Bool) -> Void) {
-        let path = "/users/auth/signup"
+        let path = "/auth/signup"
         let body: [String: Any] = [
-            "oidc_token": keychain.get("idToken") ?? "",
-            "provider": provider,
+            "register_token": keychain.get("register_token") ?? "",
             "nickname": nickname,
             "img_url": imageURL ?? ""
         ]
@@ -42,11 +41,10 @@ final class AuthService: ObservableObject {
     }
     
     // 로그인
-    func login(provider: String, completion: @escaping (Int) -> Void) {
-        let path = "/users/auth/login"
+    func kakaoLogin(provider: String, completion: @escaping (Int) -> Void) {
+        let path = "/auth/kakao"
         let body: [String: Any] = [
-            "oidc_token": keychain.get("idToken") ?? "",
-            "provider": provider
+            "oidc_token": keychain.get("idToken") ?? ""
         ]
         
         let dataRequest = APIRequest(path: path, method: .post, parameters: body)
@@ -66,10 +64,10 @@ final class AuthService: ObservableObject {
                     }
                 }
             } else {
+                NetworkManager.shared.requestLoginError(dataRequest)
                 completion(code)
             }
         }
-        
     }
     
     private func saveUserInfo(user: UserToken) {

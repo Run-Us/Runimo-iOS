@@ -37,6 +37,7 @@ final class NetworkManager {
         completion: @escaping (Result<T, AFError>) -> Void)
     {
         let url = "\(baseUrl)\(request.path)"
+        print("url: \(url)\nparameters: \(String(describing: request.parameters))")
         AF.request(url, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
             .responseDecodable(of: BaseResponse<T>.self) { response in
             switch response.result {
@@ -51,6 +52,21 @@ final class NetworkManager {
             case .failure(let error):
                 print("❌ Request Failed: Request URL: \(url)\n\(error.localizedDescription)")
                 completion(.failure(error))
+            }
+        }
+    }
+    
+    func requestLoginError(_ request: APIRequest)
+    {
+        let url = "\(baseUrl)\(request.path)"
+        print("url: \(url)\nparameters: \(String(describing: request.parameters))")
+        AF.request(url, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
+            .responseDecodable(of: BaseErrorResponse.self) { response in
+            switch response.result {
+            case .success(let result):
+                self.keychain.set(result.temporal_register_token, forKey: "register_token")
+            case .failure(let error):
+                print("❌ Request Failed: Request URL: \(url)\n\(error.localizedDescription)")
             }
         }
     }

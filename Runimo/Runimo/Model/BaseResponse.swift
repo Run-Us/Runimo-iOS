@@ -15,6 +15,13 @@ class BaseResponse<T: Codable>: Codable {
     let payload: T?
 }
 
+class BaseErrorResponse: Codable {
+    let success: Bool
+    let message: String
+    let error_code: String
+    let temporal_register_token: String
+}
+
 struct APIRequest {
     let path: String
     let method: HTTPMethod
