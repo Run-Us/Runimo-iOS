@@ -32,6 +32,7 @@ final class AuthService: ObservableObject {
             case .success(let data):
                 self.saveUserInfo(user: data)
                 print("\(data)")
+                NotificationCenter.default.post(name: .completeSignUp, object: nil, userInfo: nil)
                 completion(true)
             case .failure(let error):
                 print("\(error)")

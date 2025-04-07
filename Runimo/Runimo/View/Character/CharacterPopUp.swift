@@ -22,7 +22,11 @@ struct CharacterPopUp: ViewModifier {
     init(isPresented: Binding<Bool>, index: Int) {
         _isPresented = isPresented
         self.index = index
-        character = characterList[index]
+        if index > 0 {
+            character = characterList[index]
+        } else {
+            character = CharacterItem(name: "신비로운 알을 발견했어요", imageName: "home_egg_image", disabled: false)
+        }
     }
     
     func body(content: Content) -> some View {
@@ -42,7 +46,12 @@ struct CharacterPopUp: ViewModifier {
                         .frame(width: 320, height: 320)
                     Text("러닝: [러닝 횟수], 달린 거리: [달린 거리]")
                         .padding(.bottom, 8)
-                    actionButton()
+                    
+                    if index > 0 {
+                        cancelButton()
+                    } else {
+                        okButton()
+                    }
                 }
                 .font(.body2_medium)
                 .foregroundStyle(.tertiaryGray)
@@ -55,7 +64,7 @@ struct CharacterPopUp: ViewModifier {
     }
     
     @ViewBuilder
-    private func actionButton() -> some View {
+    private func cancelButton() -> some View {
         Button {
             isPresented = false
         } label: {
@@ -70,6 +79,21 @@ struct CharacterPopUp: ViewModifier {
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(.secondaryFill, lineWidth: 1)
                 )
+        }
+    }
+    
+    @ViewBuilder
+    private func okButton() -> some View {
+        Button {
+            isPresented = false
+        } label: {
+            Text("확인했어요")
+                .font(.body1_bold)
+                .foregroundStyle(.white)
+                .padding(.vertical, 10)
+                .frame(maxWidth: .infinity)
+                .background(.primary400)
+                .cornerRadius(8)
         }
     }
 }

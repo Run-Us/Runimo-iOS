@@ -39,6 +39,7 @@
 		237CEF412D9419FC002D9C86 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CEF402D9419FC002D9C86 /* Character.swift */; };
 		237CEF432D941E3C002D9C86 /* CharacterPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CEF422D941E3C002D9C86 /* CharacterPopUp.swift */; };
 		238264772D9FDD5E00B4C849 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238264762D9FDD5E00B4C849 /* NetworkManager.swift */; };
+		2382647A2DA3B6A800B4C849 /* NotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238264792DA3B6A800B4C849 /* NotificationNameExtension.swift */; };
 		238E78F22C83147200D04F58 /* RunimoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238E78F12C83147200D04F58 /* RunimoApp.swift */; };
 		238E78F62C83147300D04F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 238E78F52C83147300D04F58 /* Assets.xcassets */; };
 		238E78F92C83147300D04F58 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 238E78F82C83147300D04F58 /* Preview Assets.xcassets */; };
@@ -124,6 +125,7 @@
 		237CEF402D9419FC002D9C86 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		237CEF422D941E3C002D9C86 /* CharacterPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterPopUp.swift; sourceTree = "<group>"; };
 		238264762D9FDD5E00B4C849 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		238264792DA3B6A800B4C849 /* NotificationNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtension.swift; sourceTree = "<group>"; };
 		238E78EE2C83147200D04F58 /* Runimo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runimo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		238E78F12C83147200D04F58 /* RunimoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunimoApp.swift; sourceTree = "<group>"; };
 		238E78F52C83147300D04F58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 			children = (
 				230314DF2C8884FA00B299D5 /* Font */,
 				230314E42C88851100B299D5 /* FontExtension.swift */,
+				238264792DA3B6A800B4C849 /* NotificationNameExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				88E5560D2C8F213E003789B7 /* MyTab.swift in Sources */,
 				883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */,
 				237CEF412D9419FC002D9C86 /* Character.swift in Sources */,
+				2382647A2DA3B6A800B4C849 /* NotificationNameExtension.swift in Sources */,
 				8889DC022CD62C1300FD0B82 /* PollingManager.swift in Sources */,
 				88D3BF0D2C9F6B35009E4365 /* JoinGroupRunPage.swift in Sources */,
 				888648F22C981ECC00B040BA /* StartGroupRunPage.swift in Sources */,

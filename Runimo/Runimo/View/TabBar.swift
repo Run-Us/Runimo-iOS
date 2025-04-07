@@ -144,6 +144,10 @@ struct TabBar: View {
             .navigationBarBackButtonHidden()
             .popupCharacter(isPresented: $isPresentedCharacterPopUp, characterIndex: characterIndex)
         }
+        .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { notification in
+            characterIndex = -1
+            isPresentedCharacterPopUp = true
+        }
     }
 }
 

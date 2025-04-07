@@ -49,7 +49,7 @@ final class NetworkManager {
                     completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                 }
             case .failure(let error):
-                print("❌ Request Failed: \(error.localizedDescription)")
+                print("❌ Request Failed: Request URL: \(url)\n\(error.localizedDescription)")
                 completion(.failure(error))
             }
         }
