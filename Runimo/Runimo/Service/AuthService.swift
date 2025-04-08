@@ -16,7 +16,7 @@ final class AuthService: ObservableObject {
     private init() { }
     
     // 회원가입
-    func signup(nickname: String, imageURL: String? = nil, provider: String, gender: String, completion: @escaping (Bool) -> Void) {
+    func signup(nickname: String, imageURL: String? = nil, gender: String, completion: @escaping (Bool) -> Void) {
         let path = "/auth/signup"
         let body: [String: Any] = [
             "register_token": keychain.get("register_token") ?? "",
@@ -30,6 +30,7 @@ final class AuthService: ObservableObject {
             switch result {
             case .success(let data):
                 self.saveUserInfo(user: data)
+                self.keychain.delete("register_token")
                 print("\(data)")
                 DispatchQueue.main.async {
                     print("📤 posting completeSignUp notification")
@@ -44,10 +45,40 @@ final class AuthService: ObservableObject {
     }
     
     // 로그인
-    func kakaoLogin(provider: String, completion: @escaping (Int) -> Void) {
+    func kakaoLogin(completion: @escaping (Int) -> Void) {
         let path = "/auth/kakao"
         let body: [String: Any] = [
             "oidc_token": keychain.get("idToken") ?? ""
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .post, parameters: body)
+        
+        NetworkManager.shared.getHTTPStatusCode(dataRequest) { code in
+            if code == 200 {
+                // 로그인
+                NetworkManager.shared.request(dataRequest) { (result: Result<UserToken, AFError>) in
+                    switch result {
+                    case .success(let data):
+                        self.saveUserInfo(user: data)
+                        print("\(data)")
+                        completion(200)
+                    case .failure(let error):
+                        print("\(error)")
+                        completion(0)
+                    }
+                }
+            } else {
+                NetworkManager.shared.requestLoginError(dataRequest)
+                completion(code)
+            }
+        }
+    }
+    
+    func appleLogin(codeVerifier: String, completion: @escaping (Int) -> Void) {
+        let path = "/auth/apple"
+        let body: [String: Any] = [
+            "auth_code": keychain.get("authCode") ?? "",
+            "code_verifier": codeVerifier
         ]
         
         let dataRequest = APIRequest(path: path, method: .post, parameters: body)

@@ -112,7 +112,7 @@ struct JoinPage: View {
                         .foregroundStyle(.secondaryFill)
                         .padding(.vertical)
                     Button(action: {
-                        AuthService.shared.signup(nickname: nickname, imageURL: nil, provider: "KAKAO", gender: genderType.rawValue) { result in
+                        AuthService.shared.signup(nickname: nickname, imageURL: nil, gender: genderType.rawValue) { result in
                             if result {
                                 loginSuccess = true
                                 dismiss()

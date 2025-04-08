@@ -5,6 +5,7 @@
 //  Created by 가은 on 9/4/24.
 //
 
+import AuthenticationServices
 import SwiftUI
 
 struct LoginPage: View {
@@ -46,13 +47,7 @@ struct LoginPage: View {
                         // kakao login
                         Button(action: {
                             authVM.kakaoLogin { result in
-                                if result == 404 {
-                                    // 회원가입
-                                    showJoinPage = true
-                                } else if result == 200 {
-                                    // 로그인
-                                    loginSuccess = true
-                                }
+                                handleNextPage(result)
                             }
                         }, label: {
                             Image("kakao_login_button")
@@ -62,12 +57,23 @@ struct LoginPage: View {
                             JoinPage(loginSuccess: $loginSuccess)
                                 .navigationBarBackButtonHidden(true)
                         }
-                        // apple login
-                        Button(action: {
-                            
-                        }, label: {
-                            Image("apple_login_button")
-                        })
+                        
+                        SignInWithAppleButton { request in
+                            request.requestedScopes = [.fullName, .email]
+                        } onCompletion: { result in
+                            switch result {
+                            case .success(let authResults):
+                                authVM.appleLogin(authResults) { result in
+                                    handleNextPage(result)
+                                }
+                            case .failure(let error):
+                                print("Authorization failed: \(error.localizedDescription)")
+                            }
+                        }
+                        .signInWithAppleButtonStyle(.black)
+                        .frame(height: 54)
+
+                        
                     }
                 }
                 .padding(.horizontal, 20)
@@ -100,6 +106,16 @@ struct LoginPage: View {
             }
             .padding()
         }
+    
+    private func handleNextPage(_ code: Int) {
+        if code == 404 {
+            // 회원가입
+            showJoinPage = true
+        } else if code == 200 {
+            // 로그인
+            loginSuccess = true
+        }
+    }
 }
 
 #Preview {
