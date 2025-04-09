@@ -56,3 +56,9 @@ struct EggItem: Codable {
     let img_url: String
     let amount: Int
 }
+
+struct PostEggResponse: Codable {
+    let incubating_egg_id: Int
+    let current_love_point_amount: Int
+    let required_love_point_amount: Int
+}

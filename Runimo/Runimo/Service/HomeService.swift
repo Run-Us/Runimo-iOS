@@ -80,6 +80,7 @@ class HomeService {
         }
     }
     
+    // 보유 중인 알 조회
     func getMyEggs(completion: @escaping (GetMyEggs) -> Void) {
         let path = "/users/eggs"
         let headers: HTTPHeaders = [
@@ -98,5 +99,29 @@ class HomeService {
             }
         }
           
+    }
+    
+    // 알 등록
+    func postEgg(egg_id: Int) {
+        let path = "/users/eggs"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        let parameters: [String: Any] = [
+            "item_id": egg_id
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters, headers: headers)
+        
+        NetworkManager.shared.request(dataRequest) { (result: Result<PostEggResponse, AFError>) in
+            switch result {
+            case .success(let data):
+                print("\(data)")
+            case .failure(let error):
+                print("\(error)")
+            }
+        }
     }
 }
