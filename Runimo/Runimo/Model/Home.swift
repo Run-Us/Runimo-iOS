@@ -23,3 +23,16 @@ struct UserItemInfo: Codable {
     let love_point: Int
     let total_egg_count: Int
 }
+
+struct HomeEggResponse: Codable {
+    let incubating_eggs: [IncubatingEgg]
+}
+
+struct IncubatingEgg: Codable {
+    let id: Int
+    let name: String
+    let img_url: String
+    let hatch_required_point_amount: Int
+    let current_love_point_amount: Int
+    let hatchable: Bool
+}

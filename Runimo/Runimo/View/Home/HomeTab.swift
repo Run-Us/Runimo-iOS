@@ -11,6 +11,7 @@ struct HomeTab: View {
     @EnvironmentObject var myPageVM: MyPageViewModel
     @EnvironmentObject var sharedData: SharedData
     @State private var data: HomeItem?
+    @State private var eggData: HomeEggResponse?
     @State private var point: Int = 0
     
     var body: some View {
@@ -33,6 +34,10 @@ struct HomeTab: View {
             HomeService.shared.getHome { item in
                 data = item
                 sharedData.egg_love = (item.user_info.total_egg_count, item.user_info.love_point)
+            }
+            
+            HomeService.shared.getCurrentEgg { egg in
+                eggData = egg
             }
         }
     }
@@ -86,17 +91,31 @@ struct HomeTab: View {
     @ViewBuilder
     private func eggCard() -> some View {
         VStack(spacing: 12) {
-            Image("home_egg_image")
-            HStack {
-                Text("마당 알")
-                    .font(.title5_bold)
-                    .foregroundStyle(.primaryGray)
-                Spacer()
-                Text("\(point)/10")
-                    .font(.caption_regular)
-                    .foregroundStyle(.quaternaryGray)
+            if let data = eggData, let egg = data.incubating_eggs.first {
+                AsyncImage(url: URL(string: egg.img_url))
+                
+                HStack {
+                    Text(egg.name)
+                        .font(.title5_bold)
+                        .foregroundStyle(.primaryGray)
+                    Spacer()
+                    Text("\(egg.current_love_point_amount)/\(egg.hatch_required_point_amount)")
+                        .font(.caption_regular)
+                        .foregroundStyle(.quaternaryGray)
+                }
+                .padding(.bottom, 12)
+            } else {
+                Image("incubator_image")
+                
+                HStack {
+                    Text("새 알을 기다리는 중이에요")
+                        .font(.title5_bold)
+                        .foregroundStyle(.primaryGray)
+                    Spacer()
+                }
+                .padding(.bottom, 12)
             }
-            .padding(.bottom, 12)
+            
             ProgressBar(progress: Double(point)/10)
             giveLoveButton()
         }
