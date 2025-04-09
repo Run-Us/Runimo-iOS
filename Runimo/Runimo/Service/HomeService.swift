@@ -56,6 +56,7 @@ class HomeService {
 
     }
     
+    // 애정 주기
     func patchLovePoint(eggId: Int, amount: Int) {
         let path = "/users/eggs/\(eggId)"
         let headers: HTTPHeaders = [
@@ -77,5 +78,25 @@ class HomeService {
                 print("\(error)")
             }
         }
+    }
+    
+    func getMyEggs(completion: @escaping (GetMyEggs) -> Void) {
+        let path = "/users/eggs"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default, headers: headers)
+        
+        NetworkManager.shared.request(dataRequest) { (result: Result<GetMyEggs, AFError>) in
+            switch result {
+            case .success(let data):
+                completion(data)
+            case .failure(let error):
+                print("\(error)")
+            }
+        }
+          
     }
 }

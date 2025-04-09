@@ -160,7 +160,7 @@ struct HomeTab: View {
     @ViewBuilder
     private func registerEgg() -> some View {
         Button {
-            
+            sharedData.showEggSheet = true
         } label: {
             HStack(spacing: 8) {
                 Text("알 등록하기")

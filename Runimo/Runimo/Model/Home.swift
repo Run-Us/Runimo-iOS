@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - Runimo
 struct HomeItem: Codable {
     let main_runimo_stat_nullable: MainRunimo?
     let user_info: UserItemInfo
@@ -24,6 +25,7 @@ struct UserItemInfo: Codable {
     let total_egg_count: Int
 }
 
+// MARK: - Egg
 struct HomeEggResponse: Codable {
     let incubating_eggs: [IncubatingEgg]
 }
@@ -42,4 +44,15 @@ struct PatchLovePointResponse: Codable {
     let current_love_point_amount: Int
     let required_love_point_amount: Int
     let egg_hatchable: Bool
+}
+
+struct GetMyEggs: Codable {
+    let items: [EggItem]
+}
+
+struct EggItem: Codable {
+    let item_id: Int
+    let name: String
+    let img_url: String
+    let amount: Int
 }

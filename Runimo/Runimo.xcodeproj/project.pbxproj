@@ -40,6 +40,7 @@
 		237CEF432D941E3C002D9C86 /* CharacterPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CEF422D941E3C002D9C86 /* CharacterPopUp.swift */; };
 		238264772D9FDD5E00B4C849 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238264762D9FDD5E00B4C849 /* NetworkManager.swift */; };
 		2382647A2DA3B6A800B4C849 /* NotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238264792DA3B6A800B4C849 /* NotificationNameExtension.swift */; };
+		2382647F2DA6229B00B4C849 /* EggSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2382647E2DA6229B00B4C849 /* EggSheet.swift */; };
 		238E78F22C83147200D04F58 /* RunimoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238E78F12C83147200D04F58 /* RunimoApp.swift */; };
 		238E78F62C83147300D04F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 238E78F52C83147300D04F58 /* Assets.xcassets */; };
 		238E78F92C83147300D04F58 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 238E78F82C83147300D04F58 /* Preview Assets.xcassets */; };
@@ -127,6 +128,7 @@
 		238264762D9FDD5E00B4C849 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		238264792DA3B6A800B4C849 /* NotificationNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtension.swift; sourceTree = "<group>"; };
 		2382647B2DA4AE2000B4C849 /* Runimo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runimo.entitlements; sourceTree = "<group>"; };
+		2382647E2DA6229B00B4C849 /* EggSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EggSheet.swift; sourceTree = "<group>"; };
 		238E78EE2C83147200D04F58 /* Runimo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runimo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		238E78F12C83147200D04F58 /* RunimoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunimoApp.swift; sourceTree = "<group>"; };
 		238E78F52C83147300D04F58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				88E556042C8F208F003789B7 /* HomeTab.swift */,
+				2382647E2DA6229B00B4C849 /* EggSheet.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				23E1B9E62CFF0CF500846F22 /* CreateCrew2DetailPage.swift in Sources */,
 				235D38A32CD3BF8F00487952 /* MyPageViewModel.swift in Sources */,
 				23E253132D9CF5BA0035F64D /* HomeService.swift in Sources */,
+				2382647F2DA6229B00B4C849 /* EggSheet.swift in Sources */,
 				23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */,
 				23A26B182D03068000CD4A3A /* SessionDetailPage.swift in Sources */,
 				23E253152D9CF6680035F64D /* Home.swift in Sources */,

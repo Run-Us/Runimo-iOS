@@ -149,6 +149,15 @@ struct TabBar: View {
             characterIndex = -1
             isPresentedCharacterPopUp = true
         }
+        .onAppear {
+            HomeService.shared.getMyEggs { data in
+                sharedData.myEggs = data.items
+            }
+        }
+        .sheet(isPresented: $sharedData.showEggSheet, content: {
+            EggSheet()
+                .presentationDetents([.fraction(0.25)])
+        })
     }
 }
 
