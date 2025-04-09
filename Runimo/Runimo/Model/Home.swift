@@ -8,10 +8,18 @@
 import Foundation
 
 struct HomeItem: Codable {
-    let nickname: String
-    let profile_image_url: String
-    let love_point: Int
-    let total_distance_in_meters: Int
+    let main_runimo_stat_nullable: MainRunimo?
+    let user_info: UserItemInfo
+}
+
+struct MainRunimo: Codable {
+    let name: String
+    let image_url: String
     let total_running_count: Int
+    let total_distance_in_meters: Int
+}
+
+struct UserItemInfo: Codable {
+    let love_point: Int
     let total_egg_count: Int
 }

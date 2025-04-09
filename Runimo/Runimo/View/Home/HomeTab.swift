@@ -32,7 +32,7 @@ struct HomeTab: View {
         .onAppear {
             HomeService.shared.getHome { item in
                 data = item
-                sharedData.egg_love = (item.total_egg_count, item.love_point)
+                sharedData.egg_love = (item.user_info.total_egg_count, item.user_info.love_point)
             }
         }
     }
@@ -40,9 +40,17 @@ struct HomeTab: View {
     @ViewBuilder
     private func characterProfile() -> some View {
         HStack(spacing: 46) {
-            Image("character_dog")
+            if let image = data?.main_runimo_stat_nullable?.image_url {
+                AsyncImage(url: URL(string: image))
+                    .frame(width: 86, height: 86)
+            } else {
+                Image("character_disabled")
+                    .resizable()
+                    .frame(width: 86, height: 86)
+            }
+                
             VStack(alignment: .leading, spacing: 20) {
-                Text("강아지")
+                Text("\(data?.main_runimo_stat_nullable?.name ?? "알을 부화시켜보세요!")")
                     .foregroundStyle(.primaryGray)
                     .font(.title5_bold)
                 HStack(spacing: 40) {
@@ -50,7 +58,7 @@ struct HomeTab: View {
                         Text("러닝")
                             .font(.caption_regular)
                             .foregroundStyle(.quaternaryGray)
-                        Text("\(data?.total_running_count ?? 0)")
+                        Text("\(data?.main_runimo_stat_nullable?.total_running_count ?? 0)")
                             .font(.title5_bold)
                             .foregroundStyle(.primaryGray)
                     }
@@ -58,7 +66,7 @@ struct HomeTab: View {
                         Text("달린 거리")
                             .font(.caption_regular)
                             .foregroundStyle(.quaternaryGray)
-                        Text(String(format: "%.2f km", (data?.total_distance_in_meters ?? 0)/1000))
+                        Text(String(format: "%.2f km", (data?.main_runimo_stat_nullable?.total_distance_in_meters ?? 0)/1000))
                             .font(.title5_bold)
                             .foregroundStyle(.primaryGray)
                     }
