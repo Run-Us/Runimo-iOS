@@ -55,4 +55,27 @@ class HomeService {
         }
 
     }
+    
+    func patchLovePoint(eggId: Int, amount: Int) {
+        let path = "/users/eggs/\(eggId)"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        let parameters: [String: Any] = [
+            "love_point_amount": amount
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .patch, parameters: parameters, headers: headers)
+        
+        NetworkManager.shared.request(dataRequest) { (result: Result<PatchLovePointResponse, AFError>) in
+            switch result {
+            case .success(let data):
+                print("\(data)")
+            case .failure(let error):
+                print("\(error)")
+            }
+        }
+    }
 }

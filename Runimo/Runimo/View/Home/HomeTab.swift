@@ -12,7 +12,7 @@ struct HomeTab: View {
     @EnvironmentObject var sharedData: SharedData
     @State private var data: HomeItem?
     @State private var eggData: HomeEggResponse?
-    @State private var point: Int = 0
+    @State private var eggId: Int = 0
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -38,6 +38,7 @@ struct HomeTab: View {
             
             HomeService.shared.getCurrentEgg { egg in
                 eggData = egg
+                eggId = egg.incubating_eggs.first?.id ?? -1
             }
         }
     }
@@ -104,6 +105,10 @@ struct HomeTab: View {
                         .foregroundStyle(.quaternaryGray)
                 }
                 .padding(.bottom, 12)
+                
+                ProgressBar(progress: Double(egg.current_love_point_amount)/Double(egg.hatch_required_point_amount))
+                
+                giveLoveButton()
             } else {
                 Image("incubator_image")
                 
@@ -114,10 +119,10 @@ struct HomeTab: View {
                     Spacer()
                 }
                 .padding(.bottom, 12)
+                
+                registerEgg()
             }
             
-            ProgressBar(progress: Double(point)/10)
-            giveLoveButton()
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 16)
@@ -131,7 +136,9 @@ struct HomeTab: View {
     @ViewBuilder
     private func giveLoveButton() -> some View {
         Button {
-            point = min(point+1, 10)
+            if eggId >= 0 {
+                HomeService.shared.patchLovePoint(eggId: eggId, amount: 1)
+            }
         } label: {
             HStack(spacing: 8) {
                 Image("icon_love")
@@ -147,6 +154,26 @@ struct HomeTab: View {
             RoundedRectangle(cornerRadius: 16)
                 .fill(.primaryBG)
                 .stroke(.secondaryFill, lineWidth: 1)
+        )
+    }
+    
+    @ViewBuilder
+    private func registerEgg() -> some View {
+        Button {
+            
+        } label: {
+            HStack(spacing: 8) {
+                Text("알 등록하기")
+                    .font(.title5_bold)
+                    .foregroundStyle(.white)
+            }
+            .padding(.vertical, 16)
+            .padding(.horizontal, 18)
+            .frame(maxWidth: .infinity)
+        }
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.primary400)
         )
     }
 }
