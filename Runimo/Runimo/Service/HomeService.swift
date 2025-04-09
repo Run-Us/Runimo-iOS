@@ -48,6 +48,7 @@ class HomeService {
         NetworkManager.shared.request(dataRequest) { (result: Result<HomeEggResponse, AFError>) in
             switch result {
             case .success(let data):
+                print(data)
                 completion(data)
             case .failure(let error):
                 print("\(error)")
@@ -57,7 +58,7 @@ class HomeService {
     }
     
     // 애정 주기
-    func patchLovePoint(eggId: Int, amount: Int) {
+    func patchLovePoint(eggId: Int, amount: Int, completion: @escaping (PatchLovePointResponse) -> Void) {
         let path = "/users/eggs/\(eggId)"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -119,6 +120,26 @@ class HomeService {
             switch result {
             case .success(let data):
                 print("\(data)")
+            case .failure(let error):
+                print("\(error)")
+            }
+        }
+    }
+    
+    func hatchEgg(eggId: Int, completion: @escaping (PostEggResponse) -> Void) {
+        let path = "/incubating-eggs/\(eggId)/hatch"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .post, headers: headers)
+        
+        NetworkManager.shared.request(dataRequest) { (result: Result<PostEggResponse, AFError>) in
+            switch result {
+            case .success(let data):
+                print("\(data)")
+                completion(data)
             case .failure(let error):
                 print("\(error)")
             }

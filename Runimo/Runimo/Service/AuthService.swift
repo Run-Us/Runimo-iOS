@@ -13,7 +13,7 @@ final class AuthService: ObservableObject {
     static let shared = AuthService()
     let keychain = KeychainSwift()
     
-    private init() { }
+    private init() {}
     
     // 회원가입
     func signup(nickname: String, imageURL: String? = nil, gender: String, completion: @escaping (Bool) -> Void) {
@@ -75,33 +75,39 @@ final class AuthService: ObservableObject {
     }
     
     func appleLogin(codeVerifier: String, completion: @escaping (Int) -> Void) {
-        let path = "/auth/apple"
+        let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
+        let path = "\(baseUrl)/auth/apple"
+        let headers: HTTPHeaders = ["Content-Type": "application/json"]
         let body: [String: Any] = [
             "auth_code": keychain.get("authCode") ?? "",
             "code_verifier": codeVerifier
         ]
         
-        let dataRequest = APIRequest(path: path, method: .post, parameters: body)
-        
-        NetworkManager.shared.getHTTPStatusCode(dataRequest) { code in
-            if code == 200 {
-                // 로그인
-                NetworkManager.shared.request(dataRequest) { (result: Result<UserToken, AFError>) in
-                    switch result {
-                    case .success(let data):
-                        self.saveUserInfo(user: data)
-                        print("\(data)")
+        AF.request(path, method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers)
+            .responseData { response in
+                let statusCode = response.response?.statusCode ?? 0
+                guard let data = response.data else { return }
+                
+                switch statusCode {
+                case 200:
+                    if let success = try? JSONDecoder().decode(BaseResponse<UserToken>.self, from: data),
+                       let result = success.payload
+                    {
+                        self.saveUserInfo(user: result)
                         completion(200)
-                    case .failure(let error):
-                        print("\(error)")
-                        completion(0)
                     }
+                    
+                case 404:
+                    if let success = try? JSONDecoder().decode(BaseErrorResponse.self, from: data) {
+                        self.keychain.set(success.temporal_register_token, forKey: "register_token")
+                        completion(404)
+                    }
+                    
+                default:
+                    break
                 }
-            } else {
-                NetworkManager.shared.requestLoginError(dataRequest)
-                completion(code)
             }
-        }
+        
     }
     
     private func saveUserInfo(user: UserToken) {

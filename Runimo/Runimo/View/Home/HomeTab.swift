@@ -13,6 +13,7 @@ struct HomeTab: View {
     @State private var data: HomeItem?
     @State private var eggData: HomeEggResponse?
     @State private var eggId: Int = 0
+    @State private var addPoint: Int = 0
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -100,13 +101,13 @@ struct HomeTab: View {
                         .font(.title5_bold)
                         .foregroundStyle(.primaryGray)
                     Spacer()
-                    Text("\(egg.current_love_point_amount)/\(egg.hatch_required_point_amount)")
+                    Text("\(egg.current_love_point_amount+addPoint)/\(egg.hatch_required_point_amount)")
                         .font(.caption_regular)
                         .foregroundStyle(.quaternaryGray)
                 }
                 .padding(.bottom, 12)
                 
-                ProgressBar(progress: Double(egg.current_love_point_amount)/Double(egg.hatch_required_point_amount))
+                ProgressBar(progress: Double(egg.current_love_point_amount+addPoint)/Double(egg.hatch_required_point_amount))
                 
                 giveLoveButton()
             } else {
@@ -136,9 +137,18 @@ struct HomeTab: View {
     @ViewBuilder
     private func giveLoveButton() -> some View {
         Button {
-            if eggId >= 0 {
-                HomeService.shared.patchLovePoint(eggId: eggId, amount: 1)
+            if eggId >= 0 && data?.user_info.love_point ?? 0 > 0 {
+                addPoint += 1
+                HomeService.shared.patchLovePoint(eggId: eggId, amount: 1) { response in
+                    eggData?.incubating_eggs[0].current_love_point_amount = response.current_love_point_amount
+                    if response.egg_hatchable {
+                        HomeService.shared.hatchEgg(eggId: response.egg_id) { data in
+                            
+                        }
+                    }
+                }
             }
+            
         } label: {
             HStack(spacing: 8) {
                 Image("icon_love")

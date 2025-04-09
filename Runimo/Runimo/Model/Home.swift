@@ -27,7 +27,7 @@ struct UserItemInfo: Codable {
 
 // MARK: - Egg
 struct HomeEggResponse: Codable {
-    let incubating_eggs: [IncubatingEgg]
+    var incubating_eggs: [IncubatingEgg]
 }
 
 struct IncubatingEgg: Codable {
@@ -35,7 +35,7 @@ struct IncubatingEgg: Codable {
     let name: String
     let img_url: String
     let hatch_required_point_amount: Int
-    let current_love_point_amount: Int
+    var current_love_point_amount: Int
     let hatchable: Bool
 }
 
@@ -61,4 +61,11 @@ struct PostEggResponse: Codable {
     let incubating_egg_id: Int
     let current_love_point_amount: Int
     let required_love_point_amount: Int
+}
+
+struct HatchEggResponse: Codable {
+    let name: String
+    let img_url: String
+    let code: String
+    let is_duplicated: Bool
 }
