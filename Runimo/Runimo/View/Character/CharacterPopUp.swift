@@ -44,10 +44,17 @@ struct CharacterPopUp: ViewModifier {
                     Text("러닝: [러닝 횟수], 달린 거리: [달린 거리]")
                         .padding(.bottom, 8)
                     
-                    if index > 0 {
-                        cancelButton()
+                    if isHatching {
+                        VStack(spacing: 8) {
+                            okButton()
+                            cancelButton()
+                        }
                     } else {
-                        okButton()
+                        if index > 0 {
+                            cancelButton()
+                        } else {
+                            okButton()
+                        }
                     }
                 }
                 .font(.body2_medium)
@@ -65,7 +72,7 @@ struct CharacterPopUp: ViewModifier {
         Button {
             isPresented = false
         } label: {
-            Text("취소")
+            Text("닫기")
                 .font(.body1_bold)
                 .foregroundStyle(.primaryGray)
                 .padding(.vertical, 10)
@@ -83,6 +90,9 @@ struct CharacterPopUp: ViewModifier {
     private func okButton() -> some View {
         Button {
             isPresented = false
+            if isHatching {
+                setMainRunimoAPI()
+            }
         } label: {
             Text(isHatching ? "대표 캐릭터로 설정하기" : "확인했어요")
                 .font(.body1_bold)
@@ -92,6 +102,11 @@ struct CharacterPopUp: ViewModifier {
                 .background(.primary400)
                 .cornerRadius(8)
         }
+    }
+    
+    private func setMainRunimoAPI() {
+        // TODO: 대표 러니모 설정 Runimo Id 연결 
+//        HomeService.shared.setMainRunimo(runimoId: )
     }
 }
 

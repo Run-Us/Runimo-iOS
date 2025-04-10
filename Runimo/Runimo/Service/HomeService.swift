@@ -128,6 +128,7 @@ class HomeService {
         }
     }
     
+    // 알 부화
     func hatchEgg(eggId: Int, completion: @escaping (HatchEggResponse) -> Void) {
         let path = "/incubating-eggs/\(eggId)/hatch"
         let headers: HTTPHeaders = [
@@ -142,6 +143,25 @@ class HomeService {
             case .success(let data):
                 print("\(data)")
                 completion(data)
+            case .failure(let error):
+                print("\(error)")
+            }
+        }
+    }
+    
+    func setMainRunimo(runimoId: Int) {
+        let path = "/runimos/\(runimoId)/main"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .patch, headers: headers)
+        
+        NetworkManager.shared.request(dataRequest) { (result: Result<RunimoIdResponse, AFError>) in
+            switch result {
+            case .success(let data):
+                print("\(data)")
             case .failure(let error):
                 print("\(error)")
             }

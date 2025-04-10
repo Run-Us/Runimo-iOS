@@ -12,3 +12,7 @@ struct CharacterItem: Hashable {
     let imageName: String
     let disabled: Bool
 }
+
+struct RunimoIdResponse: Codable {
+    let main_runimo_id: Int
+}
