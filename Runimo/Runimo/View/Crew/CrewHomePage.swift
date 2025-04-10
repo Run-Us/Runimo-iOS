@@ -151,7 +151,7 @@ struct CrewHomePage: View {
             } else {
                 Button {
                     // TODO: 정기런 만들기
-                    print("click")
+                    
                 } label: {
                     createRegularButton()
                 }

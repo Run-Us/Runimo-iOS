@@ -75,6 +75,7 @@ class HomeService {
             switch result {
             case .success(let data):
                 print("\(data)")
+                completion(data)
             case .failure(let error):
                 print("\(error)")
             }

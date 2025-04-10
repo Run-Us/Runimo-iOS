@@ -13,7 +13,6 @@ struct HomeTab: View {
     @State private var data: HomeItem?
     @State private var eggData: HomeEggResponse?
     @State private var eggId: Int = 0
-    @State private var addPoint: Int = 0
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -32,10 +31,7 @@ struct HomeTab: View {
             }
         }
         .onAppear {
-            HomeService.shared.getHome { item in
-                data = item
-                sharedData.egg_love = (item.user_info.total_egg_count, item.user_info.love_point)
-            }
+            getHomeAPI()
             
             HomeService.shared.getCurrentEgg { egg in
                 eggData = egg
@@ -101,13 +97,13 @@ struct HomeTab: View {
                         .font(.title5_bold)
                         .foregroundStyle(.primaryGray)
                     Spacer()
-                    Text("\(egg.current_love_point_amount+addPoint)/\(egg.hatch_required_point_amount)")
+                    Text("\(egg.current_love_point_amount)/\(egg.hatch_required_point_amount)")
                         .font(.caption_regular)
                         .foregroundStyle(.quaternaryGray)
                 }
                 .padding(.bottom, 12)
                 
-                ProgressBar(progress: Double(egg.current_love_point_amount+addPoint)/Double(egg.hatch_required_point_amount))
+                ProgressBar(progress: Double(egg.current_love_point_amount)/Double(egg.hatch_required_point_amount))
                 
                 giveLoveButton()
             } else {
@@ -137,17 +133,16 @@ struct HomeTab: View {
     @ViewBuilder
     private func giveLoveButton() -> some View {
         Button {
-            if eggId >= 0 && data?.user_info.love_point ?? 0 > 0 {
-                addPoint += 1
+            if eggId >= 0 {
                 HomeService.shared.patchLovePoint(eggId: eggId, amount: 1) { response in
                     eggData?.incubating_eggs[0].current_love_point_amount = response.current_love_point_amount
-                    sharedData.egg_love = (sharedData.egg_love.egg, sharedData.egg_love.love)
+                    
+                    DispatchQueue.main.async {
+                        sharedData.egg_love = (sharedData.egg_love.egg, sharedData.egg_love.love-1)
+                    }
+                    
                     if response.egg_hatchable {
-                        HomeService.shared.hatchEgg(eggId: response.egg_id) { data in
-                            sharedData.characterPopUpData.character = data
-                            sharedData.isHatchable = true
-                            sharedData.showCharacterPopUp = true
-                        }
+                        hatchEggAPI(eggId: response.egg_id)
                     }
                 }
             }
@@ -174,7 +169,6 @@ struct HomeTab: View {
     private func registerEgg() -> some View {
         Button {
             sharedData.showEggSheet = true
-            sharedData.egg_love = (sharedData.egg_love.egg - 1, sharedData.egg_love.love)
         } label: {
             HStack(spacing: 8) {
                 Text("알 등록하기")
@@ -189,6 +183,22 @@ struct HomeTab: View {
             RoundedRectangle(cornerRadius: 16)
                 .fill(.primary400)
         )
+    }
+    
+    private func getHomeAPI() {
+        HomeService.shared.getHome { item in
+            data = item
+            sharedData.egg_love = (item.user_info.total_egg_count, item.user_info.love_point)
+        }
+    }
+    
+    private func hatchEggAPI(eggId: Int) {
+        HomeService.shared.hatchEgg(eggId: eggId) { data in
+            sharedData.characterPopUpData.character = data
+            sharedData.isHatchable = true
+            sharedData.showCharacterPopUp = true
+            getHomeAPI()
+        }
     }
 }
 
