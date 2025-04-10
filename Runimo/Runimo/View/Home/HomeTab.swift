@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeTab: View {
-    @EnvironmentObject var myPageVM: MyPageViewModel
     @EnvironmentObject var sharedData: SharedData
     @State private var data: HomeItem?
     @State private var eggData: HomeEggResponse?
@@ -20,7 +19,7 @@ struct HomeTab: View {
             GeometryReader { _ in
                 VStack(spacing: 24) {
                     Button {
-                        myPageVM.currentMainTab = .character
+                        sharedData.currentMainTab = .character
                     } label: {
                         characterProfile()
                     }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyGraph: View {
-    @EnvironmentObject var myPageVM: MyPageViewModel
+    @StateObject private var myPageVM = MyPageViewModel()
     
     var body: some View {
         ZStack {
@@ -119,5 +119,5 @@ struct MyGraph: View {
 }
 
 #Preview {
-    MyGraph(myPageVM: .init())
+    MyGraph()
 }

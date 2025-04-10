@@ -15,7 +15,6 @@ enum Tab {
 }
 
 struct TabBar: View {
-    @EnvironmentObject var myPageVM: MyPageViewModel
     @EnvironmentObject var sharedData: SharedData
     @State private var characterIndex: Int = 0
 
@@ -27,9 +26,10 @@ struct TabBar: View {
                 VStack {
                     // 상단 바
                     VStack(alignment: .leading, spacing: 0) {
-                        if [Tab.home, Tab.my].contains(myPageVM.currentMainTab) {
+                        if [Tab.home, Tab.my].contains(sharedData.currentMainTab) {
                             HStack {
                                 Image("logo_black")
+                                    .foregroundStyle(.primaryGray)
                                 Spacer()
                                 HStack(spacing: 4) {
                                     Image("icon_egg")
@@ -43,7 +43,7 @@ struct TabBar: View {
                             }
                             .padding(16)
                             Divider()
-                        } else if myPageVM.currentMainTab == .character {
+                        } else if sharedData.currentMainTab == .character {
                             HStack {
                                 Text("캐릭터")
                                     .font(.title5_bold)
@@ -63,7 +63,7 @@ struct TabBar: View {
                         Spacer()
                         
                         // 탭 별 보여줄 페이지
-                        switch (myPageVM.currentMainTab) {
+                        switch (sharedData.currentMainTab) {
                         case .home: HomeTab()
                         case .session: SessionTab()
                         case .character: CharacterTab(selectedCharacterIndex: $characterIndex)
@@ -81,11 +81,11 @@ struct TabBar: View {
                                 
                                 // 홈
                                 Button {
-                                    myPageVM.currentMainTab = .home
+                                    sharedData.currentMainTab = .home
                                 } label: {
                                     Image("tab_home")
                                         .renderingMode(.template)
-                                        .foregroundStyle(myPageVM.currentMainTab == .home ? .primaryGray : .gray400)
+                                        .foregroundStyle(sharedData.currentMainTab == .home ? .primaryGray : .gray400)
                                         .frame(width: 32, height: 32)
                                 }
                                 
@@ -93,11 +93,11 @@ struct TabBar: View {
                                 Spacer()
                                 
                                 Button {
-                                    myPageVM.currentMainTab = .session
+                                    sharedData.currentMainTab = .session
                                 } label: {
                                     Image("tab_globe")
                                         .renderingMode(.template)
-                                        .foregroundStyle(myPageVM.currentMainTab == .session ? .primaryGray : .gray400)
+                                        .foregroundStyle(sharedData.currentMainTab == .session ? .primaryGray : .gray400)
                                         .frame(width: 32, height: 32)
                                 }
                                 
@@ -113,11 +113,11 @@ struct TabBar: View {
                                 Spacer()
                                 
                                 Button {
-                                    myPageVM.currentMainTab = .character
+                                    sharedData.currentMainTab = .character
                                 } label: {
                                     Image("tab_character")
                                         .renderingMode(.template)
-                                        .foregroundStyle(myPageVM.currentMainTab == .character ? .primaryGray : .gray400)
+                                        .foregroundStyle(sharedData.currentMainTab == .character ? .primaryGray : .gray400)
                                         .frame(width: 32, height: 32)
                                 }
                                 
@@ -126,11 +126,11 @@ struct TabBar: View {
                                 
                                 // 마이페이지
                                 Button {
-                                    myPageVM.currentMainTab = .my
+                                    sharedData.currentMainTab = .my
                                 } label: {
                                     Image("tab_user")
                                         .renderingMode(.template)
-                                        .foregroundStyle(myPageVM.currentMainTab == .my ? .primaryGray : .gray400)
+                                        .foregroundStyle(sharedData.currentMainTab == .my ? .primaryGray : .gray400)
                                         .frame(width: 32, height: 32)
                                 }
                                 

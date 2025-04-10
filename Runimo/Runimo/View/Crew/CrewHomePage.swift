@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CrewHomePage: View {
-    @EnvironmentObject var myPageVM: MyPageViewModel
     let crew: Crew
     @Environment(\.dismiss) var dismiss
     @State private var selectedTab: Int = 0

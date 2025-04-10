@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyTab: View {
-    @EnvironmentObject var myPageVM: MyPageViewModel
+    @StateObject private var myPageVM = MyPageViewModel()
     let userDefaults = UserDefaults.standard
     @State private var showRecentRunning: Bool = false
     
