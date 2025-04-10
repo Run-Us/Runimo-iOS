@@ -9,13 +9,12 @@ import Foundation
 import SwiftUI
 
 enum RecordType: String {
-    case weekly, monthly, yearly
+    case weekly, monthly
     
     var calendarComponent: Calendar.Component {
         switch self {
         case .weekly: return .weekOfYear
         case .monthly: return .month
-        case .yearly: return .year
         }
     }
 }
@@ -44,8 +43,7 @@ class MyPageViewModel: ObservableObject {
     var recordType: RecordType {
         switch (selectedTab) {
         case 0: return .weekly
-        case 1: return .monthly
-        default: return .yearly
+        default: return .monthly
         }
     }
 }
@@ -130,8 +128,6 @@ extension MyPageViewModel {
             return ["월","화","수","목","금","토","일"]
         case .monthly:
             return Array(1...graphDisplay.distanceList.count).map{String($0)}
-        case .yearly:
-            return Array(1...12).map{String($0)}
         }
     }
     
@@ -140,7 +136,6 @@ extension MyPageViewModel {
         switch (recordType) {
         case .weekly: return 12
         case .monthly: return 4
-        case .yearly: return 8
         }
     }
     
@@ -149,7 +144,6 @@ extension MyPageViewModel {
         switch (recordType) {
         case .weekly: return 10
         case .monthly: return 4
-        case .yearly: return 6
         }
     }
     

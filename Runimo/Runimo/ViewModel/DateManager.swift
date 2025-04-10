@@ -28,8 +28,6 @@ extension DateManager {
             formatter.dateFormat = "MM월 dd일"
         case .monthly:
             formatter.dateFormat = "yyyy년 MM월"
-        case .yearly:
-            formatter.dateFormat = "yyyy년"
         }
         return formatter.string(from: date)
     }
@@ -81,7 +79,7 @@ extension DateManager {
     func getRecordDateRange(type: RecordType) -> String {
         switch (type) {
         case .weekly: getWeekDateRange()
-        case .monthly, .yearly: getDateString(date: date, type: type)
+        case .monthly: getDateString(date: date, type: type)
         }
     }
     

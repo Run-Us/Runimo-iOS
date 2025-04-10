@@ -54,25 +54,25 @@ struct MyGraph: View {
     func totalGraph(_ height: Double) -> some View {
         switch myPageVM.recordType {
         case .monthly: monthlyGraph(height)
-        case .weekly, .yearly: weekYearGraph(height)
+        case .weekly: weekGraph(height)
         }
     }
     
-    // 주간, 연간 그래프
+    // 주간 그래프
     @ViewBuilder
-    func weekYearGraph(_ height: Double) -> some View {
+    func weekGraph(_ height: Double) -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
                 ForEach(myPageVM.xData.indices, id: \.self) { idx in
-                    weekYearBarGraph(xdata: myPageVM.xData[idx], ydata: myPageVM.graphDisplay.distanceList[idx], height: height)
+                    weekBarGraph(xdata: myPageVM.xData[idx], ydata: myPageVM.graphDisplay.distanceList[idx], height: height)
                 }
             }
         }
     }
     
-    // 주간, 연간 막대 바 하나
+    // 주간 막대 바 하나
     @ViewBuilder
-    func weekYearBarGraph(xdata: String, ydata: Double, height: Double) -> some View {
+    func weekBarGraph(xdata: String, ydata: Double, height: Double) -> some View {
         VStack(spacing: 0) {
             RoundedRectangle(cornerRadius: myPageVM.barGraphCornerRadius)
                 .fill(.highlight)
