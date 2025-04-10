@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecordCard: View {
-    @StateObject private var myPageVM = MyPageViewModel()
+    @StateObject var myPageVM: MyPageViewModel
     @EnvironmentObject var sharedData: SharedData
     
     var body: some View {
@@ -56,8 +56,4 @@ struct RecordCard: View {
                 .foregroundStyle(.primaryGray)
         }
     }
-}
-
-#Preview {
-    RecordCard()
 }

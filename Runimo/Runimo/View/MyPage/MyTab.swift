@@ -22,8 +22,8 @@ struct MyTab: View {
                 SegmentedPicker(selectedTab: $myPageVM.selectedTab, type: ["주간","월간"], width: geometry.size.width)
                 
                 VStack(spacing: 24) {
-                    RecordCard()
-                    MyGraph()
+                    RecordCard(myPageVM: myPageVM)
+                    MyGraph(myPageVM: myPageVM)
                         .frame(height: 160)
                     recentActivity()
                 }

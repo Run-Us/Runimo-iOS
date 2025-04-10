@@ -121,8 +121,8 @@ struct CrewHomePage: View {
     @ViewBuilder
     private func scheduleTab() -> some View {
         VStack(alignment: .leading, spacing: 24) {
-            RecordCard()
-                .padding(.top, 20)
+//            RecordCard()
+//                .padding(.top, 20)
             regularRunningSession()
             irregularRunningSession()
         }
