@@ -48,8 +48,9 @@ struct MyTab: View {
     func userInfo() -> some View {
         HStack(spacing: 24) {
             // 프로필 사진
-            if let profile = myPageVM.user.profileImage {
+            if let profile = myPageVM.user.profile_image_url, profile != "" {
                 AsyncImage(url: URL(string: profile))
+                    .frame(width: 80, height: 80)
                     .clipShape(RoundedRectangle(cornerRadius: 32))
             } else {
                 Image("default_user_profile")
@@ -98,11 +99,9 @@ struct MyTab: View {
                 }
             }
             
-            // postcard 추가
-            ForEach(myPageVM.user.runningRecords.indices, id: \.self) { index in
-                if let record = myPageVM.user.runningRecords[index] {
-                    PostCard(runningRecord: record)
-                }
+            // post card
+            if let record = myPageVM.user.latest_running_record_nullable {
+                PostCard(runningRecord: record)
             }
         }
     }

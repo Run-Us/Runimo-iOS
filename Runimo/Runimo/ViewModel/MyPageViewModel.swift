@@ -33,7 +33,7 @@ class MyPageViewModel: ObservableObject {
     @Published var graphDisplay: (count: Int, distance: String, time: String, maxYLength: Double, distanceList: [Double]) = (0, "0.00km", "0m 0s", 9.0, Array(repeating: 8.0, count: 30))
     
     init() {
-        user = MyPage(profileImage: nil, nickname: "", totalDistance: 0, recentRunningDate: nil, runningRecords: [])
+        user = MyPage(profile_image_url: nil, nickname: "", total_distance_in_meters: 0, latest_run_date_before: 0, latest_running_record_nullable: nil)
         graph = RunningGraph(total_count: 0, total_distance: 0, total_time: 0, distance_list: [])
         getGraphAPI()
     }
@@ -50,12 +50,12 @@ class MyPageViewModel: ObservableObject {
 extension MyPageViewModel {
     // 누적 거리
     func getTotalDistance() -> String {
-        return String(format: "%.2fkm", user.totalDistance/1000)
+        return String(format: "%.2fkm", user.total_distance_in_meters/1000)
     }
     
     // 최근 러닝
     func lastRunning() -> String {
-        let day = dateManager.subDate(date: user.recentRunningDate)
+        let day = user.latest_run_date_before
         if day == 0 {
             return "오늘"
         } else if day == 1 {
