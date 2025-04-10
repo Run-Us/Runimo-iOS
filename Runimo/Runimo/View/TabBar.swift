@@ -31,15 +31,21 @@ struct TabBar: View {
                                 Image("logo_black")
                                     .foregroundStyle(.primaryGray)
                                 Spacer()
-                                HStack(spacing: 4) {
-                                    Image("icon_egg")
-                                    Text("\(sharedData.egg_love.egg)")
-                                    Image("icon_love")
-                                        .padding(.leading, 8)
-                                    Text("\(sharedData.egg_love.love)")
+                                
+                                if sharedData.currentMainTab == .home {
+                                    HStack(spacing: 4) {
+                                        Image("icon_egg")
+                                        Text("\(sharedData.egg_love.egg)")
+                                        Image("icon_love")
+                                            .padding(.leading, 8)
+                                        Text("\(sharedData.egg_love.love)")
+                                    }
+                                    .font(.title5_bold)
+                                    .foregroundStyle(.primaryGray)
+                                } else {
+                                    Image("icon_setting")
+                                        .foregroundStyle(.primaryGray)
                                 }
-                                .font(.title5_bold)
-                                .foregroundStyle(.primaryGray)
                             }
                             .padding(16)
                             Divider()
