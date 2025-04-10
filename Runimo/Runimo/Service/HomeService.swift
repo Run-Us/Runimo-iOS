@@ -104,7 +104,7 @@ class HomeService {
     }
     
     // 알 등록
-    func postEgg(egg_id: Int) {
+    func postEgg(egg_id: Int, completion: @escaping () -> Void) {
         let path = "/users/eggs"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -121,6 +121,7 @@ class HomeService {
             switch result {
             case .success(let data):
                 print("\(data)")
+                completion()
             case .failure(let error):
                 print("\(error)")
             }

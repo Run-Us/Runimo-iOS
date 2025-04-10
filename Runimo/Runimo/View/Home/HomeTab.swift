@@ -32,19 +32,17 @@ struct HomeTab: View {
         }
         .onAppear {
             getHomeAPI()
-            
-            HomeService.shared.getCurrentEgg { egg in
-                eggData = egg
-                eggId = egg.incubating_eggs.first?.id ?? -1
-            }
+        }
+        .onChange(of: sharedData.updateHomeView) { _, _ in
+            getHomeAPI()
         }
     }
 
     @ViewBuilder
     private func characterProfile() -> some View {
         HStack(spacing: 46) {
-            if let image = data?.main_runimo_stat_nullable?.image_url {
-                AsyncImage(url: URL(string: image))
+            if let image = data?.main_runimo_stat_nullable {
+                AsyncImage(url: URL(string: image.image_url))
                     .frame(width: 86, height: 86)
             } else {
                 Image("character_disabled")
@@ -189,6 +187,17 @@ struct HomeTab: View {
         HomeService.shared.getHome { item in
             data = item
             sharedData.egg_love = (item.user_info.total_egg_count, item.user_info.love_point)
+        }
+        
+        getHomeEggAPI()
+    }
+    
+    private func getHomeEggAPI() {
+        HomeService.shared.getCurrentEgg { egg in
+            DispatchQueue.main.async {
+                eggData = egg
+                eggId = egg.incubating_eggs.first?.id ?? -1
+            }
         }
     }
     

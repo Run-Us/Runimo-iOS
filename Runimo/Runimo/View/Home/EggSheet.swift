@@ -48,7 +48,9 @@ struct EggSheet: View {
     }
     
     private func registerEggAPI(eggId: Int) {
-        HomeService.shared.postEgg(egg_id: eggId)
+        HomeService.shared.postEgg(egg_id: eggId) { 
+            sharedData.updateHomeView = true
+        }
     }
 }
 
