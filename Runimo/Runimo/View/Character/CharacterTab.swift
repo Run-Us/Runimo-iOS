@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CharacterTab: View {
+    @EnvironmentObject var sharedData: SharedData
     private let characterList: [CharacterItem] = [
         CharacterItem(name: "강아지", imageName: "character_dog", disabled: false),
         CharacterItem(name: "고양이", imageName: "character_cat", disabled: false),
@@ -20,7 +21,6 @@ struct CharacterTab: View {
     ]
     
     @Binding var selectedCharacterIndex: Int
-    @Binding var isPresentedPopUp: Bool
 
     var body: some View {
         ScrollView {
@@ -50,7 +50,7 @@ struct CharacterTab: View {
                     Button {
                         if !item.disabled {
                             selectedCharacterIndex = index
-                            isPresentedPopUp = true
+                            sharedData.showCharacterPopUp = true
                         }
                     } label: {
                         characterCard(name: item.name, imageName: item.imageName, disabled: item.disabled, selected: selectedCharacterIndex == index)
@@ -87,5 +87,5 @@ struct CharacterTab: View {
 }
 
 #Preview {
-    CharacterTab(selectedCharacterIndex: .constant(0), isPresentedPopUp: .constant(false))
+    CharacterTab(selectedCharacterIndex: .constant(0))
 }

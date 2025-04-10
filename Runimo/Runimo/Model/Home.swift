@@ -69,3 +69,7 @@ struct HatchEggResponse: Codable {
     let code: String
     let is_duplicated: Bool
 }
+
+struct CharacterPopUpItem: Codable {
+    var character: HatchEggResponse
+}

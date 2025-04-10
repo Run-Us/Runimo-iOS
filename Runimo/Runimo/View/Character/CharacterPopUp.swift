@@ -8,25 +8,16 @@
 import SwiftUI
 
 struct CharacterPopUp: ViewModifier {
-    private let characterList: [CharacterItem] = [
-        CharacterItem(name: "강아지", imageName: "character_dog", disabled: false),
-        CharacterItem(name: "고양이", imageName: "character_cat", disabled: false),
-        CharacterItem(name: "토끼", imageName: "character_rabbit", disabled: true),
-        CharacterItem(name: "오리", imageName: "character_duck", disabled: true)
-    ]
-    
     @Binding var isPresented: Bool
     let index: Int
-    var character: CharacterItem
+    var character: CharacterPopUpItem
+    var isHatching: Bool = false
     
-    init(isPresented: Binding<Bool>, index: Int) {
+    init(isPresented: Binding<Bool>, character: CharacterPopUpItem, index: Int, isHatching: Bool) {
         _isPresented = isPresented
         self.index = index
-        if index > 0 {
-            character = characterList[index]
-        } else {
-            character = CharacterItem(name: "신비로운 알을 발견했어요", imageName: "home_egg_image", disabled: false)
-        }
+        self.character = character
+        self.isHatching = isHatching
     }
     
     func body(content: Content) -> some View {
@@ -36,14 +27,20 @@ struct CharacterPopUp: ViewModifier {
                 Color.quaternaryGray.opacity(0.3)
                     .ignoresSafeArea()
                 VStack(spacing: 16) {
-                    Text(character.name)
+                    Text(isHatching ? "새로운 동물이 태어났어요!" : character.character.name)
                         .font(.title4_semibold)
                         .foregroundStyle(.primaryGray)
                         .padding(.bottom, -8)
-                    Text("[간략한 설명 - 특성이나 재미있는 정보]")
-                    Image(character.imageName)
-                        .resizable()
-                        .frame(width: 320, height: 320)
+                    Text(isHatching ? character.character.name : "[간략한 설명 - 특성이나 재미있는 정보]")
+                    if character.character.code == "" {
+                        Image(character.character.img_url)
+                            .resizable()
+                            .frame(width: 320, height: 320)
+                    } else {
+                        AsyncImage(url: URL(string: character.character.img_url))
+                            .frame(width: 320, height: 320)
+                    }
+                    
                     Text("러닝: [러닝 횟수], 달린 거리: [달린 거리]")
                         .padding(.bottom, 8)
                     
@@ -87,7 +84,7 @@ struct CharacterPopUp: ViewModifier {
         Button {
             isPresented = false
         } label: {
-            Text("확인했어요")
+            Text(isHatching ? "대표 캐릭터로 설정하기" : "확인했어요")
                 .font(.body1_bold)
                 .foregroundStyle(.white)
                 .padding(.vertical, 10)
@@ -99,7 +96,7 @@ struct CharacterPopUp: ViewModifier {
 }
 
 extension View {
-    func popupCharacter(isPresented: Binding<Bool>, characterIndex: Int) -> some View {
-        self.modifier(CharacterPopUp(isPresented: isPresented, index: characterIndex))
+    func popupCharacter(isPresented: Binding<Bool>, character: CharacterPopUpItem, characterIndex: Int, isHatching: Bool) -> some View {
+        self.modifier(CharacterPopUp(isPresented: isPresented, character: character, index: characterIndex, isHatching: isHatching))
     }
 }

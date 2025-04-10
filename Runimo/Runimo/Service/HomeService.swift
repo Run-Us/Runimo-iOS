@@ -126,7 +126,7 @@ class HomeService {
         }
     }
     
-    func hatchEgg(eggId: Int, completion: @escaping (PostEggResponse) -> Void) {
+    func hatchEgg(eggId: Int, completion: @escaping (HatchEggResponse) -> Void) {
         let path = "/incubating-eggs/\(eggId)/hatch"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -135,7 +135,7 @@ class HomeService {
         
         let dataRequest = APIRequest(path: path, method: .post, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<PostEggResponse, AFError>) in
+        NetworkManager.shared.request(dataRequest) { (result: Result<HatchEggResponse, AFError>) in
             switch result {
             case .success(let data):
                 print("\(data)")

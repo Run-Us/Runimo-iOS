@@ -141,9 +141,12 @@ struct HomeTab: View {
                 addPoint += 1
                 HomeService.shared.patchLovePoint(eggId: eggId, amount: 1) { response in
                     eggData?.incubating_eggs[0].current_love_point_amount = response.current_love_point_amount
+                    sharedData.egg_love = (sharedData.egg_love.egg, sharedData.egg_love.love)
                     if response.egg_hatchable {
                         HomeService.shared.hatchEgg(eggId: response.egg_id) { data in
-                            
+                            sharedData.characterPopUpData.character = data
+                            sharedData.isHatchable = true
+                            sharedData.showCharacterPopUp = true
                         }
                     }
                 }
@@ -171,6 +174,7 @@ struct HomeTab: View {
     private func registerEgg() -> some View {
         Button {
             sharedData.showEggSheet = true
+            sharedData.egg_love = (sharedData.egg_love.egg - 1, sharedData.egg_love.love)
         } label: {
             HStack(spacing: 8) {
                 Text("알 등록하기")

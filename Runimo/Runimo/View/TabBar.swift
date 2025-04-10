@@ -17,7 +17,6 @@ enum Tab {
 struct TabBar: View {
     @EnvironmentObject var myPageVM: MyPageViewModel
     @EnvironmentObject var sharedData: SharedData
-    @State private var isPresentedCharacterPopUp: Bool = false
     @State private var characterIndex: Int = 0
 
     var body: some View {
@@ -67,7 +66,7 @@ struct TabBar: View {
                         switch (myPageVM.currentMainTab) {
                         case .home: HomeTab()
                         case .session: SessionTab()
-                        case .character: CharacterTab(selectedCharacterIndex: $characterIndex, isPresentedPopUp: $isPresentedCharacterPopUp)
+                        case .character: CharacterTab(selectedCharacterIndex: $characterIndex)
                         case .my:   MyTab()
                         }
                         
@@ -142,12 +141,11 @@ struct TabBar: View {
                 }
             }
             .navigationBarBackButtonHidden()
-            .popupCharacter(isPresented: $isPresentedCharacterPopUp, characterIndex: characterIndex)
+            .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, characterIndex: characterIndex, isHatching: sharedData.isHatchable)
         }
         .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { notification in
-            print("✅ completeSignUp notification received!")
             characterIndex = -1
-            isPresentedCharacterPopUp = true
+            sharedData.showCharacterPopUp = true
         }
         .onAppear {
             HomeService.shared.getMyEggs { data in
