@@ -12,12 +12,14 @@ struct CharacterPopUp: ViewModifier {
     let index: Int
     var character: CharacterPopUpItem
     var isHatching: Bool = false
+    var isDuplicated: Bool = false
     
     init(isPresented: Binding<Bool>, character: CharacterPopUpItem, index: Int, isHatching: Bool) {
         _isPresented = isPresented
         self.index = index
         self.character = character
         self.isHatching = isHatching
+        self.isDuplicated = character.character.is_duplicated
     }
     
     func body(content: Content) -> some View {
@@ -27,7 +29,7 @@ struct CharacterPopUp: ViewModifier {
                 Color.quaternaryGray.opacity(0.3)
                     .ignoresSafeArea()
                 VStack(spacing: 16) {
-                    Text(isHatching ? "새로운 동물이 태어났어요!" : character.character.name)
+                    Text(isHatching ? isDuplicated ? "익숙한 친구를 만났어요.." : "새로운 동물이 태어났어요!" : character.character.name)
                         .font(.title4_semibold)
                         .foregroundStyle(.primaryGray)
                         .padding(.bottom, -8)
@@ -44,12 +46,17 @@ struct CharacterPopUp: ViewModifier {
                     Text("러닝: [러닝 횟수], 달린 거리: [달린 거리]")
                         .padding(.bottom, 8)
                     
+                    // 알 부화 했을 때
                     if isHatching {
                         VStack(spacing: 8) {
-                            okButton()
+                            // 첫 등장 러니모일때만 ok button
+                            if !isDuplicated {
+                                okButton()
+                            }
                             cancelButton()
                         }
                     } else {
+                        // 캐릭터 선택으로 띄웠을 때 
                         if index > 0 {
                             cancelButton()
                         } else {

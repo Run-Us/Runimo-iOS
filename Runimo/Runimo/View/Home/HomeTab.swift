@@ -88,7 +88,7 @@ struct HomeTab: View {
         VStack(spacing: 12) {
             if let data = eggData, let egg = data.incubating_eggs.first {
                 AsyncImage(url: URL(string: egg.img_url))
-                
+                    .frame(width: 310, height: 270)
                 HStack {
                     Text(egg.name)
                         .font(.title5_bold)
@@ -184,8 +184,10 @@ struct HomeTab: View {
     
     private func getHomeAPI() {
         HomeService.shared.getHome { item in
-            data = item
-            sharedData.egg_love = (item.user_info.total_egg_count, item.user_info.love_point)
+            DispatchQueue.main.async {
+                data = item
+                sharedData.egg_love = (item.user_info.total_egg_count, item.user_info.love_point)
+            }
         }
         
         getHomeEggAPI()
