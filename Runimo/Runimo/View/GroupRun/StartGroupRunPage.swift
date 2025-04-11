@@ -8,14 +8,6 @@
 import SwiftUI
 
 struct StartGroupRunPage: View {
-    @Environment(\.dismiss) var dismiss
-    @State var showInputJoinCode = false
-    @State var showCreateGroupRunPage = false
-    @State var joinCode: String = ""
-    @ObservedObject var runningSession: RunningSessionService
-    @EnvironmentObject var mapVM: MapViewModel
-    @EnvironmentObject var runVM: RunningViewModel
-    
     var body: some View {
         VStack(spacing: 8) {
             Spacer()
@@ -31,5 +23,5 @@ struct StartGroupRunPage: View {
 }
 
 #Preview {
-    StartGroupRunPage(runningSession: RunningSessionService())
+    StartGroupRunPage()
 }
