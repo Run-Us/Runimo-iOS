@@ -17,82 +17,17 @@ struct StartGroupRunPage: View {
     @EnvironmentObject var runVM: RunningViewModel
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                VStack {
-                    // Create Group Button
-                    Image("login_view_2")
-                        .padding(.vertical, 36)
-                    
-                    Text("친구와 함께 달려보세요!")
-                        .font(.title4_semibold)
-                        .foregroundStyle(.primaryGray)
-                        
-                    Text("그룹 달리기를 통해 친구와 같이 기록을 저장하세요")
-                        .font(.body2_medium)
-                        .foregroundStyle(.quaternaryGray)
-                        .padding(8)
-                    
-                    Spacer()
-                        
-                    Divider()
-                    // Join Group Button
-                    Button(action: {
-                        showInputJoinCode = true
-                    }, label: {
-                        Text("이미 친구가 방을 만들었나요?")
-                            .font(.caption_medium)
-                            .underline()
-                            .foregroundColor(.quaternaryGray)
-                    })
-                    .padding(.top, 8)
-                    // create Group Button
-                    Button(action: {
-                        createGroup()
-                        //TODO: When API is activate, below code need to remove
-                        showCreateGroupRunPage = true
-                    }, label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 8)
-                            Text("그룹 생성하기")
-                                .font(.title5_bold)
-                                .foregroundStyle(.white)
-                        }
-                    })
-                    .frame(width: 361, height: 56)
-                    .background(.primary400)
-                    .cornerRadius(8)
-                    .padding(8)
-                    .navigationDestination(isPresented: $showCreateGroupRunPage, destination: {
-                        CreateGroupRunPage(mapVM: mapVM, runningSession: runningSession, passcode: runningSession.runningSessionInfo?.passcode ?? "0000")
-                            .navigationBarBackButtonHidden()
-                    })
-                    
-                }
-                
-            }
-        }
-        .navigationDestination(isPresented: $showInputJoinCode, destination: {
-            JoinGroupRunPage(runningSession: runningSession, passcode: "0000")
-        })
-
-    }
-    
-    func createGroup() {
-        runningSession.createRunningSession(currentLatitude: mapVM.userLocation.coordinate.latitude, currentLongitude: mapVM.userLocation.coordinate.longitude) { success, result in
-            if success {
-                UserDefaults.standard.set(result?.runningId, forKey: "runningId")
-                WebSocketService.sharedSocket.connect(runningId: result?.runningId)
-                showCreateGroupRunPage = true
-            } else {
-                print("createRunningSession || error")
-            }
+        VStack(spacing: 8) {
+            Spacer()
+            Text("더 많은 기능이 기다리고 있어요!")
+                .font(.title4_semibold)
+                .foregroundStyle(.primaryGray)
+            Text("친구와 함께 달리는 '그룹 달리기' 기능이 곧 출시됩니다")
+                .font(.body2_medium)
+                .foregroundStyle(.quaternaryGray)
+            Spacer()
         }
     }
-    func joinGroup() {
-        
-    }
-        
 }
 
 #Preview {
