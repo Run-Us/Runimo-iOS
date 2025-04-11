@@ -56,7 +56,7 @@ struct CharacterPopUp: ViewModifier {
                             cancelButton()
                         }
                     } else {
-                        // 캐릭터 선택으로 띄웠을 때 
+                        // 캐릭터 선택으로 띄웠을 때
                         if index > 0 {
                             cancelButton()
                         } else {

@@ -38,7 +38,7 @@ struct MyTab: View {
                 .presentationDetents([.fraction(0.35), .large])
         }
         .onAppear {
-            MyPageService().getMyPage { data in
+            MyPageService.shared.getMyPage { data in
                 myPageVM.user = data
             }
         }

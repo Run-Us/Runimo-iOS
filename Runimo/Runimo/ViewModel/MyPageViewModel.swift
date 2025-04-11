@@ -77,7 +77,7 @@ extension MyPageViewModel {
         let (start, end) = dateManager.getDateRange(type: recordType)
         guard start != nil, end != nil else { return }
         
-        MyPageService().getMyRunningData(
+        MyPageService.shared.getMyRunningData(
             type: recordType.rawValue,
             startDate: getDateString(date: start ?? Date()),
             endDate: getDateString(date: end ?? Date())) { data in

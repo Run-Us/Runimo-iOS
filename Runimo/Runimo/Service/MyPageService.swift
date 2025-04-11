@@ -10,8 +10,11 @@ import Foundation
 import KeychainSwift
 
 class MyPageService {
+    static let shared = MyPageService()
     let keychain = KeychainSwift()
     let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")/users"
+    
+    private init() { }
     
     // 마이페이지 메인 조회
     func getMyPage(completion: @escaping (MyPage) -> Void) {
