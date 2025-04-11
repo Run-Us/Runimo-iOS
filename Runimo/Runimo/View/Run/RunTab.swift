@@ -31,7 +31,7 @@ struct RunTab: View {
                         
                         switch(selectedRunning) {
                         case 0: runAlone()
-                        case 1: StartGroupRunPage(runningSession: runningSession)
+                        case 1: StartGroupRunPage()
                         default: EmptyView()
                         }
                     }
