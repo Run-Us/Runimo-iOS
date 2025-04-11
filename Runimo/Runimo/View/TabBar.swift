@@ -17,6 +17,7 @@ enum Tab {
 struct TabBar: View {
     @EnvironmentObject var sharedData: SharedData
     @State private var characterIndex: Int = 0
+    @State private var showSettingPage: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -43,8 +44,7 @@ struct TabBar: View {
                                     .font(.title5_bold)
                                     .foregroundStyle(.primaryGray)
                                 } else {
-                                    Image("icon_setting")
-                                        .foregroundStyle(.primaryGray)
+                                    settingButton()
                                 }
                             }
                             .padding(16)
@@ -148,6 +148,9 @@ struct TabBar: View {
             }
             .navigationBarBackButtonHidden()
             .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, characterIndex: characterIndex, isHatching: sharedData.isHatchable)
+            .navigationDestination(isPresented: $showSettingPage) {
+                SettingPage()
+            }
         }
         .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { notification in
             characterIndex = -1
@@ -162,6 +165,17 @@ struct TabBar: View {
             EggSheet()
                 .presentationDetents([.fraction(0.25)])
         })
+    }
+    
+    @ViewBuilder
+    private func settingButton() -> some View {
+        Button {
+            showSettingPage = true
+        } label: {
+            Image("icon_setting")
+                .foregroundStyle(.primaryGray)
+        }
+
     }
 }
 
