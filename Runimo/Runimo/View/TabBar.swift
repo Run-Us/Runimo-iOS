@@ -26,41 +26,10 @@ struct TabBar: View {
                 VStack {
                     // 상단 바
                     VStack(alignment: .leading, spacing: 0) {
-                        if [Tab.home, Tab.my].contains(sharedData.currentMainTab) {
-                            HStack {
-                                Image("logo_black")
-                                    .foregroundStyle(.primaryGray)
-                                Spacer()
-                                
-                                if sharedData.currentMainTab == .home {
-                                    HStack(spacing: 4) {
-                                        Image("icon_egg")
-                                        Text("\(sharedData.egg_love.egg)")
-                                        Image("icon_love")
-                                            .padding(.leading, 8)
-                                        Text("\(sharedData.egg_love.love)")
-                                    }
-                                    .font(.title5_bold)
-                                    .foregroundStyle(.primaryGray)
-                                } else {
-                                    Image("icon_setting")
-                                        .foregroundStyle(.primaryGray)
-                                }
-                            }
-                            .padding(16)
-                            Divider()
-                        } else if sharedData.currentMainTab == .character {
-                            HStack {
-                                Text("캐릭터")
-                                    .font(.title5_bold)
-                                    .frame(height: 24)
-                                Spacer()
-                                Text("0km")
-                                    .font(.body1_medium)
-                            }
-                            .foregroundStyle(.primaryGray)
-                            .padding(16)
-                            Divider()
+                        switch sharedData.currentMainTab {
+                        case .session: sessionTabNavigationBar()
+                        case .character: characterTabNavigationBar()
+                        default: etcNavigationBar()
                         }
                     }
                     
@@ -162,6 +131,70 @@ struct TabBar: View {
             EggSheet()
                 .presentationDetents([.fraction(0.25)])
         })
+    }
+    
+    
+    
+    @ViewBuilder
+    private func sessionTabNavigationBar() -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("러닝세션 찾기")
+                    .font(.title5_bold)
+                Spacer()
+                Image(systemName: "plus")
+                    .resizable()
+                    .frame(width: 14, height: 14)
+            }
+            .foregroundStyle(.primaryGray)
+            .padding(16)
+            Divider()
+        }
+    }
+    
+    @ViewBuilder
+    private func characterTabNavigationBar() -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("캐릭터")
+                    .font(.title5_bold)
+                    .frame(height: 24)
+                Spacer()
+                Text("0km")
+                    .font(.body1_medium)
+            }
+            .foregroundStyle(.primaryGray)
+            .padding(16)
+            Divider()
+        }
+    }
+    
+    @ViewBuilder
+    func etcNavigationBar() -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Image("logo_black")
+                    .foregroundStyle(.primaryGray)
+                Spacer()
+                
+                if sharedData.currentMainTab == .home {
+                    HStack(spacing: 4) {
+                        Image("icon_egg")
+                        Text("\(sharedData.egg_love.egg)")
+                        Image("icon_love")
+                            .padding(.leading, 8)
+                        Text("\(sharedData.egg_love.love)")
+                    }
+                    .font(.title5_bold)
+                    .foregroundStyle(.primaryGray)
+                } else {
+                    Image("icon_setting")
+                        .foregroundStyle(.primaryGray)
+                }
+            }
+            .padding(16)
+            Divider()
+        }
     }
 }
 
