@@ -28,6 +28,7 @@ struct SettingPage: View {
                     }
                     .foregroundStyle(.secondaryGray)
                 }
+                .padding(.horizontal, 16)
                 
                 // 탈퇴하기
                 Button {
@@ -40,10 +41,10 @@ struct SettingPage: View {
                     }
                     .foregroundStyle(.error)
                 }
+                .padding(.horizontal, 16)
                 
                 Spacer()
             }
-            .padding(.horizontal, 16)
         }
         .navigationBarBackButtonHidden()
         .toolbar {
