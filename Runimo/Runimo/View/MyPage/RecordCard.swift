@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct RecordCard: View {
-    @EnvironmentObject var myPageVM: MyPageViewModel
+    @StateObject var myPageVM: MyPageViewModel
+    @EnvironmentObject var sharedData: SharedData
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -18,7 +19,7 @@ struct RecordCard: View {
                     .font(.body2_semibold)
                     .foregroundStyle(.primaryGray)
                 Spacer()
-                if myPageVM.currentMainTab == .my {
+                if sharedData.currentMainTab == .my {
                     Button {
                         myPageVM.showDateSheet = true
                     } label: {
@@ -55,8 +56,4 @@ struct RecordCard: View {
                 .foregroundStyle(.primaryGray)
         }
     }
-}
-
-#Preview {
-    RecordCard()
 }

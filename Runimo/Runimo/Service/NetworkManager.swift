@@ -1,0 +1,73 @@
+//
+//  NetworkManager.swift
+//  Runimo
+//
+//  Created by 가은 on 4/4/25.
+//
+
+import Alamofire
+import Foundation
+import KeychainSwift
+
+final class NetworkManager {
+    static let shared = NetworkManager()
+    private let keychain = KeychainSwift()
+    private let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
+    
+    private init() { }
+    
+    // http 응답코드 받기
+    func getHTTPStatusCode(
+        _ request: APIRequest,
+        completion: @escaping (Int) -> Void)
+    {
+        let url = "\(baseUrl)\(request.path)"
+        AF.request(url, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
+            .validate(statusCode: 100..<600)
+            .response { response in
+                let statusCode = response.response?.statusCode ?? -1
+                print("Request URL: \(url)\n📡 Status Code: \(statusCode)")
+                completion(statusCode)
+            }
+    }
+    
+    // 요청
+    func request<T: Codable>(
+        _ request: APIRequest,
+        completion: @escaping (Result<T, AFError>) -> Void)
+    {
+        let url = "\(baseUrl)\(request.path)"
+        print("url: \(url)\nparameters: \(String(describing: request.parameters))\n")
+        AF.request(url, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
+            .responseDecodable(of: BaseResponse<T>.self) { response in
+            switch response.result {
+            case .success(let baseResponse):
+                if let data = baseResponse.payload {
+                    completion(.success(data))
+                } else {
+                    // payload가 없을 때도 실패로 처리
+                    print("⚠️ Payload is nil. Code: \(baseResponse.code), Message: \(baseResponse.message)")
+                    completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                }
+            case .failure(let error):
+                print("❌ Request Failed: Request URL: \(url)\n\(error.localizedDescription)")
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func requestLoginError(_ request: APIRequest)
+    {
+        let url = "\(baseUrl)\(request.path)"
+        print("url: \(url)\nparameters: \(String(describing: request.parameters))\n")
+        AF.request(url, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
+            .responseDecodable(of: BaseErrorResponse.self) { response in
+            switch response.result {
+            case .success(let result):
+                self.keychain.set(result.temporal_register_token, forKey: "register_token")
+            case .failure(let error):
+                print("❌ Request 404 Failed: Request URL: \(url)\n\(error.localizedDescription)\n")
+            }
+        }
+    }
+}

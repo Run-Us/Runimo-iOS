@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct HomeTab: View {
-    @EnvironmentObject var myPageVM: MyPageViewModel
+    @EnvironmentObject var sharedData: SharedData
+    @State private var data: HomeItem?
+    @State private var eggData: HomeEggResponse?
+    @State private var eggId: Int = 0
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -16,7 +19,7 @@ struct HomeTab: View {
             GeometryReader { _ in
                 VStack(spacing: 24) {
                     Button {
-                        myPageVM.currentMainTab = .character
+                        sharedData.currentMainTab = .character
                     } label: {
                         characterProfile()
                     }
@@ -26,14 +29,28 @@ struct HomeTab: View {
                 .padding(.vertical, 24)
             }
         }
+        .onAppear {
+            getHomeAPI()
+        }
+        .onChange(of: sharedData.updateHomeView) { _, _ in
+            getHomeAPI()
+        }
     }
 
     @ViewBuilder
     private func characterProfile() -> some View {
         HStack(spacing: 46) {
-            Image("character_dog")
+            if let image = data?.main_runimo_stat_nullable {
+                AsyncImage(url: URL(string: image.image_url))
+                    .frame(width: 86, height: 86)
+            } else {
+                Image("character_disabled")
+                    .resizable()
+                    .frame(width: 86, height: 86)
+            }
+                
             VStack(alignment: .leading, spacing: 20) {
-                Text("강아지")
+                Text("\(data?.main_runimo_stat_nullable?.name ?? "알을 부화시켜보세요!")")
                     .foregroundStyle(.primaryGray)
                     .font(.title5_bold)
                 HStack(spacing: 40) {
@@ -41,7 +58,7 @@ struct HomeTab: View {
                         Text("러닝")
                             .font(.caption_regular)
                             .foregroundStyle(.quaternaryGray)
-                        Text("1")
+                        Text("\(data?.main_runimo_stat_nullable?.total_running_count ?? 0)")
                             .font(.title5_bold)
                             .foregroundStyle(.primaryGray)
                     }
@@ -49,7 +66,7 @@ struct HomeTab: View {
                         Text("달린 거리")
                             .font(.caption_regular)
                             .foregroundStyle(.quaternaryGray)
-                        Text("3.43 km")
+                        Text(String(format: "%.2f km", (data?.main_runimo_stat_nullable?.total_distance_in_meters ?? 0)/1000))
                             .font(.title5_bold)
                             .foregroundStyle(.primaryGray)
                     }
@@ -69,19 +86,37 @@ struct HomeTab: View {
     @ViewBuilder
     private func eggCard() -> some View {
         VStack(spacing: 12) {
-            Image("home_egg_image")
-            HStack {
-                Text("마당 알")
-                    .font(.title5_bold)
-                    .foregroundStyle(.primaryGray)
-                Spacer()
-                Text("0/10")
-                    .font(.caption_regular)
-                    .foregroundStyle(.quaternaryGray)
+            if let data = eggData, let egg = data.incubating_eggs.first {
+                AsyncImage(url: URL(string: egg.img_url))
+                    .frame(width: 310, height: 270)
+                HStack {
+                    Text(egg.name)
+                        .font(.title5_bold)
+                        .foregroundStyle(.primaryGray)
+                    Spacer()
+                    Text("\(egg.current_love_point_amount)/\(egg.hatch_required_point_amount)")
+                        .font(.caption_regular)
+                        .foregroundStyle(.quaternaryGray)
+                }
+                .padding(.bottom, 12)
+                
+                ProgressBar(progress: Double(egg.current_love_point_amount)/Double(egg.hatch_required_point_amount))
+                
+                giveLoveButton()
+            } else {
+                Image("incubator_image")
+                
+                HStack {
+                    Text("새 알을 기다리는 중이에요")
+                        .font(.title5_bold)
+                        .foregroundStyle(.primaryGray)
+                    Spacer()
+                }
+                .padding(.bottom, 12)
+                
+                registerEgg()
             }
-            .padding(.bottom, 12)
-            ProgressBar(progress: .constant(0.0))
-            giveLoveButton()
+            
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 16)
@@ -95,6 +130,19 @@ struct HomeTab: View {
     @ViewBuilder
     private func giveLoveButton() -> some View {
         Button {
+            if eggId >= 0 {
+                HomeService.shared.patchLovePoint(eggId: eggId, amount: 1) { response in
+                    eggData?.incubating_eggs[0].current_love_point_amount = response.current_love_point_amount
+                    
+                    DispatchQueue.main.async {
+                        sharedData.egg_love = (sharedData.egg_love.egg, sharedData.egg_love.love-1)
+                    }
+                    
+                    if response.egg_hatchable {
+                        hatchEggAPI(eggId: response.egg_id)
+                    }
+                }
+            }
             
         } label: {
             HStack(spacing: 8) {
@@ -112,6 +160,55 @@ struct HomeTab: View {
                 .fill(.primaryBG)
                 .stroke(.secondaryFill, lineWidth: 1)
         )
+    }
+    
+    @ViewBuilder
+    private func registerEgg() -> some View {
+        Button {
+            sharedData.showEggSheet = true
+        } label: {
+            HStack(spacing: 8) {
+                Text("알 등록하기")
+                    .font(.title5_bold)
+                    .foregroundStyle(.white)
+            }
+            .padding(.vertical, 16)
+            .padding(.horizontal, 18)
+            .frame(maxWidth: .infinity)
+        }
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.primary400)
+        )
+    }
+    
+    private func getHomeAPI() {
+        HomeService.shared.getHome { item in
+            DispatchQueue.main.async {
+                data = item
+                sharedData.egg_love = (item.user_info.total_egg_count, item.user_info.love_point)
+            }
+        }
+        
+        getHomeEggAPI()
+    }
+    
+    private func getHomeEggAPI() {
+        HomeService.shared.getCurrentEgg { egg in
+            DispatchQueue.main.async {
+                eggData = egg
+                eggId = egg.incubating_eggs.first?.id ?? -1
+            }
+        }
+    }
+    
+    private func hatchEggAPI(eggId: Int) {
+        HomeService.shared.hatchEgg(eggId: eggId) { data in
+            sharedData.characterPopUpData.character = data
+            sharedData.isHatchable = true
+            sharedData.showCharacterPopUp = true
+            getHomeAPI()
+        }
     }
 }
 

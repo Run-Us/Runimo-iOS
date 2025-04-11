@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CrewHomePage: View {
-    @EnvironmentObject var myPageVM: MyPageViewModel
     let crew: Crew
     @Environment(\.dismiss) var dismiss
     @State private var selectedTab: Int = 0
@@ -122,8 +121,8 @@ struct CrewHomePage: View {
     @ViewBuilder
     private func scheduleTab() -> some View {
         VStack(alignment: .leading, spacing: 24) {
-            RecordCard()
-                .padding(.top, 20)
+//            RecordCard()
+//                .padding(.top, 20)
             regularRunningSession()
             irregularRunningSession()
         }
@@ -151,7 +150,7 @@ struct CrewHomePage: View {
             } else {
                 Button {
                     // TODO: 정기런 만들기
-                    print("click")
+                    
                 } label: {
                     createRegularButton()
                 }

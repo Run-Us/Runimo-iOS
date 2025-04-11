@@ -10,27 +10,29 @@ import Foundation
 import KeychainSwift
 
 class MyPageService {
+    static let shared = MyPageService()
     let keychain = KeychainSwift()
     let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")/users"
     
+    private init() { }
+    
     // 마이페이지 메인 조회
     func getMyPage(completion: @escaping (MyPage) -> Void) {
-        let url = "\(baseUrl)/my?runningPage=\(0)&runningSize=\(3)"
+        let path = "/users/me"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
         ]
         
-        let dataRequest = AF.request(url, method: .get, encoding: URLEncoding.default, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default, headers: headers)
         
-        dataRequest.responseDecodable(of: BaseResponse<MyPage>.self) { response in
-            switch response.result {
-            case .success(let response):
-                if let data = response.payload {
-                    completion(data)
-                }
+        NetworkManager.shared.request(dataRequest) { (result: Result<MyPage, AFError>) in
+            switch result {
+            case .success(let data):
+                print("\(data)")
+                completion(data)
             case .failure(let error):
-                print("getMyPage Failed: \(error)")
+                print("\(error)")
             }
         }
     }

@@ -45,8 +45,8 @@ struct RunningPost: Identifiable, Codable {
 
 struct RunningRecord: Codable {
     let title: String
-    let started_at: Date
-    let running_distance_in_meters: Int
-    let running_duration_in_seconds: Int
-    let average_pace_in_seconds: Int
+    let start_date_time: Date
+    let distance_in_meters: Int
+    let duration_in_seconds: Int
+    let average_pace_in_miliseconds: Int
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyTab: View {
-    @EnvironmentObject var myPageVM: MyPageViewModel
+    @StateObject private var myPageVM = MyPageViewModel()
     let userDefaults = UserDefaults.standard
     @State private var showRecentRunning: Bool = false
     
@@ -19,11 +19,11 @@ struct MyTab: View {
                     .padding(.vertical, 24)
                     .padding(.horizontal, 16)
                 
-                SegmentedPicker(selectedTab: $myPageVM.selectedTab, type: ["주간","월간","연간"], width: geometry.size.width)
+                SegmentedPicker(selectedTab: $myPageVM.selectedTab, type: ["주간","월간"], width: geometry.size.width)
                 
                 VStack(spacing: 24) {
-                    RecordCard()
-                    MyGraph()
+                    RecordCard(myPageVM: myPageVM)
+                    MyGraph(myPageVM: myPageVM)
                         .frame(height: 160)
                     recentActivity()
                 }
@@ -38,7 +38,7 @@ struct MyTab: View {
                 .presentationDetents([.fraction(0.35), .large])
         }
         .onAppear {
-            MyPageService().getMyPage { data in
+            MyPageService.shared.getMyPage { data in
                 myPageVM.user = data
             }
         }
@@ -48,8 +48,9 @@ struct MyTab: View {
     func userInfo() -> some View {
         HStack(spacing: 24) {
             // 프로필 사진
-            if let profile = myPageVM.user.profileImage {
+            if let profile = myPageVM.user.profile_image_url, profile != "" {
                 AsyncImage(url: URL(string: profile))
+                    .frame(width: 80, height: 80)
                     .clipShape(RoundedRectangle(cornerRadius: 32))
             } else {
                 Image("default_user_profile")
@@ -98,11 +99,9 @@ struct MyTab: View {
                 }
             }
             
-            // postcard 추가
-            ForEach(myPageVM.user.runningRecords.indices, id: \.self) { index in
-                if let record = myPageVM.user.runningRecords[index] {
-                    PostCard(runningRecord: record)
-                }
+            // post card
+            if let record = myPageVM.user.latest_running_record_nullable {
+                PostCard(runningRecord: record)
             }
         }
     }

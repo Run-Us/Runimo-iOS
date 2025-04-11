@@ -9,13 +9,12 @@ import Foundation
 import SwiftUI
 
 enum RecordType: String {
-    case weekly, monthly, yearly
+    case weekly, monthly
     
     var calendarComponent: Calendar.Component {
         switch self {
         case .weekly: return .weekOfYear
         case .monthly: return .month
-        case .yearly: return .year
         }
     }
 }
@@ -33,10 +32,8 @@ class MyPageViewModel: ObservableObject {
     @Published var graph: RunningGraph
     @Published var graphDisplay: (count: Int, distance: String, time: String, maxYLength: Double, distanceList: [Double]) = (0, "0.00km", "0m 0s", 9.0, Array(repeating: 8.0, count: 30))
     
-    @Published var currentMainTab: Tab = .home
-    
     init() {
-        user = MyPage(profileImage: nil, nickname: "", totalDistance: 0, recentRunningDate: nil, runningRecords: [])
+        user = MyPage(profile_image_url: nil, nickname: "", total_distance_in_meters: 0, latest_run_date_before: 0, latest_running_record_nullable: nil)
         graph = RunningGraph(total_count: 0, total_distance: 0, total_time: 0, distance_list: [])
         getGraphAPI()
     }
@@ -44,8 +41,7 @@ class MyPageViewModel: ObservableObject {
     var recordType: RecordType {
         switch (selectedTab) {
         case 0: return .weekly
-        case 1: return .monthly
-        default: return .yearly
+        default: return .monthly
         }
     }
 }
@@ -54,12 +50,12 @@ class MyPageViewModel: ObservableObject {
 extension MyPageViewModel {
     // 누적 거리
     func getTotalDistance() -> String {
-        return String(format: "%.2fkm", user.totalDistance/1000)
+        return String(format: "%.2fkm", user.total_distance_in_meters/1000)
     }
     
     // 최근 러닝
     func lastRunning() -> String {
-        let day = dateManager.subDate(date: user.recentRunningDate)
+        let day = user.latest_run_date_before
         if day == 0 {
             return "오늘"
         } else if day == 1 {
@@ -81,7 +77,7 @@ extension MyPageViewModel {
         let (start, end) = dateManager.getDateRange(type: recordType)
         guard start != nil, end != nil else { return }
         
-        MyPageService().getMyRunningData(
+        MyPageService.shared.getMyRunningData(
             type: recordType.rawValue,
             startDate: getDateString(date: start ?? Date()),
             endDate: getDateString(date: end ?? Date())) { data in
@@ -113,11 +109,7 @@ extension MyPageViewModel {
 extension MyPageViewModel {
     var periodText: String {
         get {
-            if currentMainTab == .home {
-                "이번주 기록"
-            } else {
-                dateManager.getRecordDateRange(type: recordType)
-            }
+            dateManager.getRecordDateRange(type: recordType)
         }
     }
 }
@@ -130,8 +122,6 @@ extension MyPageViewModel {
             return ["월","화","수","목","금","토","일"]
         case .monthly:
             return Array(1...graphDisplay.distanceList.count).map{String($0)}
-        case .yearly:
-            return Array(1...12).map{String($0)}
         }
     }
     
@@ -140,7 +130,6 @@ extension MyPageViewModel {
         switch (recordType) {
         case .weekly: return 12
         case .monthly: return 4
-        case .yearly: return 8
         }
     }
     
@@ -149,7 +138,6 @@ extension MyPageViewModel {
         switch (recordType) {
         case .weekly: return 10
         case .monthly: return 4
-        case .yearly: return 6
         }
     }
     

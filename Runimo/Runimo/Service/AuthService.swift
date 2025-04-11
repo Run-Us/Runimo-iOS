@@ -9,92 +9,116 @@ import Alamofire
 import Foundation
 import KeychainSwift
 
-class AuthService: ObservableObject {
+final class AuthService: ObservableObject {
+    static let shared = AuthService()
     let keychain = KeychainSwift()
-    let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
+    
+    private init() {}
     
     // 회원가입
-    func signup(nickName: String, provider: String, gender: String, completion: @escaping (Bool) -> Void) {
-        let url = URL(string: "\(baseUrl)/auth/signup")!
-        let headers = ["Content-Type": "application/json"]
+    func signup(nickname: String, imageURL: String? = nil, gender: String, completion: @escaping (Bool) -> Void) {
+        let path = "/auth/signup"
+        let body: [String: Any] = [
+            "register_token": keychain.get("register_token") ?? "",
+            "nickname": nickname,
+            "img_url": imageURL ?? ""
+        ]
         
-        let joinData = ["oidc_token": keychain.get("idToken") ?? "", "provider": provider, "nickname": nickName, "gender": gender]
-        var request = URLRequest(url: url)
-        request.allHTTPHeaderFields = headers
-        request.httpMethod = "POST"
+        let dataRequest = APIRequest(path: path, method: .post, parameters: body)
         
-        do {
-            let jsonData = try JSONEncoder().encode(joinData)
-            request.httpBody = jsonData
-        } catch {
-            print("Error encoding JSON: \(error)")
-            completion(false)
-            return
-        }
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                print("Network request failed: \(error?.localizedDescription ?? "No error info")")
-                completion(false)
-                return
-            }
-            
-            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                do {
-                    let response = try JSONDecoder().decode(BaseResponse<UserToken>.self, from: data)
-                    DispatchQueue.main.async {
-                        if response.success {
-                            if let payload = response.payload {
-                                self.keychain.set(payload.access_token, forKey: "accessToken")
-                                self.keychain.set(payload.refresh_token, forKey: "refreshToken")
-                                UserDefaults.standard.set(nickName, forKey: "nickname")
-                            }
-                            completion(true)
-                        } else {
-                            completion(false)
-                        }
-                    }
-                } catch {
-                    print("Failed to decode JSON response: \(error)")
-                    completion(false)
+        NetworkManager.shared.request(dataRequest) { (result: Result<SignUpResponse, AFError>) in
+            switch result {
+            case .success(let data):
+                self.saveUserInfo(user: data)
+                self.keychain.delete("register_token")
+                print("\(data)")
+                DispatchQueue.main.async {
+                    print("📤 posting completeSignUp notification")
+                    NotificationCenter.default.post(name: .completeSignUp, object: nil, userInfo: nil)
                 }
-            } else {
-                print("SignUp Failed : \(String(decoding: data, as: UTF8.self))")
+                completion(true)
+            case .failure(let error):
+                print("\(error)")
                 completion(false)
             }
-        }.resume()
+        }
     }
     
     // 로그인
-    func login(provider: String, completion: @escaping (Int) -> Void) {
-        let url = "\(baseUrl)/auth/login"
-        let headers: HTTPHeaders = ["Content-Type": "application/json"]
+    func kakaoLogin(completion: @escaping (Int) -> Void) {
+        let path = "/auth/kakao"
         let body: [String: Any] = [
-            "oidc_token": keychain.get("idToken") ?? "",
-            "provider": provider
+            "oidc_token": keychain.get("idToken") ?? ""
         ]
         
-        let dataRequest = AF.request(url, method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .post, parameters: body)
         
-        dataRequest.responseDecodable(of: BaseResponse<UserToken>.self) { response in
-            switch response.result {
-            case .success(let response):
-                print("login response code: \(response.code)")
-                if response.code == "UEH4041" {
-                    // 회원가입
-                    completion(404)
-                } else if response.code == "USH2003" {
-                    // 로그인 성공
-                    if let payload = response.payload {
-                        self.keychain.set(payload.access_token, forKey: "accessToken")
-                        self.keychain.set(payload.refresh_token, forKey: "refreshToken")
+        NetworkManager.shared.getHTTPStatusCode(dataRequest) { code in
+            if code == 200 {
+                // 로그인
+                NetworkManager.shared.request(dataRequest) { (result: Result<UserToken, AFError>) in
+                    switch result {
+                    case .success(let data):
+                        self.saveUserInfo(user: data)
+                        print("\(data)")
+                        completion(200)
+                    case .failure(let error):
+                        print("\(error)")
+                        completion(0)
                     }
-                    completion(200)
                 }
-            case .failure(let error):
-                print("Login Failed: \(error)")
-                completion(0)
+            } else {
+                NetworkManager.shared.requestLoginError(dataRequest)
+                completion(code)
             }
         }
+    }
+    
+    func appleLogin(codeVerifier: String, completion: @escaping (Int) -> Void) {
+        let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
+        let path = "\(baseUrl)/auth/apple"
+        let headers: HTTPHeaders = ["Content-Type": "application/json"]
+        let body: [String: Any] = [
+            "auth_code": keychain.get("authCode") ?? "",
+            "code_verifier": codeVerifier
+        ]
+        
+        AF.request(path, method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers)
+            .responseData { response in
+                let statusCode = response.response?.statusCode ?? 0
+                guard let data = response.data else { return }
+                
+                switch statusCode {
+                case 200:
+                    if let success = try? JSONDecoder().decode(BaseResponse<UserToken>.self, from: data),
+                       let result = success.payload
+                    {
+                        self.saveUserInfo(user: result)
+                        completion(200)
+                    }
+                    
+                case 404:
+                    if let success = try? JSONDecoder().decode(BaseErrorResponse.self, from: data) {
+                        self.keychain.set(success.temporal_register_token, forKey: "register_token")
+                        completion(404)
+                    }
+                    
+                default:
+                    break
+                }
+            }
+        
+    }
+    
+    private func saveUserInfo(user: UserToken) {
+        UserDefaults.standard.set(user.nickname, forKey: "nickname")
+        self.keychain.set(user.access_token, forKey: "accessToken")
+        self.keychain.set(user.refresh_token, forKey: "refreshToken")
+    }
+    
+    private func saveUserInfo(user: SignUpResponse) {
+        UserDefaults.standard.set(user.nickname, forKey: "nickname")
+        self.keychain.set(user.token_pair.access_token, forKey: "accessToken")
+        self.keychain.set(user.token_pair.refresh_token, forKey: "refreshToken")
     }
 }

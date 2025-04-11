@@ -15,6 +15,7 @@
 		230314F62C89A00B00B299D5 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 230314F52C89A00B00B299D5 /* KakaoSDKUser */; };
 		230315002C8A096D00B299D5 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 230314FF2C8A096D00B299D5 /* KeychainSwift */; };
 		23052EC92CEDDDCF002725A5 /* MyPageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23052EC82CEDDDCF002725A5 /* MyPageService.swift */; };
+		230BC7DB2D9D4DED005CD24B /* SharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230BC7DA2D9D4DED005CD24B /* SharedData.swift */; };
 		232C65A52D16A94200BCAA87 /* RunningMembersCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232C65A42D16A94200BCAA87 /* RunningMembersCard.swift */; };
 		233831012CC69B430075E73A /* PopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233831002CC69B430075E73A /* PopUp.swift */; };
 		233831032CC7C4B40075E73A /* RunningPostPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233831022CC7C4B40075E73A /* RunningPostPage.swift */; };
@@ -35,6 +36,11 @@
 		237299912CBCF12800D0E7F6 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */; };
 		237B430C2C8EFFF1002163B9 /* NaverMapSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 237B430B2C8EFFF1002163B9 /* NaverMapSDK */; };
 		237B430E2C8F0193002163B9 /* MapPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B430D2C8F0193002163B9 /* MapPage.swift */; };
+		237CEF412D9419FC002D9C86 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CEF402D9419FC002D9C86 /* Character.swift */; };
+		237CEF432D941E3C002D9C86 /* CharacterPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CEF422D941E3C002D9C86 /* CharacterPopUp.swift */; };
+		238264772D9FDD5E00B4C849 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238264762D9FDD5E00B4C849 /* NetworkManager.swift */; };
+		2382647A2DA3B6A800B4C849 /* NotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238264792DA3B6A800B4C849 /* NotificationNameExtension.swift */; };
+		2382647F2DA6229B00B4C849 /* EggSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2382647E2DA6229B00B4C849 /* EggSheet.swift */; };
 		238E78F22C83147200D04F58 /* RunimoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238E78F12C83147200D04F58 /* RunimoApp.swift */; };
 		238E78F62C83147300D04F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 238E78F52C83147300D04F58 /* Assets.xcassets */; };
 		238E78F92C83147300D04F58 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 238E78F82C83147300D04F58 /* Preview Assets.xcassets */; };
@@ -63,6 +69,8 @@
 		23E1B9F02CFF5D5600846F22 /* CrewHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9EF2CFF5D5600846F22 /* CrewHomePage.swift */; };
 		23E1B9F42D00993C00846F22 /* SessionTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9F32D00993C00846F22 /* SessionTab.swift */; };
 		23E1B9F62D01CC5100846F22 /* SessionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9F52D01CC5100846F22 /* SessionCard.swift */; };
+		23E253132D9CF5BA0035F64D /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E253122D9CF5BA0035F64D /* HomeService.swift */; };
+		23E253152D9CF6680035F64D /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E253142D9CF6680035F64D /* Home.swift */; };
 		23F056B42CDA7B0100EC3A40 /* DateSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F056B32CDA7B0100EC3A40 /* DateSheet.swift */; };
 		23F056B62CDA880800EC3A40 /* RunningViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F056B52CDA880800EC3A40 /* RunningViewModel.swift */; };
 		883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883764102CBCF6360046EC7B /* GenderPickerSheet.swift */; };
@@ -95,6 +103,7 @@
 		230314F72C89A5E200B299D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		230314F82C89AD0800B299D5 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		23052EC82CEDDDCF002725A5 /* MyPageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageService.swift; sourceTree = "<group>"; };
+		230BC7DA2D9D4DED005CD24B /* SharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedData.swift; sourceTree = "<group>"; };
 		232C65A42D16A94200BCAA87 /* RunningMembersCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningMembersCard.swift; sourceTree = "<group>"; };
 		233831002CC69B430075E73A /* PopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUp.swift; sourceTree = "<group>"; };
 		233831022CC7C4B40075E73A /* RunningPostPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningPostPage.swift; sourceTree = "<group>"; };
@@ -114,6 +123,12 @@
 		2372998E2CBCDD2100D0E7F6 /* RunTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunTab.swift; sourceTree = "<group>"; };
 		237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPicker.swift; sourceTree = "<group>"; };
 		237B430D2C8F0193002163B9 /* MapPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPage.swift; sourceTree = "<group>"; };
+		237CEF402D9419FC002D9C86 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		237CEF422D941E3C002D9C86 /* CharacterPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterPopUp.swift; sourceTree = "<group>"; };
+		238264762D9FDD5E00B4C849 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		238264792DA3B6A800B4C849 /* NotificationNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtension.swift; sourceTree = "<group>"; };
+		2382647B2DA4AE2000B4C849 /* Runimo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runimo.entitlements; sourceTree = "<group>"; };
+		2382647E2DA6229B00B4C849 /* EggSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EggSheet.swift; sourceTree = "<group>"; };
 		238E78EE2C83147200D04F58 /* Runimo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runimo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		238E78F12C83147200D04F58 /* RunimoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunimoApp.swift; sourceTree = "<group>"; };
 		238E78F52C83147300D04F58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -143,6 +158,8 @@
 		23E1B9EF2CFF5D5600846F22 /* CrewHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewHomePage.swift; sourceTree = "<group>"; };
 		23E1B9F32D00993C00846F22 /* SessionTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTab.swift; sourceTree = "<group>"; };
 		23E1B9F52D01CC5100846F22 /* SessionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCard.swift; sourceTree = "<group>"; };
+		23E253122D9CF5BA0035F64D /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
+		23E253142D9CF6680035F64D /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		23F056B32CDA7B0100EC3A40 /* DateSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSheet.swift; sourceTree = "<group>"; };
 		23F056B52CDA880800EC3A40 /* RunningViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningViewModel.swift; sourceTree = "<group>"; };
 		883764102CBCF6360046EC7B /* GenderPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderPickerSheet.swift; sourceTree = "<group>"; };
@@ -189,6 +206,7 @@
 			children = (
 				230314DF2C8884FA00B299D5 /* Font */,
 				230314E42C88851100B299D5 /* FontExtension.swift */,
+				238264792DA3B6A800B4C849 /* NotificationNameExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -234,6 +252,7 @@
 				23CE0B7C2CD8D6390073732C /* DateManager.swift */,
 				23F056B52CDA880800EC3A40 /* RunningViewModel.swift */,
 				23BF2BC12D10133700AC9FB8 /* CrewViewModel.swift */,
+				230BC7DA2D9D4DED005CD24B /* SharedData.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -242,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				88E556042C8F208F003789B7 /* HomeTab.swift */,
+				2382647E2DA6229B00B4C849 /* EggSheet.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -250,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				88E556122C8F5E49003789B7 /* CharacterTab.swift */,
+				237CEF422D941E3C002D9C86 /* CharacterPopUp.swift */,
 			);
 			path = Character;
 			sourceTree = "<group>";
@@ -262,6 +283,8 @@
 				887940FD2CAB35DB0018C035 /* ParticipationService.swift */,
 				233ED1C92CA93D49001EF0BC /* AuthService.swift */,
 				23052EC82CEDDDCF002725A5 /* MyPageService.swift */,
+				23E253122D9CF5BA0035F64D /* HomeService.swift */,
+				238264762D9FDD5E00B4C849 /* NetworkManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -275,6 +298,8 @@
 				233ED1FB2CABA0E7001EF0BC /* RunningSessionInfo.swift */,
 				886CA2A42CEC547600A8E1A8 /* BaseResponse.swift */,
 				23A26B1B2D07653900CD4A3A /* Crew.swift */,
+				237CEF402D9419FC002D9C86 /* Character.swift */,
+				23E253142D9CF6680035F64D /* Home.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -311,6 +336,7 @@
 		238E78F02C83147200D04F58 /* Runimo */ = {
 			isa = PBXGroup;
 			children = (
+				2382647B2DA4AE2000B4C849 /* Runimo.entitlements */,
 				230314F72C89A5E200B299D5 /* Info.plist */,
 				230314F82C89AD0800B299D5 /* Config.xcconfig */,
 				23B708DE2C995264006E9547 /* Utils */,
@@ -517,10 +543,14 @@
 				23E1B9EE2CFF54D800846F22 /* InputTextArea.swift in Sources */,
 				23E1B9E82CFF1C3200846F22 /* CreateCrew3JoinTypePage.swift in Sources */,
 				88E556092C8F20E8003789B7 /* RunningPage.swift in Sources */,
+				230BC7DB2D9D4DED005CD24B /* SharedData.swift in Sources */,
 				23E1B9E62CFF0CF500846F22 /* CreateCrew2DetailPage.swift in Sources */,
 				235D38A32CD3BF8F00487952 /* MyPageViewModel.swift in Sources */,
+				23E253132D9CF5BA0035F64D /* HomeService.swift in Sources */,
+				2382647F2DA6229B00B4C849 /* EggSheet.swift in Sources */,
 				23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */,
 				23A26B182D03068000CD4A3A /* SessionDetailPage.swift in Sources */,
+				23E253152D9CF6680035F64D /* Home.swift in Sources */,
 				230314EF2C89920100B299D5 /* AuthViewModel.swift in Sources */,
 				235D38A52CD3E7F000487952 /* PostCard.swift in Sources */,
 				23E1B9E42CFF066A00846F22 /* CTAButton.swift in Sources */,
@@ -531,6 +561,7 @@
 				886CA2A52CEC547600A8E1A8 /* BaseResponse.swift in Sources */,
 				2347D9AC2CD25927003776BC /* RecordCard.swift in Sources */,
 				233ED1FE2CABA0E7001EF0BC /* AggregateParticipants.swift in Sources */,
+				237CEF432D941E3C002D9C86 /* CharacterPopUp.swift in Sources */,
 				232C65A52D16A94200BCAA87 /* RunningMembersCard.swift in Sources */,
 				233ED1FF2CABA0E7001EF0BC /* UserToken.swift in Sources */,
 				233ED2002CABA0E7001EF0BC /* RunningInfo.swift in Sources */,
@@ -561,11 +592,14 @@
 				883764132CBD277E0046EC7B /* AddProfileSheet.swift in Sources */,
 				887940FE2CAB35DB0018C035 /* ParticipationService.swift in Sources */,
 				88E556132C8F5E49003789B7 /* CharacterTab.swift in Sources */,
+				238264772D9FDD5E00B4C849 /* NetworkManager.swift in Sources */,
 				23E1B9F02CFF5D5600846F22 /* CrewHomePage.swift in Sources */,
 				23A26B1E2D09D3EC00CD4A3A /* CrewHomeSheet.swift in Sources */,
 				23A26B1C2D07653900CD4A3A /* Crew.swift in Sources */,
 				88E5560D2C8F213E003789B7 /* MyTab.swift in Sources */,
 				883764112CBCF6360046EC7B /* GenderPickerSheet.swift in Sources */,
+				237CEF412D9419FC002D9C86 /* Character.swift in Sources */,
+				2382647A2DA3B6A800B4C849 /* NotificationNameExtension.swift in Sources */,
 				8889DC022CD62C1300FD0B82 /* PollingManager.swift in Sources */,
 				88D3BF0D2C9F6B35009E4365 /* JoinGroupRunPage.swift in Sources */,
 				888648F22C981ECC00B040BA /* StartGroupRunPage.swift in Sources */,
@@ -707,13 +741,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Runimo/Runimo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Runimo/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = ZT27N85LQ5;
+				DEVELOPMENT_TEAM = ZT27N85LQ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Runimo/Info.plist;
@@ -733,7 +766,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.runimo.Runimo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Runimo;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -749,13 +781,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Runimo/Runimo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Runimo/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = ZT27N85LQ5;
+				DEVELOPMENT_TEAM = ZT27N85LQ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Runimo/Info.plist;
@@ -775,7 +806,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.runimo.Runimo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Runimo;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

@@ -30,19 +30,19 @@ extension Font {
     static let title2_bold: Font = .custom(FontName.paperlogyBold, size: 48)
     static let title2_medium: Font = .custom(FontName.paperlogyMedium, size: 48)
     static let title3_bold: Font = .custom(FontName.paperlogyBold, size: 30)
-    static let title4_semibold: Font = .custom(FontName.paperlogySemiBold, size: 20)
-    static let title5_bold: Font = .custom(FontName.paperlogyBold, size: 18)
-    static let title5_medium: Font = .custom(FontName.paperlogyMedium, size: 18)
+    static let title4_semibold: Font = .custom(FontName.paperlogySemiBold, size: 22)
+    static let title5_bold: Font = .custom(FontName.paperlogyBold, size: 20)
+    static let title5_medium: Font = .custom(FontName.paperlogyMedium, size: 20)
     
     // body
-    static let body1_bold: Font = .custom(FontName.pretendardBold, size: 16)
-    static let body1_medium: Font = .custom(FontName.pretendardMedium, size: 16)
-    static let body2_semibold: Font = .custom(FontName.pretendardSemiBold, size: 14)
-    static let body2_medium: Font = .custom(FontName.pretendardMedium, size: 14)
+    static let body1_bold: Font = .custom(FontName.pretendardBold, size: 18)
+    static let body1_medium: Font = .custom(FontName.pretendardMedium, size: 18)
+    static let body2_semibold: Font = .custom(FontName.pretendardSemiBold, size: 15)
+    static let body2_medium: Font = .custom(FontName.pretendardMedium, size: 15)
     
     // caption
-    static let caption_bold: Font = .custom(FontName.pretendardBold, size: 12)
-    static let caption_semibold: Font = .custom(FontName.pretendardSemiBold, size: 12)
-    static let caption_medium: Font = .custom(FontName.pretendardMedium, size: 12)
-    static let caption_regular: Font = .custom(FontName.pretendardRegular, size: 12)
+    static let caption_bold: Font = .custom(FontName.pretendardBold, size: 14)
+    static let caption_semibold: Font = .custom(FontName.pretendardSemiBold, size: 14)
+    static let caption_medium: Font = .custom(FontName.pretendardMedium, size: 14)
+    static let caption_regular: Font = .custom(FontName.pretendardRegular, size: 14)
 }
