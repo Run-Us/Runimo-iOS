@@ -32,7 +32,7 @@ struct SettingPage: View {
                 
                 // 탈퇴하기
                 Button {
-                    
+                    MyPageService.shared.withdrawUser()
                 } label: {
                     HStack(spacing: 12) {
                         Image("trash")
