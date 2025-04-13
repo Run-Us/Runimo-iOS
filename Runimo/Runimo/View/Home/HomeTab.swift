@@ -87,8 +87,11 @@ struct HomeTab: View {
     private func eggCard() -> some View {
         VStack(spacing: 12) {
             if let data = eggData, let egg = data.incubating_eggs.first {
-                AsyncImage(url: URL(string: egg.img_url))
-                    .frame(width: 310, height: 270)
+                AsyncImage(url: URL(string: egg.img_url)) { image in
+                    image
+                        .image?.resizable()
+                        .frame(width: 310, height: 280)
+                }
                 HStack {
                     Text(egg.name)
                         .font(.title5_bold)
