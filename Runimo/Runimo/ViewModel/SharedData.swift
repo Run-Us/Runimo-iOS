@@ -18,6 +18,6 @@ class SharedData: ObservableObject {
     @Published var updateHomeView: Bool = false
     
     init() {
-        characterPopUpData = CharacterPopUpItem(character: HatchEggResponse(name: "신비로운 알을 발견했어요", img_url: "home_egg_image", code: "", is_duplicated: false))
+        characterPopUpData = CharacterPopUpItem(character: HatchEggResponse(id: -1, name: "신비로운 알을 발견했어요", img_url: "home_egg_image", code: "", is_duplicated: false))
     }
 }
