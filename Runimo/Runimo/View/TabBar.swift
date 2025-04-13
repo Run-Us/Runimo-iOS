@@ -126,6 +126,10 @@ struct TabBar: View {
             HomeService.shared.getMyEggs { data in
                 sharedData.myEggs = data.items
             }
+            
+            RunimoService.shared.getAllRunimos { data in
+                print(data)
+            }
         }
         .sheet(isPresented: $sharedData.showEggSheet, content: {
             EggSheet()
