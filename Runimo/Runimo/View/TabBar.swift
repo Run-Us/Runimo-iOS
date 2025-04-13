@@ -128,7 +128,7 @@ struct TabBar: View {
             }
             
             RunimoService.shared.getAllRunimos { data in
-                print(data)
+                sharedData.allRunimoData = data.runimo_groups
             }
         }
         .sheet(isPresented: $sharedData.showEggSheet, content: {

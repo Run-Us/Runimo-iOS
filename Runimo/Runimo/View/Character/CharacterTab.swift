@@ -30,6 +30,11 @@ struct CharacterTab: View {
             }
             .padding(.horizontal, 20)
         }
+        .onAppear {
+            RunimoService.shared.getMyRunimo { result in
+                sharedData.myRunimoData = result.runimos
+            }
+        }
     }
 
     @ViewBuilder

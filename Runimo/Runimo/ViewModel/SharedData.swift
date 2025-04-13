@@ -17,6 +17,10 @@ class SharedData: ObservableObject {
     @Published var isHatchable: Bool = false
     @Published var updateHomeView: Bool = false
     
+    // MARK: - 캐릭터 탭
+    @Published var allRunimoData: [RunimoGroup] = []
+    @Published var myRunimoData: [UserInfoWithRunimo] = []
+    
     init() {
         characterPopUpData = CharacterPopUpItem(character: HatchEggResponse(id: -1, name: "신비로운 알을 발견했어요", img_url: "home_egg_image", code: "", is_duplicated: false))
     }
