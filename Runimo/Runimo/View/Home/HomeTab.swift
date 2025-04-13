@@ -6,24 +6,31 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct HomeTab: View {
     @EnvironmentObject var sharedData: SharedData
     @State private var data: HomeItem?
     @State private var eggData: HomeEggResponse?
     @State private var eggId: Int = 0
+    @State private var isLoaded: Bool = false
     
     var body: some View {
         ZStack(alignment: .top) {
             Color.primaryBG
-            GeometryReader { _ in
+            GeometryReader { geometry in
                 VStack(spacing: 24) {
-                    Button {
-                        sharedData.currentMainTab = .character
-                    } label: {
-                        characterProfile()
+                    if isLoaded {
+                        Button {
+                            sharedData.currentMainTab = .character
+                        } label: {
+                            characterProfile()
+                        }
+                        eggCard()
+                    } else {
+                        ProgressView()
+                            .frame(width: geometry.size.width, height: geometry.size.height)
                     }
-                    eggCard()
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 24)
@@ -31,6 +38,9 @@ struct HomeTab: View {
         }
         .onAppear {
             getHomeAPI()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                isLoaded = true
+            }
         }
         .onChange(of: sharedData.updateHomeView) { _, _ in
             getHomeAPI()
@@ -41,7 +51,8 @@ struct HomeTab: View {
     private func characterProfile() -> some View {
         HStack(spacing: 46) {
             if let image = data?.main_runimo_stat_nullable {
-                AsyncImage(url: URL(string: image.image_url))
+                KFImage(URL(string: image.image_url))
+                    .resizable()
                     .frame(width: 86, height: 86)
             } else {
                 Image("character_disabled")
@@ -87,11 +98,10 @@ struct HomeTab: View {
     private func eggCard() -> some View {
         VStack(spacing: 12) {
             if let data = eggData, let egg = data.incubating_eggs.first {
-                AsyncImage(url: URL(string: egg.img_url)) { image in
-                    image
-                        .image?.resizable()
-                        .frame(width: 310, height: 280)
-                }
+                KFImage(URL(string: egg.img_url))
+                    .placeholder { ProgressView() }
+                    .resizable()
+                    .frame(width: 310, height: 280)
                 HStack {
                     Text(egg.name)
                         .font(.title5_bold)

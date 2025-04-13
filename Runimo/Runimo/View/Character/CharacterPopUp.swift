@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct CharacterPopUp: ViewModifier {
     @Binding var isPresented: Bool
@@ -39,7 +40,9 @@ struct CharacterPopUp: ViewModifier {
                             .resizable()
                             .frame(width: 320, height: 320)
                     } else {
-                        AsyncImage(url: URL(string: character.character.img_url))
+                        KFImage(URL(string: character.character.img_url))
+                            .placeholder { ProgressView() }
+                            .resizable()
                             .frame(width: 320, height: 320)
                     }
                     
