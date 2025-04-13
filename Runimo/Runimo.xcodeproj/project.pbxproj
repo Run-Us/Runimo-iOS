@@ -49,6 +49,7 @@
 		2398F4AF2CB8303E001D922B /* Pretendard-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AD2CB8303E001D922B /* Pretendard-Regular.ttf */; };
 		2398F4B12CB8303E001D922B /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AC2CB8303E001D922B /* Pretendard-Medium.ttf */; };
 		2398F4B22CB8303E001D922B /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */; };
+		23C0A7ED2DAC05D8005283DA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 23C0A7EC2DAC05D8005283DA /* Kingfisher */; };
 		23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C27B012CBF819200978DC9 /* ProgressBar.swift */; };
 		23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B762CD8BA2C0073732C /* PostCardList.swift */; };
 		23CE0B7D2CD8D6390073732C /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B7C2CD8D6390073732C /* DateManager.swift */; };
@@ -145,6 +146,7 @@
 			files = (
 				88D3BF252CA9702E009E4365 /* SwiftStomp in Frameworks */,
 				230314F42C89A00B00B299D5 /* KakaoSDKCommon in Frameworks */,
+				23C0A7ED2DAC05D8005283DA /* Kingfisher in Frameworks */,
 				230314F22C89A00B00B299D5 /* KakaoSDKAuth in Frameworks */,
 				230315002C8A096D00B299D5 /* KeychainSwift in Frameworks */,
 				230314F62C89A00B00B299D5 /* KakaoSDKUser in Frameworks */,
@@ -382,6 +384,7 @@
 				230314FF2C8A096D00B299D5 /* KeychainSwift */,
 				237B430B2C8EFFF1002163B9 /* NaverMapSDK */,
 				88D3BF242CA9702E009E4365 /* SwiftStomp */,
+				23C0A7EC2DAC05D8005283DA /* Kingfisher */,
 			);
 			productName = RunUs;
 			productReference = 238E78EE2C83147200D04F58 /* Runimo.app */;
@@ -416,6 +419,7 @@
 				230314FE2C8A096D00B299D5 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				237B430A2C8EFFF1002163B9 /* XCRemoteSwiftPackageReference "Naver-Map-iOS-SPM" */,
 				88D3BF232CA9702E009E4365 /* XCRemoteSwiftPackageReference "SwiftStomp" */,
+				23C0A7EB2DAC05D8005283DA /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 238E78EF2C83147200D04F58 /* Products */;
 			projectDirPath = "";
@@ -754,6 +758,14 @@
 				minimumVersion = 0.1.0;
 			};
 		};
+		23C0A7EB2DAC05D8005283DA /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.3.2;
+			};
+		};
 		88D3BF232CA9702E009E4365 /* XCRemoteSwiftPackageReference "SwiftStomp" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Romixery/SwiftStomp.git";
@@ -789,6 +801,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 237B430A2C8EFFF1002163B9 /* XCRemoteSwiftPackageReference "Naver-Map-iOS-SPM" */;
 			productName = NaverMapSDK;
+		};
+		23C0A7EC2DAC05D8005283DA /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23C0A7EB2DAC05D8005283DA /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		88D3BF242CA9702E009E4365 /* SwiftStomp */ = {
 			isa = XCSwiftPackageProductDependency;
