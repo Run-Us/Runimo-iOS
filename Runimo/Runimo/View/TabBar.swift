@@ -15,9 +15,9 @@ enum Tab {
 }
 
 struct TabBar: View {
+    @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var sharedData: SharedData
     @State private var characterIndex: Int = 0
-    @State private var showSettingPage: Bool = false
 
     var body: some View {
         ZStack {
@@ -115,9 +115,6 @@ struct TabBar: View {
         }
         .navigationBarBackButtonHidden()
         .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, characterIndex: characterIndex, isHatching: sharedData.isHatchable)
-        .navigationDestination(isPresented: $showSettingPage) {
-            SettingPage()
-        }
         .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { _ in
             characterIndex = -1
             sharedData.showCharacterPopUp = true
@@ -136,7 +133,7 @@ struct TabBar: View {
     @ViewBuilder
     private func settingButton() -> some View {
         Button {
-            showSettingPage = true
+            navigation.path.append(SettingPage.id)
         } label: {
             Image("icon_setting")
                 .foregroundStyle(.primaryGray)
@@ -196,8 +193,7 @@ struct TabBar: View {
                     .font(.title5_bold)
                     .foregroundStyle(.primaryGray)
                 } else {
-                    Image("icon_setting")
-                        .foregroundStyle(.primaryGray)
+                    settingButton()
                 }
             }
             .padding(16)
