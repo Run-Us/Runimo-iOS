@@ -68,6 +68,7 @@ struct CharacterTab: View {
                 
                 Button {
                     if !itemDisabled {
+                        sharedData.setSelectedCharacter(code: runimo.code)
                         sharedData.showCharacterPopUp = true
                     }
                 } label: {

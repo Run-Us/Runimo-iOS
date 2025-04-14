@@ -72,5 +72,8 @@ struct HatchEggResponse: Codable {
 }
 
 struct CharacterPopUpItem: Codable {
-    var character: HatchEggResponse
+    var title: String
+    var subtitle: String
+    var imageURL: String
+    var description: String
 }

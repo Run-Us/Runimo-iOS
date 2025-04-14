@@ -9,16 +9,14 @@ import SwiftUI
 import Kingfisher
 
 struct CharacterPopUp: ViewModifier {
+    @EnvironmentObject var sharedData: SharedData
     @Binding var isPresented: Bool
-    var character: CharacterPopUpItem
+    @State private var character: CharacterPopUpItem = CharacterPopUpItem(title: "", subtitle: "", imageURL: "", description: "")
     var isHatching: Bool = false
-    var isDuplicated: Bool = false
     
-    init(isPresented: Binding<Bool>, character: CharacterPopUpItem, isHatching: Bool) {
+    init(isPresented: Binding<Bool>, isHatching: Bool) {
         _isPresented = isPresented
-        self.character = character
         self.isHatching = isHatching
-        self.isDuplicated = character.character.is_duplicated
     }
     
     func body(content: Content) -> some View {
@@ -28,30 +26,25 @@ struct CharacterPopUp: ViewModifier {
                 Color.quaternaryGray.opacity(0.3)
                     .ignoresSafeArea()
                 VStack(spacing: 16) {
-                    Text(isHatching ? isDuplicated ? "익숙한 친구를 만났어요.." : "새로운 동물이 태어났어요!" : character.character.name)
+                    Text(character.title)
                         .font(.title4_semibold)
                         .foregroundStyle(.primaryGray)
                         .padding(.bottom, -8)
-                    Text(isHatching ? character.character.name : "[간략한 설명 - 특성이나 재미있는 정보]")
-                    if character.character.code == "" {
-                        Image(character.character.img_url)
-                            .resizable()
-                            .frame(width: 320, height: 320)
-                    } else {
-                        KFImage(URL(string: character.character.img_url))
-                            .placeholder { ProgressView() }
-                            .resizable()
-                            .frame(width: 320, height: 320)
-                    }
+                    Text(character.subtitle)
                     
-                    Text("러닝: [러닝 횟수], 달린 거리: [달린 거리]")
+                    KFImage(URL(string: character.imageURL))
+                        .placeholder { ProgressView() }
+                        .resizable()
+                        .frame(width: 320, height: 320)
+                    
+                    Text(character.description)
                         .padding(.bottom, 8)
                     
                     // 알 부화 했을 때
                     if isHatching {
                         VStack(spacing: 8) {
                             // 첫 등장 러니모일때만 ok button
-                            if !isDuplicated {
+                            if !(sharedData.currentHatchedEgg?.is_duplicated ?? false) {
                                 okButton()
                             }
                             cancelButton()
@@ -68,6 +61,9 @@ struct CharacterPopUp: ViewModifier {
                 .cornerRadius(12)
                 .padding(.horizontal, 16)
             }
+        }
+        .onAppear {
+            settingData()
         }
     }
     
@@ -110,12 +106,38 @@ struct CharacterPopUp: ViewModifier {
     
     private func setMainRunimoAPI() {
         // 대표 러니모 설정
-        HomeService.shared.setMainRunimo(runimoId: character.character.id)
+        if let data = sharedData.currentHatchedEgg {
+            HomeService.shared.setMainRunimo(runimoId: data.id)
+        }
+    }
+    
+    private func settingData() {
+        if isHatching {
+            setHatchData()
+        } else {
+            setCharacterData()
+        }
+    }
+    
+    // 부화 팝업 데이터
+    private func setHatchData() {
+        if let hatchData = sharedData.currentHatchedEgg {
+            character = CharacterPopUpItem(title: hatchData.is_duplicated ? "익숙한 친구를 만났어요.." : "새로운 동물이 태어났어요!", subtitle: hatchData.name, imageURL: hatchData.img_url, description: "")
+        }
+    }
+    
+    // 캐릭터 선택 팝업
+    private func setCharacterData() {
+        if let notFixedData = sharedData.getSelectedCharacterData(),
+                  let fixedData = sharedData.getFixedCharacterData()
+        {
+            character = CharacterPopUpItem(title: fixedData.name, subtitle: fixedData.description, imageURL: fixedData.img_url, description: "러닝: \(notFixedData.total_run_count), 달린 거리: \(Double(notFixedData.total_distance_in_meters)/1000)km")
+        }
     }
 }
 
 extension View {
-    func popupCharacter(isPresented: Binding<Bool>, character: CharacterPopUpItem, isHatching: Bool) -> some View {
-        self.modifier(CharacterPopUp(isPresented: isPresented, character: character, isHatching: isHatching))
+    func popupCharacter(isPresented: Binding<Bool>, isHatching: Bool) -> some View {
+        self.modifier(CharacterPopUp(isPresented: isPresented, isHatching: isHatching))
     }
 }
