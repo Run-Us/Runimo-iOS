@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingPage: View {
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var navigation: NavigationManager
     @State private var showLogoutPopup: Bool = false
     
     var body: some View {
@@ -50,7 +50,7 @@ struct SettingPage: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    dismiss()
+                    navigation.path.removeLast()
                 } label: {
                     HStack(spacing: 8) {
                         Image(systemName: "chevron.left")
@@ -67,7 +67,8 @@ struct SettingPage: View {
         .popup(isPresented: $showLogoutPopup, title: "로그아웃 하시겠어요?", subtitle: "로그아웃해도 러닝 활동은 삭제되지 않아요.", buttonText: "로그아웃 하기", buttonColor: .primary400) {
 
         } buttonAction: {
-            
+            AuthService.shared.removeUserInfoToLogout()
+            navigation.path.removeLast(navigation.path.count)
         }
 
     }

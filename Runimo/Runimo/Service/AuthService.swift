@@ -11,7 +11,7 @@ import KeychainSwift
 
 final class AuthService: ObservableObject {
     static let shared = AuthService()
-    let keychain = KeychainSwift()
+    private let keychain = KeychainSwift()
     
     private init() {}
     
@@ -120,5 +120,12 @@ final class AuthService: ObservableObject {
         UserDefaults.standard.set(user.nickname, forKey: "nickname")
         self.keychain.set(user.token_pair.access_token, forKey: "accessToken")
         self.keychain.set(user.token_pair.refresh_token, forKey: "refreshToken")
+    }
+    
+    // 저장된 유저 정보 삭제
+    func removeUserInfoToLogout() {
+        UserDefaults.standard.removeObject(forKey: "nickname")
+        self.keychain.delete("accessToken")
+        self.keychain.delete("refreshToken")
     }
 }
