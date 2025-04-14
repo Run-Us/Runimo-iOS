@@ -9,16 +9,15 @@ import AuthenticationServices
 import SwiftUI
 
 struct LoginPage: View {
+    @EnvironmentObject var navigation: NavigationManager
     @StateObject var authVM: AuthViewModel = AuthViewModel()
-    @State private var loginSuccess: Bool = false
-    @State private var showJoinPage: Bool = false
     let loginView: [String] = ["login_view_1", "login_view_2", "login_view_3"]
     let loginViewTitle: [String] = ["친구와 함께 달려보세요!", "러닝 크루와 함께 소통하세요!", "캐릭터와 함께 성장하세요!"]
     let loginViewContent: [String] = ["위치를 공유하며 그룹원과 함께 달리기를 즐겨보세요.", "크루의 세션 일정과 장소를 확인하고 기록을 공유하세요.", "달리기를 통해 나만의 캐릭터를 키우는 재미를 느껴보세요."]
     @State var currentIndex: Int = 0
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigation.path) {
             ZStack {
                 Color(.secondaryBG)
                 VStack(alignment: .center, spacing: 24) {
@@ -51,12 +50,7 @@ struct LoginPage: View {
                             }
                         }, label: {
                             Image("kakao_login_button")
-                            
                         })
-                        .navigationDestination(isPresented: $showJoinPage) {
-                            JoinPage(loginSuccess: $loginSuccess)
-                                .navigationBarBackButtonHidden(true)
-                        }
                         
                         SignInWithAppleButton { request in
                             request.requestedScopes = [.fullName, .email]
@@ -77,15 +71,22 @@ struct LoginPage: View {
                     }
                 }
                 .padding(.horizontal, 20)
+                
             }
             .ignoresSafeArea()
-            .onAppear {
-                if authVM.checkTokenExists() {
-//                    loginSuccess = true
+            .navigationDestination(for: String.self) { value in
+                switch value {
+                case TabBar.id:
+                    TabBar().navigationBarBackButtonHidden()
+                case JoinPage.id:
+                    JoinPage().navigationBarBackButtonHidden()
+                case PostCardList.id:
+                    PostCardList()
+                case SettingPage.id:
+                    SettingPage()
+                default:
+                    Text("❓ Unknown destination: \(value)")
                 }
-            }
-            .fullScreenCover(isPresented: $loginSuccess) {
-                TabBar()
             }
         }
     }
@@ -110,10 +111,10 @@ struct LoginPage: View {
     private func handleNextPage(_ code: Int) {
         if code == 404 {
             // 회원가입
-            showJoinPage = true
+            navigation.path.append(JoinPage.id)
         } else if code == 200 {
             // 로그인
-            loginSuccess = true
+            navigation.path.append(TabBar.id)
         }
     }
 }

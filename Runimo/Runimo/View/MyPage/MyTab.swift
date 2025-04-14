@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct MyTab: View {
+    @EnvironmentObject var navigation: NavigationManager
     @StateObject private var myPageVM = MyPageViewModel()
     let userDefaults = UserDefaults.standard
-    @State private var showRecentRunning: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -88,14 +88,11 @@ struct MyTab: View {
                     .foregroundStyle(.primaryGray)
                 Spacer()
                 Button {
-                    showRecentRunning = true
+                    navigation.path.append(PostCardList.id)
                 } label: {
                     Text("더보기")
                         .font(.caption_regular)
                         .foregroundStyle(.quaternaryGray)
-                }
-                .navigationDestination(isPresented: $showRecentRunning) {
-                    PostCardList()
                 }
             }
             

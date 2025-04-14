@@ -59,4 +59,25 @@ class MyPageService {
                 }
             }
     }
+    
+    // 탈퇴하기
+    func withdrawUser(completion: @escaping (Bool) -> Void) {
+        let path = "/users"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .delete, headers: headers)
+        
+        NetworkManager.shared.getHTTPStatusCode(dataRequest) { code in
+            if code == 204 {
+                print("탈퇴 성공")
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+        
+    }
 }

@@ -8,45 +8,43 @@
 import SwiftUI
 
 struct PostCardList: View {
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var navigation: NavigationManager
     var runningSessionList: [RunningRecord] = []
     private let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.primaryBG
-                    .ignoresSafeArea()
-                VStack(alignment: .leading) {
-                    Divider()
-                    header()
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 24)
-                    
-                    ScrollView {
-                        ForEach(runningSessionList, id: \.title) { record in
-                            PostCard(runningRecord: record)
-                                .padding(.bottom, 14)
-                        }
-                    }
+        ZStack {
+            Color.primaryBG
+                .ignoresSafeArea()
+            VStack(alignment: .leading) {
+                Divider()
+                header()
                     .padding(.horizontal, 16)
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    HStack(spacing: 8) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "xmark")
-                                .resizable()
-                                .frame(width: 14, height: 14)
-                        }
-                        Text("모든 활동")
-                            .font(.body1_medium)
+                    .padding(.vertical, 24)
+                
+                ScrollView {
+                    ForEach(runningSessionList, id: \.title) { record in
+                        PostCard(runningRecord: record)
+                            .padding(.bottom, 14)
                     }
-                    .foregroundStyle(.primaryGray)
                 }
+                .padding(.horizontal, 16)
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                HStack(spacing: 8) {
+                    Button {
+                        navigation.path.removeLast()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .resizable()
+                            .frame(width: 14, height: 14)
+                    }
+                    Text("모든 활동")
+                        .font(.body1_medium)
+                }
+                .foregroundStyle(.primaryGray)
             }
         }
         .navigationBarBackButtonHidden()
