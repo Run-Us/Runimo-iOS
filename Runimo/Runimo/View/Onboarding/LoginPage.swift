@@ -75,12 +75,15 @@ struct LoginPage: View {
             }
             .ignoresSafeArea()
             .navigationDestination(for: String.self) { value in
-                if value == TabBar.id {
-                    TabBar()
-                        .navigationBarBackButtonHidden()
-                } else if value == JoinPage.id {
-                    JoinPage()
-                        .navigationBarBackButtonHidden()
+                switch value {
+                case TabBar.id:
+                    TabBar().navigationBarBackButtonHidden()
+                case JoinPage.id:
+                    JoinPage().navigationBarBackButtonHidden()
+                case PostCardList.id:
+                    PostCardList()
+                default:
+                    Text("❓ Unknown destination: \(value)")
                 }
             }
         }
