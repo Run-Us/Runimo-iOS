@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct CharacterTab: View {
     @EnvironmentObject var sharedData: SharedData
@@ -19,29 +20,30 @@ struct CharacterTab: View {
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible())
     ]
-    
-    @Binding var selectedCharacterIndex: Int
 
     var body: some View {
         ScrollView {
             VStack {
-                characterStage()
-                    .padding(.top, 24)
+                ForEach(sharedData.allRunimoData, id: \.egg_type) { item in
+                    characterStage(data: item)
+                        .padding(.top, 24)
+                }
             }
             .padding(.horizontal, 20)
         }
         .onAppear {
             RunimoService.shared.getMyRunimo { result in
                 sharedData.myRunimoData = result.runimos
+                sharedData.transformMyRunimo()
             }
         }
     }
 
     @ViewBuilder
-    private func characterStage() -> some View {
+    private func characterStage(data: RunimoGroup) -> some View {
         VStack(spacing: 8) {
             HStack {
-                Text("🏡 마당")
+                Text("\(data.egg_type)")
                     .font(.title5_bold)
                     .foregroundStyle(.primaryGray)
                 Spacer()
@@ -50,19 +52,28 @@ struct CharacterTab: View {
                     .foregroundStyle(.quaternaryGray)
             }
             .padding(.vertical, 6)
-            LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(Array(zip(characterList.indices, characterList)), id: \.0) { index, item in
-                    Button {
-                        if !item.disabled {
-                            selectedCharacterIndex = index
-                            sharedData.showCharacterPopUp = true
-                        }
-                    } label: {
-                        characterCard(name: item.name, imageName: item.imageName, disabled: item.disabled, selected: selectedCharacterIndex == index)
+            
+            characterByType(runimos: data.runimo_types ?? [])
+        }
+    }
+    
+    @ViewBuilder
+    private func characterByType(runimos: [RunimoInfo]) -> some View {
+        LazyVGrid(columns: columns, spacing: 16) {
+            
+            ForEach(runimos, id: \.code) { runimo in
+                // 러니모 보유 여부, 선택 여부
+                let itemDisabled = sharedData.myRunimoDataForDisplay[runimo.code] == nil
+                let isSelectedIndex = sharedData.myRunimoDataForDisplay[runimo.code]?.is_main_runimo ?? false
+                
+                Button {
+                    if !itemDisabled {
+                        sharedData.showCharacterPopUp = true
                     }
-                    .disabled(item.disabled)
-                    
+                } label: {
+                    characterCard(name: runimo.name, imageName: runimo.img_url, disabled: itemDisabled, selected: isSelectedIndex)
                 }
+                .disabled(itemDisabled)
             }
         }
     }
@@ -70,7 +81,7 @@ struct CharacterTab: View {
     @ViewBuilder
     private func characterCard(name: String, imageName: String, disabled: Bool, selected: Bool = false) -> some View {
         VStack(spacing: 16) {
-            Image(imageName)
+            KFImage(URL(string: imageName))
                 .resizable()
                 .frame(width: 120, height: 120)
             Text(name)
@@ -92,5 +103,5 @@ struct CharacterTab: View {
 }
 
 #Preview {
-    CharacterTab(selectedCharacterIndex: .constant(0))
+    CharacterTab()
 }

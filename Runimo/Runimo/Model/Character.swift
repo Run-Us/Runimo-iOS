@@ -24,7 +24,7 @@ struct GetAllRunimo: Codable {
 
 struct RunimoGroup: Codable {
     let egg_type: String
-    let runimo_types: [RunimoInfo]
+    let runimo_types: [RunimoInfo]?
 }
 
 struct RunimoInfo: Codable {

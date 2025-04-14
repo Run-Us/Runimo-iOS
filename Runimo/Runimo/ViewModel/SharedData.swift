@@ -20,8 +20,18 @@ class SharedData: ObservableObject {
     // MARK: - 캐릭터 탭
     @Published var allRunimoData: [RunimoGroup] = []
     @Published var myRunimoData: [UserInfoWithRunimo] = []
+    @Published var myRunimoDataForDisplay: Dictionary<String, UserInfoWithRunimo> = [:]
     
     init() {
         characterPopUpData = CharacterPopUpItem(character: HatchEggResponse(id: -1, name: "신비로운 알을 발견했어요", img_url: "home_egg_image", code: "", is_duplicated: false))
+    }
+    
+    // 내가 보유한 러니모 데이터 -> [키(code): 값(러니모)] 형태로 변경
+    func transformMyRunimo() {
+        if myRunimoData.isEmpty { return }
+        
+        for runimo in myRunimoData {
+            myRunimoDataForDisplay[runimo.code] = runimo
+        }
     }
 }

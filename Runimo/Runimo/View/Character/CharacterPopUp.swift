@@ -10,14 +10,12 @@ import Kingfisher
 
 struct CharacterPopUp: ViewModifier {
     @Binding var isPresented: Bool
-    let index: Int
     var character: CharacterPopUpItem
     var isHatching: Bool = false
     var isDuplicated: Bool = false
     
-    init(isPresented: Binding<Bool>, character: CharacterPopUpItem, index: Int, isHatching: Bool) {
+    init(isPresented: Binding<Bool>, character: CharacterPopUpItem, isHatching: Bool) {
         _isPresented = isPresented
-        self.index = index
         self.character = character
         self.isHatching = isHatching
         self.isDuplicated = character.character.is_duplicated
@@ -60,11 +58,7 @@ struct CharacterPopUp: ViewModifier {
                         }
                     } else {
                         // 캐릭터 선택으로 띄웠을 때
-                        if index > 0 {
-                            cancelButton()
-                        } else {
-                            okButton()
-                        }
+                        cancelButton()
                     }
                 }
                 .font(.body2_medium)
@@ -121,7 +115,7 @@ struct CharacterPopUp: ViewModifier {
 }
 
 extension View {
-    func popupCharacter(isPresented: Binding<Bool>, character: CharacterPopUpItem, characterIndex: Int, isHatching: Bool) -> some View {
-        self.modifier(CharacterPopUp(isPresented: isPresented, character: character, index: characterIndex, isHatching: isHatching))
+    func popupCharacter(isPresented: Binding<Bool>, character: CharacterPopUpItem, isHatching: Bool) -> some View {
+        self.modifier(CharacterPopUp(isPresented: isPresented, character: character, isHatching: isHatching))
     }
 }

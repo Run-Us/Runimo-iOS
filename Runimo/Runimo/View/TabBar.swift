@@ -16,7 +16,6 @@ enum Tab {
 
 struct TabBar: View {
     @EnvironmentObject var sharedData: SharedData
-    @State private var characterIndex: Int = 0
 
     var body: some View {
         NavigationStack {
@@ -41,7 +40,7 @@ struct TabBar: View {
                         switch (sharedData.currentMainTab) {
                         case .home: HomeTab()
                         case .session: SessionTab()
-                        case .character: CharacterTab(selectedCharacterIndex: $characterIndex)
+                        case .character: CharacterTab()
                         case .my:   MyTab()
                         }
                         
@@ -116,10 +115,9 @@ struct TabBar: View {
                 }
             }
             .navigationBarBackButtonHidden()
-            .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, characterIndex: characterIndex, isHatching: sharedData.isHatchable)
+            .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, isHatching: sharedData.isHatchable)
         }
         .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { notification in
-            characterIndex = -1
             sharedData.showCharacterPopUp = true
         }
         .onAppear {
