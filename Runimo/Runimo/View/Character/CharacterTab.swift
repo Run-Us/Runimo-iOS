@@ -99,7 +99,7 @@ struct CharacterTab: View {
         .opacity(disabled ? 0.3 : 1)
     }
     
-    // 보유 러니모 조회 API 
+    // 보유 러니모 조회 API
     private func getMyRunimoAPI() {
         RunimoService.shared.getMyRunimo { result in
             sharedData.myRunimoData = result.runimos

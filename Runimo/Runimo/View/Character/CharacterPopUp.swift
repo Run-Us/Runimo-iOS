@@ -81,7 +81,7 @@ struct CharacterPopUp: ViewModifier {
                 .foregroundStyle(.primaryGray)
                 .padding(.vertical, 10)
                 .frame(maxWidth: .infinity)
-                .background(.white)
+                .background(.primaryBG)
                 .cornerRadius(8)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
