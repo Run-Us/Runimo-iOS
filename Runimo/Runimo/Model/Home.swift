@@ -64,6 +64,7 @@ struct PostEggResponse: Codable {
 }
 
 struct HatchEggResponse: Codable {
+    let id: Int
     let name: String
     let img_url: String
     let code: String
@@ -71,5 +72,10 @@ struct HatchEggResponse: Codable {
 }
 
 struct CharacterPopUpItem: Codable {
-    var character: HatchEggResponse
+    var id: Int
+    var code: String
+    var title: String
+    var subtitle: String
+    var imageURL: String
+    var description: String
 }

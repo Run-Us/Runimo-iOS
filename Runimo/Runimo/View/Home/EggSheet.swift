@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct EggSheet: View {
     @EnvironmentObject var sharedData: SharedData
@@ -37,9 +38,13 @@ struct EggSheet: View {
     @ViewBuilder
     private func eggCell(egg: EggItem) -> some View {
         HStack(spacing: 12) {
-            AsyncImage(url: URL(string: egg.img_url))
+            KFImage(URL(string: egg.img_url))
+                .resizable()
                 .frame(width: 20, height: 20)
             Text(egg.name)
+                .font(.body2_medium)
+                .foregroundStyle(.secondaryGray)
+            Text("\(egg.amount)개")
                 .font(.body2_medium)
                 .foregroundStyle(.secondaryGray)
             Spacer()

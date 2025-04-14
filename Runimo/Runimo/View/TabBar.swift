@@ -17,7 +17,6 @@ enum Tab {
 struct TabBar: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var sharedData: SharedData
-    @State private var characterIndex: Int = 0
 
     var body: some View {
         ZStack {
@@ -39,7 +38,7 @@ struct TabBar: View {
                     switch sharedData.currentMainTab {
                     case .home: HomeTab()
                     case .session: SessionTab()
-                    case .character: CharacterTab(selectedCharacterIndex: $characterIndex)
+                    case .character: CharacterTab()
                     case .my: MyTab()
                     }
                     
@@ -61,10 +60,10 @@ struct TabBar: View {
                                     .foregroundStyle(sharedData.currentMainTab == .home ? .primaryGray : .gray400)
                                     .frame(width: 32, height: 32)
                             }
-                                
+                                    
                             Spacer()
                             Spacer()
-                                
+                                    
                             Button {
                                 sharedData.currentMainTab = .session
                             } label: {
@@ -73,18 +72,18 @@ struct TabBar: View {
                                     .foregroundStyle(sharedData.currentMainTab == .session ? .primaryGray : .gray400)
                                     .frame(width: 32, height: 32)
                             }
-                                
+                                    
                             Spacer()
-                                
+                                    
                             // 달리기
                             NavigationLink(destination: RunTab()) {
                                 Image("tab_play")
                                     .offset(y: -10)
                                     .frame(width: 60, height: 60)
                             }
-                                
+                                    
                             Spacer()
-                                
+                                    
                             Button {
                                 sharedData.currentMainTab = .character
                             } label: {
@@ -93,10 +92,10 @@ struct TabBar: View {
                                     .foregroundStyle(sharedData.currentMainTab == .character ? .primaryGray : .gray400)
                                     .frame(width: 32, height: 32)
                             }
-                                
+                                    
                             Spacer()
                             Spacer()
-                                
+                                    
                             // 마이페이지
                             Button {
                                 sharedData.currentMainTab = .my
@@ -106,7 +105,7 @@ struct TabBar: View {
                                     .foregroundStyle(sharedData.currentMainTab == .my ? .primaryGray : .gray400)
                                     .frame(width: 32, height: 32)
                             }
-                                
+                                    
                             Spacer()
                         }
                     }
@@ -114,14 +113,18 @@ struct TabBar: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, characterIndex: characterIndex, isHatching: sharedData.isHatchable)
+        .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, isHatching: sharedData.isHatchable)
         .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { _ in
-            characterIndex = -1
-            sharedData.showCharacterPopUp = true
+            sharedData.showPopUp()
         }
         .onAppear {
             HomeService.shared.getMyEggs { data in
                 sharedData.myEggs = data.items
+            }
+            
+            RunimoService.shared.getAllRunimos { data in
+                sharedData.allRunimoData = data.runimo_groups
+                sharedData.transformAllRunimo()
             }
         }
         .sheet(isPresented: $sharedData.showEggSheet, content: {

@@ -217,9 +217,9 @@ struct HomeTab: View {
     
     private func hatchEggAPI(eggId: Int) {
         HomeService.shared.hatchEgg(eggId: eggId) { data in
-            sharedData.characterPopUpData.character = data
+            sharedData.currentHatchedEgg = data
             sharedData.isHatchable = true
-            sharedData.showCharacterPopUp = true
+            sharedData.showPopUp()
             getHomeAPI()
         }
     }
