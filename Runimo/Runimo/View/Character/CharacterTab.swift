@@ -26,9 +26,12 @@ struct CharacterTab: View {
             .padding(.horizontal, 20)
         }
         .onAppear {
-            RunimoService.shared.getMyRunimo { result in
-                sharedData.myRunimoData = result.runimos
-                sharedData.transformMyRunimo()
+            getMyRunimoAPI()
+        }
+        .onChange(of: sharedData.showCharacterPopUp) { _, newValue in
+            // 팝업이 꺼질 때 API 다시 호출해서 뷰 다시 그리도록
+            if newValue == false {
+                getMyRunimoAPI()
             }
         }
     }
@@ -94,6 +97,14 @@ struct CharacterTab: View {
                 )
         )
         .opacity(disabled ? 0.3 : 1)
+    }
+    
+    // 보유 러니모 조회 API 
+    private func getMyRunimoAPI() {
+        RunimoService.shared.getMyRunimo { result in
+            sharedData.myRunimoData = result.runimos
+            sharedData.transformMyRunimo()
+        }
     }
 }
 
