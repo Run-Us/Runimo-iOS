@@ -23,9 +23,10 @@ class SharedData: ObservableObject {
     @Published var myRunimoDataForDisplay: Dictionary<String, UserInfoWithRunimo> = [:]
     
     // MARK: - 캐릭터 팝업
-    @Published var characterPopUpData: CharacterPopUpItem = CharacterPopUpItem(title: "", subtitle: "", imageURL: "", description: "")
+    @Published var characterPopUpData: CharacterPopUpItem = CharacterPopUpItem(code: "", title: "", subtitle: "", imageURL: "", description: "")
     @Published var currentHatchedEgg: HatchEggResponse?
     @Published var selectedRunimoCode: String = ""
+    @Published var mainRunimoCode: String = ""
     
     init() { }
     
@@ -51,6 +52,11 @@ class SharedData: ObservableObject {
         
         for runimo in myRunimoData {
             myRunimoDataForDisplay[runimo.code] = runimo
+            
+            // 메인 러니모 코드 저장
+            if runimo.is_main_runimo {
+                mainRunimoCode = runimo.code
+            }
         }
     }
     
@@ -85,7 +91,7 @@ extension SharedData {
     // 부화 팝업 데이터
     private func setHatchData() {
         if let hatchData = currentHatchedEgg {
-            characterPopUpData = CharacterPopUpItem(title: hatchData.is_duplicated ? "익숙한 친구를 만났어요.." : "새로운 동물이 태어났어요!", subtitle: hatchData.name, imageURL: hatchData.img_url, description: "")
+            characterPopUpData = CharacterPopUpItem(code: hatchData.code, title: hatchData.is_duplicated ? "익숙한 친구를 만났어요.." : "새로운 동물이 태어났어요!", subtitle: hatchData.name, imageURL: hatchData.img_url, description: "")
         }
     }
     
@@ -94,7 +100,7 @@ extension SharedData {
         if let notFixedData = getSelectedCharacterData(),
                   let fixedData = getFixedCharacterData()
         {
-            characterPopUpData = CharacterPopUpItem(title: fixedData.name, subtitle: fixedData.description, imageURL: fixedData.img_url, description: "러닝: \(notFixedData.total_run_count), 달린 거리: \(Double(notFixedData.total_distance_in_meters)/1000)km")
+            characterPopUpData = CharacterPopUpItem(code: fixedData.code, title: fixedData.name, subtitle: fixedData.description, imageURL: fixedData.img_url, description: "러닝: \(notFixedData.total_run_count), 달린 거리: \(Double(notFixedData.total_distance_in_meters)/1000)km")
         }
     }
 }

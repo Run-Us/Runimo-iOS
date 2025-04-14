@@ -46,13 +46,18 @@ struct CharacterPopUp: ViewModifier {
                         VStack(spacing: 8) {
                             // 첫 등장 러니모일때만 ok button
                             if !(sharedData.currentHatchedEgg?.is_duplicated ?? false) {
-                                okButton()
+                                okButton(text: "대표 캐릭터로 설정하기", setMain: true)
                             }
                             cancelButton()
                         }
                     } else {
                         // 캐릭터 선택으로 띄웠을 때
-                        cancelButton()
+                        HStack(spacing: 12) {
+                            cancelButton()
+                            if sharedData.mainRunimoCode != character.code {
+                                okButton(text: "설정하기", setMain: true)
+                            }
+                        }
                     }
                 }
                 .font(.body2_medium)
@@ -86,14 +91,14 @@ struct CharacterPopUp: ViewModifier {
     }
     
     @ViewBuilder
-    private func okButton() -> some View {
+    private func okButton(text: String, setMain: Bool) -> some View {
         Button {
             isPresented = false
-            if isHatching {
+            if setMain {
                 setMainRunimoAPI()
             }
         } label: {
-            Text(isHatching ? "대표 캐릭터로 설정하기" : "확인했어요")
+            Text(text)
                 .font(.body1_bold)
                 .foregroundStyle(.white)
                 .padding(.vertical, 10)
