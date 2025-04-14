@@ -108,11 +108,9 @@ struct CharacterPopUp: ViewModifier {
         }
     }
     
+    // 대표 러니모 설정
     private func setMainRunimoAPI() {
-        // 대표 러니모 설정
-        if let data = sharedData.currentHatchedEgg {
-            HomeService.shared.setMainRunimo(runimoId: data.id)
-        }
+        HomeService.shared.setMainRunimo(runimoId: character.id)
     }
     
 }
