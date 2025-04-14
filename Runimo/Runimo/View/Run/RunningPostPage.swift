@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct RunningPostPage: View {
+    @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var mapVM: MapViewModel
     let runningPost: RunningPost
-    @State private var backToTabBar: Bool = false
     
     var body: some View {
         ZStack {
@@ -86,7 +86,7 @@ struct RunningPostPage: View {
             ToolbarItem(placement: .topBarLeading) {
                 HStack(spacing: 6) {
                     Button {
-                        backToTabBar = true
+                        navigation.path.removeLast(navigation.path.count-1)
                     } label: {
                         Image(systemName: "xmark")
                             .resizable()
@@ -97,9 +97,6 @@ struct RunningPostPage: View {
                 }
                 .foregroundStyle(.primaryGray)
             }
-        }
-        .navigationDestination(isPresented: $backToTabBar) {
-            TabBar()
         }
     }
 }
