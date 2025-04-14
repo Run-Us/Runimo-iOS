@@ -61,7 +61,7 @@ class MyPageService {
     }
     
     // 탈퇴하기
-    func withdrawUser() {
+    func withdrawUser(completion: @escaping (Bool) -> Void) {
         let path = "/users"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -73,7 +73,9 @@ class MyPageService {
         NetworkManager.shared.getHTTPStatusCode(dataRequest) { code in
             if code == 204 {
                 print("탈퇴 성공")
-                // TODO: 첫 화면으로 이동하기 
+                completion(true)
+            } else {
+                completion(false)
             }
         }
         
