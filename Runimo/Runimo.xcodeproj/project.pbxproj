@@ -50,6 +50,8 @@
 		2398F4B12CB8303E001D922B /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AC2CB8303E001D922B /* Pretendard-Medium.ttf */; };
 		2398F4B22CB8303E001D922B /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */; };
 		23C0A7ED2DAC05D8005283DA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 23C0A7EC2DAC05D8005283DA /* Kingfisher */; };
+		23C0A7F32DACC9A4005283DA /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0A7F22DACC9A4005283DA /* NavigationManager.swift */; };
+		23C0A7F52DACCC18005283DA /* CommonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0A7F42DACCC18005283DA /* CommonExtension.swift */; };
 		23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C27B012CBF819200978DC9 /* ProgressBar.swift */; };
 		23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B762CD8BA2C0073732C /* PostCardList.swift */; };
 		23CE0B7D2CD8D6390073732C /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B7C2CD8D6390073732C /* DateManager.swift */; };
@@ -116,6 +118,8 @@
 		2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.ttf"; sourceTree = "<group>"; };
 		2398F4AC2CB8303E001D922B /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.ttf"; sourceTree = "<group>"; };
 		2398F4AD2CB8303E001D922B /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
+		23C0A7F22DACC9A4005283DA /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
+		23C0A7F42DACCC18005283DA /* CommonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonExtension.swift; sourceTree = "<group>"; };
 		23C27B012CBF819200978DC9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		23CE0B762CD8BA2C0073732C /* PostCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardList.swift; sourceTree = "<group>"; };
 		23CE0B7C2CD8D6390073732C /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 				230314DF2C8884FA00B299D5 /* Font */,
 				230314E42C88851100B299D5 /* FontExtension.swift */,
 				238264792DA3B6A800B4C849 /* NotificationNameExtension.swift */,
+				23C0A7F42DACCC18005283DA /* CommonExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 				23CE0B7C2CD8D6390073732C /* DateManager.swift */,
 				23F056B52CDA880800EC3A40 /* RunningViewModel.swift */,
 				230BC7DA2D9D4DED005CD24B /* SharedData.swift */,
+				23C0A7F22DACC9A4005283DA /* NavigationManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -483,6 +489,7 @@
 				237B430E2C8F0193002163B9 /* MapPage.swift in Sources */,
 				236343142C917B3E00336D67 /* MapViewModel.swift in Sources */,
 				238E78F22C83147200D04F58 /* RunimoApp.swift in Sources */,
+				23C0A7F32DACC9A4005283DA /* NavigationManager.swift in Sources */,
 				2355F66C2C9E9CE700A65108 /* MotionManager.swift in Sources */,
 				23E1B9F42D00993C00846F22 /* SessionTab.swift in Sources */,
 				2372998F2CBCDD2100D0E7F6 /* RunTab.swift in Sources */,
@@ -502,6 +509,7 @@
 				2382647A2DA3B6A800B4C849 /* NotificationNameExtension.swift in Sources */,
 				888648F22C981ECC00B040BA /* StartGroupRunPage.swift in Sources */,
 				233831012CC69B430075E73A /* PopUp.swift in Sources */,
+				23C0A7F52DACCC18005283DA /* CommonExtension.swift in Sources */,
 				233ED1CA2CA93D49001EF0BC /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
