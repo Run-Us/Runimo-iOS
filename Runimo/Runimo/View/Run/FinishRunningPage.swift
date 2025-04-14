@@ -22,67 +22,65 @@ struct FinishRunningPage: View {
     }
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.primaryBG
-                    .ignoresSafeArea()
-                GeometryReader { geometry in
-                    Divider()
-                    VStack(spacing: 25) {
-                        // 지도 이미지
-                        
-                        // 제목
-                        textField(title: "제목", contents: $title, maxCount: 20)
-                        
-                        // 설명
-                        textField(title: "설명", contents: $explanation, maxCount: 200)
-                        
-                        Spacer()
-                        
-                        // 저장 버튼
-                        Button {
-                            showRunningPostPage = true
-                        } label: {
-                            Text("저장하기")
-                                .font(.title5_bold)
-                                .foregroundStyle(.white)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .frame(width: geometry.size.width - 32, height: 56)
-                                )
-                        }
-                    }
-                    .padding(16)
+        ZStack {
+            Color.primaryBG
+                .ignoresSafeArea()
+            GeometryReader { geometry in
+                Divider()
+                VStack(spacing: 25) {
+                    // 지도 이미지
                     
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    HStack(spacing: 6) {
-                        Button {
-                            showDeletePopUp = true
-                        } label: {
-                            Image(systemName: "xmark")
-                                .resizable()
-                                .frame(width: 14, height: 14)
-                        }
-                        Text("활동 저장하기")
-                            .font(.body1_medium)
+                    // 제목
+                    textField(title: "제목", contents: $title, maxCount: 20)
+                    
+                    // 설명
+                    textField(title: "설명", contents: $explanation, maxCount: 200)
+                    
+                    Spacer()
+                    
+                    // 저장 버튼
+                    Button {
+                        showRunningPostPage = true
+                    } label: {
+                        Text("저장하기")
+                            .font(.title5_bold)
+                            .foregroundStyle(.white)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .frame(width: geometry.size.width - 32, height: 56)
+                            )
                     }
-                    .foregroundStyle(.primaryGray)
                 }
+                .padding(16)
+                
             }
-            .popup(
-                isPresented: $showDeletePopUp,
-                title: "활동을 삭제하시겠어요?",
-                subtitle: "시간: \(mapVM.motionManager.runningInfo.runningTime ?? "0:00") / 거리: \(String(format: "%.2fkm", mapVM.motionManager.runningInfo.distance ?? 0.0))",
-                buttonText: "삭제하기",
-                buttonColor: .error,
-                cancelAction: {},
-                buttonAction: {
-                    // TODO: 활동 삭제
-                })
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                HStack(spacing: 6) {
+                    Button {
+                        showDeletePopUp = true
+                    } label: {
+                        Image(systemName: "xmark")
+                            .resizable()
+                            .frame(width: 14, height: 14)
+                    }
+                    Text("활동 저장하기")
+                        .font(.body1_medium)
+                }
+                .foregroundStyle(.primaryGray)
+            }
+        }
+        .popup(
+            isPresented: $showDeletePopUp,
+            title: "활동을 삭제하시겠어요?",
+            subtitle: "시간: \(mapVM.motionManager.runningInfo.runningTime ?? "0:00") / 거리: \(String(format: "%.2fkm", mapVM.motionManager.runningInfo.distance ?? 0.0))",
+            buttonText: "삭제하기",
+            buttonColor: .error,
+            cancelAction: {},
+            buttonAction: {
+                // TODO: 활동 삭제
+            })
         .onTapGesture {
             isEditorFocused = false
         }

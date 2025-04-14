@@ -20,139 +20,105 @@ struct TabBar: View {
     @State private var showSettingPage: Bool = false
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.primaryBG
-                    .ignoresSafeArea()
+        ZStack {
+            Color.primaryBG
+                .ignoresSafeArea()
+            VStack {
+                // 상단 바
+                VStack(alignment: .leading, spacing: 0) {
+                    switch sharedData.currentMainTab {
+                    case .session: sessionTabNavigationBar()
+                    case .character: characterTabNavigationBar()
+                    default: etcNavigationBar()
+                    }
+                }
+                
+                // 커스텀 탭바
                 VStack {
-                    // 상단 바
-                    VStack(alignment: .leading, spacing: 0) {
-                        if [Tab.home, Tab.my].contains(sharedData.currentMainTab) {
-                            HStack {
-                                Image("logo_black")
-                                    .foregroundStyle(.primaryGray)
-                                Spacer()
-                                
-                                if sharedData.currentMainTab == .home {
-                                    HStack(spacing: 4) {
-                                        Image("icon_egg")
-                                        Text("\(sharedData.egg_love.egg)")
-                                        Image("icon_love")
-                                            .padding(.leading, 8)
-                                        Text("\(sharedData.egg_love.love)")
-                                    }
-                                    .font(.title5_bold)
-                                    .foregroundStyle(.primaryGray)
-                                } else {
-                                    settingButton()
-                                }
-                            }
-                            .padding(16)
-                            Divider()
-                        } else if sharedData.currentMainTab == .character {
-                            HStack {
-                                Text("캐릭터")
-                                    .font(.title5_bold)
-                                    .frame(height: 24)
-                                Spacer()
-                                Text("0km")
-                                    .font(.body1_medium)
-                            }
-                            .foregroundStyle(.primaryGray)
-                            .padding(16)
-                            Divider()
-                        }
+                    // 탭 별 보여줄 페이지
+                    switch sharedData.currentMainTab {
+                    case .home: HomeTab()
+                    case .session: SessionTab()
+                    case .character: CharacterTab(selectedCharacterIndex: $characterIndex)
+                    case .my: MyTab()
                     }
                     
-                    // 커스텀 탭바
+                    Spacer()
+                        
+                    // 탭 아이콘
                     VStack {
-                        Spacer()
-                        
-                        // 탭 별 보여줄 페이지
-                        switch (sharedData.currentMainTab) {
-                        case .home: HomeTab()
-                        case .session: SessionTab()
-                        case .character: CharacterTab(selectedCharacterIndex: $characterIndex)
-                        case .my:   MyTab()
-                        }
-                        
-                        Spacer()
-                        
-                        // 탭 아이콘
-                        VStack {
-                            Divider()
-                                .offset(y: 10)
-                            HStack {
-                                Spacer()
+                        Divider()
+                            .offset(y: 10)
+                        HStack {
+                            Spacer()
                                 
-                                // 홈
-                                Button {
-                                    sharedData.currentMainTab = .home
-                                } label: {
-                                    Image("tab_home")
-                                        .renderingMode(.template)
-                                        .foregroundStyle(sharedData.currentMainTab == .home ? .primaryGray : .gray400)
-                                        .frame(width: 32, height: 32)
-                                }
-                                
-                                Spacer()
-                                Spacer()
-                                
-                                Button {
-                                    sharedData.currentMainTab = .session
-                                } label: {
-                                    Image("tab_globe")
-                                        .renderingMode(.template)
-                                        .foregroundStyle(sharedData.currentMainTab == .session ? .primaryGray : .gray400)
-                                        .frame(width: 32, height: 32)
-                                }
-                                
-                                Spacer()
-                                
-                                // 달리기
-                                NavigationLink(destination: RunTab()) {
-                                    Image("tab_play")
-                                        .offset(y: -10)
-                                        .frame(width: 60, height: 60)
-                                }
-                                
-                                Spacer()
-                                
-                                Button {
-                                    sharedData.currentMainTab = .character
-                                } label: {
-                                    Image("tab_character")
-                                        .renderingMode(.template)
-                                        .foregroundStyle(sharedData.currentMainTab == .character ? .primaryGray : .gray400)
-                                        .frame(width: 32, height: 32)
-                                }
-                                
-                                Spacer()
-                                Spacer()
-                                
-                                // 마이페이지
-                                Button {
-                                    sharedData.currentMainTab = .my
-                                } label: {
-                                    Image("tab_user")
-                                        .renderingMode(.template)
-                                        .foregroundStyle(sharedData.currentMainTab == .my ? .primaryGray : .gray400)
-                                        .frame(width: 32, height: 32)
-                                }
-                                
-                                Spacer()
+                            // 홈
+                            Button {
+                                sharedData.currentMainTab = .home
+                            } label: {
+                                Image("tab_home")
+                                    .renderingMode(.template)
+                                    .foregroundStyle(sharedData.currentMainTab == .home ? .primaryGray : .gray400)
+                                    .frame(width: 32, height: 32)
                             }
+                                
+                            Spacer()
+                            Spacer()
+                                
+                            Button {
+                                sharedData.currentMainTab = .session
+                            } label: {
+                                Image("tab_globe")
+                                    .renderingMode(.template)
+                                    .foregroundStyle(sharedData.currentMainTab == .session ? .primaryGray : .gray400)
+                                    .frame(width: 32, height: 32)
+                            }
+                                
+                            Spacer()
+                                
+                            // 달리기
+                            NavigationLink(destination: RunTab()) {
+                                Image("tab_play")
+                                    .offset(y: -10)
+                                    .frame(width: 60, height: 60)
+                            }
+                                
+                            Spacer()
+                                
+                            Button {
+                                sharedData.currentMainTab = .character
+                            } label: {
+                                Image("tab_character")
+                                    .renderingMode(.template)
+                                    .foregroundStyle(sharedData.currentMainTab == .character ? .primaryGray : .gray400)
+                                    .frame(width: 32, height: 32)
+                            }
+                                
+                            Spacer()
+                            Spacer()
+                                
+                            // 마이페이지
+                            Button {
+                                sharedData.currentMainTab = .my
+                            } label: {
+                                Image("tab_user")
+                                    .renderingMode(.template)
+                                    .foregroundStyle(sharedData.currentMainTab == .my ? .primaryGray : .gray400)
+                                    .frame(width: 32, height: 32)
+                            }
+                                
+                            Spacer()
                         }
                     }
                 }
             }
-            .navigationBarBackButtonHidden()
-            .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, characterIndex: characterIndex, isHatching: sharedData.isHatchable)
-            .navigationDestination(isPresented: $showSettingPage) {
-                SettingPage()
-            }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { notification in
+        .navigationBarBackButtonHidden()
+        .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, characterIndex: characterIndex, isHatching: sharedData.isHatchable)
+        .navigationDestination(isPresented: $showSettingPage) {
+            SettingPage()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { _ in
             characterIndex = -1
             sharedData.showCharacterPopUp = true
         }
@@ -175,7 +141,68 @@ struct TabBar: View {
             Image("icon_setting")
                 .foregroundStyle(.primaryGray)
         }
-
+    }
+    
+    @ViewBuilder
+    private func sessionTabNavigationBar() -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("러닝세션 찾기")
+                    .font(.title5_bold)
+                Spacer()
+                Image(systemName: "plus")
+                    .resizable()
+                    .frame(width: 14, height: 14)
+            }
+            .foregroundStyle(.primaryGray)
+            .padding(16)
+            Divider()
+        }
+    }
+    
+    @ViewBuilder
+    private func characterTabNavigationBar() -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("캐릭터")
+                    .font(.title5_bold)
+                    .frame(height: 24)
+                Spacer()
+                Text("0km")
+                    .font(.body1_medium)
+            }
+            .foregroundStyle(.primaryGray)
+            .padding(16)
+            Divider()
+        }
+    }
+    
+    @ViewBuilder
+    func etcNavigationBar() -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Image("logo_black")
+                    .foregroundStyle(.primaryGray)
+                Spacer()
+                
+                if sharedData.currentMainTab == .home {
+                    HStack(spacing: 4) {
+                        Image("icon_egg")
+                        Text("\(sharedData.egg_love.egg)")
+                        Image("icon_love")
+                            .padding(.leading, 8)
+                        Text("\(sharedData.egg_love.love)")
+                    }
+                    .font(.title5_bold)
+                    .foregroundStyle(.primaryGray)
+                } else {
+                    Image("icon_setting")
+                        .foregroundStyle(.primaryGray)
+                }
+            }
+            .padding(16)
+            Divider()
+        }
     }
 }
 

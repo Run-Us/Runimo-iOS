@@ -17,44 +17,42 @@ struct RunTab: View {
     let typeOfRunning = ["혼자 달리기", "그룹 달리기"]
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.primaryBG
-                    .ignoresSafeArea()
-                GeometryReader { geometry in
-                    VStack(spacing: 0) {
-                        // toolbar와 구분
-                        Divider()
-                        
-                        // Segmented Picker
-                        SegmentedPicker(selectedTab: $selectedRunning, type: typeOfRunning, width: geometry.size.width)
-                        
-                        switch(selectedRunning) {
-                        case 0: runAlone()
-                        case 1: StartGroupRunPage(runningSession: runningSession)
-                        default: EmptyView()
-                        }
+        ZStack {
+            Color.primaryBG
+                .ignoresSafeArea()
+            GeometryReader { geometry in
+                VStack(spacing: 0) {
+                    // toolbar와 구분
+                    Divider()
+                    
+                    // Segmented Picker
+                    SegmentedPicker(selectedTab: $selectedRunning, type: typeOfRunning, width: geometry.size.width)
+                    
+                    switch(selectedRunning) {
+                    case 0: runAlone()
+                    case 1: StartGroupRunPage()
+                    default: EmptyView()
                     }
-                    .toolbar {
-                        ToolbarItem(placement: .topBarLeading) {
-                            Button {
-                                dismiss()
-                            } label: {
-                                HStack(spacing: 10) {
-                                    Image(systemName: "chevron.left")
-                                        .resizable()
-                                        .frame(width: 8, height: 14)
-                                    Text("달리기")
-                                        .font(.body1_medium)
-                                }
-                                .foregroundStyle(.primaryGray)
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            HStack(spacing: 10) {
+                                Image(systemName: "chevron.left")
+                                    .resizable()
+                                    .frame(width: 8, height: 14)
+                                Text("달리기")
+                                    .font(.body1_medium)
                             }
+                            .foregroundStyle(.primaryGray)
                         }
                     }
                 }
             }
-            .navigationBarBackButtonHidden()
         }
+        .navigationBarBackButtonHidden()
     }
     
     @ViewBuilder

@@ -59,7 +59,7 @@ struct RunningMapPage: View {
                 // 하단 러닝 정보
                 switch (runVM.runningType) {
                 case .alone: mapTabInfo(width: geometry.size.width/2)
-                case .group: RunningParticipants()
+                case .group: EmptyView()
                 }
             }
             .navigationDestination(isPresented: $showFinishPage) {
