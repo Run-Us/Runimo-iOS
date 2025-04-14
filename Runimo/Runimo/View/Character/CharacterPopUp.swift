@@ -11,11 +11,12 @@ import Kingfisher
 struct CharacterPopUp: ViewModifier {
     @EnvironmentObject var sharedData: SharedData
     @Binding var isPresented: Bool
-    @State private var character: CharacterPopUpItem = CharacterPopUpItem(title: "", subtitle: "", imageURL: "", description: "")
+    var character: CharacterPopUpItem
     var isHatching: Bool = false
     
-    init(isPresented: Binding<Bool>, isHatching: Bool) {
+    init(isPresented: Binding<Bool>, character: CharacterPopUpItem, isHatching: Bool) {
         _isPresented = isPresented
+        self.character = character
         self.isHatching = isHatching
     }
     
@@ -62,15 +63,13 @@ struct CharacterPopUp: ViewModifier {
                 .padding(.horizontal, 16)
             }
         }
-        .onAppear {
-            settingData()
-        }
     }
     
     @ViewBuilder
     private func cancelButton() -> some View {
         Button {
             isPresented = false
+            sharedData.isHatchable = false
         } label: {
             Text("닫기")
                 .font(.body1_bold)
@@ -111,33 +110,10 @@ struct CharacterPopUp: ViewModifier {
         }
     }
     
-    private func settingData() {
-        if isHatching {
-            setHatchData()
-        } else {
-            setCharacterData()
-        }
-    }
-    
-    // 부화 팝업 데이터
-    private func setHatchData() {
-        if let hatchData = sharedData.currentHatchedEgg {
-            character = CharacterPopUpItem(title: hatchData.is_duplicated ? "익숙한 친구를 만났어요.." : "새로운 동물이 태어났어요!", subtitle: hatchData.name, imageURL: hatchData.img_url, description: "")
-        }
-    }
-    
-    // 캐릭터 선택 팝업
-    private func setCharacterData() {
-        if let notFixedData = sharedData.getSelectedCharacterData(),
-                  let fixedData = sharedData.getFixedCharacterData()
-        {
-            character = CharacterPopUpItem(title: fixedData.name, subtitle: fixedData.description, imageURL: fixedData.img_url, description: "러닝: \(notFixedData.total_run_count), 달린 거리: \(Double(notFixedData.total_distance_in_meters)/1000)km")
-        }
-    }
 }
 
 extension View {
-    func popupCharacter(isPresented: Binding<Bool>, isHatching: Bool) -> some View {
-        self.modifier(CharacterPopUp(isPresented: isPresented, isHatching: isHatching))
+    func popupCharacter(isPresented: Binding<Bool>, character: CharacterPopUpItem, isHatching: Bool) -> some View {
+        self.modifier(CharacterPopUp(isPresented: isPresented, character: character, isHatching: isHatching))
     }
 }

@@ -10,12 +10,6 @@ import Kingfisher
 
 struct CharacterTab: View {
     @EnvironmentObject var sharedData: SharedData
-    private let characterList: [CharacterItem] = [
-        CharacterItem(name: "강아지", imageName: "character_dog", disabled: false),
-        CharacterItem(name: "고양이", imageName: "character_cat", disabled: false),
-        CharacterItem(name: "토끼", imageName: "character_rabbit", disabled: true),
-        CharacterItem(name: "오리", imageName: "character_duck", disabled: true)
-    ]
     private let columns = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible())
@@ -69,7 +63,7 @@ struct CharacterTab: View {
                 Button {
                     if !itemDisabled {
                         sharedData.setSelectedCharacter(code: runimo.code)
-                        sharedData.showCharacterPopUp = true
+                        sharedData.showPopUp()
                     }
                 } label: {
                     characterCard(name: runimo.name, imageName: runimo.img_url, disabled: itemDisabled, selected: isSelectedIndex)

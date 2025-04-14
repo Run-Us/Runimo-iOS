@@ -219,7 +219,7 @@ struct HomeTab: View {
         HomeService.shared.hatchEgg(eggId: eggId) { data in
             sharedData.currentHatchedEgg = data
             sharedData.isHatchable = true
-            sharedData.showCharacterPopUp = true
+            sharedData.showPopUp()
             getHomeAPI()
         }
     }

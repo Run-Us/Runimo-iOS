@@ -113,9 +113,9 @@ struct TabBar: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .popupCharacter(isPresented: $sharedData.showCharacterPopUp, isHatching: sharedData.isHatchable)
+        .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, isHatching: sharedData.isHatchable)
         .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { _ in
-            sharedData.showCharacterPopUp = true
+            sharedData.showPopUp()
         }
         .onAppear {
             HomeService.shared.getMyEggs { data in
@@ -124,6 +124,7 @@ struct TabBar: View {
             
             RunimoService.shared.getAllRunimos { data in
                 sharedData.allRunimoData = data.runimo_groups
+                sharedData.transformAllRunimo()
             }
         }
         .sheet(isPresented: $sharedData.showEggSheet, content: {
