@@ -53,6 +53,7 @@
 		23C0A7F32DACC9A4005283DA /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0A7F22DACC9A4005283DA /* NavigationManager.swift */; };
 		23C0A7F52DACCC18005283DA /* CommonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0A7F42DACCC18005283DA /* CommonExtension.swift */; };
 		23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C27B012CBF819200978DC9 /* ProgressBar.swift */; };
+		23C4FF3C2DA969D900DD1F86 /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C4FF3B2DA969D900DD1F86 /* SettingPage.swift */; };
 		23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B762CD8BA2C0073732C /* PostCardList.swift */; };
 		23CE0B7D2CD8D6390073732C /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B7C2CD8D6390073732C /* DateManager.swift */; };
 		23E1B9E42CFF066A00846F22 /* CTAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9E32CFF066A00846F22 /* CTAButton.swift */; };
@@ -121,6 +122,7 @@
 		23C0A7F22DACC9A4005283DA /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		23C0A7F42DACCC18005283DA /* CommonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonExtension.swift; sourceTree = "<group>"; };
 		23C27B012CBF819200978DC9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		23C4FF3B2DA969D900DD1F86 /* SettingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPage.swift; sourceTree = "<group>"; };
 		23CE0B762CD8BA2C0073732C /* PostCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardList.swift; sourceTree = "<group>"; };
 		23CE0B7C2CD8D6390073732C /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		23E1B9E32CFF066A00846F22 /* CTAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTAButton.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				235D38A42CD3E7F000487952 /* PostCard.swift */,
 				23CE0B762CD8BA2C0073732C /* PostCardList.swift */,
 				23F056B32CDA7B0100EC3A40 /* DateSheet.swift */,
+				23C4FF3B2DA969D900DD1F86 /* SettingPage.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				23F056B62CDA880800EC3A40 /* RunningViewModel.swift in Sources */,
 				88E556052C8F208F003789B7 /* HomeTab.swift in Sources */,
 				23E1B9EE2CFF54D800846F22 /* InputTextArea.swift in Sources */,
+				23C4FF3C2DA969D900DD1F86 /* SettingPage.swift in Sources */,
 				88E556092C8F20E8003789B7 /* RunningPage.swift in Sources */,
 				230BC7DB2D9D4DED005CD24B /* SharedData.swift in Sources */,
 				235D38A32CD3BF8F00487952 /* MyPageViewModel.swift in Sources */,

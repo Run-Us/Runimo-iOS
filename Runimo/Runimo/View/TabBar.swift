@@ -15,6 +15,7 @@ enum Tab {
 }
 
 struct TabBar: View {
+    @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var sharedData: SharedData
     @State private var characterIndex: Int = 0
 
@@ -34,25 +35,23 @@ struct TabBar: View {
                 
                 // 커스텀 탭바
                 VStack {
-                    Spacer()
-                    
                     // 탭 별 보여줄 페이지
-                    switch (sharedData.currentMainTab) {
+                    switch sharedData.currentMainTab {
                     case .home: HomeTab()
                     case .session: SessionTab()
                     case .character: CharacterTab(selectedCharacterIndex: $characterIndex)
-                    case .my:   MyTab()
+                    case .my: MyTab()
                     }
                     
                     Spacer()
-                    
+                        
                     // 탭 아이콘
                     VStack {
                         Divider()
                             .offset(y: 10)
                         HStack {
                             Spacer()
-                            
+                                
                             // 홈
                             Button {
                                 sharedData.currentMainTab = .home
@@ -62,10 +61,10 @@ struct TabBar: View {
                                     .foregroundStyle(sharedData.currentMainTab == .home ? .primaryGray : .gray400)
                                     .frame(width: 32, height: 32)
                             }
-                            
+                                
                             Spacer()
                             Spacer()
-                            
+                                
                             Button {
                                 sharedData.currentMainTab = .session
                             } label: {
@@ -74,18 +73,18 @@ struct TabBar: View {
                                     .foregroundStyle(sharedData.currentMainTab == .session ? .primaryGray : .gray400)
                                     .frame(width: 32, height: 32)
                             }
-                            
+                                
                             Spacer()
-                            
+                                
                             // 달리기
                             NavigationLink(destination: RunTab()) {
                                 Image("tab_play")
                                     .offset(y: -10)
                                     .frame(width: 60, height: 60)
                             }
-                            
+                                
                             Spacer()
-                            
+                                
                             Button {
                                 sharedData.currentMainTab = .character
                             } label: {
@@ -94,10 +93,10 @@ struct TabBar: View {
                                     .foregroundStyle(sharedData.currentMainTab == .character ? .primaryGray : .gray400)
                                     .frame(width: 32, height: 32)
                             }
-                            
+                                
                             Spacer()
                             Spacer()
-                            
+                                
                             // 마이페이지
                             Button {
                                 sharedData.currentMainTab = .my
@@ -107,7 +106,7 @@ struct TabBar: View {
                                     .foregroundStyle(sharedData.currentMainTab == .my ? .primaryGray : .gray400)
                                     .frame(width: 32, height: 32)
                             }
-                            
+                                
                             Spacer()
                         }
                     }
@@ -116,7 +115,7 @@ struct TabBar: View {
         }
         .navigationBarBackButtonHidden()
         .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, characterIndex: characterIndex, isHatching: sharedData.isHatchable)
-        .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { notification in
+        .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { _ in
             characterIndex = -1
             sharedData.showCharacterPopUp = true
         }
@@ -131,7 +130,15 @@ struct TabBar: View {
         })
     }
     
-    
+    @ViewBuilder
+    private func settingButton() -> some View {
+        Button {
+            navigation.path.append(SettingPage.id)
+        } label: {
+            Image("icon_setting")
+                .foregroundStyle(.primaryGray)
+        }
+    }
     
     @ViewBuilder
     private func sessionTabNavigationBar() -> some View {
@@ -186,8 +193,7 @@ struct TabBar: View {
                     .font(.title5_bold)
                     .foregroundStyle(.primaryGray)
                 } else {
-                    Image("icon_setting")
-                        .foregroundStyle(.primaryGray)
+                    settingButton()
                 }
             }
             .padding(16)

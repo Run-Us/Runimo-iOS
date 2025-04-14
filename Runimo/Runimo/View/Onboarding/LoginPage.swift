@@ -82,6 +82,8 @@ struct LoginPage: View {
                     JoinPage().navigationBarBackButtonHidden()
                 case PostCardList.id:
                     PostCardList()
+                case SettingPage.id:
+                    SettingPage()
                 default:
                     Text("❓ Unknown destination: \(value)")
                 }
