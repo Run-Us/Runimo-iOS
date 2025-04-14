@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct JoinPage: View {
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var navigation: NavigationManager
     @State var selectedProfile: [UIImage] = []
     @State private var nickname: String = ""
     @State private var nicknameIsValid: Bool = true
@@ -112,7 +112,8 @@ struct JoinPage: View {
                 Button(action: {
                     AuthService.shared.signup(nickname: nickname, imageURL: nil, gender: genderType.rawValue) { result in
                         if result {
-                            dismiss()
+                            navigation.path.removeLast()
+                            navigation.path.append(TabBar.id)
                         }
                     }
                 }, label: {
@@ -132,7 +133,7 @@ struct JoinPage: View {
         }
         .ignoresSafeArea()
         .navigationBarItems(leading: Button(action: {
-            dismiss()
+            navigation.path.removeLast()
         }) {
             Image(systemName: "chevron.left")
                 .foregroundColor(.primaryGray)
