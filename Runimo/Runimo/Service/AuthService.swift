@@ -110,16 +110,42 @@ final class AuthService: ObservableObject {
         
     }
     
+    // 토큰 갱신
+    func refreshToken() {
+        let path = "/auth/refresh"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("refreshToken") ?? "")"
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .post, headers: headers)
+        
+        NetworkManager.shared.request(dataRequest) { (result: Result<Token, AFError>) in
+            switch result {
+            case .success(let data):
+                print("\(data)")
+                self.saveToken(accessToken: data.access_token, refreshToken: data.refresh_token)
+                
+            case .failure(let error):
+                print("\(error)")
+            }
+        }
+    }
+    
+    // 유저 정보 저장
     private func saveUserInfo(user: UserToken) {
         UserDefaults.standard.set(user.nickname, forKey: "nickname")
-        self.keychain.set(user.access_token, forKey: "accessToken")
-        self.keychain.set(user.refresh_token, forKey: "refreshToken")
+        saveToken(accessToken: user.access_token, refreshToken: user.refresh_token)
     }
     
     private func saveUserInfo(user: SignUpResponse) {
         UserDefaults.standard.set(user.nickname, forKey: "nickname")
-        self.keychain.set(user.token_pair.access_token, forKey: "accessToken")
-        self.keychain.set(user.token_pair.refresh_token, forKey: "refreshToken")
+        saveToken(accessToken: user.token_pair.access_token, refreshToken: user.token_pair.refresh_token)
+    }
+    
+    private func saveToken(accessToken: String, refreshToken: String) {
+        self.keychain.set(accessToken, forKey: "accessToken")
+        self.keychain.set(refreshToken, forKey: "refreshToken")
     }
     
     // 저장된 유저 정보 삭제
