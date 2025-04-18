@@ -12,8 +12,14 @@ import KeychainSwift
 final class AuthService: ObservableObject {
     static let shared = AuthService()
     private let keychain = KeychainSwift()
+    let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
+    @Published var isLogined: Bool = false
     
-    private init() {}
+    private init() {
+        refreshToken { success in
+            self.isLogined = success
+        }
+    }
     
     // 회원가입
     func signup(nickname: String, imageURL: String? = nil, gender: String, completion: @escaping (Bool) -> Void) {
@@ -75,7 +81,6 @@ final class AuthService: ObservableObject {
     }
     
     func appleLogin(codeVerifier: String, completion: @escaping (Int) -> Void) {
-        let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
         let path = "\(baseUrl)/auth/apple"
         let headers: HTTPHeaders = ["Content-Type": "application/json"]
         let body: [String: Any] = [
@@ -111,25 +116,36 @@ final class AuthService: ObservableObject {
     }
     
     // 토큰 갱신
-    func refreshToken() {
-        let path = "/auth/refresh"
+    func refreshToken(completion: @escaping (Bool) -> Void) {
+        let path = "\(baseUrl)/auth/refresh"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(keychain.get("refreshToken") ?? "")"
         ]
+        print("Request Token Refresh URL: \(path)")
         
-        let dataRequest = APIRequest(path: path, method: .post, headers: headers)
-        
-        NetworkManager.shared.request(dataRequest) { (result: Result<Token, AFError>) in
-            switch result {
-            case .success(let data):
-                print("\(data)")
-                self.saveToken(accessToken: data.access_token, refreshToken: data.refresh_token)
+        AF.request(path, method: .post, encoding: JSONEncoding.default, headers: headers)
+            .responseData { response in
+                print("token result: \(response.response?.statusCode), \(response.data)")
+                let statusCode = response.response?.statusCode ?? 0
+                guard let data = response.data else { return }
                 
-            case .failure(let error):
-                print("\(error)")
+                switch statusCode {
+                case 200:
+                    if let success = try? JSONDecoder().decode(BaseResponse<Token>.self, from: data),
+                       let result = success.payload
+                    {
+                        print("❕ Token Refresh success: Request URL: \(path)\n")
+                        self.saveToken(accessToken: result.access_token, refreshToken: result.refresh_token)
+                        completion(true)
+                    } else {
+                        completion(false)
+                    }
+                default:
+                    print("❌ Token Refresh Failed: Request URL: \(path)\n")
+                    completion(false)
+                }
             }
-        }
     }
     
     // 유저 정보 저장
