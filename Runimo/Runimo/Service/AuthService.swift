@@ -12,8 +12,9 @@ import KeychainSwift
 final class AuthService: ObservableObject {
     static let shared = AuthService()
     private let keychain = KeychainSwift()
+    let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     
-    private init() {}
+    private init() { }
     
     // 회원가입
     func signup(nickname: String, imageURL: String? = nil, gender: String, completion: @escaping (Bool) -> Void) {
@@ -75,7 +76,6 @@ final class AuthService: ObservableObject {
     }
     
     func appleLogin(codeVerifier: String, completion: @escaping (Int) -> Void) {
-        let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
         let path = "\(baseUrl)/auth/apple"
         let headers: HTTPHeaders = ["Content-Type": "application/json"]
         let body: [String: Any] = [
@@ -110,16 +110,51 @@ final class AuthService: ObservableObject {
         
     }
     
+    // 토큰 갱신
+    func refreshToken(completion: @escaping (Bool) -> Void) {
+        let path = "\(baseUrl)/auth/refresh"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("refreshToken") ?? "")"
+        ]
+        
+        AF.request(path, method: .post, encoding: JSONEncoding.default, headers: headers)
+            .responseData { response in
+                let statusCode = response.response?.statusCode ?? 0
+                guard let data = response.data else { return }
+                
+                switch statusCode {
+                case 200:
+                    if let success = try? JSONDecoder().decode(BaseResponse<Token>.self, from: data),
+                       let result = success.payload
+                    {
+                        print("❕ Token Refresh success: Request URL: \(path)\n")
+                        self.saveToken(accessToken: result.access_token, refreshToken: result.refresh_token)
+                        completion(true)
+                    } else {
+                        completion(false)
+                    }
+                default:
+                    print("❌ Token Refresh Failed: Request URL: \(path)\n")
+                    completion(false)
+                }
+            }
+    }
+    
+    // 유저 정보 저장
     private func saveUserInfo(user: UserToken) {
         UserDefaults.standard.set(user.nickname, forKey: "nickname")
-        self.keychain.set(user.access_token, forKey: "accessToken")
-        self.keychain.set(user.refresh_token, forKey: "refreshToken")
+        saveToken(accessToken: user.access_token, refreshToken: user.refresh_token)
     }
     
     private func saveUserInfo(user: SignUpResponse) {
         UserDefaults.standard.set(user.nickname, forKey: "nickname")
-        self.keychain.set(user.token_pair.access_token, forKey: "accessToken")
-        self.keychain.set(user.token_pair.refresh_token, forKey: "refreshToken")
+        saveToken(accessToken: user.token_pair.access_token, refreshToken: user.token_pair.refresh_token)
+    }
+    
+    private func saveToken(accessToken: String, refreshToken: String) {
+        self.keychain.set(accessToken, forKey: "accessToken")
+        self.keychain.set(refreshToken, forKey: "refreshToken")
     }
     
     // 저장된 유저 정보 삭제

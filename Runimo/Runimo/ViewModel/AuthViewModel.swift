@@ -69,14 +69,6 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    // 로그인된 토큰이 존재하는지 확인
-    func checkTokenExists() -> Bool {
-        if let _ = keychain.get("accessToken") {
-            return true
-        }
-        return false
-    }
-    
     func generateRandomString() -> String {
         var result = ""
         

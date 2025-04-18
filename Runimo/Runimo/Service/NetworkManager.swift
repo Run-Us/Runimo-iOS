@@ -34,12 +34,28 @@ final class NetworkManager {
     // 요청
     func request<T: Codable>(
         _ request: APIRequest,
+        retrying: Bool = false,
         completion: @escaping (Result<T, AFError>) -> Void)
     {
         let url = "\(baseUrl)\(request.path)"
         print("url: \(url)\nparameters: \(String(describing: request.parameters))\n")
         AF.request(url, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
             .responseDecodable(of: BaseResponse<T>.self) { response in
+                // 토큰 갱신
+                if let statusCode = response.response?.statusCode, statusCode == 401, !retrying {
+                    AuthService.shared.refreshToken { success in
+                        if success {
+                            // new token으로 재요청
+                            var updateHeaders: HTTPHeaders = request.headers ?? [:]
+                            updateHeaders["Authorization"] = "Bearer \(self.keychain.get("accessToken") ?? "")"
+                            let dataRequest = APIRequest(path: request.path, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: updateHeaders)
+                            self.request(dataRequest, retrying: true) { (result: Result<T, AFError>) in
+                                completion(result)
+                            }
+                        }
+                    }
+                    return
+                }
             switch response.result {
             case .success(let baseResponse):
                 if let data = baseResponse.payload {
