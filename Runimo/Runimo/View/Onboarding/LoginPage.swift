@@ -89,6 +89,13 @@ struct LoginPage: View {
                 }
             }
         }
+        .onAppear {
+            AuthService.shared.refreshToken { success in
+                if success {
+                    navigation.path.append(TabBar.id)
+                }
+            }
+        }
     }
     
     @ViewBuilder

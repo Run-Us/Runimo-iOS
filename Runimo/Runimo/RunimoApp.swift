@@ -19,25 +19,16 @@ struct RunimoApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if AuthService.shared.isLogined {
-                TabBar()
-                    .environmentObject(MapViewModel())
-                    .environmentObject(RunningViewModel())
-                    .environmentObject(SharedData())
-                    .environmentObject(NavigationManager())
-            } else {
-                LoginPage()
-                    .onOpenURL(perform: { url in
-                        if AuthApi.isKakaoTalkLoginUrl(url) {
-                            _ = AuthController.handleOpenUrl(url: url)
-                        }
-                    })
-                    .environmentObject(MapViewModel())
-                    .environmentObject(RunningViewModel())
-                    .environmentObject(SharedData())
-                    .environmentObject(NavigationManager())
-            }
-            
+            LoginPage()
+                .onOpenURL(perform: { url in
+                    if AuthApi.isKakaoTalkLoginUrl(url) {
+                        _ = AuthController.handleOpenUrl(url: url)
+                    }
+                })
+                .environmentObject(MapViewModel())
+                .environmentObject(RunningViewModel())
+                .environmentObject(SharedData())
+                .environmentObject(NavigationManager())
         }
     }
 }

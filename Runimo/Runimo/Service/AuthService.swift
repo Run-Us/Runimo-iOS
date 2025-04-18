@@ -13,13 +13,8 @@ final class AuthService: ObservableObject {
     static let shared = AuthService()
     private let keychain = KeychainSwift()
     let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
-    @Published var isLogined: Bool = false
     
-    private init() {
-        refreshToken { success in
-            self.isLogined = success
-        }
-    }
+    private init() { }
     
     // 회원가입
     func signup(nickname: String, imageURL: String? = nil, gender: String, completion: @escaping (Bool) -> Void) {
@@ -126,7 +121,6 @@ final class AuthService: ObservableObject {
         
         AF.request(path, method: .post, encoding: JSONEncoding.default, headers: headers)
             .responseData { response in
-                print("token result: \(response.response?.statusCode), \(response.data)")
                 let statusCode = response.response?.statusCode ?? 0
                 guard let data = response.data else { return }
                 
