@@ -117,7 +117,6 @@ final class AuthService: ObservableObject {
             "Content-Type": "application/json",
             "Authorization": "Bearer \(keychain.get("refreshToken") ?? "")"
         ]
-        print("Request Token Refresh URL: \(path)")
         
         AF.request(path, method: .post, encoding: JSONEncoding.default, headers: headers)
             .responseData { response in

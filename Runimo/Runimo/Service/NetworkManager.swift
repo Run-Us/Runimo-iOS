@@ -45,7 +45,6 @@ final class NetworkManager {
                 if let statusCode = response.response?.statusCode, statusCode == 401, !retrying {
                     AuthService.shared.refreshToken { success in
                         if success {
-                            print("⚠️ Refresh Token")
                             // new token으로 재요청
                             var updateHeaders: HTTPHeaders = request.headers ?? [:]
                             updateHeaders["Authorization"] = "Bearer \(self.keychain.get("accessToken") ?? "")"
