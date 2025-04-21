@@ -8,6 +8,15 @@
 import Foundation
 import SwiftUI
 
+class CommonExtension {
+    static func formatNumber(num: Int) -> String {
+        if num >= 1000 {
+            return String(format: "%.2fK", Double(num)/1000)
+        }
+        return String(num)
+    }
+}
+
 extension View {
     static var id: String { String(describing: Self.self) }
 }
