@@ -70,7 +70,6 @@
 		887940EE2CAAFEC80018C035 /* RunningSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887940ED2CAAFEC80018C035 /* RunningSessionService.swift */; };
 		887940F42CAB2AD30018C035 /* JoinPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887940F32CAB2AD30018C035 /* JoinPage.swift */; };
 		888648F22C981ECC00B040BA /* StartGroupRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888648F12C981ECC00B040BA /* StartGroupRunPage.swift */; };
-		88D3BF252CA9702E009E4365 /* SwiftStomp in Frameworks */ = {isa = PBXBuildFile; productRef = 88D3BF242CA9702E009E4365 /* SwiftStomp */; };
 		88E556052C8F208F003789B7 /* HomeTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E556042C8F208F003789B7 /* HomeTab.swift */; };
 		88E556092C8F20E8003789B7 /* RunningPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E556082C8F20E8003789B7 /* RunningPage.swift */; };
 		88E5560D2C8F213E003789B7 /* MyTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E5560C2C8F213E003789B7 /* MyTab.swift */; };
@@ -152,7 +151,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88D3BF252CA9702E009E4365 /* SwiftStomp in Frameworks */,
 				230314F42C89A00B00B299D5 /* KakaoSDKCommon in Frameworks */,
 				23C0A7ED2DAC05D8005283DA /* Kingfisher in Frameworks */,
 				230314F22C89A00B00B299D5 /* KakaoSDKAuth in Frameworks */,
@@ -395,7 +393,6 @@
 				230314F52C89A00B00B299D5 /* KakaoSDKUser */,
 				230314FF2C8A096D00B299D5 /* KeychainSwift */,
 				237B430B2C8EFFF1002163B9 /* NaverMapSDK */,
-				88D3BF242CA9702E009E4365 /* SwiftStomp */,
 				23C0A7EC2DAC05D8005283DA /* Kingfisher */,
 			);
 			productName = RunUs;
@@ -430,7 +427,6 @@
 				230314F02C89A00B00B299D5 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				230314FE2C8A096D00B299D5 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				237B430A2C8EFFF1002163B9 /* XCRemoteSwiftPackageReference "Naver-Map-iOS-SPM" */,
-				88D3BF232CA9702E009E4365 /* XCRemoteSwiftPackageReference "SwiftStomp" */,
 				23C0A7EB2DAC05D8005283DA /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 238E78EF2C83147200D04F58 /* Products */;
@@ -782,14 +778,6 @@
 				minimumVersion = 8.3.2;
 			};
 		};
-		88D3BF232CA9702E009E4365 /* XCRemoteSwiftPackageReference "SwiftStomp" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Romixery/SwiftStomp.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -822,11 +810,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 23C0A7EB2DAC05D8005283DA /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		88D3BF242CA9702E009E4365 /* SwiftStomp */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 88D3BF232CA9702E009E4365 /* XCRemoteSwiftPackageReference "SwiftStomp" */;
-			productName = SwiftStomp;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
