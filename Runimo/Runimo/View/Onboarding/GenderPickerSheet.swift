@@ -10,7 +10,7 @@ import SwiftUI
 enum GenderType: String {
     case male = "MALE"
     case female = "FEMALE"
-    case other = "OTHER"
+    case other = "UNKNOWN"
     case none = "NONE"
 }
 

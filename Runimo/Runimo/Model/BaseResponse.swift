@@ -18,7 +18,7 @@ class BaseResponse<T: Codable>: Codable {
 class BaseErrorResponse: Codable {
     let success: Bool
     let message: String
-    let error_code: String
+    let code: String
     let temporal_register_token: String
 }
 

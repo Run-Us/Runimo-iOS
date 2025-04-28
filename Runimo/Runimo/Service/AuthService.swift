@@ -22,7 +22,8 @@ final class AuthService: ObservableObject {
         let body: [String: Any] = [
             "register_token": keychain.get("register_token") ?? "",
             "nickname": nickname,
-            "img_url": imageURL ?? ""
+            "img_url": imageURL ?? "",
+            "gender": gender
         ]
         
         let dataRequest = APIRequest(path: path, method: .post, parameters: body)
