@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct RunTab: View {
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var mapVM: MapViewModel
     @EnvironmentObject var runVM: RunningViewModel
-    @ObservedObject var runningSession: RunningSessionService = .init()
     @State private var selectedRunning = 0
     @State private var showRunningPage: Bool = false
     let typeOfRunning = ["혼자 달리기", "그룹 달리기"]
@@ -37,7 +36,7 @@ struct RunTab: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Button {
-                            dismiss()
+                            navigation.path.removeLast()
                         } label: {
                             HStack(spacing: 10) {
                                 Image(systemName: "chevron.left")

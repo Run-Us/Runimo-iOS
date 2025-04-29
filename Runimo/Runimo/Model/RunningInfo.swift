@@ -15,6 +15,19 @@ struct RunningInfo: Codable {
     var distance: Double?
 }
 
+struct RunningResult: Codable {
+    var started_at: Date?
+    var end_at: Date?
+    var total_distance_in_meters: Int?
+    var average_pace_in_milli_seconds: Int?
+    var segment_paces: [SegmentPaces]?
+}
+
+struct SegmentPaces: Codable {
+    let distance: Int
+    let pace: Int
+}
+
 struct Location: Codable {
     var userKey: String
     var x: Double
@@ -49,4 +62,8 @@ struct RunningRecord: Codable {
     let distance_in_meters: Int
     let duration_in_seconds: Int
     let average_pace_in_miliseconds: Int
+}
+
+struct SaveRunningResponse: Codable {
+    let saved_id: String
 }

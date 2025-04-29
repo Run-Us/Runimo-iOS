@@ -84,6 +84,8 @@ struct LoginPage: View {
                     PostCardList()
                 case SettingPage.id:
                     SettingPage()
+                case RunTab.id:
+                    RunTab()
                 default:
                     Text("❓ Unknown destination: \(value)")
                 }

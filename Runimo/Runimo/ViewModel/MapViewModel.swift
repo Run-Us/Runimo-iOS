@@ -61,6 +61,8 @@ extension MapViewModel: CLLocationManagerDelegate {
     
     // 사용자 위치 추적 시작
     func startUpdatingLocation() {
+        motionManager.runningInfo = RunningInfo(startDate: Date())
+        motionManager.runningResult = RunningResult(started_at: Date())
         isRunning = true
         locationManager.startUpdatingLocation()
         motionManager.startUpdatesMotion()
@@ -77,13 +79,6 @@ extension MapViewModel: CLLocationManagerDelegate {
         stopUpdatingLocation()
         userPath.removeAll()
         motionManager.initMotionManager()
-        
-        // 기록 저장 API
-        RunningSessionService().postAggregate(
-            mode: runningType.rawValue,
-            runningId: UserDefaults.standard.string(forKey: "runningId"),
-            distance: Int(motionManager.runningInfo.distance ?? 0)*1000,
-            runningTime: motionManager.getRunningTimeInt(),
-            pace: motionManager.getRunningPace())
+        motionManager.runningResult.end_at = Date()
     }
 }

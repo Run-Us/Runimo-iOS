@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct FinishRunningPage: View {
+    @EnvironmentObject var navigation: NavigationManager
     var mapVM: MapViewModel
     var runningInfo: RunningInfo
     @State private var showRunningPostPage: Bool = false
     @State private var title: String = ""
     @State private var explanation: String = ""
-    @State private var showDeletePopUp: Bool = false
     @FocusState private var isEditorFocused: Bool
     
     init(mapVM: MapViewModel) {
@@ -40,7 +40,7 @@ struct FinishRunningPage: View {
                     
                     // 저장 버튼
                     Button {
-                        showRunningPostPage = true
+                        saveRunningAPI()
                     } label: {
                         Text("저장하기")
                             .font(.title5_bold)
@@ -59,7 +59,7 @@ struct FinishRunningPage: View {
             ToolbarItem(placement: .topBarLeading) {
                 HStack(spacing: 6) {
                     Button {
-                        showDeletePopUp = true
+                        navigation.path.removeLast(navigation.path.count-1)
                     } label: {
                         Image(systemName: "xmark")
                             .resizable()
@@ -71,16 +71,6 @@ struct FinishRunningPage: View {
                 .foregroundStyle(.primaryGray)
             }
         }
-        .popup(
-            isPresented: $showDeletePopUp,
-            title: "활동을 삭제하시겠어요?",
-            subtitle: "시간: \(mapVM.motionManager.runningInfo.runningTime ?? "0:00") / 거리: \(String(format: "%.2fkm", mapVM.motionManager.runningInfo.distance ?? 0.0))",
-            buttonText: "삭제하기",
-            buttonColor: .error,
-            cancelAction: {},
-            buttonAction: {
-                // TODO: 활동 삭제
-            })
         .onTapGesture {
             isEditorFocused = false
         }
@@ -124,6 +114,14 @@ struct FinishRunningPage: View {
                 Text("\(contents.wrappedValue.count)/\(maxCount)")
                     .foregroundStyle(.gray400)
                     .font(.caption_regular)
+            }
+        }
+    }
+    
+    private func saveRunningAPI() {
+        RunningSessionService.shared.saveRunningRecords(running: mapVM.motionManager.runningResult) { isSuccess in
+            if isSuccess {
+                navigation.path.removeLast(navigation.path.count-1)
             }
         }
     }

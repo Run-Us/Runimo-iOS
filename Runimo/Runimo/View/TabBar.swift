@@ -76,7 +76,9 @@ struct TabBar: View {
                             Spacer()
                                     
                             // 달리기
-                            NavigationLink(destination: RunTab()) {
+                            Button {
+                                navigation.path.append(RunTab.id)
+                            } label: {
                                 Image("tab_play")
                                     .offset(y: -10)
                                     .frame(width: 60, height: 60)

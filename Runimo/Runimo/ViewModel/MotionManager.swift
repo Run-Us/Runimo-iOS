@@ -12,6 +12,7 @@ class MotionManager: ObservableObject {
     let pedometer = CMPedometer()
     var timer: Timer?
     @Published var runningInfo: RunningInfo = RunningInfo()
+    @Published var runningResult: RunningResult = RunningResult()
     private var secondsElapsed = 0  // 경과한 시간 저장
     private var pace = 0
     
@@ -32,7 +33,7 @@ class MotionManager: ObservableObject {
             // 시간 업데이트
             getRunningTime()
             
-            guard let startDate = runningInfo.startDate else { return }
+            guard let startDate = runningResult.started_at else { return }
             
             pedometer.startUpdates(from: startDate) { (pedometerData, error) in
 
@@ -58,6 +59,9 @@ class MotionManager: ObservableObject {
             let secPerKm = Int(averagePace.doubleValue * 1000) % 60
             self.runningInfo.averagePace = "\(minPerKm)\' \(secPerKm)\'\'"
             self.runningInfo.distance = distance.doubleValue / 1000
+            
+            self.runningResult.average_pace_in_milli_seconds = pace
+            self.runningResult.total_distance_in_meters = distance.intValue
         }
     }
     

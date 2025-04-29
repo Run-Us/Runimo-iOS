@@ -11,38 +11,48 @@ import CoreLocation
 import Alamofire
 
 class RunningSessionService: ObservableObject {
+    static let shared = RunningSessionService()
     let keychain = KeychainSwift()
     let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
-    let idToken = UserDefaults.standard.integer(forKey: "idToken")
     
-    // 달리기 기록 저장
-    func postAggregate(mode: String, runningId: String?, distance: Int, runningTime: Int, pace: Int) {
-        let url = "\(baseUrl)/runnings/aggregates?mode=\(mode)"
-        let headers: HTTPHeaders = [
+    private init() { }
+    
+    func saveRunningRecords(running: RunningResult, retrying: Bool = false, completion: @escaping (Bool) -> Void) {
+        let path = "\(baseUrl)/records"
+        var headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
         ]
-        var parameters: [String: Any] = [
-            "recordData": "",    // TODO: 압축한 문자열
-            "runningDistanceInMeters": distance,
-            "runningDurationInMilliSeconds": runningTime,
-            "averagePaceInMilliSeconds": pace
-        ]
         
-        // 그룹 달리기만 runningId 추가
-        if let runningId = runningId {
-            parameters.updateValue(runningId, forKey: "runningId")
+        AF.request(path, method: .post, parameters: running, encoder: JSONParameterEncoder.default, headers: headers)
+            .responseDecodable(of: BaseResponse<SaveRunningResponse>.self) { response in
+                
+                // 토큰 갱신
+                if let statusCode = response.response?.statusCode, statusCode == 401, !retrying {
+                    AuthService.shared.refreshToken { success in
+                        if success {
+                            // new token으로 재요청
+                            headers["Authorization"] = "Bearer \(self.keychain.get("accessToken") ?? "")"
+                            
+                            self.saveRunningRecords(running: running, retrying: true) { result in
+                                completion(result)
+                            }
+                        }
+                    }
+                    return
+                }
+             
+            switch response.result {
+            case .success(let result):
+                print(result.message, result.code, result.success, response.response?.statusCode)
+                print("runningId: \(result.payload?.saved_id ?? "")")
+                completion(true)
+            case .failure(let error):
+                print("❌ Request Failed: Request URL: \(path)\n\(error.localizedDescription)")
+                completion(false)
+            }
         }
         
-        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: BaseResponse<String>.self) { response in
-                switch response.result {
-                case .success(let response):
-                    print("Aggregate Success: \(response)")
-                case .failure(let error):
-                    print("Aggregate Failed: \(error)")
-                }
-            }
     }
 }
 
