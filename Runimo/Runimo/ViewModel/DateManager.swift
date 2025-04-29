@@ -109,4 +109,8 @@ extension DateManager {
         }
         return (nil, nil)
     }
+    
+    func getYearMonth(date: Date) -> (year: Int, month: Int) {
+        return (calendar.component(.year, from: date), calendar.component(.month, from: date))
+    }
 }

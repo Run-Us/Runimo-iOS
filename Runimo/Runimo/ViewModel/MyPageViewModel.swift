@@ -77,13 +77,16 @@ extension MyPageViewModel {
         let (start, end) = dateManager.getDateRange(type: recordType)
         guard start != nil, end != nil else { return }
         
-        MyPageService.shared.getMyRunningData(
-            type: recordType.rawValue,
-            startDate: getDateString(date: start ?? Date()),
-            endDate: getDateString(date: end ?? Date())) { data in
-            self.graph = data
+        if recordType == .weekly {
+            MyPageService.shared.getWeeklyRunningRecords(startDate: getDateString(date: start ?? Date()), endDate: getDateString(date: end ?? Date())) { result in
+                
+            }
+        } else {
+            let (year, month) = dateManager.getYearMonth(date: start ?? Date())
+            MyPageService.shared.getMonthlyRunningRecords(year: year, month: month) { data in
+                
+            }
         }
-        
         // TODO: 서버 정상화 시 주석 해제
 //        getGraphData()
     }

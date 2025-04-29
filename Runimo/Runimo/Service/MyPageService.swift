@@ -37,27 +37,56 @@ class MyPageService {
         }
     }
     
-    // 특정 기간 나의 통계 조회
-    func getMyRunningData(type: String, startDate: String, endDate: String, completion: @escaping (_ data: RunningGraph) -> Void) {
-        let url = "\(baseUrl)/my/stats?type=\(type)&startDate=\(startDate)&endDate=\(endDate)"
+    // 주간 통계 조회
+    func getWeeklyRunningRecords(startDate: String, endDate: String, completion: @escaping (_ data: RunningRecordResponse) -> Void) {
+        let path = "/records/stats/weekly"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
         ]
         
-        AF.request(url, method: .get, encoding: URLEncoding.default, headers: headers)
-            .responseDecodable(of: BaseResponse<RunningGraph>.self) { response in
-                print(String(decoding: response.data ?? Data(), as: UTF8.self))
-                switch response.result {
-                case .success(let response):
-                    print(response)
-                    if let data = response.payload {
-                        completion(data)
-                    }
-                case .failure(let error):
-                    print("getMyPage Failed: \(error)")
-                }
+        let parameters: [String: Any] = [
+            "startDate": startDate,
+            "endDate": endDate
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
+        
+        NetworkManager.shared.request(dataRequest) { (result: Result<RunningRecordResponse, AFError>) in
+            switch result {
+            case .success(let data):
+                print("\(data)")
+                completion(data)
+            case .failure(let error):
+                print("\(error)")
             }
+        }
+    }
+    
+    // 월간 통계 조회
+    func getMonthlyRunningRecords(year: Int, month: Int, completion: @escaping (_ data: RunningRecordResponse) -> Void) {
+        let path = "/records/stats/monthly"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        let parameters: [String: Any] = [
+            "year": year,
+            "month": month
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
+        
+        NetworkManager.shared.request(dataRequest) { (result: Result<RunningRecordResponse, AFError>) in
+            switch result {
+            case .success(let data):
+                print("\(data)")
+                completion(data)
+            case .failure(let error):
+                print("\(error)")
+            }
+        }
     }
     
     // 탈퇴하기

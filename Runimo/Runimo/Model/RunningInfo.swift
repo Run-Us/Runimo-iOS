@@ -67,3 +67,13 @@ struct RunningRecord: Codable {
 struct SaveRunningResponse: Codable {
     let saved_id: String
 }
+
+// MARK: - 러닝 기록
+struct RunningRecordResponse: Codable {
+    let daily_stats: [DailyStats]
+}
+
+struct DailyStats: Codable {
+    let date: Date
+    let distance: Int
+}
