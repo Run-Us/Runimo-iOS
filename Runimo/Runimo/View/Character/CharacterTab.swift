@@ -44,7 +44,7 @@ struct CharacterTab: View {
                     .font(.title5_bold)
                     .foregroundStyle(.primaryGray)
                 Spacer()
-                Text("0km ~ 49km")
+                Text("\(Int(data.egg_required_distance_in_meters/1000))km 이상")
                     .font(.caption_regular)
                     .foregroundStyle(.quaternaryGray)
             }

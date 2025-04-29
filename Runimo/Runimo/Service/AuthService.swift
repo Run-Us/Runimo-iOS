@@ -69,7 +69,7 @@ final class AuthService: ObservableObject {
                         completion(0)
                     }
                 }
-            } else {
+            } else if code == 404 {
                 NetworkManager.shared.requestLoginError(dataRequest)
                 completion(code)
             }
