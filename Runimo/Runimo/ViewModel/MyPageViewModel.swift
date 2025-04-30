@@ -51,7 +51,7 @@ class MyPageViewModel: ObservableObject {
 extension MyPageViewModel {
     // 누적 거리
     func getTotalDistance() -> String {
-        return String(format: "%.2fkm", user.total_distance_in_meters/1000)
+        return String(format: "%.2fkm", Double(user.total_distance_in_meters)/1000)
     }
     
     // 최근 러닝
