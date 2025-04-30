@@ -62,10 +62,20 @@ extension DateManager {
     func getString(date: Date?) -> String {
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         if let date = date {
-            print(formatter.string(from: date))
             return formatter.string(from: date)
         }
         return ""
+    }
+    
+    func convertDateString(dateString: String) -> String {
+        // input format
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
+        if let date = formatter.date(from: dateString) {
+            formatter.dateFormat = "MM월 dd일 EEEE"
+            return formatter.string(from: date)
+        }
+        return dateString
     }
 }
 
