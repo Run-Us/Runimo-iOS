@@ -160,7 +160,7 @@ extension DateManager {
         return calendar.dateComponents([.day], from: startDate, to: endDate).day ?? 0
     }
     
-    // 기간 시트 날짜 리스트 
+    // 기간 시트 날짜 리스트
     func getDateList(type: RecordType) -> [String] {
         var dateList: [String] = []
         

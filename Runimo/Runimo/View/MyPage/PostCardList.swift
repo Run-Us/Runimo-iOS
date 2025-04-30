@@ -23,7 +23,7 @@ struct PostCardList: View {
                     .padding(.vertical, 24)
                 
                 ScrollView {
-                    ForEach(runningSessionList, id: \.title) { record in
+                    ForEach(runningSessionList, id: \.id) { record in
                         PostCard(runningRecord: record)
                             .padding(.bottom, 14)
                     }
@@ -59,7 +59,9 @@ struct PostCardList: View {
             HStack {
                 Text(DateManager.shared.getDateString(date: Date(), type: .monthly))
                     .font(.title4_semibold)
-                Button {} label: {
+                Button {
+                    
+                } label: {
                     Image("arrow_down")
                 }
                 Spacer()
