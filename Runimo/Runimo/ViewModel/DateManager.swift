@@ -38,6 +38,11 @@ extension DateManager {
         return formatter.string(from: date)
     }
     
+    func getMonth(date: Date) -> String {
+        formatter.dateFormat = "M"
+        return formatter.string(from: date)
+    }
+    
     // 날짜 string
     func getDay(date: Date) -> String {
         formatter.dateFormat = "d"

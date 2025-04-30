@@ -69,6 +69,7 @@ class RunningSessionService: ObservableObject {
         
     }
     
+    // 러닝 보상 획득
     func getRunningReward(runningId: String) {
         let path = "/rewards/runnings"
         let headers: HTTPHeaders = [
@@ -87,6 +88,31 @@ class RunningSessionService: ObservableObject {
             case .success(let data):
                 print("러닝 보상 획득: \(data)")
                 
+            case .failure(let error):
+                print("\(error)")
+            }
+        }
+    }
+    
+    func getMyRunningRecords(page: Int, completion: @escaping (RunningRecordsResponse) -> Void) {
+        let path = "/records/me"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        let parameters: [String: Any] = [
+            "page": page,
+            "size": 10
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
+
+        NetworkManager.shared.request(dataRequest) { (result: Result<RunningRecordsResponse, AFError>) in
+            switch result {
+            case .success(let data):
+                print("러닝 기록 조회: \(data)")
+                completion(data)
             case .failure(let error):
                 print("\(error)")
             }

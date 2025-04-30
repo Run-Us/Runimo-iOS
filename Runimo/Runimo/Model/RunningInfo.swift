@@ -57,6 +57,7 @@ struct RunningPost: Identifiable, Codable {
 }
 
 struct RunningRecord: Codable {
+    let id: String?
     let title: String
     let start_date_time: String
     let distance_in_meters: Int
@@ -78,9 +79,14 @@ struct DailyStats: Codable {
     let distance: Int
 }
 
+// 러닝 완료 보상
 struct RewardResponse: Codable {
     let is_rewarded: Bool
     let egg_code: String
     let egg_type: String
     let love_point_amount: Int
+}
+
+struct RunningRecordsResponse: Codable {
+    let record_list: [RunningRecord]
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PostCardList: View {
     @EnvironmentObject var navigation: NavigationManager
-    var runningSessionList: [RunningRecord] = []
+    @State private var runningSessionList: [RunningRecord] = []
     private let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
     
     var body: some View {
@@ -48,13 +48,16 @@ struct PostCardList: View {
             }
         }
         .navigationBarBackButtonHidden()
+        .onAppear {
+            getRunningRecordsAPI()
+        }
     }
 
     @ViewBuilder
     private func header() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text("2024년 10월")
+                Text(DateManager.shared.getDateString(date: Date(), type: .monthly))
                     .font(.title4_semibold)
                 Button {} label: {
                     Image("arrow_down")
@@ -62,9 +65,17 @@ struct PostCardList: View {
                 Spacer()
             }
             .foregroundStyle(.primaryGray)
-            Text("\(nickname)님은 10월달에 총 22번을 달리셨어요.\n서울에서 부산까지의 거리를 달리셨네요! (250km)")
+            Text("\(nickname)님은 \(DateManager.shared.getMonth(date: Date()))월달에 총 \(runningSessionList.count)번을 달리셨어요.")
                 .font(.body2_medium)
                 .foregroundStyle(.quaternaryGray)
+        }
+    }
+    
+    private func getRunningRecordsAPI() {
+        RunningSessionService.shared.getMyRunningRecords(page: 0) { result in
+            DispatchQueue.main.async {
+                runningSessionList = result.record_list
+            }
         }
     }
 }
