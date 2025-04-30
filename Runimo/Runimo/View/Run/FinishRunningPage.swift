@@ -27,27 +27,20 @@ struct FinishRunningPage: View {
                     
                     // 제목
                     textField(title: "제목", contents: $title, maxCount: 20)
+                        .padding(.horizontal, 16)
+                        .padding(.top, 24)
                     
                     // 설명
                     textField(title: "설명", contents: $explanation, maxCount: 200)
+                        .padding(.horizontal, 16)
                     
                     Spacer()
                     
                     // 저장 버튼
-                    Button {
+                    CTAButton(text: "저장하기", disabled: false) {
                         saveRunningPostAPI()
-                    } label: {
-                        Text("저장하기")
-                            .font(.title5_bold)
-                            .foregroundStyle(.white)
-                            .background(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .frame(width: geometry.size.width - 32, height: 56)
-                            )
                     }
                 }
-                .padding(16)
-                
             }
         }
         .toolbar {
