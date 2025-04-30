@@ -96,7 +96,7 @@ class RunningSessionService: ObservableObject {
     }
     
     // 러닝 보상 획득
-    func getRunningReward(runningId: String) {
+    func getRunningReward(runningId: String, completion: @escaping (RewardResponse) -> Void) {
         let path = "/rewards/runnings"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -113,7 +113,7 @@ class RunningSessionService: ObservableObject {
             switch result {
             case .success(let data):
                 print("러닝 보상 획득: \(data)")
-                
+                completion(data)
             case .failure(let error):
                 print("\(error)")
             }

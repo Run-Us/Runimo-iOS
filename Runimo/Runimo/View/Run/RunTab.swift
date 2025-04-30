@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RunTab: View {
     @EnvironmentObject var navigation: NavigationManager
+    @EnvironmentObject var sharedData: SharedData
     @EnvironmentObject var mapVM: MapViewModel
     @EnvironmentObject var runVM: RunningViewModel
     @State private var selectedRunning = 0

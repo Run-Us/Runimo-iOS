@@ -86,6 +86,10 @@ struct LoginPage: View {
                     SettingPage()
                 case RunTab.id:
                     RunTab()
+                case RunningRewardPage.id:
+                    RunningRewardPage()
+                case FinishRunningPage.id:
+                    FinishRunningPage()
                 default:
                     Text("❓ Unknown destination: \(value)")
                 }

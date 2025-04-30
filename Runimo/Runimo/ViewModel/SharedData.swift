@@ -28,6 +28,9 @@ class SharedData: ObservableObject {
     @Published var selectedRunimoCode: String = ""
     @Published var mainRunimoCode: String = ""
     
+    // MARK: - 러닝 보상
+    @Published var rewardData: (egg: String, point: Int) = ("", 0)
+    
     init() { }
     
     // 캐릭터 팝업 띄우기 

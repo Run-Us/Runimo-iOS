@@ -9,17 +9,12 @@ import SwiftUI
 
 struct FinishRunningPage: View {
     @EnvironmentObject var navigation: NavigationManager
-    var mapVM: MapViewModel
-    var runningInfo: RunningInfo
+    @EnvironmentObject var mapVM: MapViewModel
+    @State private var runningInfo: RunningInfo = RunningInfo()
     @State private var showRunningPostPage: Bool = false
     @State private var title: String = ""
     @State private var explanation: String = ""
     @FocusState private var isEditorFocused: Bool
-    
-    init(mapVM: MapViewModel) {
-        self.mapVM = mapVM
-        runningInfo = mapVM.motionManager.runningInfo
-    }
     
     var body: some View {
         ZStack {
@@ -40,7 +35,7 @@ struct FinishRunningPage: View {
                     
                     // 저장 버튼
                     Button {
-                        saveRunningAPI()
+                        saveRunningPostAPI()
                     } label: {
                         Text("저장하기")
                             .font(.title5_bold)
@@ -77,6 +72,9 @@ struct FinishRunningPage: View {
         .navigationBarBackButtonHidden()
         .navigationDestination(isPresented: $showRunningPostPage) {
             RunningPostPage(runningPost: RunningPost(createdAt: "", title: title, contents: explanation, runningInfo: runningInfo))
+        }
+        .onAppear {
+            runningInfo = mapVM.motionManager.runningInfo
         }
     }
     
@@ -118,16 +116,11 @@ struct FinishRunningPage: View {
         }
     }
     
-    private func saveRunningAPI() {
-        RunningSessionService.shared.saveRunningRecords(running: mapVM.motionManager.runningResult) { isSuccess, runningId in
-            if isSuccess {
-                RunningSessionService.shared.getRunningReward(runningId: runningId)
-                navigation.path.removeLast(navigation.path.count-1)
-            }
-        }
+    private func saveRunningPostAPI() {
+        
     }
 }
 
 #Preview {
-    FinishRunningPage(mapVM: MapViewModel())
+    FinishRunningPage()
 }

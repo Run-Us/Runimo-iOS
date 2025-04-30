@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct RunningPage: View {
+    @EnvironmentObject var navigation: NavigationManager
+    @EnvironmentObject var sharedData: SharedData
     @EnvironmentObject var mapVM: MapViewModel
     @EnvironmentObject var runVM: RunningViewModel
-    @State private var showFinishPage: Bool = false
     @State private var showStopPopUp: Bool = false
     
     var body: some View {
@@ -43,20 +44,9 @@ struct RunningPage: View {
                         // 지도
                         RunningMapPage(
                             motionManager: mapVM.motionManager,
-                            showStopAlert: $showStopPopUp,
-                            showFinishPage: $showFinishPage
+                            showStopAlert: $showStopPopUp
                         )
                         .tag(1)
-                        
-                        // 그룹원
-                        if runVM.runningType == .group {
-                            RunningMapPage(
-                                motionManager: mapVM.motionManager,
-                                showStopAlert: $showStopPopUp,
-                                showFinishPage: $showFinishPage
-                            )
-                            .tag(2)
-                        }
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                     
@@ -85,7 +75,7 @@ struct RunningPage: View {
                 // 끝내기
                 mapVM.stopRunning(runningType: runVM.runningType)
                 runVM.initRunVM()
-                showFinishPage = true
+                saveRunningAPI()
         })
         .navigationBarBackButtonHidden()
         .onAppear {
@@ -99,6 +89,18 @@ struct RunningPage: View {
                 }
             }
             
+        }
+    }
+    
+    // 러닝 기록 저장
+    private func saveRunningAPI() {
+        RunningSessionService.shared.saveRunningRecords(running: mapVM.motionManager.runningResult) { isSuccess, runningId in
+            if isSuccess {
+                RunningSessionService.shared.getRunningReward(runningId: runningId) { data in
+                    sharedData.rewardData = (data.egg_type, data.love_point_amount)
+                    navigation.path.append(RunningRewardPage.id)
+                }
+            }
         }
     }
 }

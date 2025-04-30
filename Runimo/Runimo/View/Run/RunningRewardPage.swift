@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RunningRewardPage: View {
     @EnvironmentObject var navigation: NavigationManager
+    @EnvironmentObject var sharedData: SharedData
     
     var body: some View {
         ZStack {
@@ -27,8 +28,8 @@ struct RunningRewardPage: View {
                 .padding(.horizontal, 16)
                 
                 VStack(spacing: 12) {
-                    rewardItem(image: "icon_egg", text: "마당 알")
-                    rewardItem(image: "icon_love", text: "10개")
+                    rewardItem(image: "icon_egg", text: sharedData.rewardData.egg)
+                    rewardItem(image: "icon_love", text: "\(sharedData.rewardData.point)개")
                 }
                 .padding(.horizontal, 16)
                 

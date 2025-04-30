@@ -12,7 +12,6 @@ struct RunningMapPage: View {
     @EnvironmentObject var runVM: RunningViewModel
     @StateObject var motionManager: MotionManager
     @Binding var showStopAlert: Bool
-    @Binding var showFinishPage: Bool
     
     var body: some View {
         GeometryReader { geometry in
@@ -62,9 +61,6 @@ struct RunningMapPage: View {
                 case .group: EmptyView()
                 }
             }
-            .navigationDestination(isPresented: $showFinishPage) {
-                FinishRunningPage(mapVM: mapVM)
-            }
         }
     }
     
@@ -107,5 +103,5 @@ struct RunningMapPage: View {
 }
 
 #Preview {
-    RunningMapPage(motionManager: MotionManager(), showStopAlert: .constant(false), showFinishPage: .constant(false))
+    RunningMapPage(motionManager: MotionManager(), showStopAlert: .constant(false))
 }
