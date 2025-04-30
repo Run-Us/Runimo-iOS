@@ -30,7 +30,7 @@ class MyPageViewModel: ObservableObject {
     @Published var showDateSheet: Bool = false
     @Published var user: MyPage
     @Published var graph: RunningGraph
-    @Published var graphDisplay: (count: Int, distance: String, time: String, maxYLength: Double, distanceList: [Double]) = (0, "0.00km", "0m 0s", 9.0, Array(repeating: 0.0, count: 30))
+    @Published var graphDisplay: (count: Int, distance: String, time: String, maxYLength: Double, distanceList: [Double]) = (0, "0.00km", "0m 0s", 6.0, Array(repeating: 0.0, count: 30))
     @Published var dailyStats: [DailyStats] = []
     
     init() {
@@ -95,11 +95,14 @@ extension MyPageViewModel {
     func setGraphData(startDate: Date) {
         graph.total_count = dailyStats.count
         graph.distance_list = Array(repeating: 0, count: dateManager.getCurrentMonthDayCount())
+        graph.total_distance = 0
+        graph.total_time = 0
         
         for stat in dailyStats {
             if let date = dateManager.convertStringToDate(dateString: stat.date) {
                 let index = dateManager.getDifferenceDayCount(from: startDate, to: date)
                 graph.distance_list[index] = stat.distance
+                graph.total_distance += stat.distance
             }
         }
         
@@ -117,7 +120,7 @@ extension MyPageViewModel {
             count: graph.total_count,
             distance: String(format: "%.2fkm", distance),
             time: "\(minute)m \(second)s",
-            maxYLength: maxYLength,
+            maxYLength: maxYLength > 0 ? maxYLength : 6.0,
             distanceList: graph.distance_list.map{ Double($0)/1000 }
         )
     }

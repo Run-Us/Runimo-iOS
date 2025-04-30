@@ -17,7 +17,7 @@ struct MyGraph: View {
                 background()
                 // 그래프
                 totalGraph(geometry.size.height - 36)
-                    .frame(width: geometry.size.width - 48, height: geometry.size.height)
+                    .frame(width: geometry.size.width - 48, height: geometry.size.height-12)
                     .padding(.top, 12)
             }
         }
@@ -62,7 +62,7 @@ struct MyGraph: View {
     @ViewBuilder
     func weekGraph(_ height: Double) -> some View {
         VStack(spacing: 0) {
-            HStack(spacing: 0) {
+            HStack(alignment: .bottom, spacing: 0) {
                 ForEach(myPageVM.xData.indices, id: \.self) { idx in
                     weekBarGraph(xdata: myPageVM.xData[idx], ydata: myPageVM.graphDisplay.distanceList[idx], height: height)
                 }
@@ -91,7 +91,7 @@ struct MyGraph: View {
     func monthlyGraph(_ height: Double) -> some View {
         VStack(spacing: 0) {
             // 막대 그래프
-            HStack(spacing: 0) {
+            HStack(alignment: .bottom, spacing: 0) {
                 ForEach(myPageVM.graphDisplay.distanceList, id: \.self) { item in
                     RoundedRectangle(cornerRadius: myPageVM.barGraphCornerRadius)
                         .fill(item > 0 ? .highlight : .clear)

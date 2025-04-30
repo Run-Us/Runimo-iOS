@@ -79,7 +79,7 @@ extension DateManager {
     }
     
     func convertStringToDate(dateString: String) -> Date? {
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        formatter.dateFormat = "yyyy-MM-dd"
         
         if let date = formatter.date(from: dateString) {
             return date
