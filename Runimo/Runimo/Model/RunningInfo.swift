@@ -77,3 +77,10 @@ struct DailyStats: Codable {
     let date: String
     let distance: Int
 }
+
+struct RewardResponse: Codable {
+    let is_rewarded: Bool
+    let egg_code: String
+    let egg_type: String
+    let love_point_amount: Int
+}

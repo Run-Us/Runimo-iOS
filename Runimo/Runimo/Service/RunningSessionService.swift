@@ -17,7 +17,7 @@ class RunningSessionService: ObservableObject {
     
     private init() { }
     
-    func saveRunningRecords(running: RunningResult, retrying: Bool = false, completion: @escaping (Bool) -> Void) {
+    func saveRunningRecords(running: RunningResult, retrying: Bool = false, completion: @escaping (Bool, String) -> Void) {
         let path = "\(baseUrl)/records"
         var headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -47,8 +47,8 @@ class RunningSessionService: ObservableObject {
                             // new token으로 재요청
                             headers["Authorization"] = "Bearer \(self.keychain.get("accessToken") ?? "")"
                             
-                            self.saveRunningRecords(running: running, retrying: true) { result in
-                                completion(result)
+                            self.saveRunningRecords(running: running, retrying: true) { isSuccess, result in
+                                completion(isSuccess, result)
                             }
                         }
                     }
@@ -57,15 +57,40 @@ class RunningSessionService: ObservableObject {
              
             switch response.result {
             case .success(let result):
-                print(result.message, result.code, result.success, response.response?.statusCode)
-                print("runningId: \(result.payload?.saved_id ?? "")")
-                completion(true)
+                if let result = result.payload {
+                    print("runningId: \(result.saved_id)")
+                    completion(true, result.saved_id)
+                }
             case .failure(let error):
                 print("❌ Request Failed: Request URL: \(path)\n\(error.localizedDescription)")
-                completion(false)
+                completion(false, "")
             }
         }
         
+    }
+    
+    func getRunningReward(runningId: String) {
+        let path = "/rewards/runnings"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        let parameters: [String: Any] = [
+            "record_id": runningId
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters, headers: headers)
+        
+        NetworkManager.shared.request(dataRequest) { (result: Result<RewardResponse, AFError>) in
+            switch result {
+            case .success(let data):
+                print("러닝 보상 획득: \(data)")
+                
+            case .failure(let error):
+                print("\(error)")
+            }
+        }
     }
 }
 

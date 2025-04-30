@@ -119,8 +119,9 @@ struct FinishRunningPage: View {
     }
     
     private func saveRunningAPI() {
-        RunningSessionService.shared.saveRunningRecords(running: mapVM.motionManager.runningResult) { isSuccess in
+        RunningSessionService.shared.saveRunningRecords(running: mapVM.motionManager.runningResult) { isSuccess, runningId in
             if isSuccess {
+                RunningSessionService.shared.getRunningReward(runningId: runningId)
                 navigation.path.removeLast(navigation.path.count-1)
             }
         }
