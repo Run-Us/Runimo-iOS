@@ -93,6 +93,8 @@ struct RunningPage: View {
             // 권한이 모두 허용됐을 경우에만 측정 시작
             mapVM.motionManager.checkPedometerAuthorization { isSuccess in
                 if isSuccess {
+                    mapVM.motionManager.runningInfo = RunningInfo(startDate: Date())
+                    mapVM.motionManager.runningResult = RunningResult(started_at: Date())
                     mapVM.startUpdatingLocation()
                 }
             }
