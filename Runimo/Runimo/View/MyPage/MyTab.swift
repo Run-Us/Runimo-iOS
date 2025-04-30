@@ -33,7 +33,7 @@ struct MyTab: View {
             
         }
         .sheet(isPresented: $myPageVM.showDateSheet) {
-            DateSheet()
+            DateSheet(recordType: myPageVM.recordType)
                 .presentationDragIndicator(.visible)
                 .presentationDetents([.fraction(0.35), .large])
         }

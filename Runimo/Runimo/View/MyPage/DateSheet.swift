@@ -8,13 +8,30 @@
 import SwiftUI
 
 struct DateSheet: View {
+    var recordType: RecordType = .monthly
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 18) {
-            Text("기간 설정")
-                .font(.title5_bold)
-            
+        ZStack {
+            Color.primaryBG.ignoresSafeArea()
+            VStack(alignment: .leading, spacing: 18) {
+                Text("기간 설정")
+                    .font(.title5_bold)
+                
+                ScrollView {
+                    ForEach(DateManager.shared.getDateList(type: recordType), id: \.self) { item in
+                        HStack {
+                            Text(item)
+                                .font(.body2_medium)
+                                .foregroundStyle(.secondaryGray)
+                                .padding(.vertical, 10)
+                            Spacer()
+                        }
+                    }
+                }
+            }
+            .foregroundStyle(.primaryGray)
+            .padding(20)
         }
-        .foregroundStyle(.primaryGray)
     }
 }
 

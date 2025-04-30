@@ -111,13 +111,13 @@ extension DateManager {
     // RecordCard 기간용
     func getRecordDateRange(type: RecordType) -> String {
         switch (type) {
-        case .weekly: getWeekDateRange()
+        case .weekly: getWeekDateRange(date: date)
         case .monthly: getDateString(date: date, type: type)
         }
     }
     
     // 주간 기간 string 얻기
-    private func getWeekDateRange() -> String {
+    private func getWeekDateRange(date: Date) -> String {
         if isThisWeek(date) { return "이번주" }
         if let week = calendar.dateInterval(of: .weekOfYear, for: date) {
             let startOfWeek = week.start
@@ -158,5 +158,25 @@ extension DateManager {
     
     func getDifferenceDayCount(from startDate: Date, to endDate: Date) -> Int {
         return calendar.dateComponents([.day], from: startDate, to: endDate).day ?? 0
+    }
+    
+    // 기간 시트 날짜 리스트 
+    func getDateList(type: RecordType) -> [String] {
+        var dateList: [String] = []
+        
+        if type == .monthly {
+            for i in 0..<5 {
+                if let monthAgo = calendar.date(byAdding: .month, value: -i, to: date) {
+                    dateList.append(getDateString(date: monthAgo, type: type))
+                }
+            }
+        } else {
+            for i in 0..<5 {
+                if let weekAgo = calendar.date(byAdding: .day, value: -7 * i, to: date) {
+                    dateList.append(getWeekDateRange(date: weekAgo))
+                }
+            }
+        }
+        return dateList
     }
 }
