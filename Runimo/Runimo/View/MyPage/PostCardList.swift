@@ -11,6 +11,7 @@ struct PostCardList: View {
     @EnvironmentObject var navigation: NavigationManager
     @State private var runningSessionList: [RunningRecord] = []
     private let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
+    @State private var showDateSheet: Bool = false
     
     var body: some View {
         ZStack {
@@ -51,6 +52,11 @@ struct PostCardList: View {
         .onAppear {
             getRunningRecordsAPI()
         }
+        .sheet(isPresented: $showDateSheet) {
+            DateSheet(recordType: .monthly)
+                .presentationDragIndicator(.visible)
+                .presentationDetents([.fraction(0.35), .large])
+        }
     }
 
     @ViewBuilder
@@ -60,7 +66,7 @@ struct PostCardList: View {
                 Text(DateManager.shared.getDateString(date: Date(), type: .monthly))
                     .font(.title4_semibold)
                 Button {
-                    
+                    showDateSheet = true
                 } label: {
                     Image("arrow_down")
                 }
