@@ -54,7 +54,7 @@ class AuthViewModel: ObservableObject {
     func appleLogin(_ result: ASAuthorization, completion: @escaping (_ result: Int) -> Void) {
         switch result.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
-            let userIdentifier = appleIDCredential.user
+            let _ = appleIDCredential.user
             let idToken = String(data: appleIDCredential.identityToken ?? Data(), encoding: .utf8)
             let authCode = String(data: appleIDCredential.authorizationCode ?? Data(), encoding: .utf8)
             

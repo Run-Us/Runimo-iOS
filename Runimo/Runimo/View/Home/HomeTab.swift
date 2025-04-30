@@ -101,6 +101,7 @@ struct HomeTab: View {
                 KFImage(URL(string: egg.img_url))
                     .placeholder { ProgressView() }
                     .resizable()
+                    .scaledToFit()
                     .frame(width: 310, height: 280)
                 HStack {
                     Text(egg.name)
