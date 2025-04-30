@@ -69,6 +69,32 @@ class RunningSessionService: ObservableObject {
         
     }
     
+    func patchRunningRecords(runningId: String, title: String, description: String, imgURL: String) {
+        let path = "/records/\(runningId)"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        let parameters: [String: Any] = [
+            "title": title,
+            "description": description,
+            "img_url": imgURL
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .patch, parameters: parameters, headers: headers)
+        
+        NetworkManager.shared.request(dataRequest) { (result: Result<String, AFError>) in
+            switch result {
+            case .success(let data):
+                print("러닝 기록 수정: \(data)")
+                
+            case .failure(let error):
+                print("\(error)")
+            }
+        }
+    }
+    
     // 러닝 보상 획득
     func getRunningReward(runningId: String) {
         let path = "/rewards/runnings"
