@@ -97,8 +97,10 @@ extension MyPageViewModel {
         graph.distance_list = Array(repeating: 0, count: dateManager.getCurrentMonthDayCount())
         
         for stat in dailyStats {
-            let index = dateManager.getDifferenceDayCount(from: startDate, to: stat.date)
-            graph.distance_list[index] = stat.distance
+            if let date = dateManager.convertStringToDate(dateString: stat.date) {
+                let index = dateManager.getDifferenceDayCount(from: startDate, to: date)
+                graph.distance_list[index] = stat.distance
+            }
         }
         
         getGraphData()

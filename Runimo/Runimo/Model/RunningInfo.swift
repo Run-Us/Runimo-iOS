@@ -74,6 +74,6 @@ struct RunningRecordResponse: Codable {
 }
 
 struct DailyStats: Codable {
-    let date: Date
+    let date: String
     let distance: Int
 }
