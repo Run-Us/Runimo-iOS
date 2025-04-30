@@ -35,8 +35,8 @@ struct PostCard: View {
                 Text(runningRecord.title)
                     .font(.title5_bold)
                 HStack(spacing: 20) {
-                    detailInfo(title: "거리", contents: String(format: "%.2f", Double(runningRecord.distance_in_meters)/Double(1000)))
-                    detailInfo(title: "시간", contents: "\(runningRecord.duration_in_seconds)")
+                    detailInfo(title: "거리", contents: String(format: "%.2fkm", Double(runningRecord.distance_in_meters)/Double(1000)))
+                    detailInfo(title: "시간", contents: formattingDuration(seconds: runningRecord.duration_in_seconds))
                     detailInfo(title: "페이스", contents: "\(runningRecord.average_pace_in_miliseconds)")
                 }
             }
@@ -57,6 +57,16 @@ struct PostCard: View {
             Text(contents)
                 .font(.caption_bold)
                 .foregroundStyle(.primaryGray)
+        }
+    }
+    
+    private func formattingDuration(seconds: Int) -> String {
+        if seconds >= 60 * 60 {     // 1시간 이상
+            return "\(seconds/3600)h \(seconds%3600)m"
+        } else if seconds >= 60 {
+            return "\(seconds/60)m \(seconds%60)s"
+        } else {
+            return "\(seconds%60)s"
         }
     }
 }
