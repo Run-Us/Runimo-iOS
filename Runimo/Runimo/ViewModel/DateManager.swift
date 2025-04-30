@@ -113,4 +113,17 @@ extension DateManager {
     func getYearMonth(date: Date) -> (year: Int, month: Int) {
         return (calendar.component(.year, from: date), calendar.component(.month, from: date))
     }
+    
+    // 현재 달 날짜수
+    func getCurrentMonthDayCount() -> Int {
+        if let range = calendar.range(of: .day, in: .month, for: date) {
+            let numberOfDaysInMonth = range.count
+            return numberOfDaysInMonth
+        }
+        return 0
+    }
+    
+    func getDifferenceDayCount(from startDate: Date, to endDate: Date) -> Int {
+        return calendar.dateComponents([.day], from: startDate, to: endDate).day ?? 0
+    }
 }

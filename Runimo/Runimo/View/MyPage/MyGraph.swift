@@ -75,8 +75,8 @@ struct MyGraph: View {
     func weekBarGraph(xdata: String, ydata: Double, height: Double) -> some View {
         VStack(spacing: 0) {
             RoundedRectangle(cornerRadius: myPageVM.barGraphCornerRadius)
-                .fill(.highlight)
-                .frame(height: (ydata/myPageVM.graphDisplay.maxYLength) * height)
+                .fill(ydata > 0 ? .highlight : .clear)
+                .frame(height: ydata  > 0 ? (ydata/myPageVM.graphDisplay.maxYLength) * height : height)
                 .padding(.horizontal, myPageVM.graphSpacing/2)
             Text(xdata)
                 .font(.caption_regular)
@@ -94,8 +94,8 @@ struct MyGraph: View {
             HStack(spacing: 0) {
                 ForEach(myPageVM.graphDisplay.distanceList, id: \.self) { item in
                     RoundedRectangle(cornerRadius: myPageVM.barGraphCornerRadius)
-                        .fill(.highlight)
-                        .frame(height: (item/myPageVM.graphDisplay.maxYLength) * height)
+                        .fill(item > 0 ? .highlight : .clear)
+                        .frame(height: item > 0 ? (item/myPageVM.graphDisplay.maxYLength) * height : height)
                         .padding(.horizontal, myPageVM.graphSpacing/2)
                 }
             }

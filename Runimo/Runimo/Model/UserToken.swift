@@ -35,8 +35,8 @@ struct MyPage: Codable {
 }
 
 struct RunningGraph: Codable {
-    let total_count: Int
-    let total_distance: Int
-    let total_time: Int
-    let distance_list: [Int]
+    var total_count: Int
+    var total_distance: Int
+    var total_time: Int
+    var distance_list: [Int]
 }

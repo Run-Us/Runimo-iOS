@@ -30,7 +30,8 @@ class MyPageViewModel: ObservableObject {
     @Published var showDateSheet: Bool = false
     @Published var user: MyPage
     @Published var graph: RunningGraph
-    @Published var graphDisplay: (count: Int, distance: String, time: String, maxYLength: Double, distanceList: [Double]) = (0, "0.00km", "0m 0s", 9.0, Array(repeating: 8.0, count: 30))
+    @Published var graphDisplay: (count: Int, distance: String, time: String, maxYLength: Double, distanceList: [Double]) = (0, "0.00km", "0m 0s", 9.0, Array(repeating: 0.0, count: 30))
+    @Published var dailyStats: [DailyStats] = []
     
     init() {
         user = MyPage(profile_image_url: nil, nickname: "", total_distance_in_meters: 0, latest_run_date_before: 0, latest_running_record_nullable: nil)
@@ -78,17 +79,29 @@ extension MyPageViewModel {
         guard start != nil, end != nil else { return }
         
         if recordType == .weekly {
-            MyPageService.shared.getWeeklyRunningRecords(startDate: getDateString(date: start ?? Date()), endDate: getDateString(date: end ?? Date())) { result in
-                
+            MyPageService.shared.getWeeklyRunningRecords(startDate: getDateString(date: start ?? Date()), endDate: getDateString(date: end ?? Date())) { data in
+                self.dailyStats = data.daily_stats
+                self.setGraphData(startDate: start ?? Date())
             }
         } else {
             let (year, month) = dateManager.getYearMonth(date: start ?? Date())
             MyPageService.shared.getMonthlyRunningRecords(year: year, month: month) { data in
-                
+                self.dailyStats = data.daily_stats
+                self.setGraphData(startDate: start ?? Date())
             }
         }
-        // TODO: 서버 정상화 시 주석 해제
-//        getGraphData()
+    }
+    
+    func setGraphData(startDate: Date) {
+        graph.total_count = dailyStats.count
+        graph.distance_list = Array(repeating: 0, count: dateManager.getCurrentMonthDayCount())
+        
+        for stat in dailyStats {
+            let index = dateManager.getDifferenceDayCount(from: startDate, to: stat.date)
+            graph.distance_list[index] = stat.distance
+        }
+        
+        getGraphData()
     }
     
     // 통계 (화면 표시용)
