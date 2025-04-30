@@ -24,7 +24,20 @@ class RunningSessionService: ObservableObject {
             "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
         ]
         
-        AF.request(path, method: .post, parameters: running, encoder: JSONParameterEncoder.default, headers: headers)
+        let parameters: [String: Any] = [
+            "started_at": DateManager.shared.getString(date: running.started_at),
+            "end_at": DateManager.shared.getString(date: running.end_at),
+            "total_distance_in_meters": running.total_distance_in_meters ?? 0,
+            "average_pace_in_milli_seconds": running.average_pace_in_milli_seconds ?? 0,
+            "segment_paces": (running.segment_paces ?? []).map {
+                return [
+                    "distance": $0.distance,
+                    "pace": $0.pace
+                ]
+            }
+        ]
+        
+        AF.request(path, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
             .responseDecodable(of: BaseResponse<SaveRunningResponse>.self) { response in
                 
                 // 토큰 갱신

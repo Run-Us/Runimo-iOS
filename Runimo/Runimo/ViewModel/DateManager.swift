@@ -58,6 +58,15 @@ extension DateManager {
         }
         return -1
     }
+    
+    func getString(date: Date?) -> String {
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        if let date = date {
+            print(formatter.string(from: date))
+            return formatter.string(from: date)
+        }
+        return ""
+    }
 }
 
 // MARK: SessionTab week
