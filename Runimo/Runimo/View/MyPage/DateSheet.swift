@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DateSheet: View {
     var recordType: RecordType = .monthly
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ZStack {
@@ -18,13 +19,19 @@ struct DateSheet: View {
                     .font(.title5_bold)
                 
                 ScrollView {
-                    ForEach(DateManager.shared.getDateList(type: recordType), id: \.self) { item in
-                        HStack {
-                            Text(item)
-                                .font(.body2_medium)
-                                .foregroundStyle(.secondaryGray)
-                                .padding(.vertical, 10)
-                            Spacer()
+                    let dateList = DateManager.shared.getDateList(type: recordType)
+                    ForEach(Array(zip(dateList.indices, dateList)), id: \.0) { index, item in
+                        Button {
+                            DateManager.shared.updateDate(index: index, type: recordType)
+                            dismiss()
+                        } label: {
+                            HStack {
+                                Text(item)
+                                    .font(.body2_medium)
+                                    .foregroundStyle(.secondaryGray)
+                                    .padding(.vertical, 10)
+                                Spacer()
+                            }
                         }
                     }
                 }

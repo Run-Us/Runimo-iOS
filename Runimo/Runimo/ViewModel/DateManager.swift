@@ -163,20 +163,30 @@ extension DateManager {
     // 기간 시트 날짜 리스트
     func getDateList(type: RecordType) -> [String] {
         var dateList: [String] = []
+        let today = Date()
         
         if type == .monthly {
             for i in 0..<5 {
-                if let monthAgo = calendar.date(byAdding: .month, value: -i, to: date) {
+                if let monthAgo = calendar.date(byAdding: .month, value: -i, to: today) {
                     dateList.append(getDateString(date: monthAgo, type: type))
                 }
             }
         } else {
             for i in 0..<5 {
-                if let weekAgo = calendar.date(byAdding: .day, value: -7 * i, to: date) {
+                if let weekAgo = calendar.date(byAdding: .day, value: -7 * i, to: today) {
                     dateList.append(getWeekDateRange(date: weekAgo))
                 }
             }
         }
         return dateList
+    }
+    
+    func updateDate(index: Int, type: RecordType) {
+        let today = Date()
+        if type == .monthly {
+            date = calendar.date(byAdding: .month, value: -index, to: today) ?? today
+        } else {
+            date = calendar.date(byAdding: .day, value: -index * 7, to: today) ?? today
+        }
     }
 }
