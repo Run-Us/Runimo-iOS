@@ -68,8 +68,7 @@ struct RunningPage: View {
             buttonText: "끝내기",
             buttonColor: .primary400,
             cancelAction: {
-                // 취소 : 다시 위치 측정 시작
-                mapVM.startUpdatingLocation()
+                // 취소
             },
             buttonAction: {
                 // 끝내기
