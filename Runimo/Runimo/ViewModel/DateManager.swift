@@ -189,4 +189,8 @@ extension DateManager {
             date = calendar.date(byAdding: .day, value: -index * 7, to: today) ?? today
         }
     }
+    
+    func setDateToday() {
+        date = Date()
+    }
 }

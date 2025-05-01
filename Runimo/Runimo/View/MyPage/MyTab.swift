@@ -38,9 +38,13 @@ struct MyTab: View {
                 .presentationDetents([.fraction(0.35), .large])
         }
         .onAppear {
+            DateManager.shared.setDateToday()
             MyPageService.shared.getMyPage { data in
                 myPageVM.user = data
             }
+        }
+        .onChange(of: DateManager.shared.date) { oldValue, newValue in
+            myPageVM.getGraphAPI()
         }
     }
     
