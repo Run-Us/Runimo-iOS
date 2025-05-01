@@ -30,6 +30,7 @@ class SharedData: ObservableObject {
     
     // MARK: - 러닝 보상
     @Published var rewardData: (egg: String, point: Int) = ("", 0)
+    @Published var completeRunningID: String = ""
     
     init() { }
     

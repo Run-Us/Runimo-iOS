@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FinishRunningPage: View {
     @EnvironmentObject var navigation: NavigationManager
+    @EnvironmentObject var sharedData: SharedData
     @EnvironmentObject var mapVM: MapViewModel
     @State private var runningInfo: RunningInfo = RunningInfo()
     @State private var showRunningPostPage: Bool = false
@@ -110,7 +111,18 @@ struct FinishRunningPage: View {
     }
     
     private func saveRunningPostAPI() {
+        print(title, title.isEmpty, explanation, explanation.isEmpty)
+        if title.isEmpty && explanation.isEmpty {
+            navigation.path.removeLast(navigation.path.count - 1)
+            return
+        }
         
+        RunningSessionService.shared.patchRunningRecords(runningId: sharedData.completeRunningID, title: title, description: explanation, imgURL: "") { isSuccess in
+            if isSuccess {
+                sharedData.completeRunningID = ""
+                navigation.path.removeLast(navigation.path.count - 1)
+            }
+        }
     }
 }
 
