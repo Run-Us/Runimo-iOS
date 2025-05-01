@@ -30,7 +30,7 @@ struct GenderPickerSheet: View {
                 
                 selectGenderButton(gender: "여성", .female)
                 
-                selectGenderButton(gender: "기타", .other)
+                selectGenderButton(gender: "알리고 싶지 않아요", .other)
                 
             }
             .padding()

@@ -13,6 +13,7 @@ struct PopUp: ViewModifier {
     let title: String
     let subtitle: String
     let buttonText: String
+    let cancelButtonText: String
     let buttonColor: Color
     let cancelAction: () -> Void
     let buttonAction: () -> Void
@@ -43,7 +44,7 @@ struct PopUp: ViewModifier {
                             isPresented = false
                             cancelAction()
                         } label: {
-                            Text("취소")
+                            Text(cancelButtonText)
                                 .frame(height: 44)
                                 .frame(maxWidth: .infinity)
                                 .background(
@@ -78,7 +79,7 @@ struct PopUp: ViewModifier {
 }
 
 extension View {
-    public func popup(isPresented: Binding<Bool>, title: String, subtitle: String, buttonText: String, buttonColor: Color, cancelAction: @escaping () -> Void, buttonAction: @escaping () -> Void) -> some View {
-        self.modifier(PopUp(isPresented: isPresented, title: title, subtitle: subtitle, buttonText: buttonText, buttonColor: buttonColor, cancelAction: cancelAction, buttonAction: buttonAction))
+    public func popup(isPresented: Binding<Bool>, title: String, subtitle: String, buttonText: String, cancelButtonText: String = "취소", buttonColor: Color, cancelAction: @escaping () -> Void, buttonAction: @escaping () -> Void) -> some View {
+        self.modifier(PopUp(isPresented: isPresented, title: title, subtitle: subtitle, buttonText: buttonText, cancelButtonText: cancelButtonText, buttonColor: buttonColor, cancelAction: cancelAction, buttonAction: buttonAction))
     }
 }

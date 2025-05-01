@@ -37,6 +37,7 @@ struct RunningMapPage: View {
                     else {
                         HStack(spacing: 40) {
                             Button {
+                                runVM.completeRunPopUpMessage(runningInfo: motionManager.runningInfo)
                                 showStopAlert = true
                                 mapVM.stopUpdatingLocation()
                             } label: {

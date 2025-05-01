@@ -63,18 +63,30 @@ struct RunningPage: View {
         }
         .popup(
             isPresented: $showStopPopUp,
-            title: "러닝을 종료하시겠어요?",
-            subtitle: "시간: \(mapVM.motionManager.runningInfo.runningTime ?? "0:00") / 거리: \(String(format: "%.2fkm", mapVM.motionManager.runningInfo.distance ?? 0.0))",
-            buttonText: "끝내기",
+            title: runVM.stopRunPopUpText.title,
+            subtitle: runVM.stopRunPopUpText.subtitle,
+            buttonText: runVM.stopRunPopUpText.buttonText,
+            cancelButtonText: "삭제하기",
             buttonColor: .primary400,
             cancelAction: {
-                // 취소
+                // 삭제
+                if mapVM.motionManager.runningInfo.distance ?? 0 < 1000 {
+                    mapVM.stopRunning(runningType: runVM.runningType)
+                    runVM.initRunVM()
+                    navigation.path.removeLast(navigation.path.count - 1)
+                }
             },
             buttonAction: {
-                // 끝내기
-                mapVM.stopRunning(runningType: runVM.runningType)
-                runVM.initRunVM()
-                saveRunningAPI()
+                // 1km 이상 달려야 저장
+                if mapVM.motionManager.runningInfo.distance ?? 0 >= 1000 {
+                    // 끝내기
+                    mapVM.stopRunning(runningType: runVM.runningType)
+                    runVM.initRunVM()
+                    saveRunningAPI()
+                } else {
+                    // 계속하기
+                    mapVM.startUpdatingLocation()
+                }
         })
         .navigationBarBackButtonHidden()
         .onAppear {
@@ -110,5 +122,5 @@ struct RunningPage: View {
 }
 
 #Preview {
-    RunningPage(mapVM: .init())
+    RunningPage()
 }
