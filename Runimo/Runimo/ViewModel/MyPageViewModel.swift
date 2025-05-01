@@ -98,23 +98,25 @@ extension MyPageViewModel {
         graph.total_distance = 0
         graph.total_time = 0
         
+        var maxYLength = 0.0
+        
         for stat in dailyStats {
             if let date = dateManager.convertStringToDate(dateString: stat.date) {
                 let index = dateManager.getDifferenceDayCount(from: startDate, to: date)
                 graph.distance_list[index] = stat.distance
                 graph.total_distance += stat.distance
+                maxYLength = max(maxYLength, ceil(Double(stat.distance)/1000))
             }
         }
         
-        getGraphData()
+        getGraphData(maxYLength: maxYLength)
     }
     
     // 통계 (화면 표시용)
-    func getGraphData() {
+    func getGraphData(maxYLength: Double) {
         let distance = Double(graph.total_distance)/1000
         let minute = graph.total_time/60
         let second = graph.total_time%60
-        let maxYLength = ceil(distance)
         
         graphDisplay = (
             count: graph.total_count,

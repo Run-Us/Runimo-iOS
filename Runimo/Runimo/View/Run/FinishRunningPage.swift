@@ -111,7 +111,6 @@ struct FinishRunningPage: View {
     }
     
     private func saveRunningPostAPI() {
-        print(title, title.isEmpty, explanation, explanation.isEmpty)
         if title.isEmpty && explanation.isEmpty {
             navigation.path.removeLast(navigation.path.count - 1)
             return
