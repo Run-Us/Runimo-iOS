@@ -101,10 +101,7 @@ extension MyPageViewModel {
     }
     
     func setGraphData(startDate: Date) {
-//        graph.total_count = dailyStats.count
         graph.distance_list = Array(repeating: 0, count: dateManager.getCurrentMonthDayCount())
-//        graph.total_distance = 0
-//        graph.total_time = 0
         
         var maxYLength = 0.0
         
@@ -112,7 +109,6 @@ extension MyPageViewModel {
             if let date = dateManager.convertStringToDate(dateString: stat.date) {
                 let index = dateManager.getDifferenceDayCount(from: startDate, to: date)
                 graph.distance_list[index] = stat.distance_in_meters
-//                graph.total_distance += stat.distance
                 maxYLength = max(maxYLength, ceil(Double(stat.distance_in_meters)/1000))
             }
         }
