@@ -80,12 +80,20 @@ extension MyPageViewModel {
         
         if recordType == .weekly {
             MyPageService.shared.getWeeklyRunningRecords(startDate: getDateString(date: start ?? Date()), endDate: getDateString(date: end ?? Date())) { data in
+                // 통계
+                let simpleStat = data.simple_stat
+                self.graph = RunningGraph(total_count: simpleStat.total_running_count, total_distance: simpleStat.total_distance_in_meters, total_time: simpleStat.total_time_in_seconds, distance_list: [])
+                
                 self.dailyStats = data.daily_stats
                 self.setGraphData(startDate: start ?? Date())
             }
         } else {
             let (year, month) = dateManager.getYearMonth(date: start ?? Date())
             MyPageService.shared.getMonthlyRunningRecords(year: year, month: month) { data in
+                // 통계
+                let simpleStat = data.simple_stat
+                self.graph = RunningGraph(total_count: simpleStat.total_running_count, total_distance: simpleStat.total_distance_in_meters, total_time: simpleStat.total_time_in_seconds, distance_list: [])
+                
                 self.dailyStats = data.daily_stats
                 self.setGraphData(startDate: start ?? Date())
             }
@@ -93,19 +101,19 @@ extension MyPageViewModel {
     }
     
     func setGraphData(startDate: Date) {
-        graph.total_count = dailyStats.count
+//        graph.total_count = dailyStats.count
         graph.distance_list = Array(repeating: 0, count: dateManager.getCurrentMonthDayCount())
-        graph.total_distance = 0
-        graph.total_time = 0
+//        graph.total_distance = 0
+//        graph.total_time = 0
         
         var maxYLength = 0.0
         
         for stat in dailyStats {
             if let date = dateManager.convertStringToDate(dateString: stat.date) {
                 let index = dateManager.getDifferenceDayCount(from: startDate, to: date)
-                graph.distance_list[index] = stat.distance
-                graph.total_distance += stat.distance
-                maxYLength = max(maxYLength, ceil(Double(stat.distance)/1000))
+                graph.distance_list[index] = stat.distance_in_meters
+//                graph.total_distance += stat.distance
+                maxYLength = max(maxYLength, ceil(Double(stat.distance_in_meters)/1000))
             }
         }
         

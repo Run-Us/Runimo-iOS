@@ -71,12 +71,19 @@ struct SaveRunningResponse: Codable {
 
 // MARK: - 러닝 기록
 struct RunningRecordResponse: Codable {
+    let simple_stat: SimpleStat
     let daily_stats: [DailyStats]
+}
+
+struct SimpleStat: Codable {
+    let total_time_in_seconds: Int
+    let total_running_count: Int
+    let total_distance_in_meters: Int
 }
 
 struct DailyStats: Codable {
     let date: String
-    let distance: Int
+    let distance_in_meters: Int
 }
 
 // 러닝 완료 보상
