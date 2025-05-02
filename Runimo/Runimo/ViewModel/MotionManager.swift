@@ -60,9 +60,9 @@ class MotionManager: ObservableObject {
             if distance.intValue > 0 && distance.intValue%1000 == 0 {
                 savePace(distance: distance.intValue)
             }
-            pace = averagePace.intValue*1000
-            let minPerKm = Int(averagePace.doubleValue * 1000) / 60
-            let secPerKm = Int(averagePace.doubleValue * 1000) % 60
+            pace = Int(averagePace.doubleValue*1000)
+            let minPerKm = pace / 60
+            let secPerKm = pace % 60
             self.runningInfo.averagePace = "\(minPerKm)\' \(secPerKm)\'\'"
             self.runningInfo.distance = distance.doubleValue / 1000
             
