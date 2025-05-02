@@ -83,6 +83,9 @@ class MotionManager: ObservableObject {
     
     // 측정 stop
     func stopRunningMotionData() {
+        if let distance = runningResult.total_distance_in_meters, distance%1000 > 0 {
+            savePace(distance: distance%1000)
+        }
         pedometer.stopUpdates()
         stopTimer()
     }
