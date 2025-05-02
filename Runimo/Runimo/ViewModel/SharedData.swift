@@ -35,8 +35,8 @@ class SharedData: ObservableObject {
     init() { }
     
     // 캐릭터 팝업 띄우기 
-    func showPopUp() {
-        settingData()
+    func showPopUp(isEgg: Bool) {
+        settingData(isEgg: isEgg)
         showCharacterPopUp = true
     }
     
@@ -84,8 +84,10 @@ class SharedData: ObservableObject {
 
 // MARK: - 캐릭터 팝업 데이터 세팅
 extension SharedData {
-    func settingData() {
-        if isHatchable {
+    func settingData(isEgg: Bool) {
+        if isEgg {
+            setEggData()
+        } else if isHatchable {
             setHatchData()
         } else {
             setCharacterData()
@@ -106,5 +108,10 @@ extension SharedData {
         {
             characterPopUpData = CharacterPopUpItem(id: notFixedData.id, code: fixedData.code, title: fixedData.name, subtitle: fixedData.description, imageURL: fixedData.img_url, description: "러닝: \(notFixedData.total_run_count), 달린 거리: \(Double(notFixedData.total_distance_in_meters)/1000)km")
         }
+    }
+    
+    // 회원가입 후 알
+    private func setEggData() {
+        characterPopUpData = CharacterPopUpItem(id: -1, code: "egg_110", title: "신비로운 알을 발견했어요", subtitle: "첫 러닝을 완료하고 알을 부화시켜 보세요!", imageURL: "egg_110", description: "")
     }
 }

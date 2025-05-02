@@ -117,7 +117,7 @@ struct TabBar: View {
         .navigationBarBackButtonHidden()
         .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, isHatching: sharedData.isHatchable)
         .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { _ in
-            sharedData.showPopUp()
+            sharedData.showPopUp(isEgg: true)
         }
         .onAppear {
             HomeService.shared.getMyEggs { data in

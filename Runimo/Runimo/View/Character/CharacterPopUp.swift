@@ -33,16 +33,25 @@ struct CharacterPopUp: ViewModifier {
                         .padding(.bottom, -8)
                     Text(character.subtitle)
                     
-                    KFImage(URL(string: character.imageURL))
-                        .placeholder { ProgressView() }
-                        .resizable()
-                        .frame(width: 320, height: 320)
+                    if character.code == "egg_110" {
+                        Image(character.imageURL)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 320, height: 280)
+                    } else {
+                        KFImage(URL(string: character.imageURL))
+                            .placeholder { ProgressView() }
+                            .resizable()
+                            .frame(width: 320, height: 320)
+                    }
                     
                     Text(character.description)
                         .padding(.bottom, 8)
                     
                     // 알 부화 했을 때
-                    if isHatching {
+                    if character.code == "egg_110" {
+                        okButton(text: "확인했어요", setMain: false)
+                    } else if isHatching {
                         VStack(spacing: 8) {
                             // 첫 등장 러니모일때만 ok button
                             if !(sharedData.currentHatchedEgg?.is_duplicated ?? false) {
