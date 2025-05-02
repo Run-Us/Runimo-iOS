@@ -19,7 +19,7 @@ struct JoinPage: View {
     @FocusState private var isTextFieldFocused: Bool
     @State var isPresentedError: Bool = false
     @State var genderType: GenderType = .none
-    let userDefaults = UserDefaults.standard
+    @State private var imageURL: String = ""
     
     var body: some View {
         ZStack {
@@ -110,7 +110,7 @@ struct JoinPage: View {
                     .foregroundStyle(.secondaryFill)
                     .padding(.vertical)
                 Button(action: {
-                    AuthService.shared.signup(nickname: nickname, imageURL: nil, gender: genderType.rawValue) { result in
+                    AuthService.shared.signup(nickname: nickname, imageURL: imageURL, gender: genderType.rawValue) { result in
                         if result {
                             navigation.path.removeLast()
                             navigation.path.append(TabBar.id)
@@ -142,6 +142,11 @@ struct JoinPage: View {
                 .foregroundColor(.primaryGray)
             
         })
+        .onChange(of: selectedProfile) { oldValue, newValue in
+            if let image = newValue.last {
+                imageURL = saveImageToTemporaryURL(image)
+            }
+        }
     }
     
     var profileImage: some View {
@@ -177,6 +182,27 @@ struct JoinPage: View {
             return "닉네임은 8자 이내로 설정할 수 있어요"
         }
         return ""
+    }
+    
+    func saveImageToTemporaryURL(_ image: UIImage) -> String {
+        // 1. JPEG 데이터로 변환 (압축률은 0.0~1.0 사이)
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            return ""
+        }
+
+        // 2. 임시 디렉토리에 고유한 파일 경로 생성
+        let tempDirectory = FileManager.default.temporaryDirectory
+        let fileName = UUID().uuidString + ".jpg"
+        let fileURL = tempDirectory.appendingPathComponent(fileName)
+
+        // 3. 파일로 저장
+        do {
+            try imageData.write(to: fileURL)
+            return fileURL.absoluteString
+        } catch {
+            print("❌ 이미지 저장 실패:", error.localizedDescription)
+            return ""
+        }
     }
 }
 
