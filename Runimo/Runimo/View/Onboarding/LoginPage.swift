@@ -10,6 +10,7 @@ import SwiftUI
 
 struct LoginPage: View {
     @EnvironmentObject var navigation: NavigationManager
+    @EnvironmentObject var sharedData: SharedData
     @StateObject var authVM: AuthViewModel = AuthViewModel()
     let loginView: [String] = ["login_view_1", "login_view_2", "login_view_3"]
     let loginViewTitle: [String] = ["친구와 함께 달려보세요!", "러닝 크루와 함께 소통하세요!", "캐릭터와 함께 성장하세요!"]
@@ -98,6 +99,7 @@ struct LoginPage: View {
         .onAppear {
             AuthService.shared.refreshToken { success in
                 if success {
+                    sharedData.setTab(.home)
                     navigation.path.append(TabBar.id)
                 }
             }
@@ -127,6 +129,7 @@ struct LoginPage: View {
             navigation.path.append(JoinPage.id)
         } else if code == 200 {
             // 로그인
+            sharedData.setTab(.home)
             navigation.path.append(TabBar.id)
         }
     }

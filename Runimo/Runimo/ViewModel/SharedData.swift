@@ -34,6 +34,10 @@ class SharedData: ObservableObject {
     
     init() { }
     
+    func setTab(_ tab: Tab) {
+        currentMainTab = tab
+    }
+    
     // 캐릭터 팝업 띄우기 
     func showPopUp(isEgg: Bool) {
         settingData(isEgg: isEgg)

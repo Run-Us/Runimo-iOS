@@ -10,6 +10,7 @@ import SwiftUI
 
 struct JoinPage: View {
     @EnvironmentObject var navigation: NavigationManager
+    @EnvironmentObject var sharedData: SharedData
     @State var selectedProfile: [UIImage] = []
     @State private var nickname: String = ""
     @State private var nicknameIsValid: Bool = true
@@ -111,6 +112,7 @@ struct JoinPage: View {
                 Button(action: {
                     AuthService.shared.signup(nickname: nickname, imageURL: imageURL, gender: genderType.rawValue) { result in
                         if result {
+                            sharedData.setTab(.home)
                             navigation.path.removeLast()
                             navigation.path.append(TabBar.id)
                         }
