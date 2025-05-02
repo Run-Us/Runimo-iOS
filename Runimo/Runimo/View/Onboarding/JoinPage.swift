@@ -113,8 +113,8 @@ struct JoinPage: View {
                     AuthService.shared.signup(nickname: nickname, imageURL: imageURL, gender: genderType.rawValue) { result in
                         if result {
                             sharedData.setTab(.home)
-                            navigation.path.removeLast()
-                            navigation.path.append(TabBar.id)
+                            sharedData.isLogined = true
+                            navigation.goToRootPage()
                         }
                     }
                 }, label: {

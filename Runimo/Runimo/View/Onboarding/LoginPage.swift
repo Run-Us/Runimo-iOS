@@ -18,7 +18,6 @@ struct LoginPage: View {
     @State var currentIndex: Int = 0
     
     var body: some View {
-        NavigationStack(path: $navigation.path) {
             ZStack {
                 Color(.secondaryBG)
                 VStack(alignment: .center, spacing: 24) {
@@ -75,35 +74,7 @@ struct LoginPage: View {
                 
             }
             .ignoresSafeArea()
-            .navigationDestination(for: String.self) { value in
-                switch value {
-                case TabBar.id:
-                    TabBar().navigationBarBackButtonHidden()
-                case JoinPage.id:
-                    JoinPage().navigationBarBackButtonHidden()
-                case PostCardList.id:
-                    PostCardList()
-                case SettingPage.id:
-                    SettingPage()
-                case RunTab.id:
-                    RunTab()
-                case RunningRewardPage.id:
-                    RunningRewardPage()
-                case FinishRunningPage.id:
-                    FinishRunningPage()
-                default:
-                    Text("❓ Unknown destination: \(value)")
-                }
-            }
-        }
-        .onAppear {
-            AuthService.shared.refreshToken { success in
-                if success {
-                    sharedData.setTab(.home)
-                    navigation.path.append(TabBar.id)
-                }
-            }
-        }
+
     }
     
     @ViewBuilder
@@ -130,7 +101,7 @@ struct LoginPage: View {
         } else if code == 200 {
             // 로그인
             sharedData.setTab(.home)
-            navigation.path.append(TabBar.id)
+            sharedData.isLogined = true
         }
     }
 }

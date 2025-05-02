@@ -10,4 +10,9 @@ import SwiftUI
 
 class NavigationManager: ObservableObject {
     @Published var path = NavigationPath()
+    
+    func goToRootPage() {
+        path.removeLast(path.count)
+    }
+
 }

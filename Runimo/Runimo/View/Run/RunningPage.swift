@@ -66,14 +66,14 @@ struct RunningPage: View {
             title: runVM.stopRunPopUpText.title,
             subtitle: runVM.stopRunPopUpText.subtitle,
             buttonText: runVM.stopRunPopUpText.buttonText,
-            cancelButtonText: "삭제하기",
+            cancelButtonText: runVM.stopRunPopUpText.cancelText,
             buttonColor: .primary400,
             cancelAction: {
                 // 삭제
                 if mapVM.motionManager.runningInfo.distance ?? 0 < 1000 {
                     mapVM.stopRunning(runningType: runVM.runningType)
                     runVM.initRunVM()
-                    navigation.path.removeLast(navigation.path.count - 1)
+                    navigation.goToRootPage()
                 }
             },
             buttonAction: {

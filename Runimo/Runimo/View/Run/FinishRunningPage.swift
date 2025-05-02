@@ -48,7 +48,7 @@ struct FinishRunningPage: View {
             ToolbarItem(placement: .topBarLeading) {
                 HStack(spacing: 6) {
                     Button {
-                        navigation.path.removeLast(navigation.path.count-1)
+                        navigation.goToRootPage()
                     } label: {
                         Image(systemName: "xmark")
                             .resizable()
@@ -112,14 +112,14 @@ struct FinishRunningPage: View {
     
     private func saveRunningPostAPI() {
         if title.isEmpty && explanation.isEmpty {
-            navigation.path.removeLast(navigation.path.count - 1)
+            navigation.goToRootPage()
             return
         }
         
         RunningSessionService.shared.patchRunningRecords(runningId: sharedData.completeRunningID, title: title, description: explanation, imgURL: "") { isSuccess in
             if isSuccess {
                 sharedData.completeRunningID = ""
-                navigation.path.removeLast(navigation.path.count - 1)
+                navigation.goToRootPage()
             }
         }
     }

@@ -86,7 +86,7 @@ struct RunningPostPage: View {
             ToolbarItem(placement: .topBarLeading) {
                 HStack(spacing: 6) {
                     Button {
-                        navigation.path.removeLast(navigation.path.count-1)
+                        navigation.goToRootPage()
                     } label: {
                         Image(systemName: "xmark")
                             .resizable()

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingPage: View {
     @EnvironmentObject var navigation: NavigationManager
+    @EnvironmentObject var sharedData: SharedData
     @State private var showLogoutPopup: Bool = false
     @State private var showWithdrawPopup: Bool = false
     
@@ -69,14 +70,16 @@ struct SettingPage: View {
 
         } buttonAction: {
             AuthService.shared.removeUserInfoToLogout()
-            navigation.path.removeLast(navigation.path.count)
+            sharedData.isLogined = false
+            navigation.goToRootPage()
         }
         .popup(isPresented: $showWithdrawPopup, title: "정말 탈퇴 하시겠어요?", subtitle: "저장된 활동 기록은 복구가 불가능해요.", buttonText: "탈퇴하기", buttonColor: .error) {
 
         } buttonAction: {
             MyPageService.shared.withdrawUser { result in
                 if result {
-                    navigation.path.removeLast(navigation.path.count)
+                    sharedData.isLogined = false
+                    navigation.goToRootPage()
                 }
             }
         }

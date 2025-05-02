@@ -17,7 +17,7 @@ class RunningViewModel: ObservableObject {
     @Published var runningTab: Int = 0  // 러닝 진행 중 picker tab
     private let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
     @Published var totalAggregateNum: Int = 0
-    @Published var stopRunPopUpText: (title: String, subtitle: String, buttonText: String) = ("", "", "")
+    @Published var stopRunPopUpText: (title: String, subtitle: String, buttonText: String, cancelText: String) = ("", "", "", "")
     
     func initRunVM() {
         runningTab = 0
@@ -70,13 +70,15 @@ class RunningViewModel: ObservableObject {
             stopRunPopUpText = (
                 "러닝을 종료하시겠어요?",
                 "시간: \(runningInfo.runningTime ?? "0:00") / 거리: \(String(format: "%.2fkm", runningInfo.distance ?? 0.0))",
-                "끝내기"
+                "끝내기",
+                "취소"
             )
         } else {
             stopRunPopUpText = (
                 "러닝 기록이 충분하지 않아요",
                 "지금 러닝을 끝내면 활동이 삭제돼요.",
-                "계속하기"
+                "계속하기",
+                "삭제하기"
             )
         }
     }
