@@ -112,6 +112,7 @@ struct JoinPage: View {
                 Button(action: {
                     AuthService.shared.signup(nickname: nickname, imageURL: imageURL, gender: genderType.rawValue) { result in
                         if result {
+                            // 회원가입 완료 후 탭바로 이동
                             sharedData.setTab(.home)
                             sharedData.isLogined = true
                             navigation.goToRootPage()
