@@ -24,7 +24,7 @@ struct PopUp: ViewModifier {
             
             if isPresented {
                 // 배경 어둡게
-                Color.secondaryGray.opacity(0.7)
+                Color.quaternaryGray.opacity(0.3)
                     .ignoresSafeArea()
                 
                 VStack(spacing: 25) {
