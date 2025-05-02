@@ -70,7 +70,7 @@ struct RunningPage: View {
             buttonColor: .primary400,
             cancelAction: {
                 // 삭제
-                if mapVM.motionManager.runningInfo.distance ?? 0 < 1000 {
+                if mapVM.motionManager.runningInfo.distance ?? 0 < 1.0 {
                     mapVM.stopRunning(runningType: runVM.runningType)
                     runVM.initRunVM()
                     navigation.goToRootPage()
@@ -78,7 +78,7 @@ struct RunningPage: View {
             },
             buttonAction: {
                 // 1km 이상 달려야 저장
-                if mapVM.motionManager.runningInfo.distance ?? 0 >= 1000 {
+                if mapVM.motionManager.runningInfo.distance ?? 0 >= 1.0 {
                     // 끝내기
                     mapVM.stopRunning(runningType: runVM.runningType)
                     runVM.initRunVM()

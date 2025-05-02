@@ -82,6 +82,7 @@ extension MapViewModel: CLLocationManagerDelegate {
     
     func stopRunning(runningType: RunningType) {
         stopUpdatingLocation()
+        motionManager.savePaceWhenStopRunning()
         userPath.removeAll()
         motionManager.initMotionManager()
         motionManager.runningResult.end_at = Date()
