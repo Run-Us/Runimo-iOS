@@ -16,7 +16,7 @@ class MapViewModel: NSObject, ObservableObject {
     @Published var userLocation: CLLocation = CLLocation(latitude: 37.564214, longitude: 127.001699)
     @Published var userPath: [NMGLatLng] = []
     @Published var isRunning: Bool = false
-    
+    private var lastUpdateTime: Date?
     
     override init() {
         locationManager = CLLocationManager()
@@ -51,6 +51,13 @@ extension MapViewModel: CLLocationManagerDelegate {
     // 사용자 위치 업데이트
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last else { return }
+        
+        let now = Date()
+        if let lastTime = lastUpdateTime, now.timeIntervalSince(lastTime) < 1 {
+            return
+        }
+        
+        lastUpdateTime = now
         userLocation = newLocation
         userPath.append(NMGLatLng(from: newLocation.coordinate))
     }
