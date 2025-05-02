@@ -41,6 +41,9 @@ struct MyTab: View {
             DateManager.shared.setDateToday()
             MyPageService.shared.getMyPage { data in
                 myPageVM.user = data
+                if let profile = data.profile_image_url {
+                    UserDefaults.standard.set(profile, forKey: "profileURL")
+                }
             }
         }
         .onChange(of: DateManager.shared.date) { oldValue, newValue in

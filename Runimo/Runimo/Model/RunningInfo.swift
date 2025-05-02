@@ -97,3 +97,15 @@ struct RewardResponse: Codable {
 struct RunningRecordsResponse: Codable {
     let record_list: [RunningRecord]
 }
+
+struct RunningPostResponse: Codable {
+    let record_id: String
+    let title: String
+    let started_at: String
+    let end_at: String
+    let total_running_time: Int
+    let average_pace: Int
+    let total_distance: Int
+    let segment_pace_list: [SegmentPaces]
+    let img_url: String
+}

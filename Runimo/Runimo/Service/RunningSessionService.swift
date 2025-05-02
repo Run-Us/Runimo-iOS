@@ -142,6 +142,26 @@ class RunningSessionService: ObservableObject {
             }
         }
     }
+    
+    func getRunningPostData(runningId: String, completion: @escaping (RunningPostResponse) -> Void) {
+        let path = "/records/\(runningId)"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default, headers: headers)
+
+        NetworkManager.shared.request(dataRequest) { (result: Result<RunningPostResponse, AFError>) in
+            switch result {
+            case .success(let data):
+                print("러닝 post 조회: \(data)")
+                completion(data)
+            case .failure(let error):
+                print("\(error)")
+            }
+        }
+    }
 }
 
 

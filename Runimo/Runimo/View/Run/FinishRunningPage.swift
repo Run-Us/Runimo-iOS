@@ -64,9 +64,9 @@ struct FinishRunningPage: View {
             isEditorFocused = false
         }
         .navigationBarBackButtonHidden()
-        .navigationDestination(isPresented: $showRunningPostPage) {
-            RunningPostPage(runningPost: RunningPost(createdAt: "", title: title, contents: explanation, runningInfo: runningInfo))
-        }
+//        .navigationDestination(isPresented: $showRunningPostPage) {
+//            RunningPostPage()
+//        }
         .onAppear {
             runningInfo = mapVM.motionManager.runningInfo
         }

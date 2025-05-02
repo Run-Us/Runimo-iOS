@@ -25,8 +25,10 @@ struct PostCardList: View {
                 
                 ScrollView {
                     ForEach(runningSessionList, id: \.id) { record in
-                        PostCard(runningRecord: record)
-                            .padding(.bottom, 14)
+                        NavigationLink(destination: RunningPostPage(recordId: record.id ?? "")) {
+                            PostCard(runningRecord: record)
+                                .padding(.bottom, 14)
+                        }
                     }
                 }
                 .padding(.horizontal, 16)

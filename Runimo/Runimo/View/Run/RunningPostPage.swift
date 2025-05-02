@@ -10,7 +10,8 @@ import SwiftUI
 struct RunningPostPage: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var mapVM: MapViewModel
-    let runningPost: RunningPost
+    @State private var record: RunningPostResponse?
+    let recordId: String
     
     var body: some View {
         ZStack {
@@ -23,53 +24,62 @@ struct RunningPostPage: View {
                     // 유저 정보
                     HStack(spacing: 24) {
                         // 프로필 사진
-                        Image("default_user_profile")
-                            .resizable()
-                            .frame(width: 40, height: 40)
+                        if let profile = UserDefaults.standard.string(forKey: "profileURL"),
+                           let url = URL(string: profile),
+                           let uiImage = UIImage(contentsOfFile: url.path) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 40, height: 40)
+                                .clipShape(RoundedRectangle(cornerRadius: 16))
+                        } else {
+                            Image("default_user_profile")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                        }
                         
                         VStack(alignment: .leading, spacing: 5) {
-                            Text("닉네임")
+                            Text(UserDefaults.standard.string(forKey: "nickname") ?? "닉네임")
                                 .font(.title5_medium)
-                            Text(runningPost.createdAt)
+                            Text(record?.started_at ?? "")
                                 .font(.caption_regular)
                                 .foregroundStyle(.quaternaryGray)
                         }
                     }
                     
-                    // title
-                    Text(runningPost.title)
-                        .font(.title4_semibold)
-                    
                     // 완료한 러닝 정보
-                    HStack(spacing: 32) {
-                        VStack(alignment: .leading, spacing: 5) {
+                    VStack(alignment: .leading, spacing: 16) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(String(format: "%.2fkm", Double(record?.total_distance ?? 0)/1000))
+                                .font(.title3_bold)
                             Text("거리")
                                 .font(.caption_regular)
                                 .foregroundStyle(.quaternaryGray)
-                            Text(String(format: "%.2fkm", runningPost.runningInfo.distance ?? 0.0))
-                                .font(.title5_bold)
                         }
                         
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("페이스")
-                                .font(.caption_regular)
-                                .foregroundStyle(.quaternaryGray)
-                            Text(runningPost.runningInfo.averagePace ?? "-’--”")
-                                .font(.title5_bold)
-                        }
-                        
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("시간")
-                                .font(.caption_regular)
-                                .foregroundStyle(.quaternaryGray)
-                            Text(runningPost.runningInfo.runningTime ?? "0h 0m")
-                                .font(.title5_bold)
+                        HStack(spacing: 32) {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("\(record?.average_pace ?? 0)")
+                                    .font(.title5_bold)
+                                Text("페이스")
+                                    .font(.caption_regular)
+                                    .foregroundStyle(.quaternaryGray)
+                            }
+                            
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("\(record?.total_running_time ?? 0)")
+                                    .font(.title5_bold)
+                                Text("시간")
+                                    .font(.caption_regular)
+                                    .foregroundStyle(.quaternaryGray)
+                            }
                         }
                     }
                     
+                    
                     // contents
-                    Text(runningPost.contents)
-                        .font(.body2_medium)
+//                    Text(runningPost.contents)
+//                        .font(.body2_medium)
                     
                     // 지도 이미지
                     
@@ -92,15 +102,17 @@ struct RunningPostPage: View {
                             .resizable()
                             .frame(width: 14, height: 14)
                     }
-                    Text("내 활동")
+                    Text(record?.title ?? "")
                         .font(.body1_medium)
                 }
                 .foregroundStyle(.primaryGray)
             }
         }
+        .onAppear {
+            RunningSessionService.shared.getRunningPostData(runningId: recordId) { result in
+                record = result
+            }
+        }
     }
 }
 
-#Preview {
-    RunningPostPage(mapVM: .init(), runningPost: RunningPost(createdAt: "", title: "모닝런", contents: "휴우우우우우", runningInfo: RunningInfo()))
-}
