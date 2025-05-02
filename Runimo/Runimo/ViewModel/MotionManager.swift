@@ -15,9 +15,11 @@ class MotionManager: ObservableObject {
     @Published var runningResult: RunningResult = RunningResult()
     private var secondsElapsed = 0  // 경과한 시간 저장
     private var pace = 0
+    private var lastSegmentSeconds = 0
     
     func initMotionManager() {
         secondsElapsed = 0
+        lastSegmentSeconds = 0
     }
     
     func getRunningTimeInt() -> Int { return secondsElapsed }
@@ -54,6 +56,10 @@ class MotionManager: ObservableObject {
         if  let averagePace = data.averageActivePace,
             let distance = data.distance
         {
+            
+            if distance.intValue > 0 && distance.intValue%1000 == 0 {
+                savePace(distance: distance.intValue)
+            }
             pace = averagePace.intValue*1000
             let minPerKm = Int(averagePace.doubleValue * 1000) / 60
             let secPerKm = Int(averagePace.doubleValue * 1000) % 60
@@ -95,5 +101,14 @@ class MotionManager: ObservableObject {
         }
         
         completion(true)
+    }
+    
+    // 구간별 페이스 저장
+    func savePace(distance: Int) {
+        if runningResult.segment_paces == nil {
+            runningResult.segment_paces = []
+        }
+        runningResult.segment_paces?.append(SegmentPaces(distance: distance, pace: secondsElapsed - lastSegmentSeconds))
+        secondsElapsed = lastSegmentSeconds
     }
 }
