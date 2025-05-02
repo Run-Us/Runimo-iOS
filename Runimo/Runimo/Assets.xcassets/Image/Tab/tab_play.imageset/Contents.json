@@ -1,18 +1,8 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "tab_run 1.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "tab_run.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "tab_play.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {

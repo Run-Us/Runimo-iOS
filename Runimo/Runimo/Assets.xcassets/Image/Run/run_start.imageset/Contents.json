@@ -1,18 +1,8 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "run_start.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "run_start 1.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "run_start.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {
