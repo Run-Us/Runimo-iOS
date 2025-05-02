@@ -116,9 +116,6 @@ struct TabBar: View {
         }
         .navigationBarBackButtonHidden()
         .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, isHatching: sharedData.isHatchable)
-        .onReceive(NotificationCenter.default.publisher(for: .completeSignUp)) { _ in
-            sharedData.showPopUp(isEgg: true)
-        }
         .onAppear {
             HomeService.shared.getMyEggs { data in
                 sharedData.myEggs = data.items
@@ -127,6 +124,13 @@ struct TabBar: View {
             RunimoService.shared.getAllRunimos { data in
                 sharedData.allRunimoData = data.runimo_groups
                 sharedData.transformAllRunimo()
+            }
+            
+            if sharedData.isSignUpComplete {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    sharedData.showPopUp(isEgg: true)
+                    sharedData.isSignUpComplete = false
+                }
             }
         }
         .sheet(isPresented: $sharedData.showEggSheet, content: {

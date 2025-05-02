@@ -34,10 +34,6 @@ final class AuthService: ObservableObject {
                 self.saveUserInfo(user: data)
                 self.keychain.delete("register_token")
                 print("\(data)")
-                DispatchQueue.main.async {
-                    print("📤 posting completeSignUp notification")
-                    NotificationCenter.default.post(name: .completeSignUp, object: nil, userInfo: nil)
-                }
                 completion(true)
             case .failure(let error):
                 print("\(error)")

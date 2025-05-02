@@ -9,6 +9,7 @@ import Foundation
 
 class SharedData: ObservableObject {
     @Published var isLogined: Bool = false
+    @Published var isSignUpComplete: Bool = false
     @Published var currentMainTab: Tab = .home
     @Published var egg_love: (egg: Int, love: Int) = (0, 0)
     @Published var showEggSheet: Bool = false

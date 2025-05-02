@@ -116,6 +116,7 @@ struct JoinPage: View {
                             sharedData.setTab(.home)
                             sharedData.isLogined = true
                             navigation.goToRootPage()
+                            sharedData.isSignUpComplete = true
                         }
                     }
                 }, label: {
