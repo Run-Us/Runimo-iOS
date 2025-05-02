@@ -5,8 +5,8 @@
 //  Created by byeoungjik on 10/1/24.
 //
 
-import SwiftUI
 import PhotosUI
+import SwiftUI
 
 struct JoinPage: View {
     @EnvironmentObject var navigation: NavigationManager
@@ -29,8 +29,7 @@ struct JoinPage: View {
                         isTextFieldFocused = false
                     }
                 }
-            VStack(alignment:.center) {
-                
+            VStack(alignment: .center) {
                 Text("만나서 반가워요!")
                     .font(.title4_semibold)
                     .foregroundStyle(.primaryGray)
@@ -60,7 +59,7 @@ struct JoinPage: View {
                         .foregroundColor(nicknameIsValid ? .secondaryGray : .error)
                     
                     TextField("한글, 영어, 숫자만 입력 가능해요", text: $nickname)
-                        .onChange(of: nickname) { _,newValue in
+                        .onChange(of: nickname) { _, newValue in
                             nicknameIsValid = newValue.count <= 8 && !containsSpecialCharacters(text: newValue)
                         }
                         .focused($isTextFieldFocused)
@@ -71,7 +70,7 @@ struct JoinPage: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(!nicknameIsValid ? .error :
-                                            nickname.count > 0 ? .secondaryGray : .quaternaryGray, lineWidth: 1)
+                                    nickname.count > 0 ? .secondaryGray : .quaternaryGray, lineWidth: 1)
                         )
                         .padding(.vertical, 8)
                     
@@ -142,7 +141,7 @@ struct JoinPage: View {
                 .foregroundColor(.primaryGray)
             
         })
-        .onChange(of: selectedProfile) { oldValue, newValue in
+        .onChange(of: selectedProfile) { _, newValue in
             if let image = newValue.last {
                 imageURL = saveImageToTemporaryURL(image)
             }
@@ -185,27 +184,17 @@ struct JoinPage: View {
     }
     
     func saveImageToTemporaryURL(_ image: UIImage) -> String {
-        // 1. JPEG 데이터로 변환 (압축률은 0.0~1.0 사이)
-        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
-            return ""
-        }
-
-        // 2. 임시 디렉토리에 고유한 파일 경로 생성
-        let tempDirectory = FileManager.default.temporaryDirectory
-        let fileName = UUID().uuidString + ".jpg"
-        let fileURL = tempDirectory.appendingPathComponent(fileName)
-
-        // 3. 파일로 저장
+        guard let data = image.jpegData(compressionQuality: 0.8) else { return "" }
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".jpg")
         do {
-            try imageData.write(to: fileURL)
-            return fileURL.absoluteString
+            try data.write(to: url)
+            return url.absoluteString
         } catch {
-            print("❌ 이미지 저장 실패:", error.localizedDescription)
+            print("❌ 저장 실패:", error)
             return ""
         }
     }
 }
-
 
 #Preview {
     JoinPage()

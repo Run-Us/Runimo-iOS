@@ -52,8 +52,12 @@ struct MyTab: View {
     func userInfo() -> some View {
         HStack(spacing: 24) {
             // 프로필 사진
-            if let profile = myPageVM.user.profile_image_url, profile != "" {
-                AsyncImage(url: URL(string: profile))
+            if let profile = myPageVM.user.profile_image_url,
+               let url = URL(string: profile),
+               let uiImage = UIImage(contentsOfFile: url.path) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFill()
                     .frame(width: 80, height: 80)
                     .clipShape(RoundedRectangle(cornerRadius: 32))
             } else {
