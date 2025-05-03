@@ -85,6 +85,7 @@ struct RunningPostPage: View {
                     // 지도 이미지
                     
                     // 구간별 페이스
+                    segmentPaceList()
                     
                 }
                 .foregroundStyle(.primaryGray)
@@ -112,6 +113,28 @@ struct RunningPostPage: View {
         .onAppear {
             RunningSessionService.shared.getRunningPostData(runningId: recordId) { result in
                 record = result
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func segmentPaceList() -> some View {
+        HStack {
+            Text("구간별 페이스")
+                .font(.title5_bold)
+                .foregroundStyle(.primaryGray)
+            Spacer()
+            Text("평균 페이스: \(convertPaceToString(pace: record?.average_pace ?? 0))")
+        }
+        ForEach(record?.segment_pace_list ?? [], id:\.distance) { item in
+            VStack(spacing: 4) {
+                HStack {
+                    Text("\(item.distance/1000)k")
+                    Spacer()
+                    Text("\(item.pace/60):\(item.pace%60)")
+                }
+                .font(.caption_regular)
+                .foregroundStyle(.quaternaryGray)
             }
         }
     }

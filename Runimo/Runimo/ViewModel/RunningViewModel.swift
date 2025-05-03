@@ -66,7 +66,7 @@ class RunningViewModel: ObservableObject {
     }
     
     func completeRunPopUpMessage(runningInfo: RunningInfo) {
-        if runningInfo.distance ?? 0 >= 1000 {
+        if runningInfo.distance ?? 0 >= 1.0 {
             stopRunPopUpText = (
                 "러닝을 종료하시겠어요?",
                 "시간: \(runningInfo.runningTime ?? "0:00") / 거리: \(String(format: "%.2fkm", runningInfo.distance ?? 0.0))",

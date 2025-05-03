@@ -56,8 +56,7 @@ class MotionManager: ObservableObject {
         if  let averagePace = data.averageActivePace,
             let distance = data.distance
         {
-            
-            if distance.intValue > 0 && distance.intValue%1000 == 0 {
+            if distance.intValue > 0 && distance.intValue/1000 > runningResult.segment_paces?.count ?? 0 {
                 savePace(distance: distance.intValue)
             }
             pace = Int(averagePace.doubleValue*1000)
