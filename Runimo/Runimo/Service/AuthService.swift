@@ -8,6 +8,7 @@
 import Alamofire
 import Foundation
 import KeychainSwift
+import SwiftUI
 
 final class AuthService: ObservableObject {
     static let shared = AuthService()
@@ -17,26 +18,41 @@ final class AuthService: ObservableObject {
     private init() { }
     
     // 회원가입
-    func signup(nickname: String, imageURL: String? = nil, gender: String, completion: @escaping (Bool) -> Void) {
-        let path = "/auth/signup"
-        let body: [String: Any] = [
-            "register_token": keychain.get("register_token") ?? "",
-            "nickname": nickname,
-            "img_url": imageURL ?? "",
-            "gender": gender
+    func signup(nickname: String, image: UIImage? = nil, gender: String, completion: @escaping (Bool) -> Void) {
+        let path = "\(baseUrl)/auth/signup"
+        let headers: HTTPHeaders = [
+            "Content-Type": "multipart/form-data"
         ]
         
-        let dataRequest = APIRequest(path: path, method: .post, parameters: body)
+        let registerToken = self.keychain.get("register_token") ?? ""
+        let jsonBody = """
+        {
+            "register_token": "\(registerToken)",
+            "nickname": "\(nickname)",
+            "gender": "\(gender)"
+        }
+        """
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<SignUpResponse, AFError>) in
-            switch result {
-            case .success(let data):
-                self.saveUserInfo(user: data)
-                self.keychain.delete("register_token")
-                print("\(data)")
-                completion(true)
+        AF.upload(multipartFormData: { multipartFormData in
+            if let jsonData = jsonBody.data(using: .utf8) {
+                multipartFormData.append(jsonData, withName: "request", mimeType: "application/json")
+            }
+            if let image = image, let imageData = image.jpegData(compressionQuality: 0.8) {
+                multipartFormData.append(imageData, withName: "profileImage", fileName: "profile.jpg", mimeType: "image/jpeg")
+            }
+        }, to: path, method: .post, headers: headers)
+        .responseDecodable(of: BaseResponse<SignUpResponse>.self) { response in
+            switch response.result {
+            case .success(let response):
+                if let data = response.payload {
+                    self.saveUserInfo(user: data)
+                    self.keychain.delete("register_token")
+                    completion(true)
+                } else {
+                    completion(false)
+                }
             case .failure(let error):
-                print("\(error)")
+                print("DEBUG(edit profile image api) error: \(error)")
                 completion(false)
             }
         }

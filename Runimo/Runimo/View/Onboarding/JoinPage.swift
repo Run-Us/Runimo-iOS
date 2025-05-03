@@ -20,7 +20,6 @@ struct JoinPage: View {
     @FocusState private var isTextFieldFocused: Bool
     @State var isPresentedError: Bool = false
     @State var genderType: GenderType = .none
-    @State private var imageURL: String = ""
     
     var body: some View {
         ZStack {
@@ -110,15 +109,7 @@ struct JoinPage: View {
                     .foregroundStyle(.secondaryFill)
                     .padding(.vertical)
                 Button(action: {
-                    AuthService.shared.signup(nickname: nickname, imageURL: imageURL, gender: genderType.rawValue) { result in
-                        if result {
-                            // 회원가입 완료 후 탭바로 이동
-                            sharedData.setTab(.home)
-                            sharedData.isLogined = true
-                            navigation.goToRootPage()
-                            sharedData.isSignUpComplete = true
-                        }
-                    }
+                    signUpAPI()
                 }, label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 8)
@@ -145,11 +136,6 @@ struct JoinPage: View {
                 .foregroundColor(.primaryGray)
             
         })
-        .onChange(of: selectedProfile) { _, newValue in
-            if let image = newValue.last {
-                imageURL = saveImageToTemporaryURL(image)
-            }
-        }
     }
     
     var profileImage: some View {
@@ -187,15 +173,15 @@ struct JoinPage: View {
         return ""
     }
     
-    func saveImageToTemporaryURL(_ image: UIImage) -> String {
-        guard let data = image.jpegData(compressionQuality: 0.8) else { return "" }
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".jpg")
-        do {
-            try data.write(to: url)
-            return url.absoluteString
-        } catch {
-            print("❌ 저장 실패:", error)
-            return ""
+    private func signUpAPI() {
+        AuthService.shared.signup(nickname: nickname, image: selectedProfile.last, gender: genderType.rawValue) { result in
+            if result {
+                // 회원가입 완료 후 탭바로 이동
+                sharedData.setTab(.home)
+                sharedData.isLogined = true
+                navigation.goToRootPage()
+                sharedData.isSignUpComplete = true
+            }
         }
     }
 }
