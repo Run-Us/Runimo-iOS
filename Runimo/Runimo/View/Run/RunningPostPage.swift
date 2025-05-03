@@ -41,7 +41,7 @@ struct RunningPostPage: View {
                         VStack(alignment: .leading, spacing: 5) {
                             Text(UserDefaults.standard.string(forKey: "nickname") ?? "닉네임")
                                 .font(.title5_medium)
-                            Text(record?.started_at ?? "")
+                            Text(DateManager.shared.getPostDateString(dateString: record?.started_at ?? ""))
                                 .font(.caption_regular)
                                 .foregroundStyle(.quaternaryGray)
                         }
@@ -59,7 +59,7 @@ struct RunningPostPage: View {
                         
                         HStack(spacing: 32) {
                             VStack(alignment: .leading, spacing: 2) {
-                                Text("\(record?.average_pace ?? 0)")
+                                Text(convertPaceToString(pace: record?.average_pace ?? 0))
                                     .font(.title5_bold)
                                 Text("페이스")
                                     .font(.caption_regular)
@@ -67,7 +67,7 @@ struct RunningPostPage: View {
                             }
                             
                             VStack(alignment: .leading, spacing: 2) {
-                                Text("\(record?.total_running_time ?? 0)")
+                                Text(convertTimeToString(seconds: record?.total_running_time ?? 0))
                                     .font(.title5_bold)
                                 Text("시간")
                                     .font(.caption_regular)
@@ -112,6 +112,22 @@ struct RunningPostPage: View {
             RunningSessionService.shared.getRunningPostData(runningId: recordId) { result in
                 record = result
             }
+        }
+    }
+    
+    private func convertPaceToString(pace: Int) -> String {
+        let minPerKm = pace / 60
+        let secPerKm = pace % 60
+        return "\(minPerKm)\' \(secPerKm)\'\'"
+    }
+    
+    private func convertTimeToString(seconds: Int) -> String {
+        if seconds >= 60 * 60 {     // 1시간 이상
+            return "\(seconds/3600)h \(seconds%3600)m"
+        } else if seconds >= 60 {
+            return "\(seconds/60)m \(seconds%60)s"
+        } else {
+            return "\(seconds%60)s"
         }
     }
 }

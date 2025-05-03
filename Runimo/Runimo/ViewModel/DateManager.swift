@@ -72,15 +72,14 @@ extension DateManager {
         return ""
     }
     
-    func convertDateString(dateString: String) -> String {
+    func convertDateString(dateString: String) -> Date? {
         // input format
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         
         if let date = formatter.date(from: dateString) {
-            formatter.dateFormat = "MM월 dd일 EEEE"
-            return formatter.string(from: date)
+            return date
         }
-        return dateString
+        return nil
     }
     
     func convertStringToDate(dateString: String) -> Date? {
@@ -90,6 +89,22 @@ extension DateManager {
             return date
         }
         return nil
+    }
+    
+    func postCardDateString(dateString: String) -> String {
+        if let date = convertDateString(dateString: dateString) {
+            formatter.dateFormat = "MM월 dd일 EEEE"
+            return formatter.string(from: date)
+        }
+        return ""
+    }
+    
+    func getPostDateString(dateString: String) -> String {
+        if let date = convertDateString(dateString: dateString) {
+            formatter.dateFormat = "yyyy년 MM월 dd일 (E) a h:mm"
+            return formatter.string(from: date)
+        }
+        return ""
     }
 }
 

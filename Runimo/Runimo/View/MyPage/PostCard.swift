@@ -29,7 +29,7 @@ struct PostCard: View {
         HStack {
             // 러닝 정보
             VStack(alignment: .leading, spacing: 12) {
-                Text(DateManager.shared.convertDateString(dateString: runningRecord.start_date_time))
+                Text(DateManager.shared.postCardDateString(dateString: runningRecord.start_date_time))
                     .font(.body2_semibold)
                     .foregroundStyle(.quaternaryGray)
                 Text(runningRecord.title)

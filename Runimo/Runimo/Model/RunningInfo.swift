@@ -107,5 +107,5 @@ struct RunningPostResponse: Codable {
     let average_pace: Int
     let total_distance: Int
     let segment_pace_list: [SegmentPaces]
-    let img_url: String
+    let img_url: String?
 }
