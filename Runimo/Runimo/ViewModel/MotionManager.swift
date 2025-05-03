@@ -63,7 +63,7 @@ class MotionManager: ObservableObject {
             pace = Int(averagePace.doubleValue*1000)
             let minPerKm = pace / 60
             let secPerKm = pace % 60
-            self.runningInfo.averagePace = "\(minPerKm)\' \(secPerKm)\'\'"
+            self.runningInfo.averagePace = "\(minPerKm)’ \(secPerKm)”"
             self.runningInfo.distance = distance.doubleValue / 1000
             
             self.runningResult.average_pace_in_milli_seconds = pace

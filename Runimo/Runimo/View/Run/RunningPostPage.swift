@@ -116,9 +116,12 @@ struct RunningPostPage: View {
     }
     
     private func convertPaceToString(pace: Int) -> String {
+        if pace == 0 {
+            return "-’--”"
+        }
         let minPerKm = pace / 60
         let secPerKm = pace % 60
-        return "\(minPerKm)\' \(secPerKm)\'\'"
+        return "\(minPerKm)’ \(secPerKm)”"
     }
     
     private func convertTimeToString(seconds: Int) -> String {
