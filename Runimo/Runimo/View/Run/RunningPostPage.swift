@@ -10,6 +10,7 @@ import SwiftUI
 struct RunningPostPage: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var mapVM: MapViewModel
+    @Environment(\.dismiss) var dismiss
     @State private var record: RunningPostResponse?
     let recordId: String
     
@@ -96,7 +97,7 @@ struct RunningPostPage: View {
             ToolbarItem(placement: .topBarLeading) {
                 HStack(spacing: 6) {
                     Button {
-                        navigation.goToRootPage()
+                        dismiss()
                     } label: {
                         Image(systemName: "xmark")
                             .resizable()
