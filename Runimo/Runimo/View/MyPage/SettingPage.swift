@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import KeychainSwift
 
 struct SettingPage: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var sharedData: SharedData
     @State private var showLogoutPopup: Bool = false
     @State private var showWithdrawPopup: Bool = false
+    let keychain = KeychainSwift()
     
     var body: some View {
         ZStack {
@@ -70,6 +72,7 @@ struct SettingPage: View {
 
         } buttonAction: {
             AuthService.shared.removeUserInfoToLogout()
+            deleteToken()
             sharedData.isLogined = false
             navigation.goToRootPage()
         }
@@ -78,11 +81,17 @@ struct SettingPage: View {
         } buttonAction: {
             MyPageService.shared.withdrawUser { result in
                 if result {
+                    deleteToken()
                     sharedData.isLogined = false
                     navigation.goToRootPage()
                 }
             }
         }
+    }
+    
+    private func deleteToken() {
+        keychain.delete("accessToken")
+        keychain.delete("refreshToken")
     }
 }
 
