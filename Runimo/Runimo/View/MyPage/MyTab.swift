@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MyTab: View {
     @EnvironmentObject var navigation: NavigationManager
@@ -55,19 +56,16 @@ struct MyTab: View {
     func userInfo() -> some View {
         HStack(spacing: 24) {
             // 프로필 사진
-            if let profile = myPageVM.user.profile_image_url,
-               let url = URL(string: profile),
-               let uiImage = UIImage(contentsOfFile: url.path) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 80, height: 80)
-                    .clipShape(RoundedRectangle(cornerRadius: 32))
-            } else {
-                Image("default_user_profile")
-                    .resizable()
-                    .frame(width: 80, height: 80)
-            }
+            KFImage(URL(string: myPageVM.user.profile_image_url ?? ""))
+                .placeholder {
+                    ProgressView()
+                }
+                .onFailureImage(UIImage(named: "default_user_profile"))
+                .resizable()
+                .scaledToFill()
+                .frame(width: 80, height: 80)
+                .clipShape(RoundedRectangle(cornerRadius: 32))
+
             // 닉네임
             VStack(alignment: .leading, spacing: 10) {
                 Text(userDefaults.string(forKey: "nickname") ?? "닉네임")
