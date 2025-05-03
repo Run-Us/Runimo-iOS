@@ -9,7 +9,7 @@ import Foundation
 
 struct UserToken: Codable {
     let nickname: String
-    let img_url: String
+    let img_url: String?
     let access_token: String
     let refresh_token: String
 }
@@ -17,7 +17,7 @@ struct UserToken: Codable {
 struct SignUpResponse: Codable {
     let user_id: Int
     let nickname: String
-    let img_url: String
+    let img_url: String?
     let token_pair: Token
 }
 
