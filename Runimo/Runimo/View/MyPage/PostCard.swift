@@ -37,7 +37,7 @@ struct PostCard: View {
                 HStack(spacing: 20) {
                     detailInfo(title: "거리", contents: String(format: "%.2fkm", Double(runningRecord.distance_in_meters)/Double(1000)))
                     detailInfo(title: "시간", contents: formattingDuration(seconds: runningRecord.duration_in_seconds))
-                    detailInfo(title: "페이스", contents: "\(runningRecord.average_pace_in_miliseconds)")
+                    detailInfo(title: "페이스", contents: convertPaceToString(pace: runningRecord.average_pace_in_miliseconds))
                 }
             }
             .foregroundStyle(.primaryGray)
@@ -68,6 +68,15 @@ struct PostCard: View {
         } else {
             return "\(seconds%60)s"
         }
+    }
+    
+    private func convertPaceToString(pace: Int) -> String {
+        if pace == 0 {
+            return "-’--”"
+        }
+        let minPerKm = pace / 60
+        let secPerKm = pace % 60
+        return "\(minPerKm)’ \(secPerKm)”"
     }
 }
 
