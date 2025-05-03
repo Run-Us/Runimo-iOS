@@ -44,11 +44,11 @@ struct RootPage: View {
             }
         }
         .onAppear {
-            AuthService.shared.refreshToken { success in
+            NetworkManager.shared.refreshToken { success in
                 sharedData.isLogined = success
                 if success {
                     sharedData.setTab(.home)
-                } 
+                }
             }
         }
     }

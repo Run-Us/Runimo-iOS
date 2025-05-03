@@ -14,6 +14,9 @@ final class NetworkManager {
     private let keychain = KeychainSwift()
     private let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     
+    private var isTokenRefreshing = false
+    private var refreshQueue: [(Bool) -> Void] = []
+    
     private init() { }
     
     // http 응답코드 받기
@@ -43,7 +46,7 @@ final class NetworkManager {
             .responseDecodable(of: BaseResponse<T>.self) { response in
                 // 토큰 갱신
                 if let statusCode = response.response?.statusCode, statusCode == 401, !retrying {
-                    AuthService.shared.refreshToken { success in
+                    self.refreshToken { success in
                         if success {
                             // new token으로 재요청
                             var updateHeaders: HTTPHeaders = request.headers ?? [:]
@@ -84,6 +87,24 @@ final class NetworkManager {
             case .failure(let error):
                 print("❌ Request 404 Failed: Request URL: \(url)\n\(error.localizedDescription)\n")
             }
+        }
+    }
+    
+    func refreshToken(completion: @escaping (Bool) -> Void) {
+        // 토큰 갱신 요청 중일 때 대기 중인 큐에 넣기
+        if isTokenRefreshing {
+            refreshQueue.append(completion)
+            return
+        }
+        
+        isTokenRefreshing = true
+        
+        AuthService.shared.refreshToken { success in
+            self.isTokenRefreshing = false
+            
+            completion(success)
+            self.refreshQueue.forEach { $0(success) }
+            self.refreshQueue.removeAll()
         }
     }
 }

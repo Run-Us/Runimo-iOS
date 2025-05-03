@@ -42,7 +42,7 @@ class RunningSessionService: ObservableObject {
                 
                 // 토큰 갱신
                 if let statusCode = response.response?.statusCode, statusCode == 401, !retrying {
-                    AuthService.shared.refreshToken { success in
+                    NetworkManager.shared.refreshToken { success in
                         if success {
                             // new token으로 재요청
                             headers["Authorization"] = "Bearer \(self.keychain.get("accessToken") ?? "")"
@@ -52,6 +52,7 @@ class RunningSessionService: ObservableObject {
                             }
                         }
                     }
+                    
                     return
                 }
              
