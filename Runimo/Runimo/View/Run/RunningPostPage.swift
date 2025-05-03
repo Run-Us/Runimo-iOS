@@ -86,7 +86,7 @@ struct RunningPostPage: View {
                     
                     // 구간별 페이스
                     segmentPaceList()
-                    
+                        .padding(.vertical, 24)
                 }
                 .foregroundStyle(.primaryGray)
                 .padding(.horizontal, 16)
@@ -119,24 +119,53 @@ struct RunningPostPage: View {
     
     @ViewBuilder
     private func segmentPaceList() -> some View {
-        HStack {
-            Text("구간별 페이스")
-                .font(.title5_bold)
-                .foregroundStyle(.primaryGray)
-            Spacer()
-            Text("평균 페이스: \(convertPaceToString(pace: record?.average_pace ?? 0))")
-        }
-        ForEach(record?.segment_pace_list ?? [], id:\.distance) { item in
-            VStack(spacing: 4) {
-                HStack {
-                    Text("\(item.distance/1000)k")
-                    Spacer()
-                    Text("\(item.pace/60):\(item.pace%60)")
+        VStack {
+            HStack {
+                Text("구간별 페이스")
+                    .font(.title5_bold)
+                    .foregroundStyle(.primaryGray)
+                Spacer()
+                Text("평균 페이스: \(convertPaceToString(pace: record?.average_pace ?? 0))")
+            }
+            .padding(.bottom, 20)
+            
+            // 가장 빠른 페이스
+            let minPacePerKM = record?.segment_pace_list
+                    .map { Double($0.pace) / Double($0.distance) }
+                    .min() ?? 1.0
+            
+            ForEach(record?.segment_pace_list ?? [], id:\.distance) { item in
+                // 막대 그래프를 그리기 위한 비율
+                let pacePerKM = Double(item.pace) / Double(item.distance)
+                let normalized = (minPacePerKM / pacePerKM) * 0.9
+                
+                VStack(spacing: 4) {
+                    HStack {
+                        if item.distance >= 1000 {
+                            Text("\(item.distance/1000)k")
+                        } else {
+                            Text(formatDistance(item.distance))
+                        }
+                        Spacer()
+                        Text("\(item.pace/60):\(item.pace%60)")
+                    }
+                    .font(.caption_regular)
+                    .foregroundStyle(.quaternaryGray)
+                    
+                    ProgressBar(progress: normalized)
                 }
-                .font(.caption_regular)
-                .foregroundStyle(.quaternaryGray)
             }
         }
+    }
+    
+    private func formatDistance(_ distance: Int) -> String {
+        let km = Double(distance) / 1000
+        let text = String(format: "%.2f", km)
+        
+        if text.hasSuffix("0") {
+            return String(format: "%.1fk", km)
+        }
+        return "\(text)k"
     }
     
     private func convertPaceToString(pace: Int) -> String {
