@@ -179,7 +179,7 @@ struct RunningPostPage: View {
     
     private func convertTimeToString(seconds: Int) -> String {
         if seconds >= 60 * 60 {     // 1시간 이상
-            return "\(seconds/3600)h \(seconds%3600)m"
+            return "\(seconds/3600)h \((seconds%3600)/60)m"
         } else if seconds >= 60 {
             return "\(seconds/60)m \(seconds%60)s"
         } else {
