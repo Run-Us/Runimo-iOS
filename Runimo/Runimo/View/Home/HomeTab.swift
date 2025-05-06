@@ -149,7 +149,7 @@ struct HomeTab: View {
                     eggData?.incubating_eggs[0].current_love_point_amount = response.current_love_point_amount
                     
                     DispatchQueue.main.async {
-                        sharedData.egg_love = (sharedData.egg_love.egg, sharedData.egg_love.love-1)
+                        getHomeAPI()
                     }
                     
                     if response.egg_hatchable {
