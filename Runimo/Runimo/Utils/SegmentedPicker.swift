@@ -24,6 +24,7 @@ struct SegmentedPicker: View {
                             .font(.body1_medium)
                             .foregroundStyle(selectedTab == index ? .primaryGray : .gray400)
                             .padding(EdgeInsets(top: 15, leading: 0, bottom: 13, trailing: 0))
+                            .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
                 }
