@@ -137,7 +137,9 @@ class RunningSessionService: ObservableObject {
             switch result {
             case .success(let data):
                 print("러닝 기록 조회: \(data)")
-                completion(data)
+                if !data.record_list.isEmpty {
+                    completion(data)
+                }
             case .failure(let error):
                 print("\(error)")
             }

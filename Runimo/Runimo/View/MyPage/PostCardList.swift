@@ -12,6 +12,8 @@ struct PostCardList: View {
     @State private var runningSessionList: [RunningRecord] = []
     private let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
     @State private var showDateSheet: Bool = false
+    @State private var page: Int = 0
+    @State private var isLoading = false
     
     var body: some View {
         ZStack {
@@ -24,10 +26,9 @@ struct PostCardList: View {
                     .padding(.vertical, 24)
                 
                 ScrollView {
-                    ForEach(runningSessionList, id: \.id) { record in
-                        NavigationLink(destination: RunningPostPage(recordId: record.id ?? "")) {
-                            PostCard(runningRecord: record)
-                                .padding(.bottom, 14)
+                    LazyVStack {
+                        ForEach(runningSessionList, id: \.id) { record in
+                            postCardView(record)
                         }
                     }
                 }
@@ -81,10 +82,26 @@ struct PostCardList: View {
         }
     }
     
+    @ViewBuilder
+    private func postCardView(_ record: RunningRecord) -> some View {
+        NavigationLink(destination: RunningPostPage(recordId: record.id ?? "")) {
+            PostCard(runningRecord: record)
+                .padding(.bottom, 14)
+        }
+        .onAppear {
+            if record.id == runningSessionList.last?.id && !isLoading {
+                getRunningRecordsAPI()
+            }
+        }
+    }
+    
     private func getRunningRecordsAPI() {
-        RunningSessionService.shared.getMyRunningRecords(page: 0) { result in
+        isLoading = true
+        RunningSessionService.shared.getMyRunningRecords(page: page) { result in
             DispatchQueue.main.async {
-                runningSessionList = result.record_list
+                runningSessionList += result.record_list
+                page += 1
+                isLoading = false
             }
         }
     }
