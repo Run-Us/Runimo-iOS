@@ -30,8 +30,10 @@ class MyPageViewModel: ObservableObject {
     @Published var showDateSheet: Bool = false
     @Published var user: MyPage
     @Published var graph: RunningGraph
-    @Published var graphDisplay: (count: Int, distance: String, time: String, maxYLength: Double, distanceList: [Double]) = (0, "0.00km", "0m 0s", 6.0, Array(repeating: 0.0, count: 30))
+    @Published var graphDisplay: (count: Int, distance: String, time: String, maxYLength: Double) = (0, "0.00km", "0m 0s", 6.0)
     @Published var dailyStats: [DailyStats] = []
+    @Published var weeklyGraphList: [Double] = Array(repeating: 0.0, count: 7)
+    @Published var monthlyGraphList: [Double] = Array(repeating: 0.0, count: 30)
     
     init() {
         user = MyPage(profile_image_url: nil, nickname: "", total_distance_in_meters: 0, latest_run_date_before: 0, latest_running_record_nullable: nil)
@@ -124,9 +126,14 @@ extension MyPageViewModel {
             count: graph.total_count,
             distance: String(format: "%.2fkm", distance),
             time: "\(minute)m \(second)s",
-            maxYLength: maxYLength > 0 ? maxYLength : 6.0,
-            distanceList: graph.distance_list.map{ Double($0)/1000 }
+            maxYLength: maxYLength > 0 ? maxYLength : 6.0
         )
+        
+        if recordType == .weekly {
+            weeklyGraphList = graph.distance_list.map{ Double($0)/1000 }
+        } else {
+            monthlyGraphList = graph.distance_list.map{ Double($0)/1000 }
+        }
     }
 }
 
@@ -146,7 +153,7 @@ extension MyPageViewModel {
         case .weekly:
             return ["월","화","수","목","금","토","일"]
         case .monthly:
-            return Array(1...graphDisplay.distanceList.count).map{String($0)}
+            return Array(1...monthlyGraphList.count).map{String($0)}
         }
     }
     

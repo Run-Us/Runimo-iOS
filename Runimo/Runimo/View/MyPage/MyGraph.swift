@@ -64,7 +64,7 @@ struct MyGraph: View {
         VStack(spacing: 0) {
             HStack(alignment: .bottom, spacing: 0) {
                 ForEach(myPageVM.xData.indices, id: \.self) { idx in
-                    weekBarGraph(xdata: myPageVM.xData[idx], ydata: myPageVM.graphDisplay.distanceList[idx], height: height)
+                    weekBarGraph(xdata: myPageVM.xData[idx], ydata: myPageVM.weeklyGraphList[idx], height: height)
                 }
             }
         }
@@ -92,7 +92,7 @@ struct MyGraph: View {
         VStack(spacing: 0) {
             // 막대 그래프
             HStack(alignment: .bottom, spacing: 0) {
-                ForEach(myPageVM.graphDisplay.distanceList, id: \.self) { item in
+                ForEach(myPageVM.monthlyGraphList, id: \.self) { item in
                     RoundedRectangle(cornerRadius: myPageVM.barGraphCornerRadius)
                         .fill(item > 0 ? .highlight : .clear)
                         .frame(height: item > 0 ? (item/myPageVM.graphDisplay.maxYLength) * height : height)
