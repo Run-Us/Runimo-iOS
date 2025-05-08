@@ -26,7 +26,6 @@ struct MyTab: View {
                     RecordCard(myPageVM: myPageVM)
                     MyGraph(myPageVM: myPageVM)
                         .frame(height: 160)
-                    recentActivity()
                 }
                 .padding(.vertical, 24)
                 .padding(.horizontal, 16)
@@ -78,39 +77,10 @@ struct MyTab: View {
             .foregroundStyle(.quaternaryGray)
             
             Spacer()
-            
-            Button {
-                
-            } label: {
-                Image("edit_profile")
-            }
 
         }
     }
     
-    @ViewBuilder
-    func recentActivity() -> some View {
-        VStack(spacing: 20) {
-            HStack {
-                Text("최근 활동")
-                    .font(.title5_bold)
-                    .foregroundStyle(.primaryGray)
-                Spacer()
-                Button {
-                    navigation.path.append(PostCardList.id)
-                } label: {
-                    Text("더보기")
-                        .font(.caption_regular)
-                        .foregroundStyle(.quaternaryGray)
-                }
-            }
-            
-            // post card
-            if let record = myPageVM.user.latest_running_record_nullable {
-                PostCard(runningRecord: record)
-            }
-        }
-    }
 }
 
 #Preview {

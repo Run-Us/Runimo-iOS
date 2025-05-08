@@ -26,7 +26,7 @@ struct TabBar: View {
                 // 상단 바
                 VStack(alignment: .leading, spacing: 0) {
                     switch sharedData.currentMainTab {
-                    case .session: sessionTabNavigationBar()
+                    case .session: EmptyView()
                     case .character: characterTabNavigationBar()
                     default: etcNavigationBar()
                     }
@@ -37,7 +37,7 @@ struct TabBar: View {
                     // 탭 별 보여줄 페이지
                     switch sharedData.currentMainTab {
                     case .home: HomeTab()
-                    case .session: SessionTab()
+                    case .session: PostCardList()
                     case .character: CharacterTab()
                     case .my: MyTab()
                     }
