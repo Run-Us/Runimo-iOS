@@ -95,7 +95,15 @@ struct RewardResponse: Codable {
 }
 
 struct RunningRecordsResponse: Codable {
-    let record_list: [RunningRecord]
+    let items: [RunningRecord]
+    let pagination: RecordPagination
+}
+
+struct RecordPagination: Codable {
+    let total_items: Int
+    let total_pages: Int
+    let current_page: Int
+    let per_page: Int
 }
 
 struct RunningPostResponse: Codable {

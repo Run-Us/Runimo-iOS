@@ -28,7 +28,9 @@ struct RunningRewardPage: View {
                 .padding(.horizontal, 16)
                 
                 VStack(spacing: 12) {
-                    rewardItem(image: "icon_egg", text: sharedData.rewardData.egg)
+                    if !sharedData.rewardData.egg.isEmpty {
+                        rewardItem(image: "icon_egg", text: sharedData.rewardData.egg)
+                    }
                     rewardItem(image: "icon_love", text: "\(sharedData.rewardData.point)개")
                 }
                 .padding(.horizontal, 16)

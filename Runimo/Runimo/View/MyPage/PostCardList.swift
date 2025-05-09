@@ -13,7 +13,10 @@ struct PostCardList: View {
     private let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
     @State private var showDateSheet: Bool = false
     @State private var page: Int = 0
+    @State private var totalCount: Int = 0
+    @State private var totalPage: Int = 1
     @State private var isLoading = false
+    @State private var selectedDate: Date = Date()
     
     var body: some View {
         ZStack {
@@ -76,7 +79,7 @@ struct PostCardList: View {
                 Spacer()
             }
             .foregroundStyle(.primaryGray)
-            Text("\(nickname)님은 \(DateManager.shared.getMonth(date: Date()))월달에 총 \(runningSessionList.count)번을 달리셨어요.")
+            Text("\(nickname)님은 \(DateManager.shared.getMonth(date: Date()))월달에 총 \(totalCount)번을 달리셨어요.")
                 .font(.body2_medium)
                 .foregroundStyle(.quaternaryGray)
         }
@@ -89,7 +92,7 @@ struct PostCardList: View {
                 .padding(.bottom, 14)
         }
         .onAppear {
-            if record.id == runningSessionList.last?.id && !isLoading {
+            if record.id == runningSessionList.last?.id && !isLoading && page < totalPage {
                 getRunningRecordsAPI()
             }
         }
@@ -97,9 +100,11 @@ struct PostCardList: View {
     
     private func getRunningRecordsAPI() {
         isLoading = true
-        RunningSessionService.shared.getMyRunningRecords(page: page) { result in
+        RunningSessionService.shared.getMyRunningRecords(page: page, selectedDate: selectedDate) { result in
             DispatchQueue.main.async {
-                runningSessionList += result.record_list
+                totalPage = result.pagination.total_pages
+                totalCount = result.pagination.total_items
+                runningSessionList += result.items
                 page += 1
                 isLoading = false
             }

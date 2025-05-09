@@ -109,12 +109,8 @@ struct RunningPage: View {
             if isSuccess {
                 sharedData.completeRunningID = runningId
                 RunningSessionService.shared.getRunningReward(runningId: runningId) { data in
-                    if data.is_rewarded {
-                        sharedData.rewardData = (data.egg_type, data.love_point_amount)
-                        navigation.path.append(RunningRewardPage.id)
-                    } else {
-                        navigation.path.append(FinishRunningPage.id)
-                    }
+                    sharedData.rewardData = (data.is_rewarded ? "" : data.egg_type, data.love_point_amount)
+                    navigation.path.append(RunningRewardPage.id)
                 }
             }
         }

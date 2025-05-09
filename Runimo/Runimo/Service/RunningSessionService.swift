@@ -119,16 +119,20 @@ class RunningSessionService: ObservableObject {
         }
     }
     
-    func getMyRunningRecords(page: Int, completion: @escaping (RunningRecordsResponse) -> Void) {
+    func getMyRunningRecords(page: Int, selectedDate: Date, completion: @escaping (RunningRecordsResponse) -> Void) {
         let path = "/records/me"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
         ]
         
+        let (startDate, endDate) = DateManager.shared.currentMonthFirstAndLastDateString(date: selectedDate)
+        
         let parameters: [String: Any] = [
             "page": page,
-            "size": 10
+            "size": 10,
+            "startDate": startDate,
+            "endDate": endDate
         ]
         
         let dataRequest = APIRequest(path: path, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
@@ -137,9 +141,7 @@ class RunningSessionService: ObservableObject {
             switch result {
             case .success(let data):
                 print("러닝 기록 조회: \(data)")
-                if !data.record_list.isEmpty {
-                    completion(data)
-                }
+                completion(data)
             case .failure(let error):
                 print("\(error)")
             }

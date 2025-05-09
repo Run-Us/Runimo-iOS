@@ -208,4 +208,14 @@ extension DateManager {
     func setDateToday() {
         date = Date()
     }
+    
+    // 날짜에 해당하는 달의 첫 날짜와 끝 날짜 yyyy-MM-dd 형식으로 반환
+    func currentMonthFirstAndLastDateString(date: Date) -> (firstDayOfMonth: String, lastDayOfMonth: String) {
+        if let startDate = calendar.date(from: calendar.dateComponents([.year, .month], from: date)),
+           let endDate = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startDate) {
+            formatter.dateFormat = "yyyy-MM-dd"
+            return (formatter.string(from: startDate), formatter.string(from: endDate))
+        }
+        return ("", "")
+    }
 }
