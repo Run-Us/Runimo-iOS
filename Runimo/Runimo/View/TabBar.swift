@@ -26,7 +26,7 @@ struct TabBar: View {
                 // 상단 바
                 VStack(alignment: .leading, spacing: 0) {
                     switch sharedData.currentMainTab {
-                    case .session: EmptyView()
+                    case .session: runningRecordsNavigationBar()
                     case .character: characterTabNavigationBar()
                     default: etcNavigationBar()
                     }
@@ -159,6 +159,21 @@ struct TabBar: View {
                 Image(systemName: "plus")
                     .resizable()
                     .frame(width: 14, height: 14)
+            }
+            .foregroundStyle(.primaryGray)
+            .padding(16)
+            Divider()
+        }
+    }
+    
+    @ViewBuilder
+    private func runningRecordsNavigationBar() -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("모든 활동")
+                    .font(.title5_bold)
+                    .frame(height: 24)
+                Spacer()
             }
             .foregroundStyle(.primaryGray)
             .padding(16)

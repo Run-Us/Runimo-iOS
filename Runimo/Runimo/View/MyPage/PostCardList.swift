@@ -23,7 +23,6 @@ struct PostCardList: View {
             Color.primaryBG
                 .ignoresSafeArea()
             VStack(alignment: .leading) {
-                Divider()
                 header()
                     .padding(.horizontal, 16)
                     .padding(.vertical, 24)
@@ -36,22 +35,6 @@ struct PostCardList: View {
                     }
                 }
                 .padding(.horizontal, 16)
-            }
-        }
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                HStack(spacing: 8) {
-                    Button {
-                        navigation.path.removeLast()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .resizable()
-                            .frame(width: 14, height: 14)
-                    }
-                    Text("모든 활동")
-                        .font(.body1_medium)
-                }
-                .foregroundStyle(.primaryGray)
             }
         }
         .navigationBarBackButtonHidden()
