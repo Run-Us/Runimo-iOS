@@ -35,6 +35,9 @@ class SharedData: ObservableObject {
     @Published var rewardData: (egg: String, point: Int) = ("", 0)
     @Published var completeRunningID: String = ""
     
+    // MARK: - 두 번째 탭 (기록 리스트)
+    @Published var totalRunningCount: Int = 0
+    
     init() { }
     
     func setTab(_ tab: Tab) {

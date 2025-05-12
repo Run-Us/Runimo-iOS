@@ -9,11 +9,11 @@ import SwiftUI
 
 struct PostCardList: View {
     @EnvironmentObject var navigation: NavigationManager
+    @EnvironmentObject var sharedData: SharedData
     @State private var runningSessionList: [RunningRecord] = []
     private let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
     @State private var showDateSheet: Bool = false
     @State private var page: Int = 0
-    @State private var totalCount: Int = 0
     @State private var totalPage: Int = 1
     @State private var isLoading = false
     @State private var selectedDate: Date = Date()
@@ -62,7 +62,7 @@ struct PostCardList: View {
                 Spacer()
             }
             .foregroundStyle(.primaryGray)
-            Text("\(nickname)님은 \(DateManager.shared.getMonth(date: Date()))월달에 총 \(totalCount)번을 달리셨어요.")
+            Text("\(nickname)님은 \(DateManager.shared.getMonth(date: Date()))월달에 총 \(sharedData.totalRunningCount)번을 달리셨어요.")
                 .font(.body2_medium)
                 .foregroundStyle(.quaternaryGray)
         }
@@ -86,7 +86,7 @@ struct PostCardList: View {
         RunningSessionService.shared.getMyRunningRecords(page: page, selectedDate: selectedDate) { result in
             DispatchQueue.main.async {
                 totalPage = result.pagination.total_pages
-                totalCount = result.pagination.total_items
+                sharedData.totalRunningCount = result.pagination.total_items
                 runningSessionList += result.items
                 page += 1
                 isLoading = false
