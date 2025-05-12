@@ -19,7 +19,7 @@ struct CharacterTab: View {
         ScrollView {
             VStack {
                 ForEach(sharedData.allRunimoData, id: \.egg_type) { item in
-                    characterStage(data: item)
+                    characterStage(data: item, isOpen: item.egg_required_distance_in_meters <= sharedData.totalUserRunningDistance)
                         .padding(.top, 24)
                 }
             }
@@ -37,7 +37,7 @@ struct CharacterTab: View {
     }
 
     @ViewBuilder
-    private func characterStage(data: RunimoGroup) -> some View {
+    private func characterStage(data: RunimoGroup, isOpen: Bool) -> some View {
         VStack(spacing: 8) {
             HStack {
                 Text("\(data.egg_type)")
@@ -50,12 +50,12 @@ struct CharacterTab: View {
             }
             .padding(.vertical, 6)
             
-            characterByType(runimos: data.runimo_types ?? [])
+            characterByType(runimos: data.runimo_types ?? [], isOpen: isOpen)
         }
     }
     
     @ViewBuilder
-    private func characterByType(runimos: [RunimoInfo]) -> some View {
+    private func characterByType(runimos: [RunimoInfo], isOpen: Bool) -> some View {
         LazyVGrid(columns: columns, spacing: 16) {
             
             ForEach(runimos, id: \.code) { runimo in
@@ -69,7 +69,7 @@ struct CharacterTab: View {
                         sharedData.showPopUp(isEgg: false)
                     }
                 } label: {
-                    characterCard(name: runimo.name, imageName: runimo.img_url, disabled: itemDisabled, selected: isSelectedIndex)
+                    characterCard(name: isOpen ? runimo.name : "???", imageName: isOpen ? runimo.img_url : "", disabled: itemDisabled, selected: isSelectedIndex)
                 }
                 .disabled(itemDisabled)
             }
@@ -80,6 +80,8 @@ struct CharacterTab: View {
     private func characterCard(name: String, imageName: String, disabled: Bool, selected: Bool = false) -> some View {
         VStack(spacing: 16) {
             KFImage(URL(string: imageName))
+                .placeholder { ProgressView() }
+                .onFailureImage(UIImage(named: "character_disabled"))
                 .resizable()
                 .frame(width: 120, height: 120)
             Text(name)
