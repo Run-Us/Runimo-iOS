@@ -65,7 +65,7 @@ final class NetworkManager {
                     completion(.success(data))
                 } else {
                     // payload가 없을 때도 실패로 처리
-                    print("⚠️ Payload is nil. Code: \(baseResponse.code), Message: \(baseResponse.message)")
+                    print("⚠️ Payload is nil. StatusCode: \(response.response?.statusCode ?? 0) \nCode: \(baseResponse.code), Message: \(baseResponse.message)\n")
                     completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                 }
             case .failure(let error):
