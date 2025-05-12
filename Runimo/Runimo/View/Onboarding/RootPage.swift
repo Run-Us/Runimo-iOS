@@ -14,10 +14,12 @@ struct RootPage: View {
     var body: some View {
         NavigationStack(path: $navigation.path) {
             ZStack {
-                if sharedData.isLogined {
-                    TabBar()
-                } else {
-                    LoginPage()
+                if let isLogined = sharedData.isLogined {
+                    if isLogined {
+                        TabBar()
+                    } else {
+                        LoginPage()
+                    }
                 }
             }
             .navigationDestination(for: String.self) { value in
