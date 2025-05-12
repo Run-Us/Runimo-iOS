@@ -10,27 +10,19 @@ import Kingfisher
 
 struct HomeTab: View {
     @EnvironmentObject var sharedData: SharedData
-    @State private var data: HomeItem?
-    @State private var eggData: HomeEggResponse?
     @State private var eggId: Int = 0
-    @State private var isLoaded: Bool = false
     
     var body: some View {
         ZStack(alignment: .top) {
             Color.primaryBG
             GeometryReader { geometry in
                 VStack(spacing: 24) {
-                    if isLoaded {
-                        Button {
-                            sharedData.currentMainTab = .character
-                        } label: {
-                            characterProfile()
-                        }
-                        eggCard()
-                    } else {
-                        ProgressView()
-                            .frame(width: geometry.size.width, height: geometry.size.height)
+                    Button {
+                        sharedData.currentMainTab = .character
+                    } label: {
+                        characterProfile()
                     }
+                    eggCard()
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 24)
@@ -38,9 +30,6 @@ struct HomeTab: View {
         }
         .onAppear {
             getHomeAPI()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                isLoaded = true
-            }
         }
         .onChange(of: sharedData.updateHomeView) { _, _ in
             getHomeAPI()
@@ -50,18 +39,14 @@ struct HomeTab: View {
     @ViewBuilder
     private func characterProfile() -> some View {
         HStack(spacing: 46) {
-            if let image = data?.main_runimo_stat_nullable {
-                KFImage(URL(string: image.image_url))
-                    .resizable()
-                    .frame(width: 86, height: 86)
-            } else {
-                Image("character_disabled")
-                    .resizable()
-                    .frame(width: 86, height: 86)
-            }
+            KFImage(URL(string: sharedData.homeData?.main_runimo_stat_nullable?.image_url ?? ""))
+                .placeholder { ProgressView() }
+                .onFailureImage(UIImage(named: "character_disabled"))
+                .resizable()
+                .frame(width: 86, height: 86)
                 
             VStack(alignment: .leading, spacing: 20) {
-                Text("\(data?.main_runimo_stat_nullable?.name ?? "알을 부화시켜보세요!")")
+                Text("\(sharedData.homeData?.main_runimo_stat_nullable?.name ?? "알을 부화시켜보세요!")")
                     .foregroundStyle(.primaryGray)
                     .font(.title5_bold)
                 HStack(spacing: 40) {
@@ -69,7 +54,7 @@ struct HomeTab: View {
                         Text("러닝")
                             .font(.caption_regular)
                             .foregroundStyle(.quaternaryGray)
-                        Text("\(data?.main_runimo_stat_nullable?.total_running_count ?? 0)")
+                        Text("\(sharedData.homeData?.main_runimo_stat_nullable?.total_running_count ?? 0)")
                             .font(.title5_bold)
                             .foregroundStyle(.primaryGray)
                     }
@@ -77,7 +62,7 @@ struct HomeTab: View {
                         Text("달린 거리")
                             .font(.caption_regular)
                             .foregroundStyle(.quaternaryGray)
-                        Text(String(format: "%.2f km", (data?.main_runimo_stat_nullable?.total_distance_in_meters ?? 0)/1000))
+                        Text(String(format: "%.2f km", (sharedData.homeData?.main_runimo_stat_nullable?.total_distance_in_meters ?? 0)/1000))
                             .font(.title5_bold)
                             .foregroundStyle(.primaryGray)
                     }
@@ -97,7 +82,7 @@ struct HomeTab: View {
     @ViewBuilder
     private func eggCard() -> some View {
         VStack(spacing: 12) {
-            if let data = eggData, let egg = data.incubating_eggs.first {
+            if let egg = sharedData.homeEggData {
                 KFImage(URL(string: egg.img_url))
                     .placeholder { ProgressView() }
                     .resizable()
@@ -151,7 +136,7 @@ struct HomeTab: View {
                 // 애정주기
                 if eggId >= 0 {
                     HomeService.shared.patchLovePoint(eggId: eggId, amount: 1) { response in
-                        eggData?.incubating_eggs[0].current_love_point_amount = response.current_love_point_amount
+                        sharedData.homeEggData?.current_love_point_amount = response.current_love_point_amount
                         
                         DispatchQueue.main.async {
                             getHomeAPI()
@@ -200,7 +185,7 @@ struct HomeTab: View {
     private func getHomeAPI() {
         HomeService.shared.getHome { item in
             DispatchQueue.main.async {
-                data = item
+                sharedData.homeData = item
                 sharedData.egg_love = (item.user_info.total_egg_count, item.user_info.love_point)
             }
         }
@@ -211,7 +196,7 @@ struct HomeTab: View {
     private func getHomeEggAPI() {
         HomeService.shared.getCurrentEgg { egg in
             DispatchQueue.main.async {
-                eggData = egg
+                sharedData.homeEggData = egg.incubating_eggs.first
                 eggId = egg.incubating_eggs.first?.id ?? -1
                 
                 // 부화 가능 상태면 부화 API 호출

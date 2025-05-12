@@ -11,14 +11,21 @@ class SharedData: ObservableObject {
     @Published var isLogined: Bool?
     @Published var isSignUpComplete: Bool = false
     @Published var currentMainTab: Tab = .home
-    @Published var egg_love: (egg: Int, love: Int) = (0, 0)
-    @Published var showEggSheet: Bool = false
-    @Published var myEggs: [EggItem] = []
     @Published var showCharacterPopUp: Bool = false
+    
+    // MARK: - 1. 홈 탭
+    @Published var egg_love: (egg: Int, love: Int) = (0, 0)
+    @Published var myEggs: [EggItem] = []
+    @Published var homeData: HomeItem?
+    @Published var homeEggData: IncubatingEgg?
+    @Published var showEggSheet: Bool = false
     @Published var isHatchable: Bool = false
     @Published var updateHomeView: Bool = false
     
-    // MARK: - 캐릭터 탭
+    // MARK: - 2. 기록 리스트 탭
+    @Published var totalRunningCount: Int = 0
+    
+    // MARK: - 3. 캐릭터 탭
     @Published var allRunimoData: [RunimoGroup] = []
     @Published var allRunimoDataForDisplay: Dictionary<String, RunimoInfo> = [:]
     @Published var myRunimoData: [UserInfoWithRunimo] = []
@@ -34,9 +41,6 @@ class SharedData: ObservableObject {
     // MARK: - 러닝 보상
     @Published var rewardData: (egg: String, point: Int) = ("", 0)
     @Published var completeRunningID: String = ""
-    
-    // MARK: - 두 번째 탭 (기록 리스트)
-    @Published var totalRunningCount: Int = 0
     
     init() { }
     
