@@ -37,6 +37,7 @@ struct RunimoInfo: Codable {
 
 // MARK: - 보유 러니모 조회
 struct GetMyRunimo: Codable {
+    let total_distance_in_meters: Int
     let runimos: [UserInfoWithRunimo]
 }
 

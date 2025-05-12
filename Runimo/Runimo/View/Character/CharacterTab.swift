@@ -102,6 +102,7 @@ struct CharacterTab: View {
     // 보유 러니모 조회 API
     private func getMyRunimoAPI() {
         RunimoService.shared.getMyRunimo { result in
+            sharedData.totalUserRunningDistance = result.total_distance_in_meters
             sharedData.myRunimoData = result.runimos
             sharedData.transformMyRunimo()
         }

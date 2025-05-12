@@ -189,7 +189,7 @@ struct TabBar: View {
                     .font(.title5_bold)
                     .frame(height: 24)
                 Spacer()
-                Text("0km")
+                Text(CommonExtension.formatIntToKM(num: sharedData.totalUserRunningDistance))
                     .font(.body1_medium)
             }
             .foregroundStyle(.primaryGray)
