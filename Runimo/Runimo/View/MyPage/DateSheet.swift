@@ -28,11 +28,13 @@ struct DateSheet: View {
                             } else if sharedData.currentMainTab == .session {
                                 sharedData.selectedDateForSessionTab = DateManager.shared.moveMonth(index: index)
                             }
+                            
+                            sharedData.dateSheetSelectedIndex = index
                             dismiss()
                         } label: {
                             HStack {
                                 Text(item)
-                                    .font(.body2_medium)
+                                    .font(sharedData.dateSheetSelectedIndex==index ? .body2_bold : .body2_medium)
                                     .foregroundStyle(.secondaryGray)
                                     .padding(.vertical, 10)
                                 Spacer()

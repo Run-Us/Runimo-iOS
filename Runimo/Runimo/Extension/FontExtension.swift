@@ -37,6 +37,7 @@ extension Font {
     // body
     static let body1_bold: Font = .custom(FontName.pretendardBold, size: 18)
     static let body1_medium: Font = .custom(FontName.pretendardMedium, size: 18)
+    static let body2_bold: Font = .custom(FontName.pretendardBold, size: 15)
     static let body2_semibold: Font = .custom(FontName.pretendardSemiBold, size: 15)
     static let body2_medium: Font = .custom(FontName.pretendardMedium, size: 15)
     

@@ -11,6 +11,7 @@ class SharedData: ObservableObject {
     @Published var isLogined: Bool?
     @Published var isSignUpComplete: Bool = false
     @Published var currentMainTab: Tab = .home
+    @Published var dateSheetSelectedIndex: Int = 0
     @Published var showCharacterPopUp: Bool = false
     
     // MARK: - 1. 홈 탭
