@@ -10,6 +10,7 @@ import SwiftUI
 struct RunningRewardPage: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var sharedData: SharedData
+    @EnvironmentObject var mapVM: MapViewModel
     
     var body: some View {
         ZStack {
@@ -21,7 +22,7 @@ struct RunningRewardPage: View {
                     Text("오늘의 러닝을 성공적으로 마쳤어요!")
                         .font(.title4_semibold)
                         .foregroundStyle(.primaryGray)
-                    Text("nn분 동안 n.nnkm를 달렸어요. 정말 대단해요!")
+                    Text("\(mapVM.motionManager.runningInfo.runningTime ?? "0초") 동안 \(mapVM.motionManager.runningInfo.distance ?? 0)km를 달렸어요. 정말 대단해요!")
                         .font(.body2_medium)
                         .foregroundStyle(.quaternaryGray)
                 }

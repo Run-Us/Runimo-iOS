@@ -15,8 +15,6 @@ enum RunningType: String {
 class RunningViewModel: ObservableObject {
     @Published var selectedRunningTab: Int = 0  // single or group
     @Published var runningTab: Int = 0  // 러닝 진행 중 picker tab
-    private let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
-    @Published var totalAggregateNum: Int = 0
     @Published var stopRunPopUpText: (title: String, subtitle: String, buttonText: String, cancelText: String) = ("", "", "", "")
     
     func initRunVM() {
@@ -59,7 +57,7 @@ class RunningViewModel: ObservableObject {
         case .group:
             return (
                 "그룹 달리기를 시작할까요?",
-                "\(nickname)님을 포함해 총 \(totalAggregateNum)명이 모였어요",
+                "님을 포함해 총 명이 모였어요",
                 "시작하기"
             )
         }
@@ -82,4 +80,5 @@ class RunningViewModel: ObservableObject {
             )
         }
     }
+    
 }
