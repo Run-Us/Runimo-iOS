@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DateSheet: View {
     var recordType: RecordType = .monthly
+    @EnvironmentObject var sharedData: SharedData
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -22,7 +23,11 @@ struct DateSheet: View {
                     let dateList = DateManager.shared.getDateList(type: recordType)
                     ForEach(Array(zip(dateList.indices, dateList)), id: \.0) { index, item in
                         Button {
-                            DateManager.shared.updateDate(index: index, type: recordType)
+                            if sharedData.currentMainTab == .my {
+                                DateManager.shared.updateDate(index: index, type: recordType)
+                            } else if sharedData.currentMainTab == .session {
+                                sharedData.selectedDateForSessionTab = DateManager.shared.moveMonth(date: sharedData.selectedDateForSessionTab, index: index)
+                            }
                             dismiss()
                         } label: {
                             HStack {

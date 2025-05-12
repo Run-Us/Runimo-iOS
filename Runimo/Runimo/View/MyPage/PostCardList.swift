@@ -16,7 +16,6 @@ struct PostCardList: View {
     @State private var page: Int = 0
     @State private var totalPage: Int = 1
     @State private var isLoading = false
-    @State private var selectedDate: Date = Date()
     
     var body: some View {
         ZStack {
@@ -41,6 +40,12 @@ struct PostCardList: View {
         .onAppear {
             getRunningRecordsAPI()
         }
+        .onChange(of: sharedData.selectedDateForSessionTab, { _, _ in
+            // 기간 변경 후 데이터 초기화 
+            runningSessionList = []
+            page = 0
+            getRunningRecordsAPI()
+        })
         .sheet(isPresented: $showDateSheet) {
             DateSheet(recordType: .monthly)
                 .presentationDragIndicator(.visible)
@@ -52,7 +57,7 @@ struct PostCardList: View {
     private func header() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text(DateManager.shared.getDateString(date: Date(), type: .monthly))
+                Text(DateManager.shared.getDateString(date: sharedData.selectedDateForSessionTab, type: .monthly))
                     .font(.title4_semibold)
                 Button {
                     showDateSheet = true
@@ -62,7 +67,7 @@ struct PostCardList: View {
                 Spacer()
             }
             .foregroundStyle(.primaryGray)
-            Text("\(nickname)님은 \(DateManager.shared.getMonth(date: Date()))월달에 총 \(sharedData.totalRunningCount)번을 달리셨어요.")
+            Text("\(nickname)님은 \(DateManager.shared.getMonth(date: sharedData.selectedDateForSessionTab))월달에 총 \(sharedData.totalRunningCount)번을 달리셨어요.")
                 .font(.body2_medium)
                 .foregroundStyle(.quaternaryGray)
         }
@@ -83,7 +88,7 @@ struct PostCardList: View {
     
     private func getRunningRecordsAPI() {
         isLoading = true
-        RunningSessionService.shared.getMyRunningRecords(page: page, selectedDate: selectedDate) { result in
+        RunningSessionService.shared.getMyRunningRecords(page: page, selectedDate: sharedData.selectedDateForSessionTab) { result in
             DispatchQueue.main.async {
                 totalPage = result.pagination.total_pages
                 sharedData.totalRunningCount = result.pagination.total_items

@@ -205,6 +205,11 @@ extension DateManager {
         }
     }
     
+    // 달 이동
+    func moveMonth(date: Date, index: Int) -> Date {
+        return calendar.date(byAdding: .month, value: -index, to: date) ?? date
+    }
+    
     func setDateToday() {
         date = Date()
     }
