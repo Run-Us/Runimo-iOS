@@ -10,6 +10,7 @@ import Kingfisher
 
 struct MyTab: View {
     @EnvironmentObject var navigation: NavigationManager
+    @EnvironmentObject var sharedData: SharedData
     @EnvironmentObject var myPageVM: MyPageViewModel
     let userDefaults = UserDefaults.standard
     
@@ -48,6 +49,9 @@ struct MyTab: View {
         }
         .onChange(of: DateManager.shared.date) { oldValue, newValue in
             myPageVM.getGraphAPI()
+        }
+        .onChange(of: myPageVM.selectedTab) { _, _ in
+            sharedData.dateSheetSelectedIndex = 0
         }
     }
     

@@ -133,6 +133,9 @@ struct TabBar: View {
                 }
             }
         }
+        .onChange(of: sharedData.currentMainTab, { _, _ in
+            sharedData.dateSheetSelectedIndex = 0
+        })
         .sheet(isPresented: $sharedData.showEggSheet, content: {
             EggSheet()
                 .presentationDetents([.fraction(0.25)])
