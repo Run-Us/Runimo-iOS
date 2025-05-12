@@ -26,7 +26,7 @@ struct DateSheet: View {
                             if sharedData.currentMainTab == .my {
                                 DateManager.shared.updateDate(index: index, type: recordType)
                             } else if sharedData.currentMainTab == .session {
-                                sharedData.selectedDateForSessionTab = DateManager.shared.moveMonth(date: sharedData.selectedDateForSessionTab, index: index)
+                                sharedData.selectedDateForSessionTab = DateManager.shared.moveMonth(index: index)
                             }
                             dismiss()
                         } label: {

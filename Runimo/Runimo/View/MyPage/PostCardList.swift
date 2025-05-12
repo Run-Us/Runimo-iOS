@@ -41,7 +41,7 @@ struct PostCardList: View {
             getRunningRecordsAPI()
         }
         .onChange(of: sharedData.selectedDateForSessionTab, { _, _ in
-            // 기간 변경 후 데이터 초기화 
+            // 기간 변경 후 데이터 초기화
             runningSessionList = []
             page = 0
             getRunningRecordsAPI()
