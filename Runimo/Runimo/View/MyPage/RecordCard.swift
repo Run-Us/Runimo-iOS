@@ -27,6 +27,8 @@ struct RecordCard: View {
                             .resizable()
                             .frame(width: 14, height: 8)
                             .foregroundStyle(.quaternaryGray)
+                            .padding(10)
+                            .contentShape(Rectangle())
                     }
                 }
             }
