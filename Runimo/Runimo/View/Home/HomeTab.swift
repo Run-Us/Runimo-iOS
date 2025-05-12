@@ -116,7 +116,7 @@ struct HomeTab: View {
                 
                 ProgressBar(progress: Double(egg.current_love_point_amount)/Double(egg.hatch_required_point_amount))
                 
-                giveLoveButton()
+                giveLoveButton(isHatchable: egg.hatchable)
             } else {
                 Image("incubator_image")
                 
@@ -142,26 +142,27 @@ struct HomeTab: View {
     }
     
     @ViewBuilder
-    private func giveLoveButton() -> some View {
+    private func giveLoveButton(isHatchable: Bool) -> some View {
         Button {
-            if eggId >= 0 {
-                HomeService.shared.patchLovePoint(eggId: eggId, amount: 1) { response in
-                    eggData?.incubating_eggs[0].current_love_point_amount = response.current_love_point_amount
-                    
-                    DispatchQueue.main.async {
-                        getHomeAPI()
-                    }
-                    
-                    if response.egg_hatchable {
-                        hatchEggAPI(eggId: response.egg_id)
+            if isHatchable {
+                // 부화하기
+                hatchEggAPI(eggId: eggId)
+            } else {
+                // 애정주기
+                if eggId >= 0 {
+                    HomeService.shared.patchLovePoint(eggId: eggId, amount: 1) { response in
+                        eggData?.incubating_eggs[0].current_love_point_amount = response.current_love_point_amount
+                        
+                        DispatchQueue.main.async {
+                            getHomeAPI()
+                        }
                     }
                 }
             }
-            
         } label: {
             HStack(spacing: 8) {
-                Image("icon_love")
-                Text("애정 주기")
+                Image(isHatchable ? "icon_egg" : "icon_love")
+                Text(isHatchable ? "알 부화하기" : "애정 주기")
                     .font(.title5_bold)
                     .foregroundStyle(.primaryGray)
             }
