@@ -10,7 +10,7 @@ import Kingfisher
 
 struct MyTab: View {
     @EnvironmentObject var navigation: NavigationManager
-    @StateObject private var myPageVM = MyPageViewModel()
+    @EnvironmentObject var myPageVM: MyPageViewModel
     let userDefaults = UserDefaults.standard
     
     var body: some View {
@@ -23,8 +23,8 @@ struct MyTab: View {
                 SegmentedPicker(selectedTab: $myPageVM.selectedTab, type: ["주간","월간"], width: geometry.size.width)
                 
                 VStack(spacing: 24) {
-                    RecordCard(myPageVM: myPageVM)
-                    MyGraph(myPageVM: myPageVM)
+                    RecordCard()
+                    MyGraph()
                         .frame(height: 160)
                 }
                 .padding(.vertical, 24)

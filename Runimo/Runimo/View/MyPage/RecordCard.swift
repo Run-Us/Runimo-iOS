@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecordCard: View {
-    @StateObject var myPageVM: MyPageViewModel
+    @EnvironmentObject var myPageVM: MyPageViewModel
     @EnvironmentObject var sharedData: SharedData
     
     var body: some View {

@@ -29,6 +29,7 @@ struct RunimoApp: App {
                 .environmentObject(RunningViewModel())
                 .environmentObject(SharedData())
                 .environmentObject(NavigationManager())
+                .environmentObject(MyPageViewModel())
         }
     }
 }
