@@ -19,45 +19,42 @@ struct AddProfileSheet: View {
     }
 
     var body: some View {
-        GeometryReader { _ in
+        VStack(alignment: .leading, spacing: 8) {
+            Text("프로필 사진 추가")
+                .font(.title5_bold)
+                .foregroundColor(.primaryGray)
+                .padding(.vertical, 16)
             
-            VStack(alignment: .leading, spacing: 34) {
-                Text("프로필 사진 추가")
-                    .font(.title5_bold)
-                    .foregroundColor(.primaryGray)
-                    .padding(.top, 16)
-                
-                PhotosPicker(selection: $selectedProfile, maxSelectionCount: availableSelectedCount, matching: .images) {
-                    HStack {
-                        Image("imageIcon")
-                        Text("갤러리에서 추가하기")
-                            .font(.body2_medium)
-                            .foregroundColor(.secondaryGray)
-                    }
+            PhotosPicker(selection: $selectedProfile, maxSelectionCount: availableSelectedCount, matching: .images) {
+                HStack {
+                    Image("imageIcon")
+                    Text("갤러리에서 추가하기")
+                        .font(.body2_medium)
+                        .foregroundColor(.secondaryGray)
+                    Spacer()
                 }
-                .onChange(of: selectedProfile) { _, newValue in
-                    handleSelectedPhotos(newValue)
-                }
-                
-                Button {
-                    selectedImages.removeAll()
-                    selectedProfile.removeAll()
-                    dismiss()
-                } label: {
-                    HStack {
-                        Image("trash")
-                        Text("사진 삭제하기")
-                            .font(.body2_medium)
-                            .foregroundColor(.error)
-                    }
-                }
+                .padding(.vertical, 10)
             }
-            .padding()
+            .onChange(of: selectedProfile) { _, newValue in
+                handleSelectedPhotos(newValue)
+            }
             
+            Button {
+                selectedImages.removeAll()
+                selectedProfile.removeAll()
+                dismiss()
+            } label: {
+                HStack {
+                    Image("trash")
+                    Text("사진 삭제하기")
+                        .font(.body2_medium)
+                        .foregroundColor(.error)
+                }
+                .padding(.vertical, 10)
+            }
         }
-        .onTapGesture {
-            dismiss()
-        }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 8)
     }
     
     func handleSelectedPhotos(_ newPhotos: [PhotosPickerItem]) {
