@@ -149,7 +149,7 @@ class HomeService {
         }
     }
     
-    func setMainRunimo(runimoId: Int) {
+    func setMainRunimo(runimoId: Int, completion: @escaping () -> Void) {
         let path = "/runimos/\(runimoId)/main"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -162,6 +162,7 @@ class HomeService {
             switch result {
             case .success(let data):
                 print("\(data)")
+                completion()
             case .failure(let error):
                 print("\(error)")
             }

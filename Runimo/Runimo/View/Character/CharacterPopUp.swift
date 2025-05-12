@@ -119,7 +119,9 @@ struct CharacterPopUp: ViewModifier {
     
     // 대표 러니모 설정
     private func setMainRunimoAPI() {
-        HomeService.shared.setMainRunimo(runimoId: character.id)
+        HomeService.shared.setMainRunimo(runimoId: character.id) {
+            sharedData.updateHomeView.toggle()
+        }
     }
     
 }
