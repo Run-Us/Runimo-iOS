@@ -109,6 +109,7 @@ struct RecordPagination: Codable {
 struct RunningPostResponse: Codable {
     let record_id: String
     let title: String
+    let description: String?
     let started_at: String
     let end_at: String
     let total_running_time: Int

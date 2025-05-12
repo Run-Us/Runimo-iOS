@@ -79,8 +79,10 @@ struct RunningPostPage: View {
                     
                     
                     // contents
-//                    Text(runningPost.contents)
-//                        .font(.body2_medium)
+                    if let description = record?.description {
+                        Text(description)
+                            .font(.body2_medium)
+                    }
                     
                     // 지도 이미지
                     
