@@ -52,6 +52,7 @@ struct MyTab: View {
         }
         .onChange(of: myPageVM.selectedTab) { _, _ in
             sharedData.dateSheetSelectedIndex = 0
+            DateManager.shared.setDateToday()
         }
     }
     
