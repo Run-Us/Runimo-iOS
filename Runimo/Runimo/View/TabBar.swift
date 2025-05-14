@@ -22,96 +22,87 @@ struct TabBar: View {
         ZStack {
             Color.primaryBG
                 .ignoresSafeArea()
-            VStack {
+            VStack(spacing: 0) {
                 // 상단 바
-                VStack(alignment: .leading, spacing: 0) {
-                    switch sharedData.currentMainTab {
-                    case .session: runningRecordsNavigationBar()
-                    case .character: characterTabNavigationBar()
-                    default: etcNavigationBar()
-                    }
+                switch sharedData.currentMainTab {
+                case .session: runningRecordsNavigationBar()
+                case .character: characterTabNavigationBar()
+                default: etcNavigationBar()
                 }
                 
-                // 커스텀 탭바
-                VStack {
-                    // 탭 별 보여줄 페이지
-                    switch sharedData.currentMainTab {
-                    case .home: HomeTab()
-                    case .session: PostCardList()
-                    case .character: CharacterTab()
-                    case .my: MyTab()
-                    }
-                    
-                    Spacer()
-                        
-                    // 탭 아이콘
-                    VStack {
-                        Divider()
-                            .offset(y: 10)
-                        HStack {
-                            Spacer()
-                                
-                            // 홈
-                            Button {
-                                sharedData.currentMainTab = .home
-                            } label: {
-                                Image("tab_home")
-                                    .renderingMode(.template)
-                                    .foregroundStyle(sharedData.currentMainTab == .home ? .primaryGray : .gray400)
-                                    .frame(width: 32, height: 32)
-                            }
-                                    
-                            Spacer()
-                            Spacer()
-                                    
-                            Button {
-                                sharedData.currentMainTab = .session
-                            } label: {
-                                Image("tab_globe")
-                                    .renderingMode(.template)
-                                    .foregroundStyle(sharedData.currentMainTab == .session ? .primaryGray : .gray400)
-                                    .frame(width: 32, height: 32)
-                            }
-                                    
-                            Spacer()
-                                    
-                            // 달리기
-                            Button {
-                                navigation.path.append(RunTab.id)
-                            } label: {
-                                Image("tab_play")
-                                    .offset(y: -10)
-                                    .frame(width: 60, height: 60)
-                            }
-                                    
-                            Spacer()
-                                    
-                            Button {
-                                sharedData.currentMainTab = .character
-                            } label: {
-                                Image("tab_character")
-                                    .renderingMode(.template)
-                                    .foregroundStyle(sharedData.currentMainTab == .character ? .primaryGray : .gray400)
-                                    .frame(width: 32, height: 32)
-                            }
-                                    
-                            Spacer()
-                            Spacer()
-                                    
-                            // 마이페이지
-                            Button {
-                                sharedData.currentMainTab = .my
-                            } label: {
-                                Image("tab_user")
-                                    .renderingMode(.template)
-                                    .foregroundStyle(sharedData.currentMainTab == .my ? .primaryGray : .gray400)
-                                    .frame(width: 32, height: 32)
-                            }
-                                    
-                            Spacer()
-                        }
-                    }
+                // 탭 별 보여줄 페이지
+                switch sharedData.currentMainTab {
+                case .home: HomeTab()
+                case .session: PostCardList()
+                case .character: CharacterTab()
+                case .my: MyTab()
                 }
+                    
+                // 탭 아이콘
+                HStack {
+                    Spacer()
+                                
+                    // 홈
+                    Button {
+                        sharedData.currentMainTab = .home
+                    } label: {
+                        Image("tab_home")
+                            .renderingMode(.template)
+                            .foregroundStyle(sharedData.currentMainTab == .home ? .primaryGray : .gray400)
+                            .frame(width: 32, height: 32)
+                    }
+                                    
+                    Spacer()
+                    Spacer()
+                                    
+                    Button {
+                        sharedData.currentMainTab = .session
+                    } label: {
+                        Image("tab_globe")
+                            .renderingMode(.template)
+                            .foregroundStyle(sharedData.currentMainTab == .session ? .primaryGray : .gray400)
+                            .frame(width: 32, height: 32)
+                    }
+                                    
+                    Spacer()
+                                    
+                    // 달리기
+                    Button {
+                        navigation.path.append(RunTab.id)
+                    } label: {
+                        Image("tab_play")
+                            .offset(y: -15)
+                            .frame(width: 60, height: 60)
+                    }
+                                    
+                    Spacer()
+                                    
+                    Button {
+                        sharedData.currentMainTab = .character
+                    } label: {
+                        Image("tab_character")
+                            .renderingMode(.template)
+                            .foregroundStyle(sharedData.currentMainTab == .character ? .primaryGray : .gray400)
+                            .frame(width: 32, height: 32)
+                    }
+                                    
+                    Spacer()
+                    Spacer()
+                                    
+                    // 마이페이지
+                    Button {
+                        sharedData.currentMainTab = .my
+                    } label: {
+                        Image("tab_user")
+                            .renderingMode(.template)
+                            .foregroundStyle(sharedData.currentMainTab == .my ? .primaryGray : .gray400)
+                            .frame(width: 32, height: 32)
+                    }
+                                    
+                    Spacer()
+                }
+                .background(Divider(), alignment: .top)
+//                }
             }
         }
         .navigationBarBackButtonHidden()
@@ -133,9 +124,9 @@ struct TabBar: View {
                 }
             }
         }
-        .onChange(of: sharedData.currentMainTab, { _, _ in
+        .onChange(of: sharedData.currentMainTab) { _, _ in
             sharedData.dateSheetSelectedIndex = 0
-        })
+        }
         .sheet(isPresented: $sharedData.showEggSheet, content: {
             EggSheet()
                 .presentationDetents([.fraction(0.25)])

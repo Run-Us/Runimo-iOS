@@ -32,6 +32,7 @@ struct PostCardList: View {
                             postCardView(record)
                         }
                     }
+                    .padding(.vertical, 10)
                 }
                 .padding(.horizontal, 16)
             }

@@ -20,9 +20,10 @@ struct CharacterTab: View {
             VStack {
                 ForEach(sharedData.allRunimoData, id: \.egg_type) { item in
                     characterStage(data: item, isOpen: item.egg_required_distance_in_meters <= sharedData.totalUserRunningDistance)
-                        .padding(.top, 24)
+                        .padding(.vertical, 12)
                 }
             }
+            .padding(.vertical, 12)
             .padding(.horizontal, 20)
         }
         .onAppear {
