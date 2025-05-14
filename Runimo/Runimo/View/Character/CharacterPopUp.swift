@@ -122,6 +122,7 @@ struct CharacterPopUp: ViewModifier {
     private func setMainRunimoAPI() {
         HomeService.shared.setMainRunimo(runimoId: character.id) {
             sharedData.updateHomeView.toggle()
+            sharedData.updateCharacterView.toggle()
         }
     }
     

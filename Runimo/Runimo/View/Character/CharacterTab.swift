@@ -29,11 +29,9 @@ struct CharacterTab: View {
         .onAppear {
             getMyRunimoAPI()
         }
-        .onChange(of: sharedData.showCharacterPopUp) { _, newValue in
-            // 팝업이 꺼질 때 API 다시 호출해서 뷰 다시 그리도록
-            if newValue == false {
-                getMyRunimoAPI()
-            }
+        .onChange(of: sharedData.updateCharacterView) { _, _ in
+            // 대표 러니모 바뀌면 API 다시 호출해서 뷰 다시 그리도록
+            getMyRunimoAPI()
         }
     }
 

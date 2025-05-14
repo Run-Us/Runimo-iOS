@@ -33,6 +33,7 @@ class SharedData: ObservableObject {
     @Published var myRunimoData: [UserInfoWithRunimo] = []
     @Published var myRunimoDataForDisplay: Dictionary<String, UserInfoWithRunimo> = [:]
     @Published var totalUserRunningDistance: Int = 0
+    @Published var updateCharacterView: Bool = false
     
     // MARK: - 캐릭터 팝업
     @Published var characterPopUpData: CharacterPopUpItem = CharacterPopUpItem(id: -1, code: "", title: "", subtitle: "", imageURL: "", description: "")
