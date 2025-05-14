@@ -108,9 +108,6 @@ struct TabBar: View {
         .navigationBarBackButtonHidden()
         .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, isHatching: sharedData.isHatchable)
         .onAppear {
-            HomeService.shared.getMyEggs { data in
-                sharedData.myEggs = data.items
-            }
             
             RunimoService.shared.getAllRunimos { data in
                 sharedData.allRunimoData = data.runimo_groups

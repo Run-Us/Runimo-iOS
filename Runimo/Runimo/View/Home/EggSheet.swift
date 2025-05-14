@@ -32,6 +32,11 @@ struct EggSheet: View {
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
         .foregroundStyle(.primaryFill)
+        .onAppear {
+            HomeService.shared.getMyEggs { data in
+                sharedData.myEggs = data.items
+            }
+        }
     }
     
     @ViewBuilder
