@@ -103,6 +103,7 @@ struct CharacterPopUp: ViewModifier {
     private func okButton(text: String, setMain: Bool) -> some View {
         Button {
             isPresented = false
+            sharedData.isHatchable = false
             if setMain {
                 setMainRunimoAPI()
             }
