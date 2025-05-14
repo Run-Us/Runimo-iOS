@@ -113,7 +113,7 @@ extension SharedData {
     // 부화 팝업 데이터
     private func setHatchData() {
         if let hatchData = currentHatchedEgg {
-            characterPopUpData = CharacterPopUpItem(id: hatchData.id, code: hatchData.code, title: hatchData.is_duplicated ? "익숙한 친구를 만났어요.." : "새로운 동물이 태어났어요!", subtitle: hatchData.name, imageURL: hatchData.img_url, description: "")
+            characterPopUpData = CharacterPopUpItem(id: hatchData.id ?? 0, code: hatchData.code, title: hatchData.is_duplicated ? "익숙한 친구를 만났어요.." : "새로운 동물이 태어났어요!", subtitle: hatchData.name, imageURL: hatchData.img_url, description: "")
         }
     }
     
