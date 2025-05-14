@@ -39,6 +39,8 @@ struct PostCardList: View {
         }
         .navigationBarBackButtonHidden()
         .onAppear {
+            runningSessionList = []
+            page = 0
             getRunningRecordsAPI()
         }
         .onChange(of: sharedData.selectedDateForSessionTab, { _, _ in
@@ -81,7 +83,8 @@ struct PostCardList: View {
                 .padding(.bottom, 14)
         }
         .onAppear {
-            if record.id == runningSessionList.last?.id && !isLoading && page < totalPage {
+            if record.id == runningSessionList.last?.id && !isLoading && page+1 < totalPage {
+                page += 1
                 getRunningRecordsAPI()
             }
         }
@@ -94,7 +97,6 @@ struct PostCardList: View {
                 totalPage = result.pagination.total_pages
                 sharedData.totalRunningCount = result.pagination.total_items
                 runningSessionList += result.items
-                page += 1
                 isLoading = false
             }
         }
