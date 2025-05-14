@@ -54,6 +54,9 @@ struct MyTab: View {
             sharedData.dateSheetSelectedIndex = 0
             DateManager.shared.setDateToday()
         }
+        .onDisappear {
+            myPageVM.selectedTab = 0
+        }
     }
     
     @ViewBuilder
