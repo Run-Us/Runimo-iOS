@@ -198,11 +198,6 @@ struct HomeTab: View {
             DispatchQueue.main.async {
                 sharedData.homeEggData = egg.incubating_eggs.first
                 eggId = egg.incubating_eggs.first?.id ?? -1
-                
-                // 부화 가능 상태면 부화 API 호출
-                if let currentEgg = egg.incubating_eggs.first, currentEgg.hatchable {
-                    hatchEggAPI(eggId: eggId)
-                }
             }
         }
     }
