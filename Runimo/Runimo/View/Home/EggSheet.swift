@@ -39,6 +39,7 @@ struct EggSheet: View {
         HStack(spacing: 12) {
             KFImage(URL(string: egg.img_url))
                 .resizable()
+                .scaledToFit()
                 .frame(width: 20, height: 20)
             Text(egg.name)
                 .font(.body2_medium)
