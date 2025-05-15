@@ -103,7 +103,7 @@ struct HomeTab: View {
                 
                 giveLoveButton(isHatchable: egg.hatchable)
             } else {
-                Image("incubator_image")
+                Image("egg_default")
                 
                 HStack {
                     Text("새 알을 기다리는 중이에요")
