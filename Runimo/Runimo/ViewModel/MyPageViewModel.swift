@@ -118,14 +118,12 @@ extension MyPageViewModel {
     // 통계 (화면 표시용)
     func getGraphData() {
         let distance = Double(graph.total_distance)/1000
-        let minute = graph.total_time/60
-        let second = graph.total_time%60
         let maxYLength = ceil(Double(graph.distance_list.max() ?? 0)/1000)
         
         graphDisplay = (
             count: graph.total_count,
             distance: String(format: "%.2fkm", distance),
-            time: "\(minute)m \(second)s",
+            time: convertTimeToString(seconds: graph.total_time),
             maxYLength: maxYLength > 0 ? maxYLength : 6.0
         )
         
@@ -134,6 +132,13 @@ extension MyPageViewModel {
         } else {
             monthlyGraphList = graph.distance_list.map{ Double($0)/1000 }
         }
+    }
+    
+    private func convertTimeToString(seconds: Int) -> String {
+        if seconds >= 60 * 60 {     // 1시간 이상
+            return "\(seconds/3600)h \((seconds%3600)/60)m"
+        }
+        return "\(seconds/60)m \(seconds%60)s"
     }
 }
 
