@@ -14,7 +14,7 @@ struct DateSheet: View {
     
     var body: some View {
         ZStack {
-            Color.primaryBG.ignoresSafeArea()
+            Color.primaryFill.ignoresSafeArea()
             VStack(alignment: .leading, spacing: 18) {
                 Text("기간 설정")
                     .font(.title5_bold)

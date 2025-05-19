@@ -31,7 +31,7 @@ struct EggSheet: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
-        .foregroundStyle(.primaryFill)
+        .background(.primaryFill)
         .onAppear {
             HomeService.shared.getMyEggs { data in
                 sharedData.myEggs = data.items

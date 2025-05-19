@@ -28,6 +28,8 @@ struct AddProfileSheet: View {
             PhotosPicker(selection: $selectedProfile, maxSelectionCount: availableSelectedCount, matching: .images) {
                 HStack {
                     Image("imageIcon")
+                        .renderingMode(.template)
+                        .foregroundColor(.secondaryGray)
                     Text("갤러리에서 추가하기")
                         .font(.body2_medium)
                         .foregroundColor(.secondaryGray)
@@ -55,6 +57,7 @@ struct AddProfileSheet: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 8)
+        .background(.primaryFill)
     }
     
     func handleSelectedPhotos(_ newPhotos: [PhotosPickerItem]) {

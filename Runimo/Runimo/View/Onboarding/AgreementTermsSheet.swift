@@ -35,6 +35,7 @@ struct AgreementTermsSheet: View {
             .padding(.top, 12)
         }
         .padding(.vertical, 8)
+        .background(.primaryFill)
     }
 
     @ViewBuilder

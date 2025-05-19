@@ -21,20 +21,19 @@ struct GenderPickerSheet: View {
     @Binding var genderType: GenderType
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack(alignment: .leading, spacing: 32) {
-                Text("성별 선택")
-                    .font(.title5_bold)
-                    .foregroundColor(.primaryGray)
-                selectGenderButton(gender: "남성", .male)
-                
-                selectGenderButton(gender: "여성", .female)
-                
-                selectGenderButton(gender: "알리고 싶지 않아요", .other)
-                
-            }
-            .padding()
+        VStack(alignment: .leading, spacing: 32) {
+            Text("성별 선택")
+                .font(.title5_bold)
+                .foregroundColor(.primaryGray)
+            selectGenderButton(gender: "남성", .male)
+            
+            selectGenderButton(gender: "여성", .female)
+            
+            selectGenderButton(gender: "알리고 싶지 않아요", .other)
+            
         }
+        .padding()
+        .background(.primaryFill)
         .onTapGesture {
             dismiss()
         }
@@ -52,9 +51,12 @@ struct GenderPickerSheet: View {
             self.genderType = genderType
             dismiss()
         }, label: {
-            Text(gender)
-                .font(.body2_medium)
-                .foregroundColor(.secondaryGray)
+            HStack {
+                Text(gender)
+                    .font(.body2_medium)
+                    .foregroundColor(.secondaryGray)
+                Spacer()
+            }
         })
     }
 }
