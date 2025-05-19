@@ -11,18 +11,25 @@ struct AgreementTermsSheet: View {
     @State private var agreeStatus: [Bool] = [false, false]
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 12) {
             Text("약관 동의")
                 .font(.title5_bold)
                 .foregroundStyle(.primaryGray)
                 .padding(.vertical, 16)
+                .padding(.horizontal, 20)
 
             VStack(spacing: 24) {
                 item(title: "이용약관 동의 (필수)", index: 0)
                 item(title: "개인정보 수집동의 (필수)", index: 1)
             }
+            .padding(.horizontal, 20)
+            
+            CTAButton(text: "시작하기", disabled: allSelected()) {
+                
+            }
+            .padding(.vertical, 8)
+            .padding(.top, 8)
         }
-        .padding(.horizontal, 20)
     }
 
     @ViewBuilder
@@ -41,6 +48,10 @@ struct AgreementTermsSheet: View {
             Image(systemName: "chevron.right")
                 .foregroundStyle(.gray400)
         }
+    }
+    
+    private func allSelected() -> Bool {
+        return !agreeStatus[0] || !agreeStatus[1]
     }
 }
 
