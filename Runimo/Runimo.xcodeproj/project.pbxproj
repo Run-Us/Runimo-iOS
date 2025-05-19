@@ -51,6 +51,7 @@
 		2398F4B22CB8303E001D922B /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2398F4AB2CB8303E001D922B /* Pretendard-Bold.ttf */; };
 		239C61462DC296B600EF7A48 /* RunningRewardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239C61452DC296B600EF7A48 /* RunningRewardPage.swift */; };
 		239C614A2DC4D9D200EF7A48 /* RootPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239C61492DC4D9D200EF7A48 /* RootPage.swift */; };
+		23ABDEBD2DDB05A300015DCF /* AgreementTermsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABDEBC2DDB05A300015DCF /* AgreementTermsSheet.swift */; };
 		23C0A7ED2DAC05D8005283DA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 23C0A7EC2DAC05D8005283DA /* Kingfisher */; };
 		23C0A7EF2DAC113C005283DA /* RunimoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0A7EE2DAC113C005283DA /* RunimoService.swift */; };
 		23C0A7F32DACC9A4005283DA /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0A7F22DACC9A4005283DA /* NavigationManager.swift */; };
@@ -123,6 +124,7 @@
 		2398F4AD2CB8303E001D922B /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
 		239C61452DC296B600EF7A48 /* RunningRewardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningRewardPage.swift; sourceTree = "<group>"; };
 		239C61492DC4D9D200EF7A48 /* RootPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPage.swift; sourceTree = "<group>"; };
+		23ABDEBC2DDB05A300015DCF /* AgreementTermsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTermsSheet.swift; sourceTree = "<group>"; };
 		23C0A7EE2DAC113C005283DA /* RunimoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunimoService.swift; sourceTree = "<group>"; };
 		23C0A7F22DACC9A4005283DA /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		23C0A7F42DACCC18005283DA /* CommonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonExtension.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				883764122CBD277E0046EC7B /* AddProfileSheet.swift */,
 				883764102CBCF6360046EC7B /* GenderPickerSheet.swift */,
 				239C61492DC4D9D200EF7A48 /* RootPage.swift */,
+				23ABDEBC2DDB05A300015DCF /* AgreementTermsSheet.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				887940F42CAB2AD30018C035 /* JoinPage.swift in Sources */,
 				236343162C9180D000336D67 /* RunningProgressPage.swift in Sources */,
 				23CE0B7D2CD8D6390073732C /* DateManager.swift in Sources */,
+				23ABDEBD2DDB05A300015DCF /* AgreementTermsSheet.swift in Sources */,
 				23C0A7EF2DAC113C005283DA /* RunimoService.swift in Sources */,
 				2398F4942CB29B11001D922B /* FinishRunningPage.swift in Sources */,
 				237299912CBCF12800D0E7F6 /* SegmentedPicker.swift in Sources */,
