@@ -13,11 +13,16 @@ struct CharacterPopUp: ViewModifier {
     @Binding var isPresented: Bool
     var character: CharacterPopUpItem
     var isHatching: Bool = false
+    var imageHeight: CGFloat = 320
     
     init(isPresented: Binding<Bool>, character: CharacterPopUpItem, isHatching: Bool) {
         _isPresented = isPresented
         self.character = character
         self.isHatching = isHatching
+        
+        if character.code == "egg_110" {
+            imageHeight = 280
+        }
     }
     
     func body(content: Content) -> some View {
@@ -37,7 +42,7 @@ struct CharacterPopUp: ViewModifier {
                         .placeholder { ProgressView() }
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 320, height: 320)
+                        .frame(width: 320, height: imageHeight)
                     
                     Text(character.description)
                         .padding(.bottom, 8)
