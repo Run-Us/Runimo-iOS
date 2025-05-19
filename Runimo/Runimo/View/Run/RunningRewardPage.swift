@@ -22,7 +22,7 @@ struct RunningRewardPage: View {
                     Text("오늘의 러닝을 성공적으로 마쳤어요!")
                         .font(.title4_semibold)
                         .foregroundStyle(.primaryGray)
-                    Text("\(mapVM.motionManager.runningInfo.runningTime ?? "0초") 동안 \(mapVM.motionManager.runningInfo.distance ?? 0)km를 달렸어요. 정말 대단해요!")
+                    Text("\(mapVM.motionManager.runningInfo.runningTime ?? "0초") 동안 \(mapVM.motionManager.runningInfo.distance ?? 0, specifier: "%.2f")km를 달렸어요. 정말 대단해요!")
                         .font(.body2_medium)
                         .foregroundStyle(.quaternaryGray)
                 }
