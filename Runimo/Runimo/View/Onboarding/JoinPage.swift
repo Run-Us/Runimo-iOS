@@ -21,6 +21,10 @@ struct JoinPage: View {
     @State var isPresentedError: Bool = false
     @State var genderType: GenderType = .none
     
+    // MARK: - 약관 동의
+    @State private var showAgreementSheet: Bool = false
+    @State private var callSignUpAPI: Bool = false
+    
     var body: some View {
         ZStack {
             Color(.primaryBG)
@@ -105,23 +109,9 @@ struct JoinPage: View {
                 
                 Spacer()
                 
-                Divider()
-                    .foregroundStyle(.secondaryFill)
-                    .padding(.vertical)
-                Button(action: {
-                    signUpAPI()
-                }, label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 8)
-                            .frame(height: 56)
-                            .padding(.horizontal)
-                            .foregroundColor(nickname.isEmpty || gender == "성별을 선택해주세요" || !nicknameIsValid ? .secondaryFill : .primary400)
-                        Text("시작하기")
-                            .font(.title5_bold)
-                            .foregroundColor(nickname.isEmpty || gender == "성별을 선택해주세요" || !nicknameIsValid ? .primaryFill : .white)
-                    }
-                })
-                .disabled(nickname.count <= 2 || gender == "성별을 선택해주세요" || !nicknameIsValid)
+                CTAButton(text: "다음", disabled: nickname.count <= 2 || gender == "성별을 선택해주세요" || !nicknameIsValid) {
+                    showAgreementSheet = true
+                }
             }
             .padding(.vertical, 40)
         }
@@ -136,6 +126,14 @@ struct JoinPage: View {
                 .foregroundColor(.primaryGray)
             
         })
+        .sheet(isPresented: $showAgreementSheet, onDismiss: {
+            if callSignUpAPI {
+                signUpAPI()
+            }
+        }) {
+            AgreementTermsSheet(callSignUp: $callSignUpAPI)
+                .presentationDetents([.fraction(0.35)])
+        }
     }
     
     var profileImage: some View {

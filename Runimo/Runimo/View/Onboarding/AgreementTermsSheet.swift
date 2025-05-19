@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AgreementTermsSheet: View {
+    @Environment(\.dismiss) var dismiss
+    @Binding var callSignUp: Bool
     @State private var agreeStatus: [Bool] = [false, false]
 
     var body: some View {
@@ -24,12 +26,15 @@ struct AgreementTermsSheet: View {
             }
             .padding(.horizontal, 20)
             
+            Spacer()
+            
             CTAButton(text: "시작하기", disabled: allSelected()) {
-                
+                callSignUp = agreeStatus[0] && agreeStatus[1]
+                dismiss()
             }
-            .padding(.vertical, 8)
-            .padding(.top, 8)
+            .padding(.top, 12)
         }
+        .padding(.vertical, 8)
     }
 
     @ViewBuilder
@@ -56,5 +61,5 @@ struct AgreementTermsSheet: View {
 }
 
 #Preview {
-    AgreementTermsSheet()
+    AgreementTermsSheet(callSignUp: .constant(false))
 }
