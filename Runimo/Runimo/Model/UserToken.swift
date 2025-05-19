@@ -19,6 +19,9 @@ struct SignUpResponse: Codable {
     let nickname: String
     let img_url: String?
     let token_pair: Token
+    let greeting_egg_name: String
+    let greeting_egg_type: String
+    let greeting_egg_img_url: String
 }
 
 struct Token: Codable {

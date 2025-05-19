@@ -175,13 +175,12 @@ struct JoinPage: View {
     
     private func signUpAPI() {
         AuthService.shared.signup(nickname: nickname, image: selectedProfile.last, gender: genderType.rawValue) { result in
-            if result {
-                // 회원가입 완료 후 탭바로 이동
-                sharedData.setTab(.home)
-                sharedData.isLogined = true
-                navigation.goToRootPage()
-                sharedData.isSignUpComplete = true
-            }
+            // 회원가입 완료 후 탭바로 이동
+            sharedData.setTab(.home)
+            sharedData.isLogined = true
+            navigation.goToRootPage()
+            sharedData.isSignUpComplete = true
+            sharedData.signUpEggData = result
         }
     }
 }

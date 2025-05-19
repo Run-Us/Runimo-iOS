@@ -33,17 +33,11 @@ struct CharacterPopUp: ViewModifier {
                         .padding(.bottom, -8)
                     Text(character.subtitle)
                     
-                    if character.code == "egg_110" {
-                        Image(character.imageURL)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 320, height: 280)
-                    } else {
-                        KFImage(URL(string: character.imageURL))
-                            .placeholder { ProgressView() }
-                            .resizable()
-                            .frame(width: 320, height: 320)
-                    }
+                    KFImage(URL(string: character.imageURL))
+                        .placeholder { ProgressView() }
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 320, height: 320)
                     
                     Text(character.description)
                         .padding(.bottom, 8)

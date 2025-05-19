@@ -18,7 +18,7 @@ final class AuthService: ObservableObject {
     private init() { }
     
     // 회원가입
-    func signup(nickname: String, image: UIImage? = nil, gender: String, completion: @escaping (Bool) -> Void) {
+    func signup(nickname: String, image: UIImage? = nil, gender: String, completion: @escaping ((String, String)) -> Void) {
         let path = "\(baseUrl)/auth/signup"
         let headers: HTTPHeaders = [
             "Content-Type": "multipart/form-data"
@@ -47,13 +47,10 @@ final class AuthService: ObservableObject {
                 if let data = response.payload {
                     self.saveUserInfo(user: data)
                     self.keychain.delete("register_token")
-                    completion(true)
-                } else {
-                    completion(false)
-                }
+                    completion((data.greeting_egg_name, data.greeting_egg_img_url))
+                } 
             case .failure(let error):
                 print("DEBUG(edit profile image api) error: \(error)")
-                completion(false)
             }
         }
     }

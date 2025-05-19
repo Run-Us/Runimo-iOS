@@ -102,7 +102,6 @@ struct TabBar: View {
                     Spacer()
                 }
                 .background(Divider(), alignment: .top)
-//                }
             }
         }
         .navigationBarBackButtonHidden()
