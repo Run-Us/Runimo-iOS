@@ -108,6 +108,7 @@ struct MyGraph: View {
                             .foregroundStyle(.quaternaryGray)
                             .lineLimit(1)
                             .frame(width: 15, height: 24, alignment: .center)
+                            .minimumScaleFactor(0.8)
                     } else {
                         Spacer()
                             .frame(height: 24)

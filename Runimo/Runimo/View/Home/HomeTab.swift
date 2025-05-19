@@ -65,6 +65,7 @@ struct HomeTab: View {
                         Text(String(format: "%.2f km", Double(sharedData.homeData?.main_runimo_stat_nullable?.total_distance_in_meters ?? 0)/1000))
                             .font(.title5_bold)
                             .foregroundStyle(.primaryGray)
+                            .minimumScaleFactor(0.8)
                     }
                     Spacer()
                 }
