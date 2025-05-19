@@ -39,11 +39,16 @@ struct HomeTab: View {
     @ViewBuilder
     private func characterProfile() -> some View {
         HStack(spacing: 46) {
-            KFImage(URL(string: sharedData.homeData?.main_runimo_stat_nullable?.image_url ?? ""))
-                .placeholder { ProgressView() }
-                .onFailureImage(UIImage(named: "character_disabled"))
-                .resizable()
-                .frame(width: 86, height: 86)
+            if sharedData.isHomeDataLoaded && sharedData.homeData?.main_runimo_stat_nullable == nil {
+                Image("character_disabled")
+                    .resizable()
+                    .frame(width: 86, height: 86)
+            } else {
+                KFImage(URL(string: sharedData.homeData?.main_runimo_stat_nullable?.image_url ?? ""))
+                    .placeholder { ProgressView() }
+                    .resizable()
+                    .frame(width: 86, height: 86)
+            }
                 
             VStack(alignment: .leading, spacing: 20) {
                 Text("\(sharedData.homeData?.main_runimo_stat_nullable?.name ?? "알을 부화시켜보세요!")")
@@ -83,12 +88,17 @@ struct HomeTab: View {
     @ViewBuilder
     private func eggCard() -> some View {
         VStack(spacing: 12) {
-            if let egg = sharedData.homeEggData {
-                KFImage(URL(string: egg.img_url))
+            if sharedData.isHomeEggDataLoaded && sharedData.homeEggData == nil {
+                Image("egg_default")
+            } else {
+                KFImage(URL(string: sharedData.homeEggData?.img_url ?? ""))
                     .placeholder { ProgressView() }
                     .resizable()
                     .scaledToFit()
                     .frame(width: 310, height: 280)
+            }
+            
+            if let egg = sharedData.homeEggData {
                 HStack {
                     Text(egg.name)
                         .font(.title5_bold)
@@ -104,8 +114,6 @@ struct HomeTab: View {
                 
                 giveLoveButton(isHatchable: egg.hatchable)
             } else {
-                Image("egg_default")
-                
                 HStack {
                     Text("새 알을 기다리는 중이에요")
                         .font(.title5_bold)
@@ -188,6 +196,8 @@ struct HomeTab: View {
             DispatchQueue.main.async {
                 sharedData.homeData = item
                 sharedData.egg_love = (item.user_info.total_egg_count, item.user_info.love_point)
+                
+                sharedData.isHomeDataLoaded = true
             }
         }
         
@@ -199,6 +209,8 @@ struct HomeTab: View {
             DispatchQueue.main.async {
                 sharedData.homeEggData = egg.incubating_eggs.first
                 eggId = egg.incubating_eggs.first?.id ?? -1
+                
+                sharedData.isHomeEggDataLoaded = true
             }
         }
     }

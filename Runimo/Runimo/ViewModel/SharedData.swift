@@ -23,6 +23,8 @@ class SharedData: ObservableObject {
     @Published var showEggSheet: Bool = false
     @Published var isHatchable: Bool = false
     @Published var updateHomeView: Bool = false
+    @Published var isHomeDataLoaded: Bool = false
+    @Published var isHomeEggDataLoaded: Bool = false
     
     // MARK: - 2. 기록 리스트 탭
     @Published var totalRunningCount: Int = 0
