@@ -14,7 +14,10 @@ class DateManager: ObservableObject {
     var formatter = DateFormatter()
     
     private init() {
+        let seoul = TimeZone(identifier: "Asia/Seoul")!
+        formatter.timeZone = seoul
         formatter.locale = Locale(identifier: "ko_kr")
+        calendar.timeZone = seoul
         calendar.firstWeekday = 2
     }
 }
@@ -58,7 +61,7 @@ extension DateManager {
     // 날짜 차이 계산
     func subDate(date: Date?) -> Int {
         if let date = date {
-            let offset = Calendar.current.dateComponents([.day], from: date, to: Date())
+            let offset = calendar.dateComponents([.day], from: date, to: Date())
             return offset.day ?? -1
         }
         return -1
