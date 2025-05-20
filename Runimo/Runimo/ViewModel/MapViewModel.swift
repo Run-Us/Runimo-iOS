@@ -24,7 +24,6 @@ class MapViewModel: NSObject, ObservableObject {
         super.init()
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
-        checkLocationPermission()
     }
     
     func checkLocationPermission() {

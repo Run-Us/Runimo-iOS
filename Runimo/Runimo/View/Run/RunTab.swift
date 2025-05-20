@@ -53,6 +53,9 @@ struct RunTab: View {
             }
         }
         .navigationBarBackButtonHidden()
+        .onAppear {
+            mapVM.checkLocationPermission()
+        }
     }
     
     @ViewBuilder
