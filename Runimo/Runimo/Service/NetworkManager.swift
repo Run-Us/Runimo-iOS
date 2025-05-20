@@ -22,6 +22,7 @@ final class NetworkManager {
     // http 응답코드 받기
     func getHTTPStatusCode(
         _ request: APIRequest,
+        retrying: Bool = false,
         completion: @escaping (Int) -> Void)
     {
         let url = "\(baseUrl)\(request.path)"
@@ -29,8 +30,24 @@ final class NetworkManager {
             .validate(statusCode: 100..<600)
             .response { response in
                 let statusCode = response.response?.statusCode ?? -1
-                print("Request URL: \(url)\n📡 Status Code: \(statusCode)")
-                completion(statusCode)
+                // 토큰 갱신
+                if statusCode == 401 {
+                    self.refreshToken { success in
+                        if success {
+                            // new token으로 재요청
+                            var updateHeaders: HTTPHeaders = request.headers ?? [:]
+                            updateHeaders["Authorization"] = "Bearer \(self.keychain.get("accessToken") ?? "")"
+                            let dataRequest = APIRequest(path: request.path, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: updateHeaders)
+                            self.getHTTPStatusCode(dataRequest, retrying: true) { result in
+                                completion(result)
+                            }
+                        }
+                    }
+                } else {
+                    print("Request URL: \(url)\n📡 Status Code: \(statusCode)")
+                    completion(statusCode)
+                }
+                
             }
     }
     
