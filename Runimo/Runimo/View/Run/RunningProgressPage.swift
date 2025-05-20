@@ -42,14 +42,27 @@ struct RunningProgressPage: View {
                 Text("평균 페이스")
             }
             
-            Button(action: {
-                CommonExtension.triggerHaptic()
-                runVM.runningTab = 1
-                mapVM.stopUpdatingLocation()
-            }, label: {
-                Image("run_pause")
-            })
-            .padding(.top, 20)
+            if mapVM.isRunning {
+                Button(action: {
+                    CommonExtension.triggerHaptic()
+                    runVM.runningTab = 1
+                    mapVM.stopUpdatingLocation()
+                }, label: {
+                    Image("run_pause")
+                        .frame(width: 80, height: 80)
+                })
+                .padding(.top, 20)
+            } else {
+                Button {
+                    CommonExtension.triggerHaptic()
+                    mapVM.startUpdatingLocation()
+                } label: {
+                    Image("run_start")
+                        .frame(width: 80, height: 80)
+                }
+                .padding(.top, 20)
+            }
+            
             Spacer()
         }
         .font(.body1_medium)
