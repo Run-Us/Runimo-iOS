@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 class CommonExtension {
     static func formatNumber(num: Int) -> String {
@@ -21,6 +22,12 @@ class CommonExtension {
             return String(format: "%.2fkm", Double(num)/1000)
         }
         return String(num)
+    }
+    
+    static func triggerHaptic() {
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        feedbackGenerator.prepare()
+        feedbackGenerator.impactOccurred()
     }
 }
 

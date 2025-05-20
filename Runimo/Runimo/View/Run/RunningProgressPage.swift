@@ -43,6 +43,7 @@ struct RunningProgressPage: View {
             }
             
             Button(action: {
+                CommonExtension.triggerHaptic()
                 runVM.runningTab = 1
                 mapVM.stopUpdatingLocation()
             }, label: {

@@ -25,6 +25,7 @@ struct RunningMapPage: View {
                     // 일시정지 버튼
                     if mapVM.isRunning {
                         Button(action: {
+                            CommonExtension.triggerHaptic()
                             mapVM.stopUpdatingLocation()
                             runVM.runningTab = 1
                         }, label: {
@@ -37,6 +38,7 @@ struct RunningMapPage: View {
                     else {
                         HStack(spacing: 40) {
                             Button {
+                                CommonExtension.triggerHaptic()
                                 runVM.completeRunPopUpMessage(runningInfo: motionManager.runningInfo)
                                 showStopAlert = true
                                 mapVM.stopUpdatingLocation()
@@ -46,6 +48,7 @@ struct RunningMapPage: View {
                             }
                             
                             Button {
+                                CommonExtension.triggerHaptic()
                                 mapVM.startUpdatingLocation()
                             } label: {
                                 Image("run_start")
