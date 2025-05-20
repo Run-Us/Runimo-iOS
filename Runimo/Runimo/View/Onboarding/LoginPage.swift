@@ -53,7 +53,7 @@ struct LoginPage: View {
                         })
                         
                         SignInWithAppleButton { request in
-                            request.requestedScopes = [.fullName, .email]
+                            request.requestedScopes = []
                         } onCompletion: { result in
                             switch result {
                             case .success(let authResults):
