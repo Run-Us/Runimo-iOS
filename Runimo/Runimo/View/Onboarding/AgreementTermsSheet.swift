@@ -21,8 +21,8 @@ struct AgreementTermsSheet: View {
                 .padding(.horizontal, 20)
 
             VStack(spacing: 24) {
-                item(title: "이용약관 동의 (필수)", index: 0)
-                item(title: "개인정보 수집동의 (필수)", index: 1)
+                item(title: "이용약관 동의 (필수)", index: 0, url: "https://runimo-blog.vercel.app/posts/terms-service")
+                item(title: "개인정보 수집동의 (필수)", index: 1, url: "https://runimo-blog.vercel.app/posts/privacy-policy")
             }
             .padding(.horizontal, 20)
             
@@ -39,7 +39,7 @@ struct AgreementTermsSheet: View {
     }
 
     @ViewBuilder
-    private func item(title: String, index: Int) -> some View {
+    private func item(title: String, index: Int, url: String) -> some View {
         HStack(spacing: 12) {
             Button {
                 agreeStatus[index].toggle()
@@ -51,8 +51,11 @@ struct AgreementTermsSheet: View {
             }
             .buttonStyle(.plain)
             Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundStyle(.gray400)
+            
+            Link(destination: URL(string: url)!) {
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(.gray400)
+            }
         }
     }
     
