@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "login_view_3.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "login_image2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

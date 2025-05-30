@@ -14,6 +14,7 @@ struct RootPage: View {
     var body: some View {
         NavigationStack(path: $navigation.path) {
             ZStack {
+                Color.secondaryBG.ignoresSafeArea()
                 if let isLogined = sharedData.isLogined {
                     if isLogined {
                         TabBar()
