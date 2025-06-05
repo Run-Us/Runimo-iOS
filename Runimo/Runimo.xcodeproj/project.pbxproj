@@ -214,14 +214,22 @@
 			children = (
 				230314EE2C89920100B299D5 /* AuthViewModel.swift */,
 				236343132C917B3E00336D67 /* MapViewModel.swift */,
-				2355F66B2C9E9CE700A65108 /* MotionManager.swift */,
 				235D38A22CD3BF8F00487952 /* MyPageViewModel.swift */,
-				23CE0B7C2CD8D6390073732C /* DateManager.swift */,
 				23F056B52CDA880800EC3A40 /* RunningViewModel.swift */,
 				230BC7DA2D9D4DED005CD24B /* SharedData.swift */,
-				23C0A7F22DACC9A4005283DA /* NavigationManager.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2307B7A72DF15F3B005AE2DD /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				238264762D9FDD5E00B4C849 /* NetworkManager.swift */,
+				2355F66B2C9E9CE700A65108 /* MotionManager.swift */,
+				23CE0B7C2CD8D6390073732C /* DateManager.swift */,
+				23C0A7F22DACC9A4005283DA /* NavigationManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		230C60592CFB70350060CCF7 /* Home */ = {
@@ -249,7 +257,6 @@
 				233ED1C92CA93D49001EF0BC /* AuthService.swift */,
 				23052EC82CEDDDCF002725A5 /* MyPageService.swift */,
 				23E253122D9CF5BA0035F64D /* HomeService.swift */,
-				238264762D9FDD5E00B4C849 /* NetworkManager.swift */,
 				23C0A7EE2DAC113C005283DA /* RunimoService.swift */,
 			);
 			path = Service;
@@ -300,6 +307,7 @@
 		238E78F02C83147200D04F58 /* Runimo */ = {
 			isa = PBXGroup;
 			children = (
+				2307B7A72DF15F3B005AE2DD /* Manager */,
 				2382647B2DA4AE2000B4C849 /* Runimo.entitlements */,
 				230314F72C89A5E200B299D5 /* Info.plist */,
 				230314F82C89AD0800B299D5 /* Config.xcconfig */,
