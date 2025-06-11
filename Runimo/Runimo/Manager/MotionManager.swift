@@ -76,6 +76,7 @@ class MotionManager: ObservableObject {
             
             self.runningResult.average_pace_in_milli_seconds = pace
             self.runningResult.total_distance_in_meters = distanceInt
+            self.runningResult.total_time_in_seconds = secondsElapsed
         }
     }
     

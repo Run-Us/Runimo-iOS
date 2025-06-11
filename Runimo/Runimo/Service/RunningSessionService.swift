@@ -29,6 +29,7 @@ class RunningSessionService: ObservableObject {
             "end_at": DateManager.shared.getString(date: running.end_at),
             "total_distance_in_meters": running.total_distance_in_meters ?? 0,
             "average_pace_in_milli_seconds": running.average_pace_in_milli_seconds ?? 0,
+            "total_time_in_seconds": running.total_time_in_seconds ?? 0,
             "segment_paces": (running.segment_paces ?? []).map {
                 return [
                     "distance": $0.distance,

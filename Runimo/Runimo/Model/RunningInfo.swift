@@ -20,6 +20,7 @@ struct RunningResult: Codable {
     var end_at: Date?
     var total_distance_in_meters: Int?
     var average_pace_in_milli_seconds: Int?
+    var total_time_in_seconds: Int?
     var segment_paces: [SegmentPaces]?
 }
 
