@@ -51,9 +51,12 @@ struct HomeTab: View {
             }
                 
             VStack(alignment: .leading, spacing: 20) {
-                Text("\(sharedData.homeData?.main_runimo_stat_nullable?.name ?? "알을 부화시켜보세요!")")
-                    .foregroundStyle(.primaryGray)
-                    .font(.title5_bold)
+                HStack {
+                    Text("\(sharedData.homeData?.main_runimo_stat_nullable?.name ?? "알을 부화시켜보세요!")")
+                        .foregroundStyle(.primaryGray)
+                        .font(.title5_bold)
+                    Spacer()
+                }
                 HStack(spacing: 40) {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("러닝")
@@ -72,12 +75,12 @@ struct HomeTab: View {
                             .foregroundStyle(.primaryGray)
                             .minimumScaleFactor(0.8)
                     }
-                    Spacer()
                 }
             }
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 16)
+        .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 24)
                 .fill(.primaryFill)
