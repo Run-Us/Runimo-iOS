@@ -5,12 +5,13 @@
 //  Created by 가은 on 9/21/24.
 //
 
+import Combine
 import CoreMotion
 import Foundation
 
 class MotionManager: ObservableObject {
     let pedometer = CMPedometer()
-    var timer: Timer?
+    var cancellables: Set<AnyCancellable> = []
     @Published var runningInfo: RunningInfo = RunningInfo()
     @Published var runningResult: RunningResult = RunningResult()
     private var secondsElapsed = 0  // 경과한 시간 저장
@@ -31,26 +32,29 @@ class MotionManager: ObservableObject {
     func startUpdatesMotion() {
         
         // Timer를 사용하여 1초마다 업데이트
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] _ in
-            guard let self = self else { return }
-            
-            // 시간 업데이트
-            getRunningTime()
-            
-            guard let startDate = runningResult.started_at else { return }
-            
-            pedometer.startUpdates(from: startDate) { (pedometerData, error) in
-
-                guard let pedometerData = pedometerData, error == nil else {
-                    print("data is nil")
-                    return
-                }
+        Timer.publish(every: 1.0, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 
-                DispatchQueue.main.async {
-                    self.getMotionData(data: pedometerData)
+                // 시간 업데이트
+                getRunningTime()
+                
+                guard let startDate = runningResult.started_at else { return }
+                
+                pedometer.startUpdates(from: startDate) { (pedometerData, error) in
+
+                    guard let pedometerData = pedometerData, error == nil else {
+                        print("data is nil")
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.getMotionData(data: pedometerData)
+                    }
                 }
             }
-        })
+            .store(in: &cancellables)
     }
     
     // update motion data
@@ -97,8 +101,7 @@ class MotionManager: ObservableObject {
     }
     
     func stopTimer() {
-        timer?.invalidate()
-        timer = nil
+        cancellables.removeAll()
     }
     
     // 러닝 데이터 측정 가능 여부 확인
