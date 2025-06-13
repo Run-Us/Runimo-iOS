@@ -12,7 +12,7 @@ import KeychainSwift
 class MyPageService {
     static let shared = MyPageService()
     let keychain = KeychainSwift()
-    let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")/users"
+    let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")/users"
     
     private init() { }
     

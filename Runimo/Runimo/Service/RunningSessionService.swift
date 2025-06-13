@@ -13,7 +13,7 @@ import Alamofire
 class RunningSessionService: ObservableObject {
     static let shared = RunningSessionService()
     let keychain = KeychainSwift()
-    let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
+    let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     
     private init() { }
     

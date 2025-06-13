@@ -13,7 +13,7 @@ import SwiftUI
 final class AuthService: ObservableObject {
     static let shared = AuthService()
     private let keychain = KeychainSwift()
-    let baseUrl = "http://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
+    let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     
     private init() { }
     
