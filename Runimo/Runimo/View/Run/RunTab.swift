@@ -55,6 +55,7 @@ struct RunTab: View {
         .navigationBarBackButtonHidden()
         .onAppear {
             mapVM.checkLocationPermission()
+            mapVM.requestMotionAuthorization()
         }
     }
     

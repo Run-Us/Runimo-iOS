@@ -83,6 +83,12 @@ extension MapViewModel: CLLocationManagerDelegate {
         print("error: ", error.localizedDescription)
     }
     
+    // 모션 데이터 권한 요청 
+    func requestMotionAuthorization() {
+        motionManager.startUpdatesMotion()
+        motionManager.stopRunningMotionData()
+    }
+    
     // 사용자 위치 추적 시작
     func startUpdatingLocation() {
         isRunning = true
