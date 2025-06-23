@@ -68,7 +68,14 @@ struct RunTab: View {
                 .ignoresSafeArea()
             
             Button {
-                showRunningPage = true
+                mapVM.checkLocationAlwaysAuthorization { isAuthorized in
+                    if isAuthorized {
+                        showRunningPage = true
+                    } else {
+                        print("위치 권한 항상 필요")
+                    }
+                }
+                
             } label: {
                 Image("run_start")
                     .shadow(radius: 2, x: 0, y: 4)

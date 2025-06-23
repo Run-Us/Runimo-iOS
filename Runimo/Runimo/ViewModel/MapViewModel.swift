@@ -17,6 +17,7 @@ class MapViewModel: NSObject, ObservableObject {
     @Published var userPath: [NMGLatLng] = []
     @Published var isRunning: Bool = false
     private var lastUpdateTime: Date?
+    private var authorizationCompletion: ((Bool) -> Void)?
     
     override init() {
         locationManager = CLLocationManager()
@@ -31,7 +32,7 @@ class MapViewModel: NSObject, ObservableObject {
         case .denied:
             print("위치 권한 거부 상태")
         case .notDetermined, .restricted:
-            locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
         default:
             break
         }
@@ -44,9 +45,26 @@ class MapViewModel: NSObject, ObservableObject {
             break
         }
     }
+    
+    // 위치 항상 허용 확인
+    func checkLocationAlwaysAuthorization(completion: @escaping (Bool) -> Void) {
+        self.authorizationCompletion = completion
+        
+        if locationManager.authorizationStatus == .authorizedAlways {
+            completion(true)
+        } else {
+            locationManager.requestAlwaysAuthorization()
+        }
+    }
 }
 
 extension MapViewModel: CLLocationManagerDelegate {
+    // 권한이 변경될 때 호출
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        authorizationCompletion?(status == .authorizedAlways)
+        authorizationCompletion = nil
+    }
+    
     // 사용자 위치 업데이트
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last else { return }
