@@ -45,6 +45,8 @@ struct RootPage: View {
                     Withdraw1Page()
                 case Withdraw2Page.id:
                     Withdraw2Page()
+                case FeedbackPage.id:
+                    FeedbackPage()
                 default:
                     Text("❓ Unknown destination: \(value)")
                 }

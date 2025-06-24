@@ -33,6 +33,19 @@ struct SettingPage: View {
                 }
                 .padding(.horizontal, 16)
                 
+                // 의견 남기기
+                Button {
+                    navigation.path.append(FeedbackPage.id)
+                } label: {
+                    HStack(spacing: 12) {
+                        Image("icon_mail")
+                        Text("의견 남기기")
+                            .font(.body2_medium)
+                    }
+                    .foregroundStyle(.secondaryGray)
+                }
+                .padding(.horizontal, 16)
+                
                 // 탈퇴하기
                 Button {
                     navigation.path.append(Withdraw1Page.id)
