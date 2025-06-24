@@ -41,6 +41,8 @@ struct RootPage: View {
                     RunningRewardPage()
                 case FinishRunningPage.id:
                     FinishRunningPage()
+                case Withdraw1Page.id:
+                    Withdraw1Page()
                 default:
                     Text("❓ Unknown destination: \(value)")
                 }

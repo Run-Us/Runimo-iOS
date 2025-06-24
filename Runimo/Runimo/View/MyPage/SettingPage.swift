@@ -36,7 +36,8 @@ struct SettingPage: View {
                 
                 // 탈퇴하기
                 Button {
-                    showWithdrawPopup = true
+//                    showWithdrawPopup = true
+                    navigation.path.append(Withdraw1Page.id)
                 } label: {
                     HStack(spacing: 12) {
                         Image("trash")
