@@ -55,7 +55,7 @@ struct Withdraw2Page: View {
                 }
             }
         }
-        .popup(isPresented: $showWithdrawPopup, title: "정말 탈퇴 하시겠어요?", subtitle: "모든 데이터는 복구되지 않아요.", buttonText: "탈퇴하기", buttonColor: .error) {
+        .popup(isPresented: $showWithdrawPopup, title: "계정을 삭제할까요?", subtitle: "모든 데이터는 복구되지 않아요.", buttonText: "탈퇴하기", buttonColor: .error) {
 
         } buttonAction: {
             MyPageService.shared.withdrawUser { result in

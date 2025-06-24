@@ -43,7 +43,7 @@ struct Withdraw1Page: View {
                 
                 
                 Spacer()
-                CTAButton(text: "다음", disabled: selectedIndex == -1) {
+                CTAButton(text: "다음", disabled: selectedIndex == -1 || (selectedIndex == reasonText.count - 1 && inputReason.isEmpty)) {
                     navigation.path.append(Withdraw2Page.id)
                 }
             }
