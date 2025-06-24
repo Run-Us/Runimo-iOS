@@ -283,16 +283,13 @@
 		2347D9AA2CD2578C003776BC /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				23CBA1492E0AB9780089B73B /* Setting (설정) */,
 				88E5560C2C8F213E003789B7 /* MyTab.swift */,
 				2347D9AB2CD25927003776BC /* RecordCard.swift */,
 				2347D9AD2CD34101003776BC /* MyGraph.swift */,
 				235D38A42CD3E7F000487952 /* PostCard.swift */,
 				23CE0B762CD8BA2C0073732C /* PostCardList.swift */,
 				23F056B32CDA7B0100EC3A40 /* DateSheet.swift */,
-				23C4FF3B2DA969D900DD1F86 /* SettingPage.swift */,
-				23CBA1432E0A992A0089B73B /* Withdraw1Page.swift */,
-				23CBA1452E0AA51D0089B73B /* Withdraw2Page.swift */,
-				23CBA1472E0AB1690089B73B /* FeedbackPage.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -379,6 +376,18 @@
 				23C27B012CBF819200978DC9 /* ProgressBar.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		23CBA1492E0AB9780089B73B /* Setting (설정) */ = {
+			isa = PBXGroup;
+			children = (
+				23C4FF3B2DA969D900DD1F86 /* SettingPage.swift */,
+				23CBA1432E0A992A0089B73B /* Withdraw1Page.swift */,
+				23CBA1452E0AA51D0089B73B /* Withdraw2Page.swift */,
+				23CBA1472E0AB1690089B73B /* FeedbackPage.swift */,
+			);
+			name = "Setting (설정)";
+			path = "Setting (설정)";
 			sourceTree = "<group>";
 		};
 		23E1B9F22D00992200846F22 /* Session */ = {
