@@ -120,6 +120,22 @@ final class AuthService: ObservableObject {
         
     }
     
+    func logout(completion: @escaping (Bool) -> Void) {
+        let path = "\(baseUrl)/auth/log-out"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .post, encoding: JSONEncoding.default, headers: headers)
+        
+        NetworkManager.shared.getHTTPStatusCode(dataRequest) { code in
+            self.removeUserInfoToLogout()
+            print("logout", code)
+            completion(code == 200)
+        }
+    }
+    
     // 토큰 갱신
     func refreshToken(completion: @escaping (Bool) -> Void) {
         let path = "\(baseUrl)/auth/refresh"

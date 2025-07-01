@@ -83,16 +83,11 @@ struct SettingPage: View {
         .popup(isPresented: $showLogoutPopup, title: "로그아웃 하시겠어요?", subtitle: "로그아웃해도 러닝 활동은 삭제되지 않아요.", buttonText: "로그아웃 하기", buttonColor: .primary400) {
 
         } buttonAction: {
-            AuthService.shared.removeUserInfoToLogout()
-            deleteToken()
-            sharedData.isLogined = false
-            navigation.goToRootPage()
+            AuthService.shared.logout { _ in
+                sharedData.isLogined = false
+                navigation.goToRootPage()
+            }
         }
-    }
-    
-    private func deleteToken() {
-        keychain.delete("accessToken")
-        keychain.delete("refreshToken")
     }
 }
 
