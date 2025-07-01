@@ -11,6 +11,7 @@ import SwiftUI
 // 좌우 padding은 따로 설정
 struct CTAButton: View {
     let text: String
+    var isError: Bool = false
     var disabled: Bool
     let action: () -> Void
     
@@ -22,7 +23,7 @@ struct CTAButton: View {
             Button(action: action) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(disabled ? .secondaryFill : .primary400)
+                        .fill(disabled ? .secondaryFill : isError ? .error : .primary400)
                         .frame(maxWidth: .infinity)
                         .frame(height: 56)
                     Text(text)

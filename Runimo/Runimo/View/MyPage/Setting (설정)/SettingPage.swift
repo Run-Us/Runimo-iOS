@@ -12,7 +12,6 @@ struct SettingPage: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var sharedData: SharedData
     @State private var showLogoutPopup: Bool = false
-    @State private var showWithdrawPopup: Bool = false
     let keychain = KeychainSwift()
     
     var body: some View {
@@ -34,9 +33,22 @@ struct SettingPage: View {
                 }
                 .padding(.horizontal, 16)
                 
+                // 의견 남기기
+                Button {
+                    navigation.path.append(FeedbackPage.id)
+                } label: {
+                    HStack(spacing: 12) {
+                        Image("icon_mail")
+                        Text("의견 남기기")
+                            .font(.body2_medium)
+                    }
+                    .foregroundStyle(.secondaryGray)
+                }
+                .padding(.horizontal, 16)
+                
                 // 탈퇴하기
                 Button {
-                    showWithdrawPopup = true
+                    navigation.path.append(Withdraw1Page.id)
                 } label: {
                     HStack(spacing: 12) {
                         Image("trash")
@@ -60,38 +72,22 @@ struct SettingPage: View {
                         Image(systemName: "chevron.left")
                             .resizable()
                             .frame(width: 8, height: 14)
-                        Text("내 활동")
+                            .padding(.horizontal, 5)
+                        Text("설정")
                             .font(.body1_medium)
                     }
                     .foregroundStyle(.primaryGray)
                 }
-                .foregroundStyle(.primaryGray)
             }
         }
         .popup(isPresented: $showLogoutPopup, title: "로그아웃 하시겠어요?", subtitle: "로그아웃해도 러닝 활동은 삭제되지 않아요.", buttonText: "로그아웃 하기", buttonColor: .primary400) {
 
         } buttonAction: {
-            AuthService.shared.removeUserInfoToLogout()
-            deleteToken()
-            sharedData.isLogined = false
-            navigation.goToRootPage()
-        }
-        .popup(isPresented: $showWithdrawPopup, title: "정말 탈퇴 하시겠어요?", subtitle: "저장된 활동 기록은 복구가 불가능해요.", buttonText: "탈퇴하기", buttonColor: .error) {
-
-        } buttonAction: {
-            MyPageService.shared.withdrawUser { result in
-                if result {
-                    deleteToken()
-                    sharedData.isLogined = false
-                    navigation.goToRootPage()
-                }
+            AuthService.shared.logout { _ in
+                sharedData.isLogined = false
+                navigation.goToRootPage()
             }
         }
-    }
-    
-    private func deleteToken() {
-        keychain.delete("accessToken")
-        keychain.delete("refreshToken")
     }
 }
 

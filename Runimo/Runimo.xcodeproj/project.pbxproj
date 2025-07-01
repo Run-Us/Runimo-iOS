@@ -58,6 +58,9 @@
 		23C0A7F52DACCC18005283DA /* CommonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0A7F42DACCC18005283DA /* CommonExtension.swift */; };
 		23C27B022CBF819200978DC9 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C27B012CBF819200978DC9 /* ProgressBar.swift */; };
 		23C4FF3C2DA969D900DD1F86 /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C4FF3B2DA969D900DD1F86 /* SettingPage.swift */; };
+		23CBA1442E0A992A0089B73B /* Withdraw1Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CBA1432E0A992A0089B73B /* Withdraw1Page.swift */; };
+		23CBA1462E0AA51D0089B73B /* Withdraw2Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CBA1452E0AA51D0089B73B /* Withdraw2Page.swift */; };
+		23CBA1482E0AB1690089B73B /* FeedbackPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CBA1472E0AB1690089B73B /* FeedbackPage.swift */; };
 		23CE0B772CD8BA2C0073732C /* PostCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B762CD8BA2C0073732C /* PostCardList.swift */; };
 		23CE0B7D2CD8D6390073732C /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE0B7C2CD8D6390073732C /* DateManager.swift */; };
 		23E1B9E42CFF066A00846F22 /* CTAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E1B9E32CFF066A00846F22 /* CTAButton.swift */; };
@@ -130,6 +133,9 @@
 		23C0A7F42DACCC18005283DA /* CommonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonExtension.swift; sourceTree = "<group>"; };
 		23C27B012CBF819200978DC9 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		23C4FF3B2DA969D900DD1F86 /* SettingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPage.swift; sourceTree = "<group>"; };
+		23CBA1432E0A992A0089B73B /* Withdraw1Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Withdraw1Page.swift; sourceTree = "<group>"; };
+		23CBA1452E0AA51D0089B73B /* Withdraw2Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Withdraw2Page.swift; sourceTree = "<group>"; };
+		23CBA1472E0AB1690089B73B /* FeedbackPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackPage.swift; sourceTree = "<group>"; };
 		23CE0B762CD8BA2C0073732C /* PostCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCardList.swift; sourceTree = "<group>"; };
 		23CE0B7C2CD8D6390073732C /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		23E1B9E32CFF066A00846F22 /* CTAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTAButton.swift; sourceTree = "<group>"; };
@@ -277,13 +283,13 @@
 		2347D9AA2CD2578C003776BC /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				23CBA1492E0AB9780089B73B /* Setting (설정) */,
 				88E5560C2C8F213E003789B7 /* MyTab.swift */,
 				2347D9AB2CD25927003776BC /* RecordCard.swift */,
 				2347D9AD2CD34101003776BC /* MyGraph.swift */,
 				235D38A42CD3E7F000487952 /* PostCard.swift */,
 				23CE0B762CD8BA2C0073732C /* PostCardList.swift */,
 				23F056B32CDA7B0100EC3A40 /* DateSheet.swift */,
-				23C4FF3B2DA969D900DD1F86 /* SettingPage.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -370,6 +376,18 @@
 				23C27B012CBF819200978DC9 /* ProgressBar.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		23CBA1492E0AB9780089B73B /* Setting (설정) */ = {
+			isa = PBXGroup;
+			children = (
+				23C4FF3B2DA969D900DD1F86 /* SettingPage.swift */,
+				23CBA1432E0A992A0089B73B /* Withdraw1Page.swift */,
+				23CBA1452E0AA51D0089B73B /* Withdraw2Page.swift */,
+				23CBA1472E0AB1690089B73B /* FeedbackPage.swift */,
+			);
+			name = "Setting (설정)";
+			path = "Setting (설정)";
 			sourceTree = "<group>";
 		};
 		23E1B9F22D00992200846F22 /* Session */ = {
@@ -485,6 +503,7 @@
 				23E1B9EE2CFF54D800846F22 /* InputTextArea.swift in Sources */,
 				23C4FF3C2DA969D900DD1F86 /* SettingPage.swift in Sources */,
 				88E556092C8F20E8003789B7 /* RunningPage.swift in Sources */,
+				23CBA1482E0AB1690089B73B /* FeedbackPage.swift in Sources */,
 				230BC7DB2D9D4DED005CD24B /* SharedData.swift in Sources */,
 				235D38A32CD3BF8F00487952 /* MyPageViewModel.swift in Sources */,
 				23E253132D9CF5BA0035F64D /* HomeService.swift in Sources */,
@@ -500,6 +519,7 @@
 				886CA2A52CEC547600A8E1A8 /* BaseResponse.swift in Sources */,
 				2347D9AC2CD25927003776BC /* RecordCard.swift in Sources */,
 				237CEF432D941E3C002D9C86 /* CharacterPopUp.swift in Sources */,
+				23CBA1462E0AA51D0089B73B /* Withdraw2Page.swift in Sources */,
 				233ED1FF2CABA0E7001EF0BC /* UserToken.swift in Sources */,
 				233ED2002CABA0E7001EF0BC /* RunningInfo.swift in Sources */,
 				88E556112C8F5CCC003789B7 /* TabBar.swift in Sources */,
@@ -522,6 +542,7 @@
 				23ABDEBD2DDB05A300015DCF /* AgreementTermsSheet.swift in Sources */,
 				23C0A7EF2DAC113C005283DA /* RunimoService.swift in Sources */,
 				2398F4942CB29B11001D922B /* FinishRunningPage.swift in Sources */,
+				23CBA1442E0A992A0089B73B /* Withdraw1Page.swift in Sources */,
 				237299912CBCF12800D0E7F6 /* SegmentedPicker.swift in Sources */,
 				883764132CBD277E0046EC7B /* AddProfileSheet.swift in Sources */,
 				88E556132C8F5E49003789B7 /* CharacterTab.swift in Sources */,
@@ -666,18 +687,18 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 230314F82C89AD0800B299D5 /* Config.xcconfig */;
 			buildSettings = {
+				APP_DISPLAY_NAME = "러니모-dev";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Runimo/Runimo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_ASSET_PATHS = "\"Runimo/Preview Content\"";
 				DEVELOPMENT_TEAM = ZT27N85LQ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Runimo/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "러니모";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치를 기반으로 러닝 기능을 제공하기 위해 권한이 필요합니다.";
@@ -692,7 +713,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.runimo.Runimo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -710,18 +731,18 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 230314F82C89AD0800B299D5 /* Config.xcconfig */;
 			buildSettings = {
+				APP_DISPLAY_NAME = "러니모";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Runimo/Runimo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_ASSET_PATHS = "\"Runimo/Preview Content\"";
 				DEVELOPMENT_TEAM = ZT27N85LQ5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Runimo/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "러니모";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치를 기반으로 러닝 기능을 제공하기 위해 권한이 필요합니다.";
@@ -736,7 +757,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.runimo.Runimo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

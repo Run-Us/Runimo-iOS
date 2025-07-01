@@ -17,9 +17,11 @@ struct InputTextArea: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(title)
-                .font(.body1_bold)
-                .foregroundStyle(.secondaryGray)
+            if !title.isEmpty {
+                Text(title)
+                    .font(.body1_bold)
+                    .foregroundStyle(.secondaryGray)
+            }
             ZStack(alignment: .topLeading) {
                 // input text
                 TextEditor(text: $contents)
