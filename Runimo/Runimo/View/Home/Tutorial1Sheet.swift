@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct Tutorial1Sheet: View {
+    @EnvironmentObject var sharedData: SharedData
+    
     var body: some View {
         VStack(spacing: 24) {
             VStack(alignment: .leading, spacing: 8) {
@@ -30,7 +32,8 @@ struct Tutorial1Sheet: View {
             Image("tutorial1")
             
             CTAButton(text: "다음", height: 44, disabled: false) {
-                
+                sharedData.showTutorial1Sheet = false
+                sharedData.showTutorial2Sheet = true
             }
         }
     }

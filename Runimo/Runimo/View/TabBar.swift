@@ -127,9 +127,13 @@ struct TabBar: View {
             EggSheet()
                 .presentationDetents([.fraction(0.25)])
         })
-        .sheet(isPresented: $sharedData.showTutorialSheet) {
+        .sheet(isPresented: $sharedData.showTutorial1Sheet) {
             Tutorial1Sheet()
                 .presentationDetents([.fraction(0.48)])
+        }
+        .sheet(isPresented: $sharedData.showTutorial2Sheet) {
+            Tutorial2Sheet()
+                .presentationDetents([.fraction(0.5)])
         }
     }
     

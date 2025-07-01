@@ -200,7 +200,7 @@ struct HomeTab: View {
     @ViewBuilder
     private func showTutorialButton() -> some View {
         Button {
-            sharedData.showTutorialSheet = true
+            sharedData.showTutorial1Sheet = true
         } label: {
             Image("arrow_right")
         }
