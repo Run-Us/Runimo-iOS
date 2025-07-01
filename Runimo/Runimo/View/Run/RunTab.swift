@@ -14,6 +14,7 @@ struct RunTab: View {
     @EnvironmentObject var runVM: RunningViewModel
     @State private var selectedRunning = 0
     @State private var showRunningPage: Bool = false
+    @State private var showPermissionPopUp: Bool = false
     let typeOfRunning = ["혼자 달리기", "그룹 달리기"]
     
     var body: some View {
@@ -57,6 +58,10 @@ struct RunTab: View {
             mapVM.checkLocationPermission()
             mapVM.requestMotionAuthorization()
         }
+        .popupCharacter(
+            isPresented: $showPermissionPopUp,
+            character: CharacterPopUpItem(id: -1, code: "permission", title: "위치 권한이 필요해요", subtitle: "러닝을 시작하려면 위치 접근 '항상 허용'이 필요해요.\n설정에서 변경해 주세요!", imageURL: "request_permission", description: ""),
+            isHatching: false)
     }
     
     @ViewBuilder
@@ -73,6 +78,7 @@ struct RunTab: View {
                     if isAuthorized {
                         showRunningPage = true
                     } else {
+                        showPermissionPopUp = true
                         print("위치 권한 항상 필요")
                     }
                 }

@@ -37,12 +37,18 @@ struct CharacterPopUp: ViewModifier {
                         .foregroundStyle(.primaryGray)
                         .padding(.bottom, -8)
                     Text(character.subtitle)
+                        .multilineTextAlignment(.center)
                     
-                    KFImage(URL(string: character.imageURL))
-                        .placeholder { ProgressView() }
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 320, height: imageHeight)
+                    if character.code == "permission" {
+                        // 위치 권한 요청 이미지
+                        Image("request_permission")
+                    } else {
+                        KFImage(URL(string: character.imageURL))
+                            .placeholder { ProgressView() }
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 320, height: imageHeight)
+                    }
                     
                     Text(character.description)
                         .padding(.bottom, 8)
@@ -63,7 +69,7 @@ struct CharacterPopUp: ViewModifier {
                         HStack(spacing: 12) {
                             cancelButton()
                             if sharedData.mainRunimoCode != character.code {
-                                okButton(text: "설정하기", setMain: true)
+                                okButton(text: "설정하기", setMain: character.code != "permission")
                             }
                         }
                     }
@@ -104,7 +110,11 @@ struct CharacterPopUp: ViewModifier {
             isPresented = false
             sharedData.isHatchable = false
             if setMain {
+                // 대표 러니모 설정
                 setMainRunimoAPI()
+            } else {
+                // 위치 권한 설정 이동
+                moveToSetting()
             }
         } label: {
             Text(text)
@@ -122,6 +132,14 @@ struct CharacterPopUp: ViewModifier {
         HomeService.shared.setMainRunimo(runimoId: character.id) {
             sharedData.updateHomeView.toggle()
             sharedData.updateCharacterView.toggle()
+        }
+    }
+    
+    // 설정으로 이동 
+    private func moveToSetting() {
+        guard let settingURL = URL(string: UIApplication.openSettingsURLString) else { return }
+        if UIApplication.shared.canOpenURL(settingURL) {
+            UIApplication.shared.open(settingURL)
         }
     }
     

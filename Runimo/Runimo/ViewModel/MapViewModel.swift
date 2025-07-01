@@ -54,6 +54,7 @@ class MapViewModel: NSObject, ObservableObject {
             completion(true)
         } else {
             locationManager.requestAlwaysAuthorization()
+            completion(locationManager.authorizationStatus == .authorizedAlways)
         }
     }
 }
