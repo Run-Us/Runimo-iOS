@@ -102,10 +102,11 @@ struct HomeTab: View {
             }
             
             if let egg = sharedData.homeEggData {
-                HStack {
+                HStack(spacing: 4) {
                     Text(egg.name)
                         .font(.title5_bold)
                         .foregroundStyle(.primaryGray)
+                    showTutorialButton()
                     Spacer()
                     Text("\(egg.current_love_point_amount)/\(egg.hatch_required_point_amount)")
                         .font(.caption_regular)
@@ -117,10 +118,12 @@ struct HomeTab: View {
                 
                 giveLoveButton(isHatchable: egg.hatchable)
             } else {
-                HStack {
+                HStack(spacing: 4) {
                     Text("새 알을 기다리는 중이에요")
                         .font(.title5_bold)
                         .foregroundStyle(.primaryGray)
+                    
+                    showTutorialButton()
                     Spacer()
                 }
                 .padding(.bottom, 12)
@@ -192,6 +195,15 @@ struct HomeTab: View {
             RoundedRectangle(cornerRadius: 16)
                 .fill(.primary400)
         )
+    }
+    
+    @ViewBuilder
+    private func showTutorialButton() -> some View {
+        Button {
+            sharedData.showTutorialSheet = true
+        } label: {
+            Image("arrow_right")
+        }
     }
     
     private func getHomeAPI() {

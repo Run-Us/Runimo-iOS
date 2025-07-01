@@ -20,6 +20,7 @@ class SharedData: ObservableObject {
     @Published var myEggs: [EggItem] = []
     @Published var homeData: HomeItem?
     @Published var homeEggData: IncubatingEgg?
+    @Published var showTutorialSheet: Bool = false
     @Published var showEggSheet: Bool = false
     @Published var isHatchable: Bool = false
     @Published var updateHomeView: Bool = false

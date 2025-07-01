@@ -29,6 +29,7 @@
 		236343122C90386D00336D67 /* RunningMapPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236343112C90386D00336D67 /* RunningMapPage.swift */; };
 		236343142C917B3E00336D67 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236343132C917B3E00336D67 /* MapViewModel.swift */; };
 		236343162C9180D000336D67 /* RunningProgressPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236343152C9180D000336D67 /* RunningProgressPage.swift */; };
+		236FC1E52E1443DC00F3F321 /* Tutorial1Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236FC1E42E1443DC00F3F321 /* Tutorial1Sheet.swift */; };
 		2372998F2CBCDD2100D0E7F6 /* RunTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2372998E2CBCDD2100D0E7F6 /* RunTab.swift */; };
 		237299912CBCF12800D0E7F6 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */; };
 		237B430C2C8EFFF1002163B9 /* NaverMapSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 237B430B2C8EFFF1002163B9 /* NaverMapSDK */; };
@@ -104,6 +105,7 @@
 		236343112C90386D00336D67 /* RunningMapPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningMapPage.swift; sourceTree = "<group>"; };
 		236343132C917B3E00336D67 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		236343152C9180D000336D67 /* RunningProgressPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningProgressPage.swift; sourceTree = "<group>"; };
+		236FC1E42E1443DC00F3F321 /* Tutorial1Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial1Sheet.swift; sourceTree = "<group>"; };
 		2372998E2CBCDD2100D0E7F6 /* RunTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunTab.swift; sourceTree = "<group>"; };
 		237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPicker.swift; sourceTree = "<group>"; };
 		237B430D2C8F0193002163B9 /* MapPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPage.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 			children = (
 				88E556042C8F208F003789B7 /* HomeTab.swift */,
 				2382647E2DA6229B00B4C849 /* EggSheet.swift */,
+				236FC1E42E1443DC00F3F321 /* Tutorial1Sheet.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				2347D9AE2CD34101003776BC /* MyGraph.swift in Sources */,
 				886CA2A52CEC547600A8E1A8 /* BaseResponse.swift in Sources */,
 				2347D9AC2CD25927003776BC /* RecordCard.swift in Sources */,
+				236FC1E52E1443DC00F3F321 /* Tutorial1Sheet.swift in Sources */,
 				237CEF432D941E3C002D9C86 /* CharacterPopUp.swift in Sources */,
 				23CBA1462E0AA51D0089B73B /* Withdraw2Page.swift in Sources */,
 				233ED1FF2CABA0E7001EF0BC /* UserToken.swift in Sources */,
