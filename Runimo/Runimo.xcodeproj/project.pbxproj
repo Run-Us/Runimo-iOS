@@ -29,6 +29,7 @@
 		236343122C90386D00336D67 /* RunningMapPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236343112C90386D00336D67 /* RunningMapPage.swift */; };
 		236343142C917B3E00336D67 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236343132C917B3E00336D67 /* MapViewModel.swift */; };
 		236343162C9180D000336D67 /* RunningProgressPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236343152C9180D000336D67 /* RunningProgressPage.swift */; };
+		236FC1EA2E14F5A100F3F321 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 236FC1E92E14F5A100F3F321 /* Lottie */; };
 		2372998F2CBCDD2100D0E7F6 /* RunTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2372998E2CBCDD2100D0E7F6 /* RunTab.swift */; };
 		237299912CBCF12800D0E7F6 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */; };
 		237B430C2C8EFFF1002163B9 /* NaverMapSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 237B430B2C8EFFF1002163B9 /* NaverMapSDK */; };
@@ -164,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				230314F42C89A00B00B299D5 /* KakaoSDKCommon in Frameworks */,
+				236FC1EA2E14F5A100F3F321 /* Lottie in Frameworks */,
 				23C0A7ED2DAC05D8005283DA /* Kingfisher in Frameworks */,
 				230314F22C89A00B00B299D5 /* KakaoSDKAuth in Frameworks */,
 				230315002C8A096D00B299D5 /* KeychainSwift in Frameworks */,
@@ -429,6 +431,7 @@
 				230314FF2C8A096D00B299D5 /* KeychainSwift */,
 				237B430B2C8EFFF1002163B9 /* NaverMapSDK */,
 				23C0A7EC2DAC05D8005283DA /* Kingfisher */,
+				236FC1E92E14F5A100F3F321 /* Lottie */,
 			);
 			productName = RunUs;
 			productReference = 238E78EE2C83147200D04F58 /* Runimo.app */;
@@ -463,6 +466,7 @@
 				230314FE2C8A096D00B299D5 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				237B430A2C8EFFF1002163B9 /* XCRemoteSwiftPackageReference "Naver-Map-iOS-SPM" */,
 				23C0A7EB2DAC05D8005283DA /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				236FC1E82E14F5A100F3F321 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 238E78EF2C83147200D04F58 /* Products */;
 			projectDirPath = "";
@@ -811,6 +815,14 @@
 				minimumVersion = 24.0.0;
 			};
 		};
+		236FC1E82E14F5A100F3F321 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
 		237B430A2C8EFFF1002163B9 /* XCRemoteSwiftPackageReference "Naver-Map-iOS-SPM" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/slr-09/Naver-Map-iOS-SPM.git";
@@ -849,6 +861,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 230314FE2C8A096D00B299D5 /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
+		};
+		236FC1E92E14F5A100F3F321 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 236FC1E82E14F5A100F3F321 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 		237B430B2C8EFFF1002163B9 /* NaverMapSDK */ = {
 			isa = XCSwiftPackageProductDependency;
