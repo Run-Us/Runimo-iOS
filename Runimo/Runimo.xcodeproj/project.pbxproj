@@ -31,6 +31,16 @@
 		236343162C9180D000336D67 /* RunningProgressPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236343152C9180D000336D67 /* RunningProgressPage.swift */; };
 		236FC1EA2E14F5A100F3F321 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 236FC1E92E14F5A100F3F321 /* Lottie */; };
 		236FC1EC2E14FA2C00F3F321 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236FC1EB2E14FA2C00F3F321 /* LottieView.swift */; };
+		236FC20D2E1527FD00F3F321 /* 100-02-갸우뚱.json in Resources */ = {isa = PBXBuildFile; fileRef = 236FC2042E1527FD00F3F321 /* 100-02-갸우뚱.json */; };
+		236FC20E2E1527FD00F3F321 /* 100-04-1-애정.json in Resources */ = {isa = PBXBuildFile; fileRef = 236FC2062E1527FD00F3F321 /* 100-04-1-애정.json */; };
+		236FC20F2E1527FD00F3F321 /* 110-02-갸우뚱.json in Resources */ = {isa = PBXBuildFile; fileRef = 236FC2092E1527FD00F3F321 /* 110-02-갸우뚱.json */; };
+		236FC2102E1527FD00F3F321 /* 110-04-2-애정.json in Resources */ = {isa = PBXBuildFile; fileRef = 236FC20C2E1527FD00F3F321 /* 110-04-2-애정.json */; };
+		236FC2112E1527FD00F3F321 /* 100-01-알부화.json in Resources */ = {isa = PBXBuildFile; fileRef = 236FC2032E1527FD00F3F321 /* 100-01-알부화.json */; };
+		236FC2122E1527FD00F3F321 /* 110-01-알부화.json in Resources */ = {isa = PBXBuildFile; fileRef = 236FC2082E1527FD00F3F321 /* 110-01-알부화.json */; };
+		236FC2132E1527FD00F3F321 /* 100-04-2-애정.json in Resources */ = {isa = PBXBuildFile; fileRef = 236FC2072E1527FD00F3F321 /* 100-04-2-애정.json */; };
+		236FC2142E1527FD00F3F321 /* 100-03-빛남.json in Resources */ = {isa = PBXBuildFile; fileRef = 236FC2052E1527FD00F3F321 /* 100-03-빛남.json */; };
+		236FC2152E1527FD00F3F321 /* 110-04-1-애정.json in Resources */ = {isa = PBXBuildFile; fileRef = 236FC20B2E1527FD00F3F321 /* 110-04-1-애정.json */; };
+		236FC2162E1527FD00F3F321 /* 110-03-빛남.json in Resources */ = {isa = PBXBuildFile; fileRef = 236FC20A2E1527FD00F3F321 /* 110-03-빛남.json */; };
 		2372998F2CBCDD2100D0E7F6 /* RunTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2372998E2CBCDD2100D0E7F6 /* RunTab.swift */; };
 		237299912CBCF12800D0E7F6 /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */; };
 		237B430C2C8EFFF1002163B9 /* NaverMapSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 237B430B2C8EFFF1002163B9 /* NaverMapSDK */; };
@@ -107,6 +117,16 @@
 		236343132C917B3E00336D67 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		236343152C9180D000336D67 /* RunningProgressPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningProgressPage.swift; sourceTree = "<group>"; };
 		236FC1EB2E14FA2C00F3F321 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		236FC2032E1527FD00F3F321 /* 100-01-알부화.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "100-01-알부화.json"; sourceTree = "<group>"; };
+		236FC2042E1527FD00F3F321 /* 100-02-갸우뚱.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "100-02-갸우뚱.json"; sourceTree = "<group>"; };
+		236FC2052E1527FD00F3F321 /* 100-03-빛남.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "100-03-빛남.json"; sourceTree = "<group>"; };
+		236FC2062E1527FD00F3F321 /* 100-04-1-애정.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "100-04-1-애정.json"; sourceTree = "<group>"; };
+		236FC2072E1527FD00F3F321 /* 100-04-2-애정.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "100-04-2-애정.json"; sourceTree = "<group>"; };
+		236FC2082E1527FD00F3F321 /* 110-01-알부화.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "110-01-알부화.json"; sourceTree = "<group>"; };
+		236FC2092E1527FD00F3F321 /* 110-02-갸우뚱.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "110-02-갸우뚱.json"; sourceTree = "<group>"; };
+		236FC20A2E1527FD00F3F321 /* 110-03-빛남.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "110-03-빛남.json"; sourceTree = "<group>"; };
+		236FC20B2E1527FD00F3F321 /* 110-04-1-애정.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "110-04-1-애정.json"; sourceTree = "<group>"; };
+		236FC20C2E1527FD00F3F321 /* 110-04-2-애정.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "110-04-2-애정.json"; sourceTree = "<group>"; };
 		2372998E2CBCDD2100D0E7F6 /* RunTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunTab.swift; sourceTree = "<group>"; };
 		237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPicker.swift; sourceTree = "<group>"; };
 		237B430D2C8F0193002163B9 /* MapPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPage.swift; sourceTree = "<group>"; };
@@ -298,6 +318,23 @@
 			path = MyPage;
 			sourceTree = "<group>";
 		};
+		236FC2022E1527EC00F3F321 /* LottieFile */ = {
+			isa = PBXGroup;
+			children = (
+				236FC2032E1527FD00F3F321 /* 100-01-알부화.json */,
+				236FC2042E1527FD00F3F321 /* 100-02-갸우뚱.json */,
+				236FC2052E1527FD00F3F321 /* 100-03-빛남.json */,
+				236FC2062E1527FD00F3F321 /* 100-04-1-애정.json */,
+				236FC2072E1527FD00F3F321 /* 100-04-2-애정.json */,
+				236FC2082E1527FD00F3F321 /* 110-01-알부화.json */,
+				236FC2092E1527FD00F3F321 /* 110-02-갸우뚱.json */,
+				236FC20A2E1527FD00F3F321 /* 110-03-빛남.json */,
+				236FC20B2E1527FD00F3F321 /* 110-04-1-애정.json */,
+				236FC20C2E1527FD00F3F321 /* 110-04-2-애정.json */,
+			);
+			path = LottieFile;
+			sourceTree = "<group>";
+		};
 		238E78E52C83147200D04F58 = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +365,7 @@
 				230314E72C88A43300B299D5 /* View */,
 				238E78F12C83147200D04F58 /* RunimoApp.swift */,
 				238E78F52C83147300D04F58 /* Assets.xcassets */,
+				236FC2022E1527EC00F3F321 /* LottieFile */,
 				230314DE2C8884EC00B299D5 /* Extension */,
 				238E78F72C83147300D04F58 /* Preview Content */,
 			);
@@ -490,6 +528,16 @@
 				23931D9F2CBA36EE00BD8BBA /* Pretendard-SemiBold.ttf in Resources */,
 				2398F4B22CB8303E001D922B /* Pretendard-Bold.ttf in Resources */,
 				23931D9D2CBA369A00BD8BBA /* Paperlogy-6SemiBold.ttf in Resources */,
+				236FC20D2E1527FD00F3F321 /* 100-02-갸우뚱.json in Resources */,
+				236FC20E2E1527FD00F3F321 /* 100-04-1-애정.json in Resources */,
+				236FC20F2E1527FD00F3F321 /* 110-02-갸우뚱.json in Resources */,
+				236FC2102E1527FD00F3F321 /* 110-04-2-애정.json in Resources */,
+				236FC2112E1527FD00F3F321 /* 100-01-알부화.json in Resources */,
+				236FC2122E1527FD00F3F321 /* 110-01-알부화.json in Resources */,
+				236FC2132E1527FD00F3F321 /* 100-04-2-애정.json in Resources */,
+				236FC2142E1527FD00F3F321 /* 100-03-빛남.json in Resources */,
+				236FC2152E1527FD00F3F321 /* 110-04-1-애정.json in Resources */,
+				236FC2162E1527FD00F3F321 /* 110-03-빛남.json in Resources */,
 				238E78F92C83147300D04F58 /* Preview Assets.xcassets in Resources */,
 				23931DA22CBA370000BD8BBA /* Paperlogy-7Bold.ttf in Resources */,
 				23931DA32CBA370000BD8BBA /* Paperlogy-5Medium.ttf in Resources */,
