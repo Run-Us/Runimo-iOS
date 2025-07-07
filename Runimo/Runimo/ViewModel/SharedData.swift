@@ -26,6 +26,10 @@ class SharedData: ObservableObject {
     @Published var isHomeDataLoaded: Bool = false
     @Published var isHomeEggDataLoaded: Bool = false
     
+    // 알
+    @Published var eggCode: String = ""
+    @Published var hatchEggFlag: Bool = false
+    
     // MARK: - 2. 기록 리스트 탭
     @Published var totalRunningCount: Int = 0
     @Published var selectedDateForSessionTab: Date = Date()

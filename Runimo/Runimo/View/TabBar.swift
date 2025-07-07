@@ -20,8 +20,7 @@ struct TabBar: View {
 
     var body: some View {
         ZStack {
-            Color.primaryBG
-                .ignoresSafeArea()
+            Color.primaryBG.ignoresSafeArea()
             VStack(spacing: 0) {
                 // 상단 바
                 switch sharedData.currentMainTab {
@@ -102,6 +101,10 @@ struct TabBar: View {
                     Spacer()
                 }
                 .background(Divider(), alignment: .top)
+            }
+            
+            if sharedData.hatchEggFlag {
+                hatchEggPopup()
             }
         }
         .navigationBarBackButtonHidden()
@@ -212,6 +215,25 @@ struct TabBar: View {
             }
             .padding(16)
             Divider()
+        }
+    }
+    
+    @ViewBuilder
+    private func hatchEggPopup() -> some View {
+        ZStack {
+            Color.quaternaryGray.opacity(0.3).ignoresSafeArea()
+            VStack(spacing: 16) {
+                Text("부화!!!")
+                    .font(.title4_semibold)
+                    .foregroundStyle(.primaryGray)
+                LottieView(source: .asset(name: "\(sharedData.eggCode)-01-알부화", mode: .playOnce), reloadID: UUID())
+            }
+            .frame(height: 410)
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 12).fill(.primaryBG)
+            )
+            .padding(16)
         }
     }
 }
