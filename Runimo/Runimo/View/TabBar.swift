@@ -267,8 +267,8 @@ struct TabBar: View {
                     .font(.title4_semibold)
                     .foregroundStyle(.primaryGray)
                 LottieView(source: .asset(name: "\(sharedData.eggCode)-01-알부화", mode: .playOnce), reloadID: UUID())
+                    .frame(height: 330)
             }
-            .frame(height: 410)
             .padding(16)
             .background(
                 RoundedRectangle(cornerRadius: 12).fill(.primaryBG)

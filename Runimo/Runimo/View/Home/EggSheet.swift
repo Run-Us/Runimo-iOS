@@ -45,7 +45,7 @@ struct EggSheet: View {
             KFImage(URL(string: egg.img_url))
                 .resizable()
                 .scaledToFit()
-                .frame(width: 20, height: 20)
+                .frame(width: 28, height: 28)
             Text(egg.name)
                 .font(.body2_medium)
                 .foregroundStyle(.secondaryGray)

@@ -101,7 +101,7 @@ struct HomeTab: View {
                     ProgressView()
                 } else {
                     LottieView(source: eggSource, reloadID: reloadID)
-                        .frame(width: 310, height: 280)
+                        .frame(height: 240)
                 }
             }
             
