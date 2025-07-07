@@ -17,6 +17,7 @@ enum Tab {
 struct TabBar: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var sharedData: SharedData
+    @State private var showSignUpCompletePopUp: Bool = false
 
     var body: some View {
         ZStack {
@@ -36,11 +37,11 @@ struct TabBar: View {
                 case .character: CharacterTab()
                 case .my: MyTab()
                 }
-                    
+                
                 // 탭 아이콘
                 HStack {
                     Spacer()
-                                
+                    
                     // 홈
                     Button {
                         sharedData.currentMainTab = .home
@@ -50,10 +51,10 @@ struct TabBar: View {
                             .foregroundStyle(sharedData.currentMainTab == .home ? .primaryGray : .gray400)
                             .frame(width: 32, height: 32)
                     }
-                                    
+                    
                     Spacer()
                     Spacer()
-                                    
+                    
                     Button {
                         sharedData.currentMainTab = .session
                     } label: {
@@ -62,9 +63,9 @@ struct TabBar: View {
                             .foregroundStyle(sharedData.currentMainTab == .session ? .primaryGray : .gray400)
                             .frame(width: 32, height: 32)
                     }
-                                    
+                    
                     Spacer()
-                                    
+                    
                     // 달리기
                     Button {
                         navigation.path.append(RunTab.id)
@@ -73,9 +74,9 @@ struct TabBar: View {
                             .offset(y: -15)
                             .frame(width: 60, height: 60)
                     }
-                                    
+                    
                     Spacer()
-                                    
+                    
                     Button {
                         sharedData.currentMainTab = .character
                     } label: {
@@ -84,10 +85,10 @@ struct TabBar: View {
                             .foregroundStyle(sharedData.currentMainTab == .character ? .primaryGray : .gray400)
                             .frame(width: 32, height: 32)
                     }
-                                    
+                    
                     Spacer()
                     Spacer()
-                                    
+                    
                     // 마이페이지
                     Button {
                         sharedData.currentMainTab = .my
@@ -97,7 +98,7 @@ struct TabBar: View {
                             .foregroundStyle(sharedData.currentMainTab == .my ? .primaryGray : .gray400)
                             .frame(width: 32, height: 32)
                     }
-                                    
+                    
                     Spacer()
                 }
                 .background(Divider(), alignment: .top)
@@ -107,7 +108,7 @@ struct TabBar: View {
                 hatchEggPopup()
             }
             
-            if sharedData.isSignUpComplete {
+            if showSignUpCompletePopUp {
                 signUpPopUp()
             }
         }
@@ -120,6 +121,11 @@ struct TabBar: View {
                 sharedData.transformAllRunimo()
             }
             
+            // 회원가입 후 팝업 띄우기 위함
+            Task {
+                try? await Task.sleep(for: .seconds(0.3))
+                showSignUpCompletePopUp = sharedData.isSignUpComplete
+            }
         }
         .onChange(of: sharedData.currentMainTab) { _, _ in
             sharedData.dateSheetSelectedIndex = 0
@@ -228,11 +234,12 @@ struct TabBar: View {
                 Text("첫 러닝을 완료하고 알을 부화시켜 보세요!")
                     .font(.body2_medium)
                     .foregroundStyle(.tertiaryGray)
-                LottieView(source: .asset(name: "\(sharedData.eggCode)-01-알부화", mode: .playOnce), reloadID: UUID())
+                LottieView(source: .asset(name: "\(sharedData.firstEggCode)-02-갸우뚱", mode: .loop), reloadID: UUID())
                     .frame(height: 330)
                 
                 Button {
                     sharedData.isSignUpComplete = false
+                    showSignUpCompletePopUp = false
                 } label: {
                     Text("확인했어요")
                         .font(.body1_bold)
