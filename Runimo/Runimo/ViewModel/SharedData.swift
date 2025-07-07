@@ -38,6 +38,10 @@ class SharedData: ObservableObject {
     @Published var totalUserRunningDistance: Int = 0
     @Published var updateCharacterView: Bool = false
     
+    // MARK: - 4. 마이페이지
+    // 설정
+    @Published var withdrawReason: (reason: String, inputText: String) = ("", "")
+    
     // MARK: - 캐릭터 팝업
     @Published var characterPopUpData: CharacterPopUpItem = CharacterPopUpItem(id: -1, code: "", title: "", subtitle: "", imageURL: "", description: "")
     @Published var currentHatchedEgg: HatchEggResponse?
@@ -134,4 +138,9 @@ extension SharedData {
     private func setEggData() {
         characterPopUpData = CharacterPopUpItem(id: -1, code: "egg_110", title: "신비로운 알을 발견했어요", subtitle: "첫 러닝을 완료하고 알을 부화시켜 보세요!", imageURL: signUpEggData.image, description: "")
     }
+}
+
+// MARK: - Setting (설정)
+extension SharedData {
+    
 }
