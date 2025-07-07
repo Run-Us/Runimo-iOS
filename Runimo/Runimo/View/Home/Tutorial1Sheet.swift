@@ -36,6 +36,9 @@ struct Tutorial1Sheet: View {
                 sharedData.showTutorial2Sheet = true
             }
         }
+        .onAppear {
+            UserDefaults.standard.set(true, forKey: "isNotFirstGiveLove")
+        }
     }
 }
 

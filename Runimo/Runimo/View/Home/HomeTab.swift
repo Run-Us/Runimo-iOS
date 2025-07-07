@@ -154,7 +154,11 @@ struct HomeTab: View {
             } else {
                 // 애정주기
                 if eggId >= 0 {
-                    giveLoveAPI()
+                    if UserDefaults.standard.object(forKey: "isNotFirstGiveLove") == nil {
+                        sharedData.showTutorial1Sheet = true
+                    } else {
+                        giveLoveAPI()
+                    }
                 }
             }
         } label: {
