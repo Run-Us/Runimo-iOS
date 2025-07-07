@@ -90,14 +90,19 @@ class MyPageService {
     }
     
     // 탈퇴하기
-    func withdrawUser(completion: @escaping (Bool) -> Void) {
+    func withdrawUser(reason: String, inputText: String, completion: @escaping (Bool) -> Void) {
         let path = "/users"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
         ]
         
-        let dataRequest = APIRequest(path: path, method: .delete, headers: headers)
+        let parameters: [String: Any] = [
+            "withdraw_reason": reason,
+            "reason_detail": inputText
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .delete, parameters: parameters, headers: headers)
         
         NetworkManager.shared.getHTTPStatusCode(dataRequest) { code in
             if code == 204 {

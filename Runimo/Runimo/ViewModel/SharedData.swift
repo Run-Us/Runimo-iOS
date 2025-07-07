@@ -41,6 +41,10 @@ class SharedData: ObservableObject {
     @Published var totalUserRunningDistance: Int = 0
     @Published var updateCharacterView: Bool = false
     
+    // MARK: - 4. 마이페이지
+    // 설정
+    @Published var withdrawReason: (reason: String, inputText: String) = ("", "")
+    
     // MARK: - 캐릭터 팝업
     @Published var characterPopUpData: CharacterPopUpItem = CharacterPopUpItem(id: -1, code: "", title: "", subtitle: "", imageURL: "", description: "")
     @Published var currentHatchedEgg: HatchEggResponse?
@@ -130,5 +134,10 @@ extension SharedData {
             characterPopUpData = CharacterPopUpItem(id: notFixedData.id, code: fixedData.code, title: fixedData.name, subtitle: fixedData.description, imageURL: fixedData.img_url, description: "러닝: \(notFixedData.total_run_count), 달린 거리: \(String(format: "%.2fkm", Double(notFixedData.total_distance_in_meters)/1000))")
         }
     }
+    
+}
+
+// MARK: - Setting (설정)
+extension SharedData {
     
 }

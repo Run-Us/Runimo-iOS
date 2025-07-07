@@ -58,13 +58,13 @@ struct Withdraw2Page: View {
         .popup(isPresented: $showWithdrawPopup, title: "계정을 삭제할까요?", subtitle: "모든 데이터는 복구되지 않아요.", buttonText: "탈퇴하기", buttonColor: .error) {
 
         } buttonAction: {
-            MyPageService.shared.withdrawUser { result in
+            MyPageService.shared.withdrawUser(reason: sharedData.withdrawReason.reason, inputText: sharedData.withdrawReason.inputText, completion: { result in
                 if result {
                     deleteToken()
                     sharedData.isLogined = false
                     navigation.goToRootPage()
                 }
-            }
+            })
         }
     }
     
