@@ -65,7 +65,7 @@ struct CharacterTab: View {
                 Button {
                     if !itemDisabled {
                         sharedData.setSelectedCharacter(code: runimo.code)
-                        sharedData.showPopUp(isEgg: false)
+                        sharedData.showPopUp()
                     }
                 } label: {
                     characterCard(name: isOpen ? runimo.name : "???", imageName: isOpen ? runimo.img_url : "", disabled: itemDisabled, selected: isSelectedIndex)

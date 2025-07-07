@@ -17,11 +17,11 @@ enum Tab {
 struct TabBar: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var sharedData: SharedData
+    @State private var showSignUpCompletePopUp: Bool = false
 
     var body: some View {
         ZStack {
-            Color.primaryBG
-                .ignoresSafeArea()
+            Color.primaryBG.ignoresSafeArea()
             VStack(spacing: 0) {
                 // 상단 바
                 switch sharedData.currentMainTab {
@@ -37,11 +37,11 @@ struct TabBar: View {
                 case .character: CharacterTab()
                 case .my: MyTab()
                 }
-                    
+                
                 // 탭 아이콘
                 HStack {
                     Spacer()
-                                
+                    
                     // 홈
                     Button {
                         sharedData.currentMainTab = .home
@@ -51,10 +51,10 @@ struct TabBar: View {
                             .foregroundStyle(sharedData.currentMainTab == .home ? .primaryGray : .gray400)
                             .frame(width: 32, height: 32)
                     }
-                                    
+                    
                     Spacer()
                     Spacer()
-                                    
+                    
                     Button {
                         sharedData.currentMainTab = .session
                     } label: {
@@ -63,9 +63,9 @@ struct TabBar: View {
                             .foregroundStyle(sharedData.currentMainTab == .session ? .primaryGray : .gray400)
                             .frame(width: 32, height: 32)
                     }
-                                    
+                    
                     Spacer()
-                                    
+                    
                     // 달리기
                     Button {
                         navigation.path.append(RunTab.id)
@@ -74,9 +74,9 @@ struct TabBar: View {
                             .offset(y: -15)
                             .frame(width: 60, height: 60)
                     }
-                                    
+                    
                     Spacer()
-                                    
+                    
                     Button {
                         sharedData.currentMainTab = .character
                     } label: {
@@ -85,10 +85,10 @@ struct TabBar: View {
                             .foregroundStyle(sharedData.currentMainTab == .character ? .primaryGray : .gray400)
                             .frame(width: 32, height: 32)
                     }
-                                    
+                    
                     Spacer()
                     Spacer()
-                                    
+                    
                     // 마이페이지
                     Button {
                         sharedData.currentMainTab = .my
@@ -98,10 +98,18 @@ struct TabBar: View {
                             .foregroundStyle(sharedData.currentMainTab == .my ? .primaryGray : .gray400)
                             .frame(width: 32, height: 32)
                     }
-                                    
+                    
                     Spacer()
                 }
                 .background(Divider(), alignment: .top)
+            }
+            
+            if sharedData.hatchEggFlag {
+                hatchEggPopup()
+            }
+            
+            if showSignUpCompletePopUp {
+                signUpPopUp()
             }
         }
         .navigationBarBackButtonHidden()
@@ -113,11 +121,10 @@ struct TabBar: View {
                 sharedData.transformAllRunimo()
             }
             
-            if sharedData.isSignUpComplete {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    sharedData.showPopUp(isEgg: true)
-                    sharedData.isSignUpComplete = false
-                }
+            // 회원가입 후 팝업 띄우기 위함
+            Task {
+                try? await Task.sleep(for: .seconds(0.3))
+                showSignUpCompletePopUp = sharedData.isSignUpComplete
             }
         }
         .onChange(of: sharedData.currentMainTab) { _, _ in
@@ -220,6 +227,61 @@ struct TabBar: View {
             }
             .padding(16)
             Divider()
+        }
+    }
+    
+    // 회원가입 후 알 지급 팝업
+    @ViewBuilder
+    private func signUpPopUp() -> some View {
+        ZStack {
+            Color.quaternaryGray.opacity(0.3).ignoresSafeArea()
+            VStack(spacing: 8) {
+                Text("신비로운 알을 발견했어요")
+                    .font(.title4_semibold)
+                    .foregroundStyle(.primaryGray)
+                Text("첫 러닝을 완료하고 알을 부화시켜 보세요!")
+                    .font(.body2_medium)
+                    .foregroundStyle(.tertiaryGray)
+                LottieView(source: .asset(name: "\(sharedData.firstEggCode)-02-갸우뚱", mode: .loop), reloadID: UUID())
+                    .frame(height: 330)
+                
+                Button {
+                    sharedData.isSignUpComplete = false
+                    showSignUpCompletePopUp = false
+                } label: {
+                    Text("확인했어요")
+                        .font(.body1_bold)
+                        .foregroundStyle(.white)
+                        .padding(.vertical, 10)
+                        .frame(maxWidth: .infinity)
+                        .background(.primary400)
+                        .cornerRadius(8)
+                }
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 12).fill(.primaryBG)
+            )
+            .padding(16)
+        }
+    }
+    
+    @ViewBuilder
+    private func hatchEggPopup() -> some View {
+        ZStack {
+            Color.quaternaryGray.opacity(0.3).ignoresSafeArea()
+            VStack(spacing: 16) {
+                Text("부화!!!")
+                    .font(.title4_semibold)
+                    .foregroundStyle(.primaryGray)
+                LottieView(source: .asset(name: "\(sharedData.eggCode)-01-알부화", mode: .playOnce), reloadID: UUID())
+                    .frame(height: 330)
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 12).fill(.primaryBG)
+            )
+            .padding(16)
         }
     }
 }
