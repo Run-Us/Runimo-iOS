@@ -177,8 +177,8 @@ struct JoinPage: View {
             sharedData.setTab(.home)
             sharedData.isLogined = true
             navigation.goToRootPage()
+            sharedData.firstEggCode = String(result.dropFirst())
             sharedData.isSignUpComplete = true
-            sharedData.signUpEggData = result
         }
     }
 }

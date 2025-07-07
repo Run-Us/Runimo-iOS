@@ -37,6 +37,7 @@ struct IncubatingEgg: Codable {
     let hatch_required_point_amount: Int
     var current_love_point_amount: Int
     let hatchable: Bool
+    let egg_code: String
 }
 
 struct PatchLovePointResponse: Codable {

@@ -11,6 +11,9 @@ import Kingfisher
 struct HomeTab: View {
     @EnvironmentObject var sharedData: SharedData
     @State private var eggId: Int = 0
+    @State private var eggCode: String = ""
+    @State private var eggSource: LottieSource = .asset(name: "", mode: .loop)
+    @State private var reloadID = UUID()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -94,11 +97,12 @@ struct HomeTab: View {
             if sharedData.isHomeEggDataLoaded && sharedData.homeEggData == nil {
                 Image("egg_default")
             } else {
-                KFImage(URL(string: sharedData.homeEggData?.img_url ?? ""))
-                    .placeholder { ProgressView() }
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 310, height: 280)
+                if eggCode == "" {
+                    ProgressView()
+                } else {
+                    LottieView(source: eggSource, reloadID: reloadID)
+                        .frame(height: 240)
+                }
             }
             
             if let egg = sharedData.homeEggData {
@@ -147,13 +151,7 @@ struct HomeTab: View {
             } else {
                 // 애정주기
                 if eggId >= 0 {
-                    HomeService.shared.patchLovePoint(eggId: eggId, amount: 1) { response in
-                        sharedData.homeEggData?.current_love_point_amount = response.current_love_point_amount
-                        
-                        DispatchQueue.main.async {
-                            getHomeAPI()
-                        }
-                    }
+                    giveLoveAPI()
                 }
             }
         } label: {
@@ -212,8 +210,30 @@ struct HomeTab: View {
             DispatchQueue.main.async {
                 sharedData.homeEggData = egg.incubating_eggs.first
                 eggId = egg.incubating_eggs.first?.id ?? -1
+                eggCode = String(egg.incubating_eggs.first?.egg_code.dropFirst() ?? "")
+                sharedData.eggCode = eggCode
+                
+                if sharedData.homeEggData?.hatchable ?? false {
+                    eggSource = .asset(name: "\(eggCode)-04-\(Int.random(in: 1...2))-애정", mode: .loop)
+                } else {
+                    eggSource = .asset(name: "\(eggCode)-03-빛남", mode: .loop)
+                }
                 
                 sharedData.isHomeEggDataLoaded = true
+            }
+        }
+    }
+    
+    private func giveLoveAPI() {
+        HomeService.shared.patchLovePoint(eggId: eggId, amount: 1) { response in
+            // Lottie
+            eggSource = .asset(name: "\(eggCode)-04-\(Int.random(in: 1...2))-애정", mode: .playOnce)
+            reloadID = UUID()   // 로띠 reload 유도
+            
+            sharedData.homeEggData?.current_love_point_amount = response.current_love_point_amount
+            
+            DispatchQueue.main.async {
+                getHomeAPI()
             }
         }
     }
@@ -222,8 +242,17 @@ struct HomeTab: View {
         HomeService.shared.hatchEgg(eggId: eggId) { data in
             sharedData.currentHatchedEgg = data
             sharedData.isHatchable = true
-            sharedData.showPopUp(isEgg: false)
-            getHomeAPI()
+            
+            // 부화 로띠
+            sharedData.hatchEggFlag = true
+            Task {
+                try? await Task.sleep(nanoseconds: 3 * 1_000_000_000)
+                sharedData.hatchEggFlag = false
+                
+                // 캐릭터 팝업
+                sharedData.showPopUp()
+                getHomeAPI()
+            }
         }
     }
 }
