@@ -221,7 +221,12 @@ struct HomeTab: View {
                 sharedData.homeEggData = egg.incubating_eggs.first
                 eggId = egg.incubating_eggs.first?.id ?? -1
                 eggCode = String(egg.incubating_eggs.first?.egg_code.dropFirst() ?? "")
-                source = .asset(name: "\(eggCode)-03-빛남", mode: .loop)
+                
+                if sharedData.homeEggData?.hatchable ?? false {
+                    source = .asset(name: "\(eggCode)-04-\(Int.random(in: 1...2))-애정", mode: .loop)
+                } else {
+                    source = .asset(name: "\(eggCode)-03-빛남", mode: .loop)
+                }
                 
                 sharedData.isHomeEggDataLoaded = true
             }
