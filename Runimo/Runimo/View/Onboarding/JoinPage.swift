@@ -177,8 +177,12 @@ struct JoinPage: View {
             sharedData.setTab(.home)
             sharedData.isLogined = true
             navigation.goToRootPage()
-            sharedData.isSignUpComplete = true
-            sharedData.signUpEggData = result
+            sharedData.eggCode = result
+            
+            Task {
+                try? await Task.sleep(nanoseconds: 300_000_000) // 0.3초 대기
+                sharedData.isSignUpComplete = true
+            }
         }
     }
 }

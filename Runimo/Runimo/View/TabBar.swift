@@ -106,6 +106,10 @@ struct TabBar: View {
             if sharedData.hatchEggFlag {
                 hatchEggPopup()
             }
+            
+            if sharedData.isSignUpComplete {
+                signUpPopUp()
+            }
         }
         .navigationBarBackButtonHidden()
         .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, isHatching: sharedData.isHatchable)
@@ -116,12 +120,6 @@ struct TabBar: View {
                 sharedData.transformAllRunimo()
             }
             
-            if sharedData.isSignUpComplete {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    sharedData.showPopUp(isEgg: true)
-                    sharedData.isSignUpComplete = false
-                }
-            }
         }
         .onChange(of: sharedData.currentMainTab) { _, _ in
             sharedData.dateSheetSelectedIndex = 0
@@ -215,6 +213,41 @@ struct TabBar: View {
             }
             .padding(16)
             Divider()
+        }
+    }
+    
+    // 회원가입 후 알 지급 팝업
+    @ViewBuilder
+    private func signUpPopUp() -> some View {
+        ZStack {
+            Color.quaternaryGray.opacity(0.3).ignoresSafeArea()
+            VStack(spacing: 8) {
+                Text("신비로운 알을 발견했어요")
+                    .font(.title4_semibold)
+                    .foregroundStyle(.primaryGray)
+                Text("첫 러닝을 완료하고 알을 부화시켜 보세요!")
+                    .font(.body2_medium)
+                    .foregroundStyle(.tertiaryGray)
+                LottieView(source: .asset(name: "\(sharedData.eggCode)-01-알부화", mode: .playOnce), reloadID: UUID())
+                    .frame(height: 330)
+                
+                Button {
+                    sharedData.isSignUpComplete = false
+                } label: {
+                    Text("확인했어요")
+                        .font(.body1_bold)
+                        .foregroundStyle(.white)
+                        .padding(.vertical, 10)
+                        .frame(maxWidth: .infinity)
+                        .background(.primary400)
+                        .cornerRadius(8)
+                }
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 12).fill(.primaryBG)
+            )
+            .padding(16)
         }
     }
     

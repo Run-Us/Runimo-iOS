@@ -250,7 +250,7 @@ struct HomeTab: View {
                 sharedData.hatchEggFlag = false
                 
                 // 캐릭터 팝업
-                sharedData.showPopUp(isEgg: false)
+                sharedData.showPopUp()
                 getHomeAPI()
             }
         }

@@ -13,7 +13,6 @@ class SharedData: ObservableObject {
     @Published var currentMainTab: Tab = .home
     @Published var dateSheetSelectedIndex: Int = 0
     @Published var showCharacterPopUp: Bool = false
-    @Published var signUpEggData: (name: String, image: String) = ("", "")
     
     // MARK: - 1. 홈 탭
     @Published var egg_love: (egg: Int, love: Int) = (0, 0)
@@ -59,8 +58,8 @@ class SharedData: ObservableObject {
     }
     
     // 캐릭터 팝업 띄우기 
-    func showPopUp(isEgg: Bool) {
-        settingData(isEgg: isEgg)
+    func showPopUp() {
+        settingData()
         showCharacterPopUp = true
     }
     
@@ -108,10 +107,8 @@ class SharedData: ObservableObject {
 
 // MARK: - 캐릭터 팝업 데이터 세팅
 extension SharedData {
-    func settingData(isEgg: Bool) {
-        if isEgg {
-            setEggData()
-        } else if isHatchable {
+    func settingData() {
+        if isHatchable {
             setHatchData()
         } else {
             setCharacterData()
@@ -134,8 +131,4 @@ extension SharedData {
         }
     }
     
-    // 회원가입 후 알
-    private func setEggData() {
-        characterPopUpData = CharacterPopUpItem(id: -1, code: "egg_110", title: "신비로운 알을 발견했어요", subtitle: "첫 러닝을 완료하고 알을 부화시켜 보세요!", imageURL: signUpEggData.image, description: "")
-    }
 }
