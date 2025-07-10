@@ -114,4 +114,29 @@ class MyPageService {
         }
         
     }
+    
+    func sendFeedback(rate: Int, contents: String, completion: @escaping (Bool) -> Void) {
+        let path = "/feedback"
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        let parameters: [String: Any] = [
+            "rate": rate,
+            "feedback": contents
+        ]
+        
+        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters, headers: headers)
+        
+        NetworkManager.shared.getHTTPStatusCode(dataRequest) { code in
+            if code == 201 {
+                print("피드백 보내기 성공")
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
 }

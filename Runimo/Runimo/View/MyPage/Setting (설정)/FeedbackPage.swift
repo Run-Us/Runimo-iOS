@@ -34,9 +34,9 @@ struct FeedbackPage: View {
                 Spacer()
                 
                 CTAButton(text: "제출하기", disabled: feedbackScoreIndex == -1) {
-                    // TODO: API 연결
-                    
-                    navigation.path.removeLast()
+                    MyPageService.shared.sendFeedback(rate: feedbackScoreIndex, contents: feedbackText) { result in
+                        navigation.path.removeLast()
+                    }
                 }
             }
             .foregroundStyle(.primaryGray)

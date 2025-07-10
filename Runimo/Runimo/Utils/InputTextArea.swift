@@ -14,7 +14,7 @@ struct InputTextArea: View {
     @Binding var contents: String
     let height: CGFloat
     @FocusState var isEditorFocused: Bool
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             if !title.isEmpty {
@@ -24,18 +24,24 @@ struct InputTextArea: View {
             }
             ZStack(alignment: .topLeading) {
                 // input text
-                TextEditor(text: $contents)
-                    .scrollContentBackground(.hidden)
-                    .focused($isEditorFocused)
-                    .font(.body2_medium)
-                    .padding(8)
-                    .frame(height: height)
-                    .foregroundColor(.primaryGray)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke($contents.wrappedValue.count > 0 ? .secondaryGray : .secondaryFill)
-                    )
+                TextEditor(text: Binding(get: { contents }, set: { newValue in
+                    if newValue.count <= maxCount {
+                        contents = newValue
+                    } else {
+                        contents = String(newValue.prefix(maxCount))
+                    }
+                }))
+                .scrollContentBackground(.hidden)
+                .focused($isEditorFocused)
+                .font(.body2_medium)
+                .padding(8)
+                .frame(height: height)
+                .foregroundColor(.primaryGray)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke($contents.wrappedValue.count > 0 ? .secondaryGray : .secondaryFill)
+                )
                 // placeholder
                 if $contents.wrappedValue.isEmpty {
                     Text(placeholder)
@@ -56,4 +62,3 @@ struct InputTextArea: View {
         .padding(.horizontal, 1)
     }
 }
-
