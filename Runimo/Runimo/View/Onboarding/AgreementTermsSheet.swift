@@ -10,7 +10,7 @@ import SwiftUI
 struct AgreementTermsSheet: View {
     @Environment(\.dismiss) var dismiss
     @Binding var callSignUp: Bool
-    @State private var agreeStatus: [Bool] = [false, false, false]
+    @State private var agreeStatus: [Bool] = [false, false]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -23,7 +23,7 @@ struct AgreementTermsSheet: View {
             VStack(spacing: 24) {
                 item(title: "이용약관 동의 (필수)", index: 0, url: "https://runimo-blog.vercel.app/posts/terms-service")
                 item(title: "개인정보 수집동의 (필수)", index: 1, url: "https://runimo-blog.vercel.app/posts/privacy-policy")
-                item(title: "광고성 정보 수신동의 (선택)", index: 2, url: "https://runimo-blog.vercel.app/posts/marketing-policy")
+//                item(title: "광고성 정보 수신동의 (선택)", index: 2, url: "https://runimo-blog.vercel.app/posts/marketing-policy")
             }
             .padding(.horizontal, 20)
             

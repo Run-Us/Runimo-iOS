@@ -62,7 +62,7 @@ struct JoinPage: View {
                         .font(.body1_bold)
                         .foregroundColor(nicknameIsValid ? .secondaryGray : .error)
                     
-                    TextField("한글, 영어, 숫자만 입력 가능해요", text: $nickname)
+                    TextField("3~8자의 한글, 영어, 숫자만 입력할 수 있어요", text: $nickname)
                         .onChange(of: nickname) { _, newValue in
                             nicknameIsValid = newValue.count <= 8 && !containsSpecialCharacters(text: newValue)
                         }
@@ -132,7 +132,7 @@ struct JoinPage: View {
             }
         }) {
             AgreementTermsSheet(callSignUp: $callSignUpAPI)
-                .presentationDetents([.fraction(0.45)])
+                .presentationDetents([.fraction(0.35)])
         }
     }
     
