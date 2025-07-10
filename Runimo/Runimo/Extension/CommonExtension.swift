@@ -21,7 +21,7 @@ class CommonExtension {
         if num >= 1000 {
             return String(format: "%.2fkm", Double(num)/1000)
         }
-        return String(num)
+        return String(num) + "m"
     }
     
     static func triggerHaptic() {

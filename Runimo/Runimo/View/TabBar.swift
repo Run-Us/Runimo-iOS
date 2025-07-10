@@ -257,7 +257,7 @@ struct TabBar: View {
                     Text("알 등록하기")
                         .font(.body1_bold)
                         .foregroundStyle(.white)
-                        .padding(.vertical, 10)
+                        .padding(.vertical, 16)
                         .frame(maxWidth: .infinity)
                         .background(.primary400)
                         .cornerRadius(8)
