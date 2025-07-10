@@ -23,6 +23,7 @@ struct SignUpResponse: Codable {
     let greeting_egg_type: String
     let greeting_egg_img_url: String
     let egg_code: String
+    let egg_id: Int
 }
 
 struct Token: Codable {

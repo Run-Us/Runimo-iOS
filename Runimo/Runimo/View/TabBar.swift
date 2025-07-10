@@ -134,6 +134,14 @@ struct TabBar: View {
             EggSheet()
                 .presentationDetents([.fraction(0.25)])
         })
+        .sheet(isPresented: $sharedData.showTutorial1Sheet) {
+            Tutorial1Sheet()
+                .presentationDetents([.fraction(0.48)])
+        }
+        .sheet(isPresented: $sharedData.showTutorial2Sheet) {
+            Tutorial2Sheet()
+                .presentationDetents([.fraction(0.5)])
+        }
     }
     
     @ViewBuilder
@@ -231,20 +239,25 @@ struct TabBar: View {
                 Text("신비로운 알을 발견했어요")
                     .font(.title4_semibold)
                     .foregroundStyle(.primaryGray)
-                Text("첫 러닝을 완료하고 알을 부화시켜 보세요!")
+                Text("회원가입을 기념해 애정 10개를 드릴게요.\n지금 알을 등록하고 부화시켜 보세요!")
                     .font(.body2_medium)
                     .foregroundStyle(.tertiaryGray)
-                LottieView(source: .asset(name: "\(sharedData.firstEggCode)-02-갸우뚱", mode: .loop), reloadID: UUID())
+                    .multilineTextAlignment(.center)
+                LottieView(source: .asset(name: "\(sharedData.firstEgg.code)-02-갸우뚱", mode: .loop), reloadID: UUID())
                     .frame(height: 330)
                 
                 Button {
                     sharedData.isSignUpComplete = false
                     showSignUpCompletePopUp = false
+                    
+                    HomeService.shared.postEgg(egg_id: sharedData.firstEgg.id) {
+                        sharedData.updateHomeView.toggle()
+                    }
                 } label: {
-                    Text("확인했어요")
+                    Text("알 등록하기")
                         .font(.body1_bold)
                         .foregroundStyle(.white)
-                        .padding(.vertical, 10)
+                        .padding(.vertical, 16)
                         .frame(maxWidth: .infinity)
                         .background(.primary400)
                         .cornerRadius(8)

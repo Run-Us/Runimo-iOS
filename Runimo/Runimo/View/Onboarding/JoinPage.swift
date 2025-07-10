@@ -62,7 +62,7 @@ struct JoinPage: View {
                         .font(.body1_bold)
                         .foregroundColor(nicknameIsValid ? .secondaryGray : .error)
                     
-                    TextField("한글, 영어, 숫자만 입력 가능해요", text: $nickname)
+                    TextField("3~8자의 한글, 영어, 숫자만 입력할 수 있어요", text: $nickname)
                         .onChange(of: nickname) { _, newValue in
                             nicknameIsValid = newValue.count <= 8 && !containsSpecialCharacters(text: newValue)
                         }
@@ -172,12 +172,12 @@ struct JoinPage: View {
     }
     
     private func signUpAPI() {
-        AuthService.shared.signup(nickname: nickname, image: selectedProfile.last, gender: genderType.rawValue) { result in
+        AuthService.shared.signup(nickname: nickname, image: selectedProfile.last, gender: genderType.rawValue) { eggId, eggCode  in
             // 회원가입 완료 후 탭바로 이동
             sharedData.setTab(.home)
             sharedData.isLogined = true
             navigation.goToRootPage()
-            sharedData.firstEggCode = String(result.dropFirst())
+            sharedData.firstEgg = (eggId, String(eggCode.dropFirst()))
             sharedData.isSignUpComplete = true
         }
     }
