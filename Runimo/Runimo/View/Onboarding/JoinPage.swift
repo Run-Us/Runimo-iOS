@@ -172,12 +172,12 @@ struct JoinPage: View {
     }
     
     private func signUpAPI() {
-        AuthService.shared.signup(nickname: nickname, image: selectedProfile.last, gender: genderType.rawValue) { result in
+        AuthService.shared.signup(nickname: nickname, image: selectedProfile.last, gender: genderType.rawValue) { eggId, eggCode  in
             // 회원가입 완료 후 탭바로 이동
             sharedData.setTab(.home)
             sharedData.isLogined = true
             navigation.goToRootPage()
-            sharedData.firstEggCode = String(result.dropFirst())
+            sharedData.firstEgg = (eggId, String(eggCode.dropFirst()))
             sharedData.isSignUpComplete = true
         }
     }

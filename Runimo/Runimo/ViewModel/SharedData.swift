@@ -10,7 +10,7 @@ import Foundation
 class SharedData: ObservableObject {
     @Published var isLogined: Bool?
     @Published var isSignUpComplete: Bool = false
-    @Published var firstEggCode: String = ""    // 첫 지급 알 코드
+    @Published var firstEgg: (id: Int, code: String) = (0, "")    // 첫 지급 알 코드
     @Published var currentMainTab: Tab = .home
     @Published var dateSheetSelectedIndex: Int = 0
     @Published var showCharacterPopUp: Bool = false
