@@ -228,33 +228,6 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
-		230314E72C88A43300B299D5 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				23E1B9F22D00992200846F22 /* Session */,
-				230C605A2CFB70420060CCF7 /* Character */,
-				230C60592CFB70350060CCF7 /* Home */,
-				23B708DD2C99523E006E9547 /* Onboarding */,
-				23B708DC2C995136006E9547 /* Run */,
-				888648F32C981F0700B040BA /* GroupRun */,
-				2347D9AA2CD2578C003776BC /* MyPage */,
-				88E556102C8F5CCC003789B7 /* TabBar.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		230314ED2C8991ED00B299D5 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				230314EE2C89920100B299D5 /* AuthViewModel.swift */,
-				236343132C917B3E00336D67 /* MapViewModel.swift */,
-				235D38A22CD3BF8F00487952 /* MyPageViewModel.swift */,
-				23F056B52CDA880800EC3A40 /* RunningViewModel.swift */,
-				230BC7DA2D9D4DED005CD24B /* SharedData.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		2307B7A72DF15F3B005AE2DD /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +293,7 @@
 				235D38A42CD3E7F000487952 /* PostCard.swift */,
 				23CE0B762CD8BA2C0073732C /* PostCardList.swift */,
 				23F056B32CDA7B0100EC3A40 /* DateSheet.swift */,
+				235D38A22CD3BF8F00487952 /* MyPageViewModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -341,6 +315,81 @@
 			path = LottieFile;
 			sourceTree = "<group>";
 		};
+		2370A0FF2E5EDF0900C15226 /* Feature */ = {
+			isa = PBXGroup;
+			children = (
+				23B708DD2C99523E006E9547 /* Onboarding */,
+				230C60592CFB70350060CCF7 /* Home */,
+				2347D9AA2CD2578C003776BC /* MyPage */,
+				23B708DC2C995136006E9547 /* Run */,
+				230C605A2CFB70420060CCF7 /* Character */,
+				23E1B9F22D00992200846F22 /* Session */,
+			);
+			path = Feature;
+			sourceTree = "<group>";
+		};
+		2370A1002E5EDF1700C15226 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				238E78F12C83147200D04F58 /* RunimoApp.swift */,
+				88E556102C8F5CCC003789B7 /* TabBar.swift */,
+				239C61492DC4D9D200EF7A48 /* RootPage.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		2370A1012E5EDF3400C15226 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2307B7A72DF15F3B005AE2DD /* Manager */,
+				2370A1032E5EE0C800C15226 /* Utils */,
+				2370A1022E5EDF9800C15226 /* Components */,
+				230314DE2C8884EC00B299D5 /* Extension */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2370A1022E5EDF9800C15226 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				237B430D2C8F0193002163B9 /* MapPage.swift */,
+				237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */,
+				233831002CC69B430075E73A /* PopUp.swift */,
+				23E1B9E32CFF066A00846F22 /* CTAButton.swift */,
+				23E1B9ED2CFF54D800846F22 /* InputTextArea.swift */,
+				23C27B012CBF819200978DC9 /* ProgressBar.swift */,
+				236FC1EB2E14FA2C00F3F321 /* LottieView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		2370A1032E5EE0C800C15226 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				230BC7DA2D9D4DED005CD24B /* SharedData.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		2370A1042E5EE12D00C15226 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				887940F32CAB2AD30018C035 /* JoinPage.swift */,
+				883764122CBD277E0046EC7B /* AddProfileSheet.swift */,
+				883764102CBCF6360046EC7B /* GenderPickerSheet.swift */,
+				23ABDEBC2DDB05A300015DCF /* AgreementTermsSheet.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		2370A1052E5EE15000C15226 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				230314E82C88A48D00B299D5 /* LoginPage.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
 		238E78E52C83147200D04F58 = {
 			isa = PBXGroup;
 			children = (
@@ -360,19 +409,16 @@
 		238E78F02C83147200D04F58 /* Runimo */ = {
 			isa = PBXGroup;
 			children = (
-				2307B7A72DF15F3B005AE2DD /* Manager */,
+				2370A1012E5EDF3400C15226 /* Common */,
+				2370A1002E5EDF1700C15226 /* App */,
+				2370A0FF2E5EDF0900C15226 /* Feature */,
 				2382647B2DA4AE2000B4C849 /* Runimo.entitlements */,
 				230314F72C89A5E200B299D5 /* Info.plist */,
 				230314F82C89AD0800B299D5 /* Config.xcconfig */,
-				23B708DE2C995264006E9547 /* Utils */,
 				233ED1FC2CABA0E7001EF0BC /* Model */,
 				233ED1C82CA93D38001EF0BC /* Service */,
-				230314ED2C8991ED00B299D5 /* ViewModel */,
-				230314E72C88A43300B299D5 /* View */,
-				238E78F12C83147200D04F58 /* RunimoApp.swift */,
 				238E78F52C83147300D04F58 /* Assets.xcassets */,
 				236FC2022E1527EC00F3F321 /* LottieFile */,
-				230314DE2C8884EC00B299D5 /* Extension */,
 				238E78F72C83147300D04F58 /* Preview Content */,
 			);
 			path = Runimo;
@@ -389,6 +435,7 @@
 		23B708DC2C995136006E9547 /* Run */ = {
 			isa = PBXGroup;
 			children = (
+				888648F32C981F0700B040BA /* GroupRun */,
 				236343112C90386D00336D67 /* RunningMapPage.swift */,
 				236343152C9180D000336D67 /* RunningProgressPage.swift */,
 				88E556082C8F20E8003789B7 /* RunningPage.swift */,
@@ -396,6 +443,8 @@
 				2398F4932CB29B11001D922B /* FinishRunningPage.swift */,
 				233831022CC7C4B40075E73A /* RunningPostPage.swift */,
 				239C61452DC296B600EF7A48 /* RunningRewardPage.swift */,
+				23F056B52CDA880800EC3A40 /* RunningViewModel.swift */,
+				236343132C917B3E00336D67 /* MapViewModel.swift */,
 			);
 			path = Run;
 			sourceTree = "<group>";
@@ -403,28 +452,11 @@
 		23B708DD2C99523E006E9547 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				230314E82C88A48D00B299D5 /* LoginPage.swift */,
-				887940F32CAB2AD30018C035 /* JoinPage.swift */,
-				883764122CBD277E0046EC7B /* AddProfileSheet.swift */,
-				883764102CBCF6360046EC7B /* GenderPickerSheet.swift */,
-				239C61492DC4D9D200EF7A48 /* RootPage.swift */,
-				23ABDEBC2DDB05A300015DCF /* AgreementTermsSheet.swift */,
+				2370A1052E5EE15000C15226 /* SignIn */,
+				2370A1042E5EE12D00C15226 /* SignUp */,
+				230314EE2C89920100B299D5 /* AuthViewModel.swift */,
 			);
 			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		23B708DE2C995264006E9547 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				237B430D2C8F0193002163B9 /* MapPage.swift */,
-				237299902CBCF12800D0E7F6 /* SegmentedPicker.swift */,
-				233831002CC69B430075E73A /* PopUp.swift */,
-				23E1B9E32CFF066A00846F22 /* CTAButton.swift */,
-				23E1B9ED2CFF54D800846F22 /* InputTextArea.swift */,
-				23C27B012CBF819200978DC9 /* ProgressBar.swift */,
-				236FC1EB2E14FA2C00F3F321 /* LottieView.swift */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		23CBA1492E0AB9780089B73B /* Setting (설정) */ = {
@@ -435,7 +467,6 @@
 				23CBA1452E0AA51D0089B73B /* Withdraw2Page.swift */,
 				23CBA1472E0AB1690089B73B /* FeedbackPage.swift */,
 			);
-			name = "Setting (설정)";
 			path = "Setting (설정)";
 			sourceTree = "<group>";
 		};
