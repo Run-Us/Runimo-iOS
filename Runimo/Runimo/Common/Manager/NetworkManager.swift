@@ -7,11 +7,10 @@
 
 import Alamofire
 import Foundation
-import KeychainSwift
 
 final class NetworkManager {
     static let shared = NetworkManager()
-    private let keychain = KeychainSwift()
+    private let authDataManager = AuthDataManager()
     private let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     
     private var isTokenRefreshing = false
@@ -36,7 +35,7 @@ final class NetworkManager {
                         if success {
                             // new token으로 재요청
                             var updateHeaders: HTTPHeaders = request.headers ?? [:]
-                            updateHeaders["Authorization"] = "Bearer \(self.keychain.get("accessToken") ?? "")"
+                            updateHeaders["Authorization"] = "Bearer \(self.authDataManager.getAccessToken() ?? "")"
                             let dataRequest = APIRequest(path: request.path, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: updateHeaders)
                             self.getHTTPStatusCode(dataRequest, retrying: true) { result in
                                 completion(result)
@@ -67,7 +66,7 @@ final class NetworkManager {
                         if success {
                             // new token으로 재요청
                             var updateHeaders: HTTPHeaders = request.headers ?? [:]
-                            updateHeaders["Authorization"] = "Bearer \(self.keychain.get("accessToken") ?? "")"
+                            updateHeaders["Authorization"] = "Bearer \(self.authDataManager.getAccessToken() ?? "")"
                             let dataRequest = APIRequest(path: request.path, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: updateHeaders)
                             self.request(dataRequest, retrying: true) { (result: Result<T, AFError>) in
                                 completion(result)
@@ -100,7 +99,7 @@ final class NetworkManager {
             .responseDecodable(of: BaseErrorResponse.self) { response in
             switch response.result {
             case .success(let result):
-                self.keychain.set(result.temporal_register_token, forKey: "register_token")
+                self.authDataManager.saveRegisterToken(token: result.temporal_register_token)
             case .failure(let error):
                 print("❌ Request 404 Failed: Request URL: \(url)\n\(error.localizedDescription)\n")
             }

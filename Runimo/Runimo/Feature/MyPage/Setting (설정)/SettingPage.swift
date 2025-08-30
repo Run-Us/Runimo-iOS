@@ -6,13 +6,11 @@
 //
 
 import SwiftUI
-import KeychainSwift
 
 struct SettingPage: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var sharedData: SharedData
     @State private var showLogoutPopup: Bool = false
-    let keychain = KeychainSwift()
     
     var body: some View {
         ZStack {
