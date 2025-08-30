@@ -11,7 +11,7 @@ import KakaoSDKUser
 import SwiftUI
 
 class AuthViewModel: ObservableObject {
-    let authDataManager = AuthDataManager()
+    let tokenManager = TokenManager()
     
     func kakaoLogin(completion: @escaping (_ result: Int) -> Void) {
         // 카카오톡 실행 가능 여부 확인
@@ -24,7 +24,7 @@ class AuthViewModel: ObservableObject {
                 } else {
                     // idToken 저장
                     if let idToken = oauthToken?.idToken {
-                        self.authDataManager.saveIdToken(idToken: idToken)
+                        self.tokenManager.saveIdToken(idToken: idToken)
                         AuthService.shared.kakaoLogin { result in
                             completion(result)
                         }
@@ -40,7 +40,7 @@ class AuthViewModel: ObservableObject {
                 } else {
                     // idToken 저장
                     if let idToken = oauthToken?.idToken {
-                        self.authDataManager.saveIdToken(idToken: idToken)
+                        self.tokenManager.saveIdToken(idToken: idToken)
                         AuthService.shared.kakaoLogin { result in
                             completion(result)
                         }
@@ -58,8 +58,8 @@ class AuthViewModel: ObservableObject {
             let authCode = String(data: appleIDCredential.authorizationCode ?? Data(), encoding: .utf8)
             
             if let idToken = idToken, let authCode = authCode {
-                self.authDataManager.saveIdToken(idToken: idToken)
-                self.authDataManager.saveAuthCode(authCode: authCode)
+                self.tokenManager.saveIdToken(idToken: idToken)
+                self.tokenManager.saveAuthCode(authCode: authCode)
                 AuthService.shared.appleLogin(codeVerifier: generateCodeVerifier()) { result in
                     completion(result)
                 }

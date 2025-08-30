@@ -11,7 +11,7 @@ import SwiftUI
 
 final class AuthService: ObservableObject {
     static let shared = AuthService()
-    private let authDataManager = AuthDataManager()
+    private let tokenManager = TokenManager()
     let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     
     private init() { }
@@ -23,7 +23,7 @@ final class AuthService: ObservableObject {
             "Content-Type": "multipart/form-data"
         ]
         
-        let registerToken = authDataManager.getRegisterToken() ?? ""
+        let registerToken = tokenManager.getRegisterToken() ?? ""
         let jsonBody = """
         {
             "register_token": "\(registerToken)",
@@ -44,8 +44,8 @@ final class AuthService: ObservableObject {
             switch response.result {
             case .success(let response):
                 if let data = response.payload {
-                    self.authDataManager.saveUserInfo(nickname: data.nickname, accessToken: data.token_pair.access_token, refreshToken: data.token_pair.refresh_token)
-                    self.authDataManager.removeRegisterToken()
+                    self.tokenManager.saveUserInfo(nickname: data.nickname, accessToken: data.token_pair.access_token, refreshToken: data.token_pair.refresh_token)
+                    self.tokenManager.removeRegisterToken()
                     completion(data.egg_id, data.egg_code)
                 }
             case .failure(let error):
@@ -58,7 +58,7 @@ final class AuthService: ObservableObject {
     func kakaoLogin(completion: @escaping (Int) -> Void) {
         let path = "/auth/kakao"
         let body: [String: Any] = [
-            "oidc_token": authDataManager.getIdToken() ?? ""
+            "oidc_token": tokenManager.getIdToken() ?? ""
         ]
         
         let dataRequest = APIRequest(path: path, method: .post, parameters: body)
@@ -69,7 +69,7 @@ final class AuthService: ObservableObject {
                 NetworkManager.shared.request(dataRequest) { (result: Result<UserToken, AFError>) in
                     switch result {
                     case .success(let data):
-                        self.authDataManager.saveUserInfo(nickname: data.nickname, accessToken: data.access_token, refreshToken: data.refresh_token)
+                        self.tokenManager.saveUserInfo(nickname: data.nickname, accessToken: data.access_token, refreshToken: data.refresh_token)
                         print("\(data)")
                         completion(200)
                     case .failure(let error):
@@ -88,7 +88,7 @@ final class AuthService: ObservableObject {
         let path = "\(baseUrl)/auth/apple"
         let headers: HTTPHeaders = ["Content-Type": "application/json"]
         let body: [String: Any] = [
-            "auth_code": authDataManager.getAuthCode() ?? "",
+            "auth_code": tokenManager.getAuthCode() ?? "",
             "code_verifier": codeVerifier
         ]
         
@@ -102,13 +102,13 @@ final class AuthService: ObservableObject {
                     if let success = try? JSONDecoder().decode(BaseResponse<UserToken>.self, from: data),
                        let result = success.payload
                     {
-                        self.authDataManager.saveUserInfo(nickname: result.nickname, accessToken: result.access_token, refreshToken: result.refresh_token)
+                        self.tokenManager.saveUserInfo(nickname: result.nickname, accessToken: result.access_token, refreshToken: result.refresh_token)
                         completion(200)
                     }
                     
                 case 404:
                     if let success = try? JSONDecoder().decode(BaseErrorResponse.self, from: data) {
-                        self.authDataManager.saveRegisterToken(token: success.temporal_register_token)
+                        self.tokenManager.saveRegisterToken(token: success.temporal_register_token)
                         completion(404)
                     }
                     
@@ -123,13 +123,13 @@ final class AuthService: ObservableObject {
         let path = "\(baseUrl)/auth/log-out"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer \(authDataManager.getAccessToken() ?? "")"
+            "Authorization": "Bearer \(tokenManager.getAccessToken() ?? "")"
         ]
         
         let dataRequest = APIRequest(path: path, method: .post, encoding: JSONEncoding.default, headers: headers)
         
         NetworkManager.shared.getHTTPStatusCode(dataRequest) { code in
-            self.authDataManager.removeUserInfo()
+            self.tokenManager.removeUserInfo()
             print("logout", code)
             completion(code == 200)
         }
@@ -140,7 +140,7 @@ final class AuthService: ObservableObject {
         let path = "\(baseUrl)/auth/refresh"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer \(authDataManager.getRefreshToken() ?? "")"
+            "Authorization": "Bearer \(tokenManager.getRefreshToken() ?? "")"
         ]
         
         AF.request(path, method: .post, encoding: JSONEncoding.default, headers: headers)
@@ -154,7 +154,7 @@ final class AuthService: ObservableObject {
                        let result = success.payload
                     {
                         print("❕ Token Refresh success: Request URL: \(path)\n")
-                        self.authDataManager.saveToken(accessToken: result.access_token, refreshToken: result.refresh_token)
+                        self.tokenManager.saveToken(accessToken: result.access_token, refreshToken: result.refresh_token)
                         completion(true)
                     } else {
                         completion(false)
