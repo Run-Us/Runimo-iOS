@@ -67,6 +67,7 @@
 		239C614A2DC4D9D200EF7A48 /* RootPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239C61492DC4D9D200EF7A48 /* RootPage.swift */; };
 		23ABDEBD2DDB05A300015DCF /* AgreementTermsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABDEBC2DDB05A300015DCF /* AgreementTermsSheet.swift */; };
 		23AF27E02E633CF100271E7A /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AF27DF2E633CF100271E7A /* TokenManager.swift */; };
+		23AF27EB2E635D8F00271E7A /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AF27EA2E635D8F00271E7A /* NetworkManagerProtocol.swift */; };
 		23C0A7ED2DAC05D8005283DA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 23C0A7EC2DAC05D8005283DA /* Kingfisher */; };
 		23C0A7EF2DAC113C005283DA /* RunimoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0A7EE2DAC113C005283DA /* RunimoService.swift */; };
 		23C0A7F32DACC9A4005283DA /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0A7F22DACC9A4005283DA /* NavigationManager.swift */; };
@@ -157,6 +158,7 @@
 		239C61492DC4D9D200EF7A48 /* RootPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPage.swift; sourceTree = "<group>"; };
 		23ABDEBC2DDB05A300015DCF /* AgreementTermsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTermsSheet.swift; sourceTree = "<group>"; };
 		23AF27DF2E633CF100271E7A /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
+		23AF27EA2E635D8F00271E7A /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
 		23C0A7EE2DAC113C005283DA /* RunimoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunimoService.swift; sourceTree = "<group>"; };
 		23C0A7F22DACC9A4005283DA /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		23C0A7F42DACCC18005283DA /* CommonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonExtension.swift; sourceTree = "<group>"; };
@@ -233,11 +235,9 @@
 		2307B7A72DF15F3B005AE2DD /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				238264762D9FDD5E00B4C849 /* NetworkManager.swift */,
 				2355F66B2C9E9CE700A65108 /* MotionManager.swift */,
 				23CE0B7C2CD8D6390073732C /* DateManager.swift */,
 				23C0A7F22DACC9A4005283DA /* NavigationManager.swift */,
-				23AF27DF2E633CF100271E7A /* TokenManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -412,6 +412,7 @@
 		238E78F02C83147200D04F58 /* Runimo */ = {
 			isa = PBXGroup;
 			children = (
+				23AF27E82E635D6900271E7A /* Core */,
 				2370A1012E5EDF3400C15226 /* Common */,
 				2370A1002E5EDF1700C15226 /* App */,
 				2370A0FF2E5EDF0900C15226 /* Feature */,
@@ -433,6 +434,32 @@
 				238E78F82C83147300D04F58 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		23AF27E82E635D6900271E7A /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				23AF27EC2E63612700271E7A /* Key */,
+				23AF27E92E635D8000271E7A /* Network */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		23AF27E92E635D8000271E7A /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				238264762D9FDD5E00B4C849 /* NetworkManager.swift */,
+				23AF27EA2E635D8F00271E7A /* NetworkManagerProtocol.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		23AF27EC2E63612700271E7A /* Key */ = {
+			isa = PBXGroup;
+			children = (
+				23AF27DF2E633CF100271E7A /* TokenManager.swift */,
+			);
+			path = Key;
 			sourceTree = "<group>";
 		};
 		23B708DC2C995136006E9547 /* Run */ = {
@@ -638,6 +665,7 @@
 				236343162C9180D000336D67 /* RunningProgressPage.swift in Sources */,
 				23CE0B7D2CD8D6390073732C /* DateManager.swift in Sources */,
 				23ABDEBD2DDB05A300015DCF /* AgreementTermsSheet.swift in Sources */,
+				23AF27EB2E635D8F00271E7A /* NetworkManagerProtocol.swift in Sources */,
 				23C0A7EF2DAC113C005283DA /* RunimoService.swift in Sources */,
 				2398F4942CB29B11001D922B /* FinishRunningPage.swift in Sources */,
 				23CBA1442E0A992A0089B73B /* Withdraw1Page.swift in Sources */,
