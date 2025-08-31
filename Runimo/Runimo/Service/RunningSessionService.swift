@@ -19,7 +19,7 @@ class RunningSessionService: ObservableObject {
     
     func saveRunningRecords(running: RunningResult, retrying: Bool = false, completion: @escaping (Bool, String) -> Void) {
         let path = "\(baseUrl)/records"
-        var headers: HTTPHeaders = [
+        let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
         ]
@@ -38,34 +38,15 @@ class RunningSessionService: ObservableObject {
             }
         ]
         
-        AF.request(path, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: BaseResponse<SaveRunningResponse>.self) { response in
-                
-                // 토큰 갱신
-                if let statusCode = response.response?.statusCode, statusCode == 401, !retrying {
-                    NetworkManager.shared.refreshToken { success in
-                        if success {
-                            // new token으로 재요청
-                            headers["Authorization"] = "Bearer \(self.keychain.get("accessToken") ?? "")"
-                            
-                            self.saveRunningRecords(running: running, retrying: true) { isSuccess, result in
-                                completion(isSuccess, result)
-                            }
-                        }
-                    }
-                    
-                    return
-                }
-             
-            switch response.result {
-            case .success(let result):
-                if let result = result.payload {
-                    print("runningId: \(result.saved_id)")
-                    completion(true, result.saved_id)
-                }
+        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters, headers: headers)
+        
+        NetworkManager.shared.request(dataRequest) { (result: Result<SaveRunningResponse, AFError>) in
+            switch result {
+            case .success(let data):
+                print("runningId: \(data.saved_id)")
+                completion(true, data.saved_id)
             case .failure(let error):
                 print("❌ Request Failed: Request URL: \(path)\n\(error.localizedDescription)")
-                completion(false, "")
             }
         }
         
