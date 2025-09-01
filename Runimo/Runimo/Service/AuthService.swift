@@ -82,7 +82,7 @@ final class AuthService: ObservableObject {
                     }
                 }
             } else if code == 404 {
-                NetworkManager.shared.requestLoginError(dataRequest)
+                self.networkManager.requestLoginError(dataRequest)
                 completion(code)
             }
         }
