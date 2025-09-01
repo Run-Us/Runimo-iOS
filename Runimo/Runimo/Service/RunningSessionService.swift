@@ -15,7 +15,11 @@ class RunningSessionService: ObservableObject {
     let keychain = KeychainSwift()
     let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     
-    private init() { }
+    private let networkManager: NetworkManagerProtocol
+    
+    private init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+        self.networkManager = networkManager
+    }
     
     func saveRunningRecords(running: RunningResult, retrying: Bool = false, completion: @escaping (Bool, String) -> Void) {
         let path = "\(baseUrl)/records"
@@ -40,7 +44,7 @@ class RunningSessionService: ObservableObject {
         
         let dataRequest = APIRequest(path: path, method: .post, parameters: parameters, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<SaveRunningResponse, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<SaveRunningResponse, AFError>) in
             switch result {
             case .success(let data):
                 print("runningId: \(data.saved_id)")
@@ -67,7 +71,7 @@ class RunningSessionService: ObservableObject {
         ]
         
         let dataRequest = APIRequest(path: path, method: .patch, parameters: parameters, headers: headers)
-        NetworkManager.shared.getHTTPStatusCode(dataRequest) { result in
+        networkManager.getHTTPStatusCode(dataRequest) { result in
             if result == 200 {
                 completion(true)
             } else {
@@ -90,7 +94,7 @@ class RunningSessionService: ObservableObject {
         
         let dataRequest = APIRequest(path: path, method: .post, parameters: parameters, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<RewardResponse, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<RewardResponse, AFError>) in
             switch result {
             case .success(let data):
                 print("러닝 보상 획득: \(data)")
@@ -119,7 +123,7 @@ class RunningSessionService: ObservableObject {
         
         let dataRequest = APIRequest(path: path, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
 
-        NetworkManager.shared.request(dataRequest) { (result: Result<RunningRecordsResponse, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<RunningRecordsResponse, AFError>) in
             switch result {
             case .success(let data):
                 print("러닝 기록 조회: \(data)")
@@ -139,7 +143,7 @@ class RunningSessionService: ObservableObject {
         
         let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default, headers: headers)
 
-        NetworkManager.shared.request(dataRequest) { (result: Result<RunningPostResponse, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<RunningPostResponse, AFError>) in
             switch result {
             case .success(let data):
                 print("러닝 post 조회: \(data)")

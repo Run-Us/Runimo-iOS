@@ -13,7 +13,11 @@ class HomeService {
     static let shared = HomeService()
     let keychain = KeychainSwift()
     
-    private init() { }
+    private let networkManager: NetworkManagerProtocol
+    
+    private init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+        self.networkManager = networkManager
+    }
     
     func getHome(completion: @escaping (HomeItem) -> Void) {
         let path = "/main"
@@ -24,7 +28,7 @@ class HomeService {
         
         let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<HomeItem, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<HomeItem, AFError>) in
             switch result {
             case .success(let data):
                 completion(data)
@@ -45,7 +49,7 @@ class HomeService {
         
         let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<HomeEggResponse, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<HomeEggResponse, AFError>) in
             switch result {
             case .success(let data):
                 print(data)
@@ -71,7 +75,7 @@ class HomeService {
         
         let dataRequest = APIRequest(path: path, method: .patch, parameters: parameters, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<PatchLovePointResponse, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<PatchLovePointResponse, AFError>) in
             switch result {
             case .success(let data):
                 print("\(data)")
@@ -92,7 +96,7 @@ class HomeService {
         
         let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<GetMyEggs, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<GetMyEggs, AFError>) in
             switch result {
             case .success(let data):
                 completion(data)
@@ -117,7 +121,7 @@ class HomeService {
         
         let dataRequest = APIRequest(path: path, method: .post, parameters: parameters, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<PostEggResponse, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<PostEggResponse, AFError>) in
             switch result {
             case .success(let data):
                 print("\(data)")
@@ -138,7 +142,7 @@ class HomeService {
         
         let dataRequest = APIRequest(path: path, method: .post, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<HatchEggResponse, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<HatchEggResponse, AFError>) in
             switch result {
             case .success(let data):
                 print("\(data)")
@@ -158,7 +162,7 @@ class HomeService {
         
         let dataRequest = APIRequest(path: path, method: .patch, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<RunimoIdResponse, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<RunimoIdResponse, AFError>) in
             switch result {
             case .success(let data):
                 print("\(data)")

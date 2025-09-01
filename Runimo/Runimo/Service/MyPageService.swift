@@ -14,7 +14,11 @@ class MyPageService {
     let keychain = KeychainSwift()
     let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")/users"
     
-    private init() { }
+    private let networkManager: NetworkManagerProtocol
+    
+    private init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+        self.networkManager = networkManager
+    }
     
     // 마이페이지 메인 조회
     func getMyPage(completion: @escaping (MyPage) -> Void) {
@@ -26,7 +30,7 @@ class MyPageService {
         
         let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<MyPage, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<MyPage, AFError>) in
             switch result {
             case .success(let data):
                 print("\(data)")
@@ -52,7 +56,7 @@ class MyPageService {
         
         let dataRequest = APIRequest(path: path, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<RunningRecordResponse, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<RunningRecordResponse, AFError>) in
             switch result {
             case .success(let data):
                 print("\(data)")
@@ -78,7 +82,7 @@ class MyPageService {
         
         let dataRequest = APIRequest(path: path, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<RunningRecordResponse, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<RunningRecordResponse, AFError>) in
             switch result {
             case .success(let data):
                 print("\(data)")
@@ -104,7 +108,7 @@ class MyPageService {
         
         let dataRequest = APIRequest(path: path, method: .delete, parameters: parameters, headers: headers)
         
-        NetworkManager.shared.getHTTPStatusCode(dataRequest) { code in
+        networkManager.getHTTPStatusCode(dataRequest) { code in
             if code == 204 {
                 print("탈퇴 성공")
                 completion(true)
@@ -130,7 +134,7 @@ class MyPageService {
         
         let dataRequest = APIRequest(path: path, method: .post, parameters: parameters, headers: headers)
         
-        NetworkManager.shared.getHTTPStatusCode(dataRequest) { code in
+        networkManager.getHTTPStatusCode(dataRequest) { code in
             if code == 201 {
                 print("피드백 보내기 성공")
                 completion(true)

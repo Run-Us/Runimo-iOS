@@ -13,6 +13,12 @@ class RunimoService {
     static let shared = RunimoService()
     private let keychain = KeychainSwift()
     
+    private let networkManager: NetworkManagerProtocol
+    
+    private init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+        self.networkManager = networkManager
+    }
+    
     // 전체 러니모 조회
     func getAllRunimos(completion: @escaping (GetAllRunimo) -> Void) {
         let path = "/runimos/types/all"
@@ -23,7 +29,7 @@ class RunimoService {
         
         let dataRequest = APIRequest(path: path, method: .get, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<GetAllRunimo, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<GetAllRunimo, AFError>) in
             switch result {
             case .success(let data):
                 print("\(data)")
@@ -43,7 +49,7 @@ class RunimoService {
         
         let dataRequest = APIRequest(path: path, method: .get, headers: headers)
         
-        NetworkManager.shared.request(dataRequest) { (result: Result<GetMyRunimo, AFError>) in
+        networkManager.request(dataRequest) { (result: Result<GetMyRunimo, AFError>) in
             switch result {
             case .success(let data):
                 print("\(data)")

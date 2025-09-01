@@ -14,7 +14,11 @@ final class AuthService: ObservableObject {
     private let tokenManager = TokenManager()
     let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     
-    private init() { }
+    private let networkManager: NetworkManagerProtocol
+    
+    private init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+        self.networkManager = networkManager
+    }
     
     // 회원가입
     func signup(nickname: String, image: UIImage? = nil, gender: String, completion: @escaping (Int, String) -> Void) {
@@ -63,10 +67,10 @@ final class AuthService: ObservableObject {
         
         let dataRequest = APIRequest(path: path, method: .post, parameters: body)
         
-        NetworkManager.shared.getHTTPStatusCode(dataRequest) { code in
+        networkManager.getHTTPStatusCode(dataRequest) { code in
             if code == 200 {
                 // 로그인
-                NetworkManager.shared.request(dataRequest) { (result: Result<UserToken, AFError>) in
+                self.networkManager.request(dataRequest) { (result: Result<UserToken, AFError>) in
                     switch result {
                     case .success(let data):
                         self.tokenManager.saveUserInfo(nickname: data.nickname, accessToken: data.access_token, refreshToken: data.refresh_token)
@@ -128,7 +132,7 @@ final class AuthService: ObservableObject {
         
         let dataRequest = APIRequest(path: path, method: .post, encoding: JSONEncoding.default, headers: headers)
         
-        NetworkManager.shared.getHTTPStatusCode(dataRequest) { code in
+        networkManager.getHTTPStatusCode(dataRequest) { code in
             self.tokenManager.removeUserInfo()
             print("logout", code)
             completion(code == 200)
