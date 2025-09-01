@@ -124,7 +124,7 @@ final class AuthService: ObservableObject {
     }
     
     func logout(completion: @escaping (Bool) -> Void) {
-        let path = "\(baseUrl)/auth/log-out"
+        let path = "/auth/log-out"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(tokenManager.getAccessToken() ?? "")"
@@ -139,7 +139,7 @@ final class AuthService: ObservableObject {
         }
     }
     
-    // 토큰 갱신
+    // 토큰 갱신 (자동로그인 확인용)
     func refreshToken(completion: @escaping (Bool) -> Void) {
         let path = "\(baseUrl)/auth/refresh"
         let headers: HTTPHeaders = [
@@ -157,7 +157,7 @@ final class AuthService: ObservableObject {
                     if let success = try? JSONDecoder().decode(BaseResponse<Token>.self, from: data),
                        let result = success.payload
                     {
-                        print("❕ Token Refresh success: Request URL: \(path)\n")
+                        print("❕(Temp) Token Refresh success: Request URL: \(path)\n")
                         self.tokenManager.saveToken(accessToken: result.access_token, refreshToken: result.refresh_token)
                         completion(true)
                     } else {

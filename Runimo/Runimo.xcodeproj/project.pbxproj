@@ -68,6 +68,7 @@
 		23ABDEBD2DDB05A300015DCF /* AgreementTermsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABDEBC2DDB05A300015DCF /* AgreementTermsSheet.swift */; };
 		23AF27E02E633CF100271E7A /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AF27DF2E633CF100271E7A /* TokenManager.swift */; };
 		23AF27EB2E635D8F00271E7A /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AF27EA2E635D8F00271E7A /* NetworkManagerProtocol.swift */; };
+		23AF27F62E65C09E00271E7A /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AF27F52E65C09E00271E7A /* AuthInterceptor.swift */; };
 		23C0A7ED2DAC05D8005283DA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 23C0A7EC2DAC05D8005283DA /* Kingfisher */; };
 		23C0A7EF2DAC113C005283DA /* RunimoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0A7EE2DAC113C005283DA /* RunimoService.swift */; };
 		23C0A7F32DACC9A4005283DA /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0A7F22DACC9A4005283DA /* NavigationManager.swift */; };
@@ -159,6 +160,7 @@
 		23ABDEBC2DDB05A300015DCF /* AgreementTermsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTermsSheet.swift; sourceTree = "<group>"; };
 		23AF27DF2E633CF100271E7A /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		23AF27EA2E635D8F00271E7A /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
+		23AF27F52E65C09E00271E7A /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
 		23C0A7EE2DAC113C005283DA /* RunimoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunimoService.swift; sourceTree = "<group>"; };
 		23C0A7F22DACC9A4005283DA /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		23C0A7F42DACCC18005283DA /* CommonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonExtension.swift; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 			isa = PBXGroup;
 			children = (
 				23AF27DF2E633CF100271E7A /* TokenManager.swift */,
+				23AF27F52E65C09E00271E7A /* AuthInterceptor.swift */,
 			);
 			path = Key;
 			sourceTree = "<group>";
@@ -668,6 +671,7 @@
 				23AF27EB2E635D8F00271E7A /* NetworkManagerProtocol.swift in Sources */,
 				23C0A7EF2DAC113C005283DA /* RunimoService.swift in Sources */,
 				2398F4942CB29B11001D922B /* FinishRunningPage.swift in Sources */,
+				23AF27F62E65C09E00271E7A /* AuthInterceptor.swift in Sources */,
 				23CBA1442E0A992A0089B73B /* Withdraw1Page.swift in Sources */,
 				237299912CBCF12800D0E7F6 /* SegmentedPicker.swift in Sources */,
 				236FC1EC2E14FA2C00F3F321 /* LottieView.swift in Sources */,

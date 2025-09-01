@@ -16,65 +16,37 @@ final class NetworkManager: NetworkManagerProtocol {
     private var isTokenRefreshing = false
     private var refreshQueue: [(Bool) -> Void] = []
     
-    private init() { }
+    private let session: Session
+    
+    private init() {
+        let authInterceptor = AuthInterceptor(tokenManager: TokenManager())
+        self.session = Session(interceptor: authInterceptor)
+    }
     
     // http 응답코드 받기
     func getHTTPStatusCode(
         _ request: APIRequest,
-        retrying: Bool = false,
         completion: @escaping (Int) -> Void)
     {
         let url = "\(baseUrl)\(request.path)"
-        AF.request(url, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
+        session.request(url, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
             .validate(statusCode: 100..<600)
             .response { response in
                 let statusCode = response.response?.statusCode ?? -1
-                // 토큰 갱신
-                if statusCode == 401 {
-                    self.refreshToken { success in
-                        if success {
-                            // new token으로 재요청
-                            var updateHeaders: HTTPHeaders = request.headers ?? [:]
-                            updateHeaders["Authorization"] = "Bearer \(self.tokenManager.getAccessToken() ?? "")"
-                            let dataRequest = APIRequest(path: request.path, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: updateHeaders)
-                            self.getHTTPStatusCode(dataRequest, retrying: true) { result in
-                                completion(result)
-                            }
-                        }
-                    }
-                } else {
-                    print("Request URL: \(url)\n📡 Status Code: \(statusCode)")
-                    completion(statusCode)
-                }
-                
+                print("Request URL: \(url)\n📡 Status Code: \(statusCode)")
+                completion(statusCode)
             }
     }
     
     // 요청
     func request<T: Codable>(
         _ request: APIRequest,
-        retrying: Bool = false,
         completion: @escaping (Result<T, AFError>) -> Void)
     {
         let url = "\(baseUrl)\(request.path)"
         print("url: \(url)\nparameters: \(String(describing: request.parameters))\n")
-        AF.request(url, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
+        session.request(url, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
             .responseDecodable(of: BaseResponse<T>.self) { response in
-                // 토큰 갱신
-                if let statusCode = response.response?.statusCode, statusCode == 401, !retrying {
-                    self.refreshToken { success in
-                        if success {
-                            // new token으로 재요청
-                            var updateHeaders: HTTPHeaders = request.headers ?? [:]
-                            updateHeaders["Authorization"] = "Bearer \(self.tokenManager.getAccessToken() ?? "")"
-                            let dataRequest = APIRequest(path: request.path, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: updateHeaders)
-                            self.request(dataRequest, retrying: true) { (result: Result<T, AFError>) in
-                                completion(result)
-                            }
-                        }
-                    }
-                    return
-                }
             switch response.result {
             case .success(let baseResponse):
                 if let data = baseResponse.payload {
@@ -95,7 +67,7 @@ final class NetworkManager: NetworkManagerProtocol {
     {
         let url = "\(baseUrl)\(request.path)"
         print("url: \(url)\nparameters: \(String(describing: request.parameters))\n")
-        AF.request(url, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
+        session.request(url, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
             .responseDecodable(of: BaseErrorResponse.self) { response in
             switch response.result {
             case .success(let result):
