@@ -6,6 +6,7 @@
 //
 
 import Alamofire
+import Combine
 import Foundation
 
 final class NetworkManager: NetworkManagerProtocol {
@@ -61,6 +62,40 @@ final class NetworkManager: NetworkManagerProtocol {
                 completion(.failure(error))
             }
         }
+    }
+    
+    func request<T: Codable>(
+        _ request: APIRequest) -> AnyPublisher<T?, AFError>
+    {
+        let url = "\(baseUrl)\(request.path)"
+        print("url: \(url)\nparameters: \(String(describing: request.parameters))\n")
+        
+        return session.request(
+            url,
+            method: request.method,
+            parameters: request.parameters,
+            encoding: request.encoding,
+            headers: request.headers
+        )
+        .publishDecodable(type: BaseResponse<T>.self)
+        .value()
+        .tryMap({ response in
+            guard let data = response.payload else {
+                print("⚠️ Payload is nil. Code: \(response.code), Message: \(response.message)\n")
+                throw AFError.responseValidationFailed(reason: .dataFileNil)
+            }
+            return data
+        })
+        .mapError({ error in
+            print("❌ Request Failed: \(url)\n\(error.localizedDescription)")
+            if let aferror = error as? AFError {
+                return aferror
+            } else {
+                return AFError.responseValidationFailed(reason: .customValidationFailed(error: error))
+            }
+        })
+        .receive(on: DispatchQueue.main)
+        .eraseToAnyPublisher()
     }
     
     func requestLoginError(_ request: APIRequest)
