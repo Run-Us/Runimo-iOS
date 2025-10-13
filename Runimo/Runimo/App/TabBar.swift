@@ -45,7 +45,7 @@ struct TabBar: View {
                     
                     // 홈
                     Button {
-                        sharedData.currentMainTab = .home
+                        sharedData.setTab(.home)
                     } label: {
                         Image("tab_home")
                             .renderingMode(.template)
@@ -57,7 +57,7 @@ struct TabBar: View {
                     Spacer()
                     
                     Button {
-                        sharedData.currentMainTab = .session
+                        sharedData.setTab(.session)
                     } label: {
                         Image("tab_globe")
                             .renderingMode(.template)
@@ -79,7 +79,7 @@ struct TabBar: View {
                     Spacer()
                     
                     Button {
-                        sharedData.currentMainTab = .character
+                        sharedData.setTab(.character)
                     } label: {
                         Image("tab_character")
                             .renderingMode(.template)
@@ -92,7 +92,7 @@ struct TabBar: View {
                     
                     // 마이페이지
                     Button {
-                        sharedData.currentMainTab = .my
+                        sharedData.setTab(.my)
                     } label: {
                         Image("tab_user")
                             .renderingMode(.template)

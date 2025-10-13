@@ -18,7 +18,7 @@ struct HomeTab: View {
             GeometryReader { geometry in
                 VStack(spacing: 24) {
                     Button {
-                        sharedData.currentMainTab = .character
+                        sharedData.setTab(.character)
                     } label: {
                         characterProfile()
                     }
