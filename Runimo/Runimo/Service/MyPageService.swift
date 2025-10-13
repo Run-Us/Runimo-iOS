@@ -63,8 +63,8 @@ class MyPageService {
         )
     }
     
-    // 월간 통계 조회
-    func getMonthlyRunningRecords(year: Int, month: Int, completion: @escaping (_ data: RunningRecordResponse) -> Void) {
+    /// 월간 통계 조회
+    func getMonthlyRunningRecords(year: Int, month: Int) -> AnyPublisher<RunningRecordResponse, AFError> {
         let path = "/records/stats/monthly"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -76,17 +76,15 @@ class MyPageService {
             "month": month
         ]
         
-        let dataRequest = APIRequest(path: path, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
-        
-        networkManager.request(dataRequest) { (result: Result<RunningRecordResponse, AFError>) in
-            switch result {
-            case .success(let data):
-                print("\(data)")
-                completion(data)
-            case .failure(let error):
-                print("\(error)")
-            }
-        }
+        return networkManager.request(
+            APIRequest(
+                path: path,
+                method: .get,
+                parameters: parameters,
+                encoding: URLEncoding.default,
+                headers: headers
+            )
+        )
     }
     
     // 탈퇴하기

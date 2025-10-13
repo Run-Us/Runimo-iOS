@@ -68,7 +68,7 @@ extension MyPageViewModel {
     }
     
     /// 주간 통계 API 호출
-    func getWeeklyRecords(start: Date, end: Date) {
+    private func getWeeklyRecords(start: Date, end: Date) {
         MyPageService.shared.getWeeklyRunningRecords(
             startDate: getDateString(date: start),
             endDate: getDateString(date: end)
@@ -84,6 +84,24 @@ extension MyPageViewModel {
             
             self?.dailyStats = data.daily_stats
             self?.setGraphData(startDate: start)
+        }
+        .store(in: &cancellables)
+    }
+    
+    /// 월간 통계 API 호출
+    private func getYearlyRecords(year: Int, month: Int, startDate: Date) {
+        MyPageService.shared.getMonthlyRunningRecords(year: year, month: month)
+        .sink(receiveCompletion: handleCompletion) { [weak self] data in
+            let simpleStat = data.simple_stat
+            self?.graph = RunningGraph(
+                total_count: simpleStat.total_running_count,
+                total_distance: simpleStat.total_distance_in_meters,
+                total_time: simpleStat.total_time_in_seconds,
+                distance_list: []
+            )
+            
+            self?.dailyStats = data.daily_stats
+            self?.setGraphData(startDate: startDate)
         }
         .store(in: &cancellables)
     }
@@ -128,17 +146,17 @@ extension MyPageViewModel {
         guard start != nil, end != nil else { return }
         
         if recordType == .weekly {
-            getWeeklyRecords(start: start ?? Date(), end: end ?? Date())
+            getWeeklyRecords(
+                start: start ?? Date(),
+                end: end ?? Date()
+            )
         } else {
             let (year, month) = dateManager.getYearMonth(date: start ?? Date())
-            MyPageService.shared.getMonthlyRunningRecords(year: year, month: month) { data in
-                // 통계
-                let simpleStat = data.simple_stat
-                self.graph = RunningGraph(total_count: simpleStat.total_running_count, total_distance: simpleStat.total_distance_in_meters, total_time: simpleStat.total_time_in_seconds, distance_list: [])
-                
-                self.dailyStats = data.daily_stats
-                self.setGraphData(startDate: start ?? Date())
-            }
+            getYearlyRecords(
+                year: year,
+                month: month,
+                startDate: start ?? Date()
+            )
         }
     }
     
