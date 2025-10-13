@@ -47,6 +47,7 @@ final class NetworkManager: NetworkManagerProtocol {
         let url = "\(baseUrl)\(request.path)"
         print("url: \(url)\nparameters: \(String(describing: request.parameters))\n")
         session.request(url, method: request.method, parameters: request.parameters, encoding: request.encoding, headers: request.headers)
+            .validate()  // ✅ 401 등의 에러를 감지하여 Interceptor 동작
             .responseDecodable(of: BaseResponse<T>.self) { response in
             switch response.result {
             case .success(let baseResponse):
@@ -69,7 +70,7 @@ final class NetworkManager: NetworkManagerProtocol {
     {
         let url = "\(baseUrl)\(request.path)"
         print("url: \(url)\nparameters: \(String(describing: request.parameters))\n")
-        
+
         return session.request(
             url,
             method: request.method,
@@ -77,6 +78,7 @@ final class NetworkManager: NetworkManagerProtocol {
             encoding: request.encoding,
             headers: request.headers
         )
+        .validate()  // ✅ 401 등의 에러를 감지하여 Interceptor 동작
         .publishDecodable(type: BaseResponse<T>.self)
         .value()
         .tryMap({ response in
