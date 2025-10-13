@@ -30,6 +30,7 @@ struct RunimoApp: App {
                 .environmentObject(SharedData())
                 .environmentObject(NavigationManager())
                 .environmentObject(MyPageViewModel())
+                .environmentObject(HomeViewModel())
         }
     }
 }

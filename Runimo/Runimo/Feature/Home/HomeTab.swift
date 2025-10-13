@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct HomeTab: View {
+    @EnvironmentObject var homeVM: HomeViewModel
     @EnvironmentObject var sharedData: SharedData
     @State private var eggId: Int = 0
     @State private var eggCode: String = ""
@@ -42,12 +43,12 @@ struct HomeTab: View {
     @ViewBuilder
     private func characterProfile() -> some View {
         HStack(spacing: 46) {
-            if sharedData.isHomeDataLoaded && sharedData.homeData?.main_runimo_stat_nullable == nil {
+            if homeVM.isHomeDataLoaded && homeVM.homeData?.main_runimo_stat_nullable == nil {
                 Image("character_disabled")
                     .resizable()
                     .frame(width: 86, height: 86)
             } else {
-                KFImage(URL(string: sharedData.homeData?.main_runimo_stat_nullable?.image_url ?? ""))
+                KFImage(URL(string: homeVM.homeData?.main_runimo_stat_nullable?.image_url ?? ""))
                     .placeholder { ProgressView() }
                     .resizable()
                     .frame(width: 86, height: 86)
@@ -55,7 +56,7 @@ struct HomeTab: View {
                 
             VStack(alignment: .leading, spacing: 20) {
                 HStack {
-                    Text("\(sharedData.homeData?.main_runimo_stat_nullable?.name ?? "알을 부화시켜보세요!")")
+                    Text("\(homeVM.homeData?.main_runimo_stat_nullable?.name ?? "알을 부화시켜보세요!")")
                         .foregroundStyle(.primaryGray)
                         .font(.title5_bold)
                     Spacer()
@@ -65,7 +66,7 @@ struct HomeTab: View {
                         Text("러닝")
                             .font(.caption_regular)
                             .foregroundStyle(.quaternaryGray)
-                        Text("\(sharedData.homeData?.main_runimo_stat_nullable?.total_running_count ?? 0)")
+                        Text("\(homeVM.homeData?.main_runimo_stat_nullable?.total_running_count ?? 0)")
                             .font(.title5_bold)
                             .foregroundStyle(.primaryGray)
                     }
@@ -73,7 +74,7 @@ struct HomeTab: View {
                         Text("달린 거리")
                             .font(.caption_regular)
                             .foregroundStyle(.quaternaryGray)
-                        Text(String(format: "%.2f km", Double(sharedData.homeData?.main_runimo_stat_nullable?.total_distance_in_meters ?? 0)/1000))
+                        Text(String(format: "%.2f km", Double(homeVM.homeData?.main_runimo_stat_nullable?.total_distance_in_meters ?? 0)/1000))
                             .font(.title5_bold)
                             .foregroundStyle(.primaryGray)
                             .minimumScaleFactor(0.8)
@@ -210,15 +211,7 @@ struct HomeTab: View {
     }
     
     private func getHomeAPI() {
-        HomeService.shared.getHome { item in
-            DispatchQueue.main.async {
-                sharedData.homeData = item
-                sharedData.egg_love = (item.user_info.total_egg_count, item.user_info.love_point)
-                
-                sharedData.isHomeDataLoaded = true
-            }
-        }
-        
+        homeVM.fetchHome()
         getHomeEggAPI()
     }
     

@@ -16,6 +16,7 @@ enum Tab {
 
 struct TabBar: View {
     @EnvironmentObject var navigation: NavigationManager
+    @EnvironmentObject var homeVM: HomeViewModel
     @EnvironmentObject var sharedData: SharedData
     @State private var showSignUpCompletePopUp: Bool = false
 
@@ -214,10 +215,10 @@ struct TabBar: View {
                 if sharedData.currentMainTab == .home {
                     HStack(spacing: 4) {
                         Image("icon_egg")
-                        Text(CommonExtension.formatNumber(num: sharedData.egg_love.egg))
+                        Text(CommonExtension.formatNumber(num: homeVM.egg_love.egg))
                         Image("icon_love")
                             .padding(.leading, 8)
-                        Text(CommonExtension.formatNumber(num: sharedData.egg_love.love))
+                        Text(CommonExtension.formatNumber(num: homeVM.egg_love.love))
                     }
                     .font(.title5_bold)
                     .foregroundStyle(.primaryGray)

@@ -8,6 +8,7 @@
 import Alamofire
 import Foundation
 import KeychainSwift
+import Combine
 
 class HomeService {
     static let shared = HomeService()
@@ -19,7 +20,7 @@ class HomeService {
         self.networkManager = networkManager
     }
     
-    func getHome(completion: @escaping (HomeItem) -> Void) {
+    func getHome() -> AnyPublisher<HomeItem, AFError> {
         let path = "/main"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -28,15 +29,7 @@ class HomeService {
         
         let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default, headers: headers)
         
-        networkManager.request(dataRequest) { (result: Result<HomeItem, AFError>) in
-            switch result {
-            case .success(let data):
-                completion(data)
-            case .failure(let error):
-                print("\(error)")
-            }
-        }
-        
+        return networkManager.request(dataRequest)
     }
     
     // 부화중인 알 조회

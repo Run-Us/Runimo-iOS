@@ -65,7 +65,7 @@ final class NetworkManager: NetworkManagerProtocol {
     }
     
     func request<T: Codable>(
-        _ request: APIRequest) -> AnyPublisher<T?, AFError>
+        _ request: APIRequest) -> AnyPublisher<T, AFError>
     {
         let url = "\(baseUrl)\(request.path)"
         print("url: \(url)\nparameters: \(String(describing: request.parameters))\n")

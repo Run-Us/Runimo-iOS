@@ -16,14 +16,11 @@ class SharedData: ObservableObject {
     @Published var showCharacterPopUp: Bool = false
     
     // MARK: - 1. 홈 탭
-    @Published var egg_love: (egg: Int, love: Int) = (0, 0)
     @Published var myEggs: [EggItem] = []
-    @Published var homeData: HomeItem?
     @Published var homeEggData: IncubatingEgg?
     @Published var showEggSheet: Bool = false
     @Published var isHatchable: Bool = false
     @Published var updateHomeView: Bool = false
-    @Published var isHomeDataLoaded: Bool = false
     @Published var isHomeEggDataLoaded: Bool = false
     
     // 튜토리얼
