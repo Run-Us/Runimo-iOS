@@ -86,6 +86,8 @@ final class NetworkManager: NetworkManagerProtocol {
                 print("⚠️ Payload is nil. Code: \(response.code), Message: \(response.message)\n")
                 throw AFError.responseValidationFailed(reason: .dataFileNil)
             }
+            
+            print(url, data, separator: "\n")
             return data
         })
         .mapError({ error in

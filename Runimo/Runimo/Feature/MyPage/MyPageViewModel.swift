@@ -7,6 +7,8 @@
 
 import Foundation
 import SwiftUI
+import Combine
+import Alamofire
 
 enum RecordType: String {
     case weekly, monthly
@@ -35,6 +37,8 @@ class MyPageViewModel: ObservableObject {
     @Published var weeklyGraphList: [Double] = Array(repeating: 0.0, count: 7)
     @Published var monthlyGraphList: [Double] = Array(repeating: 0.0, count: 30)
     
+    private var cancellables = Set<AnyCancellable>()
+    
     init() {
         user = MyPage(profile_image_url: nil, nickname: "", total_distance_in_meters: 0, latest_run_date_before: 0, latest_running_record_nullable: nil)
         graph = RunningGraph(total_count: 0, total_distance: 0, total_time: 0, distance_list: [])
@@ -49,7 +53,29 @@ class MyPageViewModel: ObservableObject {
     }
 }
 
-// API
+// MARK: - API
+extension MyPageViewModel {
+    /// 마이페이지 조회 API 호출
+    func getMyPage() {
+        MyPageService.shared.getMyPage()
+            .sink(receiveCompletion: handleCompletion) { [weak self] data in
+                self?.user = data
+                if let profile = data.profile_image_url {
+                    UserDefaults.standard.set(profile, forKey: "profileURL")
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    // MARK: - Private Methods
+    /// Comine 완료 이벤트 처리 메서드
+    private func handleCompletion(_ completion: Subscribers.Completion<AFError>) {
+        if case .failure(let error) = completion {
+            print("❌ Error: \(error)")
+        }
+    }
+}
+
 extension MyPageViewModel {
     // 누적 거리
     func getTotalDistance() -> String {
