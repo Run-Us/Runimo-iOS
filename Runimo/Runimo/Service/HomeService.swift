@@ -50,8 +50,8 @@ class HomeService {
         )
     }
     
-    // 애정 주기
-    func patchLovePoint(eggId: Int, amount: Int, completion: @escaping (PatchLovePointResponse) -> Void) {
+    /// 애정 주기
+    func giveLovePoint(eggId: Int, amount: Int) -> AnyPublisher<PatchLovePointResponse, AFError> {
         let path = "/users/eggs/\(eggId)"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -62,17 +62,14 @@ class HomeService {
             "love_point_amount": amount
         ]
         
-        let dataRequest = APIRequest(path: path, method: .patch, parameters: parameters, headers: headers)
-        
-        networkManager.request(dataRequest) { (result: Result<PatchLovePointResponse, AFError>) in
-            switch result {
-            case .success(let data):
-                print("\(data)")
-                completion(data)
-            case .failure(let error):
-                print("\(error)")
-            }
-        }
+        return networkManager.request(
+            APIRequest(
+                path: path,
+                method: .patch,
+                parameters: parameters,
+                headers: headers
+            )
+        )
     }
     
     // 보유 중인 알 조회

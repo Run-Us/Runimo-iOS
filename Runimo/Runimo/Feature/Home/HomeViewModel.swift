@@ -7,6 +7,7 @@
 
 import Alamofire
 import Combine
+import Foundation
 
 class HomeViewModel: ObservableObject {
     @Published var egg_love: (egg: Int, love: Int) = (0, 0)
@@ -18,6 +19,7 @@ class HomeViewModel: ObservableObject {
     @Published var eggCode: String = ""
     @Published var eggSource: LottieSource = .asset(name: "", mode: .loop)
     @Published var isHomeEggDataLoaded: Bool = false
+    @Published var reloadID = UUID()
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -48,6 +50,23 @@ class HomeViewModel: ObservableObject {
                 self?.eggSource = .asset(name: lottieName, mode: .loop)
                 
                 self?.isHomeEggDataLoaded = true
+            }
+            .store(in: &cancellables)
+    }
+    
+    /// 애정 주기 API 호출
+    func giveLovePoint() {
+        HomeService.shared.giveLovePoint(eggId: eggId, amount: 1)
+            .sink(receiveCompletion: handleCompletion) { [weak self] data in
+                // UI 업데이트
+                self?.eggSource = .asset(name: "\(self?.eggCode ?? "")-04-\(Int.random(in: 1...2))-애정", mode: .playOnce)
+                self?.reloadID = UUID()   // 로띠 reload 유도
+
+                self?.homeEggData?.current_love_point_amount = data.current_love_point_amount
+
+                // 데이터 새로고침
+                self?.fetchHome()
+                self?.fetchCurrentEgg()
             }
             .store(in: &cancellables)
     }

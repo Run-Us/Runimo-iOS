@@ -11,7 +11,6 @@ import Kingfisher
 struct HomeTab: View {
     @EnvironmentObject var homeVM: HomeViewModel
     @EnvironmentObject var sharedData: SharedData
-    @State private var reloadID = UUID()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -100,7 +99,7 @@ struct HomeTab: View {
                 if homeVM.eggCode == "" {
                     ProgressView()
                 } else {
-                    LottieView(source: homeVM.eggSource, reloadID: reloadID)
+                    LottieView(source: homeVM.eggSource, reloadID: homeVM.reloadID)
                         .frame(height: 240)
                 }
             }
@@ -157,7 +156,7 @@ struct HomeTab: View {
                     if UserDefaults.standard.object(forKey: "isNotFirstGiveLove") == nil {
                         sharedData.showTutorial1Sheet = true
                     } else {
-                        giveLoveAPI()
+                        homeVM.giveLovePoint()
                     }
                 }
             }
@@ -206,21 +205,6 @@ struct HomeTab: View {
         } label: {
             Image("arrow_right")
                 .foregroundStyle(.primaryGray)
-        }
-    }
-    
-    private func giveLoveAPI() {
-        HomeService.shared.patchLovePoint(eggId: homeVM.eggId, amount: 1) { response in
-            // Lottie
-            homeVM.eggSource = .asset(name: "\(homeVM.eggCode)-04-\(Int.random(in: 1...2))-애정", mode: .playOnce)
-            reloadID = UUID()   // 로띠 reload 유도
-            
-            homeVM.homeEggData?.current_love_point_amount = response.current_love_point_amount
-            
-            DispatchQueue.main.async {
-                homeVM.fetchHome()
-                homeVM.fetchCurrentEgg()
-            }
         }
     }
     
