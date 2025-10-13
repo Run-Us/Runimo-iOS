@@ -32,7 +32,25 @@ class HomeService {
         return networkManager.request(dataRequest)
     }
     
-    // 부화중인 알 조회
+    /// 부화중인 알 조회
+    func getCurrentEgg() -> AnyPublisher<HomeEggResponse, AFError> {
+        let path = "/users/eggs/incubators"
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
+        ]
+        
+        return networkManager.request(
+            APIRequest(
+                path: path,
+                method: .get,
+                encoding: URLEncoding.default,
+                headers: headers
+            )
+        )
+    }
+    
+    
     func getCurrentEgg(completion: @escaping (HomeEggResponse) -> Void) {
         let path = "/users/eggs/incubators"
         let headers: HTTPHeaders = [

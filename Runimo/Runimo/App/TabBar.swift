@@ -280,7 +280,7 @@ struct TabBar: View {
                 Text("부화!!!")
                     .font(.title4_semibold)
                     .foregroundStyle(.primaryGray)
-                LottieView(source: .asset(name: "\(sharedData.eggCode)-01-알부화", mode: .playOnce), reloadID: UUID())
+                LottieView(source: .asset(name: "\(homeVM.eggCode)-01-알부화", mode: .playOnce), reloadID: UUID())
                     .frame(height: 330)
             }
             .padding(16)

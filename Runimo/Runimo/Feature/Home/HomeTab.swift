@@ -11,9 +11,6 @@ import Kingfisher
 struct HomeTab: View {
     @EnvironmentObject var homeVM: HomeViewModel
     @EnvironmentObject var sharedData: SharedData
-    @State private var eggId: Int = 0
-    @State private var eggCode: String = ""
-    @State private var eggSource: LottieSource = .asset(name: "", mode: .loop)
     @State private var reloadID = UUID()
     
     var body: some View {
@@ -33,10 +30,12 @@ struct HomeTab: View {
             }
         }
         .onAppear {
-            getHomeAPI()
+            homeVM.fetchHome()
+            homeVM.fetchCurrentEgg()
         }
         .onChange(of: sharedData.updateHomeView) { _, _ in
-            getHomeAPI()
+            homeVM.fetchHome()
+            homeVM.fetchCurrentEgg()
         }
     }
 
@@ -95,18 +94,18 @@ struct HomeTab: View {
     @ViewBuilder
     private func eggCard() -> some View {
         VStack(spacing: 12) {
-            if sharedData.isHomeEggDataLoaded && sharedData.homeEggData == nil {
+            if homeVM.isHomeEggDataLoaded && homeVM.homeEggData == nil {
                 Image("egg_default")
             } else {
-                if eggCode == "" {
+                if homeVM.eggCode == "" {
                     ProgressView()
                 } else {
-                    LottieView(source: eggSource, reloadID: reloadID)
+                    LottieView(source: homeVM.eggSource, reloadID: reloadID)
                         .frame(height: 240)
                 }
             }
             
-            if let egg = sharedData.homeEggData {
+            if let egg = homeVM.homeEggData {
                 HStack(spacing: 4) {
                     Text(egg.name)
                         .font(.title5_bold)
@@ -151,10 +150,10 @@ struct HomeTab: View {
         Button {
             if isHatchable {
                 // 부화하기
-                hatchEggAPI(eggId: eggId)
+                hatchEggAPI(eggId: homeVM.eggId)
             } else {
                 // 애정주기
-                if eggId >= 0 {
+                if homeVM.eggId >= 0 {
                     if UserDefaults.standard.object(forKey: "isNotFirstGiveLove") == nil {
                         sharedData.showTutorial1Sheet = true
                     } else {
@@ -210,40 +209,17 @@ struct HomeTab: View {
         }
     }
     
-    private func getHomeAPI() {
-        homeVM.fetchHome()
-        getHomeEggAPI()
-    }
-    
-    private func getHomeEggAPI() {
-        HomeService.shared.getCurrentEgg { egg in
-            DispatchQueue.main.async {
-                sharedData.homeEggData = egg.incubating_eggs.first
-                eggId = egg.incubating_eggs.first?.id ?? -1
-                eggCode = String(egg.incubating_eggs.first?.egg_code.dropFirst() ?? "")
-                sharedData.eggCode = eggCode
-                
-                if sharedData.homeEggData?.hatchable ?? false {
-                    eggSource = .asset(name: "\(eggCode)-04-\(Int.random(in: 1...2))-애정", mode: .loop)
-                } else {
-                    eggSource = .asset(name: "\(eggCode)-03-빛남", mode: .loop)
-                }
-                
-                sharedData.isHomeEggDataLoaded = true
-            }
-        }
-    }
-    
     private func giveLoveAPI() {
-        HomeService.shared.patchLovePoint(eggId: eggId, amount: 1) { response in
+        HomeService.shared.patchLovePoint(eggId: homeVM.eggId, amount: 1) { response in
             // Lottie
-            eggSource = .asset(name: "\(eggCode)-04-\(Int.random(in: 1...2))-애정", mode: .playOnce)
+            homeVM.eggSource = .asset(name: "\(homeVM.eggCode)-04-\(Int.random(in: 1...2))-애정", mode: .playOnce)
             reloadID = UUID()   // 로띠 reload 유도
             
-            sharedData.homeEggData?.current_love_point_amount = response.current_love_point_amount
+            homeVM.homeEggData?.current_love_point_amount = response.current_love_point_amount
             
             DispatchQueue.main.async {
-                getHomeAPI()
+                homeVM.fetchHome()
+                homeVM.fetchCurrentEgg()
             }
         }
     }
@@ -261,7 +237,8 @@ struct HomeTab: View {
                 
                 // 캐릭터 팝업
                 sharedData.showPopUp()
-                getHomeAPI()
+                homeVM.fetchHome()
+                homeVM.fetchCurrentEgg()
             }
         }
     }

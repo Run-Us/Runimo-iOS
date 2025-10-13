@@ -17,18 +17,15 @@ class SharedData: ObservableObject {
     
     // MARK: - 1. 홈 탭
     @Published var myEggs: [EggItem] = []
-    @Published var homeEggData: IncubatingEgg?
     @Published var showEggSheet: Bool = false
     @Published var isHatchable: Bool = false
     @Published var updateHomeView: Bool = false
-    @Published var isHomeEggDataLoaded: Bool = false
     
     // 튜토리얼
     @Published var showTutorial1Sheet: Bool = false
     @Published var showTutorial2Sheet: Bool = false
 
     // 알
-    @Published var eggCode: String = ""
     @Published var hatchEggFlag: Bool = false
     
     // MARK: - 2. 기록 리스트 탭
