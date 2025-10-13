@@ -16,7 +16,6 @@ class SharedData: ObservableObject {
     @Published var showCharacterPopUp: Bool = false
     
     // MARK: - 1. 홈 탭
-    @Published var myEggs: [EggItem] = []
     @Published var showEggSheet: Bool = false
     @Published var isHatchable: Bool = false
     @Published var updateHomeView: Bool = false

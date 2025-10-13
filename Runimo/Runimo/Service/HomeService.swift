@@ -72,25 +72,22 @@ class HomeService {
         )
     }
     
-    // 보유 중인 알 조회
-    func getMyEggs(completion: @escaping (GetMyEggs) -> Void) {
+    /// 보유 중인 알 조회
+    func getMyEggs() -> AnyPublisher<GetMyEggs, AFError> {
         let path = "/users/eggs"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
         ]
         
-        let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default, headers: headers)
-        
-        networkManager.request(dataRequest) { (result: Result<GetMyEggs, AFError>) in
-            switch result {
-            case .success(let data):
-                completion(data)
-            case .failure(let error):
-                print("\(error)")
-            }
-        }
-          
+        return networkManager.request(
+            APIRequest(
+                path: path,
+                method: .get,
+                encoding: URLEncoding.default,
+                headers: headers
+            )
+        )
     }
     
     // 알 등록

@@ -21,8 +21,14 @@ class HomeViewModel: ObservableObject {
     @Published var isHomeEggDataLoaded: Bool = false
     @Published var reloadID = UUID()
     
+    /// 보유 중인 알
+    @Published var myEggs: [EggItem] = []
+    
     private var cancellables = Set<AnyCancellable>()
     
+    
+    // MARK: - API 호출 Methods
+    /// 홈 데이터 조회 API 호출
     func fetchHome() {
         HomeService.shared.getHome()
             .sink(receiveCompletion: handleCompletion) { [weak self] homeItem in
@@ -33,6 +39,7 @@ class HomeViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    /// 부화중인 알 조회 API 호출
     func fetchCurrentEgg() {
         HomeService.shared.getCurrentEgg()
             .sink(receiveCompletion: handleCompletion) { [weak self] egg in
@@ -71,6 +78,17 @@ class HomeViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    /// 보유중인 알 조회 API 호출
+    func getMyEggs() {
+        HomeService.shared.getMyEggs()
+            .sink(receiveCompletion: handleCompletion) { [weak self] data in
+                self?.myEggs = data.items
+            }
+            .store(in: &cancellables)
+    }
+    
+    
+    // MARK: - Private Methods
     /// Comine 완료 이벤트 처리 메서드
     private func handleCompletion(_ completion: Subscribers.Completion<AFError>) {
         if case .failure(let error) = completion {

@@ -9,6 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct EggSheet: View {
+    @EnvironmentObject var homeVM: HomeViewModel
     @EnvironmentObject var sharedData: SharedData
     
     var body: some View {
@@ -18,7 +19,7 @@ struct EggSheet: View {
                 .foregroundStyle(.primaryGray)
                 .padding(.vertical, 16)
             ScrollView {
-                ForEach(sharedData.myEggs, id: \.item_id) { egg in
+                ForEach(homeVM.myEggs, id: \.item_id) { egg in
                     Button {
                         sharedData.showEggSheet = false
                         registerEggAPI(eggId: egg.item_id)
@@ -33,9 +34,7 @@ struct EggSheet: View {
         .frame(maxWidth: .infinity)
         .background(.primaryFill)
         .onAppear {
-            HomeService.shared.getMyEggs { data in
-                sharedData.myEggs = data.items
-            }
+            homeVM.getMyEggs()
         }
     }
     
