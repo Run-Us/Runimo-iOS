@@ -67,6 +67,27 @@ extension MyPageViewModel {
             .store(in: &cancellables)
     }
     
+    /// 주간 통계 API 호출
+    func getWeeklyRecords(start: Date, end: Date) {
+        MyPageService.shared.getWeeklyRunningRecords(
+            startDate: getDateString(date: start),
+            endDate: getDateString(date: end)
+        )
+        .sink(receiveCompletion: handleCompletion) { [weak self] data in
+            let simpleStat = data.simple_stat
+            self?.graph = RunningGraph(
+                total_count: simpleStat.total_running_count,
+                total_distance: simpleStat.total_distance_in_meters,
+                total_time: simpleStat.total_time_in_seconds,
+                distance_list: []
+            )
+            
+            self?.dailyStats = data.daily_stats
+            self?.setGraphData(startDate: start)
+        }
+        .store(in: &cancellables)
+    }
+    
     // MARK: - Private Methods
     /// Comine 완료 이벤트 처리 메서드
     private func handleCompletion(_ completion: Subscribers.Completion<AFError>) {
@@ -107,14 +128,7 @@ extension MyPageViewModel {
         guard start != nil, end != nil else { return }
         
         if recordType == .weekly {
-            MyPageService.shared.getWeeklyRunningRecords(startDate: getDateString(date: start ?? Date()), endDate: getDateString(date: end ?? Date())) { data in
-                // 통계
-                let simpleStat = data.simple_stat
-                self.graph = RunningGraph(total_count: simpleStat.total_running_count, total_distance: simpleStat.total_distance_in_meters, total_time: simpleStat.total_time_in_seconds, distance_list: [])
-                
-                self.dailyStats = data.daily_stats
-                self.setGraphData(startDate: start ?? Date())
-            }
+            getWeeklyRecords(start: start ?? Date(), end: end ?? Date())
         } else {
             let (year, month) = dateManager.getYearMonth(date: start ?? Date())
             MyPageService.shared.getMonthlyRunningRecords(year: year, month: month) { data in

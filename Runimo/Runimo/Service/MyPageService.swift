@@ -39,8 +39,8 @@ class MyPageService {
         )
     }
     
-    // 주간 통계 조회
-    func getWeeklyRunningRecords(startDate: String, endDate: String, completion: @escaping (_ data: RunningRecordResponse) -> Void) {
+    /// 주간 통계 조회
+    func getWeeklyRunningRecords(startDate: String, endDate: String) -> AnyPublisher<RunningRecordResponse, AFError> {
         let path = "/records/stats/weekly"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -52,17 +52,15 @@ class MyPageService {
             "endDate": endDate
         ]
         
-        let dataRequest = APIRequest(path: path, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
-        
-        networkManager.request(dataRequest) { (result: Result<RunningRecordResponse, AFError>) in
-            switch result {
-            case .success(let data):
-                print("\(data)")
-                completion(data)
-            case .failure(let error):
-                print("\(error)")
-            }
-        }
+        return networkManager.request(
+            APIRequest(
+                path: path,
+                method: .get,
+                parameters: parameters,
+                encoding: URLEncoding.default,
+                headers: headers
+            )
+        )
     }
     
     // 월간 통계 조회
