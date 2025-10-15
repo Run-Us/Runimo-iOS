@@ -8,6 +8,7 @@
 import Alamofire
 import Foundation
 import SwiftUI
+import Combine
 
 final class AuthService: ObservableObject {
     static let shared = AuthService()
@@ -123,20 +124,28 @@ final class AuthService: ObservableObject {
         
     }
     
-    func logout(completion: @escaping (Bool) -> Void) {
+    /// 로그아웃
+    func logout() -> AnyPublisher<Bool, AFError> {
         let path = "/auth/log-out"
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization": "Bearer \(tokenManager.getAccessToken() ?? "")"
         ]
         
-        let dataRequest = APIRequest(path: path, method: .post, encoding: JSONEncoding.default, headers: headers)
-        
-        networkManager.getHTTPStatusCode(dataRequest) { code in
-            self.tokenManager.removeUserInfo()
+        return networkManager.getHTTPStatusCode(
+            APIRequest(
+                path: path,
+                method: .post,
+                encoding: JSONEncoding.default,
+                headers: headers
+            )
+        )
+        .map { [weak self] code in
+            self?.tokenManager.removeUserInfo()
             print("logout", code)
-            completion(code == 200)
+            return code == 200
         }
+        .eraseToAnyPublisher()
     }
     
     // 토큰 갱신 (자동로그인 확인용)
