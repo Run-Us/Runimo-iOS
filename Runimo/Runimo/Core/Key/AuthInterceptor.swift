@@ -20,8 +20,9 @@ final class AuthInterceptor: RequestInterceptor {
     // 요청 헤더에 최신 토큰을 주입하는 역할
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         var urlRequest = urlRequest
+        urlRequest.headers.update(name: "Content-Type", value: "application/json")
         if let accessToken = tokenManager.getAccessToken() {
-            urlRequest.headers.add(name: "Authorization", value: "Bearer \(accessToken)")
+            urlRequest.headers.update(name: "Authorization", value: "Bearer \(accessToken)")
         }
         completion(.success(urlRequest))
     }

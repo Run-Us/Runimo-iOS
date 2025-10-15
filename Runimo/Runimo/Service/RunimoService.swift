@@ -22,12 +22,8 @@ class RunimoService {
     // 전체 러니모 조회
     func getAllRunimos(completion: @escaping (GetAllRunimo) -> Void) {
         let path = "/runimos/types/all"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
-        let dataRequest = APIRequest(path: path, method: .get, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .get)
         
         networkManager.request(dataRequest) { (result: Result<GetAllRunimo, AFError>) in
             switch result {
@@ -42,12 +38,8 @@ class RunimoService {
     
     func getMyRunimo(completion: @escaping (GetMyRunimo) -> Void) {
         let path = "/users/me/runimos"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
-        let dataRequest = APIRequest(path: path, method: .get, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .get)
         
         networkManager.request(dataRequest) { (result: Result<GetMyRunimo, AFError>) in
             switch result {

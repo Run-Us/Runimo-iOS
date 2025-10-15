@@ -22,12 +22,8 @@ class HomeService {
     
     func getHome() -> AnyPublisher<HomeItem, AFError> {
         let path = "/main"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
-        let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default)
         
         return networkManager.request(dataRequest)
     }
@@ -35,17 +31,11 @@ class HomeService {
     /// 부화중인 알 조회
     func getCurrentEgg() -> AnyPublisher<HomeEggResponse, AFError> {
         let path = "/users/eggs/incubators"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
-        
         return networkManager.request(
             APIRequest(
                 path: path,
                 method: .get,
-                encoding: URLEncoding.default,
-                headers: headers
+                encoding: URLEncoding.default
             )
         )
     }
@@ -53,10 +43,6 @@ class HomeService {
     /// 애정 주기
     func giveLovePoint(eggId: Int, amount: Int) -> AnyPublisher<PatchLovePointResponse, AFError> {
         let path = "/users/eggs/\(eggId)"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
         let parameters: [String: Any] = [
             "love_point_amount": amount
@@ -66,8 +52,7 @@ class HomeService {
             APIRequest(
                 path: path,
                 method: .patch,
-                parameters: parameters,
-                headers: headers
+                parameters: parameters
             )
         )
     }
@@ -75,17 +60,12 @@ class HomeService {
     /// 보유 중인 알 조회
     func getMyEggs() -> AnyPublisher<GetMyEggs, AFError> {
         let path = "/users/eggs"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
         return networkManager.request(
             APIRequest(
                 path: path,
                 method: .get,
-                encoding: URLEncoding.default,
-                headers: headers
+                encoding: URLEncoding.default
             )
         )
     }
@@ -93,16 +73,12 @@ class HomeService {
     // 알 등록
     func postEgg(egg_id: Int, completion: @escaping () -> Void) {
         let path = "/users/eggs"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
         let parameters: [String: Any] = [
             "item_id": egg_id
         ]
         
-        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters)
         
         networkManager.request(dataRequest) { (result: Result<PostEggResponse, AFError>) in
             switch result {
@@ -118,12 +94,8 @@ class HomeService {
     // 알 부화
     func hatchEgg(eggId: Int, completion: @escaping (HatchEggResponse) -> Void) {
         let path = "/incubating-eggs/\(eggId)/hatch"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
-        let dataRequest = APIRequest(path: path, method: .post, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .post)
         
         networkManager.request(dataRequest) { (result: Result<HatchEggResponse, AFError>) in
             switch result {
@@ -138,12 +110,8 @@ class HomeService {
     
     func setMainRunimo(runimoId: Int, completion: @escaping () -> Void) {
         let path = "/runimos/\(runimoId)/main"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
-        let dataRequest = APIRequest(path: path, method: .patch, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .patch)
         
         networkManager.request(dataRequest) { (result: Result<RunimoIdResponse, AFError>) in
             switch result {

@@ -23,10 +23,6 @@ class RunningSessionService: ObservableObject {
     
     func saveRunningRecords(running: RunningResult, retrying: Bool = false, completion: @escaping (Bool, String) -> Void) {
         let path = "\(baseUrl)/records"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
         let parameters: [String: Any] = [
             "started_at": DateManager.shared.getString(date: running.started_at),
@@ -42,7 +38,7 @@ class RunningSessionService: ObservableObject {
             }
         ]
         
-        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters)
         
         networkManager.request(dataRequest) { (result: Result<SaveRunningResponse, AFError>) in
             switch result {
@@ -59,10 +55,6 @@ class RunningSessionService: ObservableObject {
     // 러닝 기록 수정 
     func patchRunningRecords(runningId: String, title: String, description: String, imgURL: String, completion: @escaping (Bool) -> Void) {
         let path = "/records/\(runningId)"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
         let parameters: [String: Any] = [
             "title": title,
@@ -70,7 +62,7 @@ class RunningSessionService: ObservableObject {
             "img_url": imgURL
         ]
         
-        let dataRequest = APIRequest(path: path, method: .patch, parameters: parameters, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .patch, parameters: parameters)
         networkManager.getHTTPStatusCode(dataRequest) { result in
             if result == 200 {
                 completion(true)
@@ -83,16 +75,12 @@ class RunningSessionService: ObservableObject {
     // 러닝 보상 획득
     func getRunningReward(runningId: String, completion: @escaping (RewardResponse) -> Void) {
         let path = "/rewards/runnings"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
         let parameters: [String: Any] = [
             "record_id": runningId
         ]
         
-        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters)
         
         networkManager.request(dataRequest) { (result: Result<RewardResponse, AFError>) in
             switch result {
@@ -107,10 +95,6 @@ class RunningSessionService: ObservableObject {
     
     func getMyRunningRecords(page: Int, selectedDate: Date, completion: @escaping (RunningRecordsResponse) -> Void) {
         let path = "/records/me"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
         let (startDate, endDate) = DateManager.shared.currentMonthFirstAndLastDateString(date: selectedDate)
         
@@ -121,7 +105,7 @@ class RunningSessionService: ObservableObject {
             "endDate": endDate
         ]
         
-        let dataRequest = APIRequest(path: path, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .get, parameters: parameters, encoding: URLEncoding.default)
 
         networkManager.request(dataRequest) { (result: Result<RunningRecordsResponse, AFError>) in
             switch result {
@@ -136,12 +120,8 @@ class RunningSessionService: ObservableObject {
     
     func getRunningPostData(runningId: String, completion: @escaping (RunningPostResponse) -> Void) {
         let path = "/records/\(runningId)"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
-        let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default)
 
         networkManager.request(dataRequest) { (result: Result<RunningPostResponse, AFError>) in
             switch result {

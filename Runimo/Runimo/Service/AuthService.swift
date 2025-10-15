@@ -91,13 +91,12 @@ final class AuthService: ObservableObject {
     
     func appleLogin(codeVerifier: String, completion: @escaping (Int) -> Void) {
         let path = "\(baseUrl)/auth/apple"
-        let headers: HTTPHeaders = ["Content-Type": "application/json"]
         let body: [String: Any] = [
             "auth_code": tokenManager.getAuthCode() ?? "",
             "code_verifier": codeVerifier
         ]
         
-        AF.request(path, method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers)
+        AF.request(path, method: .post, parameters: body, encoding: JSONEncoding.default)
             .responseData { response in
                 let statusCode = response.response?.statusCode ?? 0
                 guard let data = response.data else { return }
@@ -127,17 +126,12 @@ final class AuthService: ObservableObject {
     /// 로그아웃
     func logout() -> AnyPublisher<Bool, AFError> {
         let path = "/auth/log-out"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(tokenManager.getAccessToken() ?? "")"
-        ]
         
         return networkManager.getHTTPStatusCode(
             APIRequest(
                 path: path,
                 method: .post,
-                encoding: JSONEncoding.default,
-                headers: headers
+                encoding: JSONEncoding.default
             )
         )
         .map { [weak self] code in

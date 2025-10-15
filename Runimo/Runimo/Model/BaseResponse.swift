@@ -34,7 +34,7 @@ struct APIRequest {
         method: HTTPMethod = .get,
         parameters: Parameters? = nil,
         encoding: ParameterEncoding = JSONEncoding.default,
-        headers: HTTPHeaders? = ["Content-Type": "application/json"]
+        headers: HTTPHeaders? = [:]
     ) {
         self.path = path
         self.method = method

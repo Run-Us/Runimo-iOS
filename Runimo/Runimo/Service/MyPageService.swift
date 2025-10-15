@@ -24,17 +24,12 @@ class MyPageService {
     /// 마이페이지 메인 조회
     func getMyPage() -> AnyPublisher<MyPage, AFError> {
         let path = "/users/me"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
         return networkManager.request(
             APIRequest(
                 path: path,
                 method: .get,
-                encoding: URLEncoding.default,
-                headers: headers
+                encoding: URLEncoding.default
             )
         )
     }
@@ -42,10 +37,6 @@ class MyPageService {
     /// 주간 통계 조회
     func getWeeklyRunningRecords(startDate: String, endDate: String) -> AnyPublisher<RunningRecordResponse, AFError> {
         let path = "/records/stats/weekly"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
         let parameters: [String: Any] = [
             "startDate": startDate,
@@ -57,8 +48,7 @@ class MyPageService {
                 path: path,
                 method: .get,
                 parameters: parameters,
-                encoding: URLEncoding.default,
-                headers: headers
+                encoding: URLEncoding.default
             )
         )
     }
@@ -66,10 +56,6 @@ class MyPageService {
     /// 월간 통계 조회
     func getMonthlyRunningRecords(year: Int, month: Int) -> AnyPublisher<RunningRecordResponse, AFError> {
         let path = "/records/stats/monthly"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
         let parameters: [String: Any] = [
             "year": year,
@@ -81,8 +67,7 @@ class MyPageService {
                 path: path,
                 method: .get,
                 parameters: parameters,
-                encoding: URLEncoding.default,
-                headers: headers
+                encoding: URLEncoding.default
             )
         )
     }
@@ -90,17 +75,13 @@ class MyPageService {
     // 탈퇴하기
     func withdrawUser(reason: String, inputText: String, completion: @escaping (Bool) -> Void) {
         let path = "/users"
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
         
         let parameters: [String: Any] = [
             "withdraw_reason": reason,
             "reason_detail": inputText
         ]
         
-        let dataRequest = APIRequest(path: path, method: .delete, parameters: parameters, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .delete, parameters: parameters)
         
         networkManager.getHTTPStatusCode(dataRequest) { code in
             if code == 204 {
@@ -116,17 +97,12 @@ class MyPageService {
     func sendFeedback(rate: Int, contents: String, completion: @escaping (Bool) -> Void) {
         let path = "/feedback"
         
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(keychain.get("accessToken") ?? "")"
-        ]
-        
         let parameters: [String: Any] = [
             "rate": rate,
             "feedback": contents
         ]
         
-        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters, headers: headers)
+        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters)
         
         networkManager.getHTTPStatusCode(dataRequest) { code in
             if code == 201 {
