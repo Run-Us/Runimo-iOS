@@ -24,7 +24,18 @@ class RunningViewModel: ObservableObject {
     @Published var rewardData: (egg: String, point: Int) = ("", 0)
     /// 러닝 상세 데이터
     @Published var runningDetail: RunningPostResponse?
+    /// 이번 달 달린 횟수
+    @Published var totalRunningCount: Int = 0
     
+    // MARK: - 러닝 기록 리스트 관리
+    /// 러닝 기록 리스트
+    @Published var runningList: [RunningRecord] = []
+    /// 현재 페이지
+    @Published var currentPage: Int = 0
+    /// 전체 페이지 수
+    @Published var totalPages: Int = 1
+    /// 로딩상태
+    @Published var isLoadingRecords: Bool = false
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -155,6 +166,36 @@ extension RunningViewModel {
             }
         }
         .store(in: &cancellables)
+    }
+    
+    /// 러닝 기록 리스트 초기화
+    func resetRunningRecords() {
+        runningList = []
+        currentPage = 0
+        totalPages = 1
+    }
+
+    /// 러닝 기록 조회 (페이지네이션)
+    func getMyRunningRecords(page: Int, selectedDate: Date) {
+        // 이미 로딩 중이거나 마지막 페이지를 넘어서면 요청하지 않음
+        guard !isLoadingRecords, page < totalPages else { return }
+
+        isLoadingRecords = true
+
+        RunningService.shared.getMyRunningRecords(page: page, selectedDate: selectedDate)
+            .sink(receiveCompletion: { [weak self] completion in
+                // 성공/실패 모두 로딩 상태 해제
+                self?.isLoadingRecords = false
+                self?.handleCompletion(completion)
+            }) { [weak self] response in
+                self?.totalRunningCount = response.pagination.total_items
+                self?.totalPages = response.pagination.total_pages
+                self?.currentPage = response.pagination.current_page
+
+                // 기존 리스트에 새 데이터 추가
+                self?.runningList += response.items
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Private Methods

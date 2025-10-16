@@ -28,7 +28,6 @@ class SharedData: ObservableObject {
     @Published var hatchEggFlag: Bool = false
     
     // MARK: - 2. 기록 리스트 탭
-    @Published var totalRunningCount: Int = 0
     @Published var selectedDateForSessionTab: Date = Date()
     
     // MARK: - 3. 캐릭터 탭

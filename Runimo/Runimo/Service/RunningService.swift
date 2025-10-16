@@ -85,7 +85,7 @@ class RunningService: ObservableObject {
         )
     }
     
-    func getMyRunningRecords(page: Int, selectedDate: Date, completion: @escaping (RunningRecordsResponse) -> Void) {
+    func getMyRunningRecords(page: Int, selectedDate: Date) -> AnyPublisher<RunningRecordsResponse, AFError> {
         let path = "/records/me"
         
         let (startDate, endDate) = DateManager.shared.currentMonthFirstAndLastDateString(date: selectedDate)
@@ -97,17 +97,14 @@ class RunningService: ObservableObject {
             "endDate": endDate
         ]
         
-        let dataRequest = APIRequest(path: path, method: .get, parameters: parameters, encoding: URLEncoding.default)
-
-        networkManager.request(dataRequest) { (result: Result<RunningRecordsResponse, AFError>) in
-            switch result {
-            case .success(let data):
-                print("러닝 기록 조회: \(data)")
-                completion(data)
-            case .failure(let error):
-                print("\(error)")
-            }
-        }
+        return networkManager.request(
+            APIRequest(
+                path: path,
+                method: .get,
+                parameters: parameters,
+                encoding: URLEncoding.default
+            )
+        )
     }
     
     /// 러닝 상세 조회

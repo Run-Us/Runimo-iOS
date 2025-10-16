@@ -10,13 +10,10 @@ import SwiftUI
 struct PostCardList: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var sharedData: SharedData
-    @State private var runningSessionList: [RunningRecord] = []
+    @EnvironmentObject var runVM: RunningViewModel
     private let nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
     @State private var showDateSheet: Bool = false
-    @State private var page: Int = 0
-    @State private var totalPage: Int = 1
-    @State private var isLoading = false
-    
+
     var body: some View {
         ZStack {
             Color.primaryBG
@@ -25,10 +22,10 @@ struct PostCardList: View {
                 header()
                     .padding(.horizontal, 16)
                     .padding(.vertical, 24)
-                
+
                 ScrollView {
                     LazyVStack {
-                        ForEach(runningSessionList, id: \.id) { record in
+                        ForEach(runVM.runningList, id: \.id) { record in
                             postCardView(record)
                         }
                     }
@@ -39,15 +36,14 @@ struct PostCardList: View {
         }
         .navigationBarBackButtonHidden()
         .onAppear {
-            runningSessionList = []
-            page = 0
-            getRunningRecordsAPI()
+            // 데이터 초기화 후 첫 페이지 로드
+            runVM.resetRunningRecords()
+            runVM.getMyRunningRecords(page: 0, selectedDate: sharedData.selectedDateForSessionTab)
         }
         .onChange(of: sharedData.selectedDateForSessionTab, { _, _ in
-            // 기간 변경 후 데이터 초기화
-            runningSessionList = []
-            page = 0
-            getRunningRecordsAPI()
+            // 기간 변경 후 데이터 초기화 및 재로드
+            runVM.resetRunningRecords()
+            runVM.getMyRunningRecords(page: 0, selectedDate: sharedData.selectedDateForSessionTab)
         })
         .sheet(isPresented: $showDateSheet) {
             DateSheet(recordType: .monthly)
@@ -70,7 +66,7 @@ struct PostCardList: View {
                 Spacer()
             }
             .foregroundStyle(.primaryGray)
-            Text("\(nickname)님은 \(DateManager.shared.getMonth(date: sharedData.selectedDateForSessionTab))월달에 총 \(sharedData.totalRunningCount)번을 달리셨어요.")
+            Text("\(nickname)님은 \(DateManager.shared.getMonth(date: sharedData.selectedDateForSessionTab))월달에 총 \(runVM.totalRunningCount)번을 달리셨어요.")
                 .font(.body2_medium)
                 .foregroundStyle(.quaternaryGray)
         }
@@ -83,21 +79,10 @@ struct PostCardList: View {
                 .padding(.bottom, 14)
         }
         .onAppear {
-            if record.id == runningSessionList.last?.id && !isLoading && page+1 < totalPage {
-                page += 1
-                getRunningRecordsAPI()
-            }
-        }
-    }
-    
-    private func getRunningRecordsAPI() {
-        isLoading = true
-        RunningService.shared.getMyRunningRecords(page: page, selectedDate: sharedData.selectedDateForSessionTab) { result in
-            DispatchQueue.main.async {
-                totalPage = result.pagination.total_pages
-                sharedData.totalRunningCount = result.pagination.total_items
-                runningSessionList += result.items
-                isLoading = false
+            // 마지막 항목에 도달하면 다음 페이지 로드 (무한 스크롤)
+            if record.id == runVM.runningList.last?.id {
+                let nextPage = runVM.currentPage + 1
+                runVM.getMyRunningRecords(page: nextPage, selectedDate: sharedData.selectedDateForSessionTab)
             }
         }
     }
