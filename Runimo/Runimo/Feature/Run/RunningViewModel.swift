@@ -140,6 +140,23 @@ extension RunningViewModel {
             .store(in: &cancellables)
     }
     
+    /// 러닝 기록 수정
+    func editRunningRecords(runningId: String, title: String, description: String, imgURL: String, completion: @escaping () -> Void) {
+        RunningService.shared.patchRunningRecords(
+            runningId: runningId,
+            title: title,
+            description: description,
+            imgURL: imgURL
+        )
+        .sink(receiveCompletion: handleCompletion) { [weak self] statusCode in
+            if statusCode == 200 {
+                self?.completeRunningID = ""
+                completion()
+            }
+        }
+        .store(in: &cancellables)
+    }
+    
     // MARK: - Private Methods
     /// Comine 완료 이벤트 처리 메서드
     private func handleCompletion(_ completion: Subscribers.Completion<AFError>) {

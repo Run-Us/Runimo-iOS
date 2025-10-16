@@ -49,8 +49,8 @@ class RunningService: ObservableObject {
         )
     }
     
-    // 러닝 기록 수정 
-    func patchRunningRecords(runningId: String, title: String, description: String, imgURL: String, completion: @escaping (Bool) -> Void) {
+    /// 러닝 기록 수정
+    func patchRunningRecords(runningId: String, title: String, description: String, imgURL: String) -> AnyPublisher<Int, AFError> {
         let path = "/records/\(runningId)"
         
         let parameters: [String: Any] = [
@@ -59,14 +59,13 @@ class RunningService: ObservableObject {
             "img_url": imgURL
         ]
         
-        let dataRequest = APIRequest(path: path, method: .patch, parameters: parameters)
-        networkManager.getHTTPStatusCode(dataRequest) { result in
-            if result == 200 {
-                completion(true)
-            } else {
-                completion(false)
-            }
-        }
+        return networkManager.getHTTPStatusCode(
+            APIRequest(
+                path: path,
+                method: .patch,
+                parameters: parameters
+            )
+        )
     }
     
     /// 러닝 보상 획득
@@ -127,7 +126,7 @@ class RunningService: ObservableObject {
         }
     }
     
-    /// 러닝 상세 조회 
+    /// 러닝 상세 조회
     func getRunningDetail(runningId: String) -> AnyPublisher<RunningPostResponse, AFError> {
         let path = "/records/\(runningId)"
         

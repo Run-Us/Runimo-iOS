@@ -117,12 +117,13 @@ struct FinishRunningPage: View {
             return
         }
         
-        RunningService.shared.patchRunningRecords(runningId: runVM.completeRunningID, title: title, description: explanation, imgURL: "") { isSuccess in
-            if isSuccess {
-                runVM.completeRunningID = ""
+        runVM.editRunningRecords(
+            runningId: runVM.completeRunningID,
+            title: title,
+            description: explanation,
+            imgURL: "") {
                 navigation.goToRootPage()
             }
-        }
     }
 }
 
