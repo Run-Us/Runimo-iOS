@@ -11,6 +11,7 @@ struct FinishRunningPage: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var sharedData: SharedData
     @EnvironmentObject var mapVM: MapViewModel
+    @EnvironmentObject var runVM: RunningViewModel
     @State private var runningInfo: RunningInfo = RunningInfo()
     @State private var showRunningPostPage: Bool = false
     @State private var title: String = ""
@@ -116,9 +117,9 @@ struct FinishRunningPage: View {
             return
         }
         
-        RunningService.shared.patchRunningRecords(runningId: sharedData.completeRunningID, title: title, description: explanation, imgURL: "") { isSuccess in
+        RunningService.shared.patchRunningRecords(runningId: runVM.completeRunningID, title: title, description: explanation, imgURL: "") { isSuccess in
             if isSuccess {
-                sharedData.completeRunningID = ""
+                runVM.completeRunningID = ""
                 navigation.goToRootPage()
             }
         }

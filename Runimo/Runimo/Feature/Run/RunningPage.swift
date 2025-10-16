@@ -82,7 +82,9 @@ struct RunningPage: View {
                     // 끝내기
                     mapVM.stopRunning(runningType: runVM.runningType)
                     runVM.initRunVM()
-                    saveRunningAPI()
+                    runVM.completeRunning(result: mapVM.motionManager.runningResult) {
+                        navigation.path.append(RunningRewardPage.id)
+                    }
                 } else {
                     // 계속하기
                     mapVM.startUpdatingLocation()
@@ -103,18 +105,6 @@ struct RunningPage: View {
         }
     }
     
-    // 러닝 기록 저장
-    private func saveRunningAPI() {
-        RunningService.shared.saveRunningRecords(running: mapVM.motionManager.runningResult) { isSuccess, runningId in
-            if isSuccess {
-                sharedData.completeRunningID = runningId
-                RunningService.shared.getRunningReward(runningId: runningId) { data in
-                    sharedData.rewardData = (data.is_rewarded ? data.egg_type : "", data.love_point_amount)
-                    navigation.path.append(RunningRewardPage.id)
-                }
-            }
-        }
-    }
 }
 
 #Preview {

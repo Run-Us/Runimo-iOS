@@ -9,6 +9,7 @@ import Foundation
 import KeychainSwift
 import CoreLocation
 import Alamofire
+import Combine
 
 class RunningService: ObservableObject {
     static let shared = RunningService()
@@ -21,7 +22,8 @@ class RunningService: ObservableObject {
         self.networkManager = networkManager
     }
     
-    func saveRunningRecords(running: RunningResult, retrying: Bool = false, completion: @escaping (Bool, String) -> Void) {
+    /// 러닝 기록 저장
+    func saveRunningRecords(running: RunningResult) -> AnyPublisher<SaveRunningResponse, AFError> {
         let path = "\(baseUrl)/records"
         
         let parameters: [String: Any] = [
@@ -38,18 +40,13 @@ class RunningService: ObservableObject {
             }
         ]
         
-        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters)
-        
-        networkManager.request(dataRequest) { (result: Result<SaveRunningResponse, AFError>) in
-            switch result {
-            case .success(let data):
-                print("runningId: \(data.saved_id)")
-                completion(true, data.saved_id)
-            case .failure(let error):
-                print("❌ Request Failed: Request URL: \(path)\n\(error.localizedDescription)")
-            }
-        }
-        
+        return networkManager.request(
+            APIRequest(
+                path: path,
+                method: .post,
+                parameters: parameters
+            )
+        )
     }
     
     // 러닝 기록 수정 
@@ -72,25 +69,21 @@ class RunningService: ObservableObject {
         }
     }
     
-    // 러닝 보상 획득
-    func getRunningReward(runningId: String, completion: @escaping (RewardResponse) -> Void) {
+    /// 러닝 보상 획득
+    func getRunningReward(runningId: String) -> AnyPublisher<RewardResponse, AFError> {
         let path = "/rewards/runnings"
         
         let parameters: [String: Any] = [
             "record_id": runningId
         ]
         
-        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters)
-        
-        networkManager.request(dataRequest) { (result: Result<RewardResponse, AFError>) in
-            switch result {
-            case .success(let data):
-                print("러닝 보상 획득: \(data)")
-                completion(data)
-            case .failure(let error):
-                print("\(error)")
-            }
-        }
+        return networkManager.request(
+            APIRequest(
+                path: path,
+                method: .post,
+                parameters: parameters
+            )
+        )
     }
     
     func getMyRunningRecords(page: Int, selectedDate: Date, completion: @escaping (RunningRecordsResponse) -> Void) {

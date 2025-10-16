@@ -49,10 +49,6 @@ class SharedData: ObservableObject {
     @Published var selectedRunimoCode: String = ""
     @Published var mainRunimoCode: String = ""
     
-    // MARK: - 러닝 보상
-    @Published var rewardData: (egg: String, point: Int) = ("", 0)
-    @Published var completeRunningID: String = ""
-    
     init() { }
     
     func setTab(_ tab: Tab) {

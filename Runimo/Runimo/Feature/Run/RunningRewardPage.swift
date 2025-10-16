@@ -11,6 +11,7 @@ struct RunningRewardPage: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var sharedData: SharedData
     @EnvironmentObject var mapVM: MapViewModel
+    @EnvironmentObject var runVM: RunningViewModel
     
     var body: some View {
         ZStack {
@@ -29,10 +30,10 @@ struct RunningRewardPage: View {
                 .padding(.horizontal, 16)
                 
                 VStack(spacing: 12) {
-                    if !sharedData.rewardData.egg.isEmpty {
-                        rewardItem(image: "icon_egg", text: sharedData.rewardData.egg)
+                    if !runVM.rewardData.egg.isEmpty {
+                        rewardItem(image: "icon_egg", text: runVM.rewardData.egg)
                     }
-                    rewardItem(image: "icon_love", text: "\(sharedData.rewardData.point)개")
+                    rewardItem(image: "icon_love", text: "\(runVM.rewardData.point)개")
                 }
                 .padding(.horizontal, 16)
                 

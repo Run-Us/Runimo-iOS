@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+import Alamofire
 
 enum RunningType: String {
     case alone = "single"
@@ -16,6 +18,12 @@ class RunningViewModel: ObservableObject {
     @Published var selectedRunningTab: Int = 0  // single or group
     @Published var runningTab: Int = 0  // 러닝 진행 중 picker tab
     @Published var stopRunPopUpText: (title: String, subtitle: String, buttonText: String, cancelText: String) = ("", "", "", "")
+    
+    /// 완료한 러닝 ID
+    @Published var completeRunningID: String = ""
+    @Published var rewardData: (egg: String, point: Int) = ("", 0)
+    
+    private var cancellables: Set<AnyCancellable> = []
     
     func initRunVM() {
         runningTab = 0
@@ -81,4 +89,48 @@ class RunningViewModel: ObservableObject {
         }
     }
     
+}
+
+// MARK: - API
+extension RunningViewModel {
+    /// 러닝 완료: 저장 -> 보상
+    func completeRunning(result: RunningResult, completion: @escaping () -> Void) {
+        saveRunningRecords(result: result)
+            .flatMap { [weak self] response -> AnyPublisher<RewardResponse, AFError> in
+                guard let self = self else {
+                    return Fail(error: AFError.explicitlyCancelled)
+                        .eraseToAnyPublisher()
+                }
+                self.completeRunningID = response.saved_id
+                
+                return self.getRunningReward(runningID: response.saved_id)
+            }
+            .sink(receiveCompletion: handleCompletion) { [weak self] response in
+                self?.rewardData = (
+                    response.is_rewarded ? response.egg_type : "",
+                    response.love_point_amount
+                )
+                
+                completion()
+            }
+            .store(in: &cancellables)
+    }
+    
+    /// 러닝 기록 저장 API 호출
+    func saveRunningRecords(result: RunningResult) -> AnyPublisher<SaveRunningResponse, AFError> {
+        return RunningService.shared.saveRunningRecords(running: result)
+    }
+    
+    /// 러닝 완료 보상 얻기 API 호출
+    func getRunningReward(runningID: String) -> AnyPublisher<RewardResponse, AFError> {
+        return RunningService.shared.getRunningReward(runningId: runningID)
+    }
+    
+    // MARK: - Private Methods
+    /// Comine 완료 이벤트 처리 메서드
+    private func handleCompletion(_ completion: Subscribers.Completion<AFError>) {
+        if case .failure(let error) = completion {
+            print("❌ Error: \(error)")
+        }
+    }
 }
