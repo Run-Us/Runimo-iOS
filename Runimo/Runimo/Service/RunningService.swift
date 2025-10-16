@@ -110,22 +110,6 @@ class RunningService: ObservableObject {
         }
     }
     
-    func getRunningPostData(runningId: String, completion: @escaping (RunningPostResponse) -> Void) {
-        let path = "/records/\(runningId)"
-        
-        let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default)
-
-        networkManager.request(dataRequest) { (result: Result<RunningPostResponse, AFError>) in
-            switch result {
-            case .success(let data):
-                print("러닝 post 조회: \(data)")
-                completion(data)
-            case .failure(let error):
-                print("\(error)")
-            }
-        }
-    }
-    
     /// 러닝 상세 조회
     func getRunningDetail(runningId: String) -> AnyPublisher<RunningPostResponse, AFError> {
         let path = "/records/\(runningId)"
