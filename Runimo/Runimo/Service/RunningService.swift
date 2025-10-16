@@ -126,6 +126,19 @@ class RunningService: ObservableObject {
             }
         }
     }
+    
+    /// 러닝 상세 조회 
+    func getRunningDetail(runningId: String) -> AnyPublisher<RunningPostResponse, AFError> {
+        let path = "/records/\(runningId)"
+        
+        return networkManager.request(
+            APIRequest(
+                path: path,
+                method: .get,
+                encoding: URLEncoding.default
+            )
+        )
+    }
 }
 
 

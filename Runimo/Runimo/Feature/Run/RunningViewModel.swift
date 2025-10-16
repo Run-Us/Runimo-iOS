@@ -22,6 +22,9 @@ class RunningViewModel: ObservableObject {
     /// 완료한 러닝 ID
     @Published var completeRunningID: String = ""
     @Published var rewardData: (egg: String, point: Int) = ("", 0)
+    /// 러닝 상세 데이터
+    @Published var runningDetail: RunningPostResponse?
+    
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -124,6 +127,17 @@ extension RunningViewModel {
     /// 러닝 완료 보상 얻기 API 호출
     func getRunningReward(runningID: String) -> AnyPublisher<RewardResponse, AFError> {
         return RunningService.shared.getRunningReward(runningId: runningID)
+    }
+    
+    /// 러닝 상세 조회 API 호출
+    func getRunningDetail(runningId: String) {
+        RunningService.shared.getRunningDetail(runningId: runningId)
+            .sink(
+                receiveCompletion: handleCompletion,
+                receiveValue: { [weak self] result in
+                    self?.runningDetail = result
+            })
+            .store(in: &cancellables)
     }
     
     // MARK: - Private Methods

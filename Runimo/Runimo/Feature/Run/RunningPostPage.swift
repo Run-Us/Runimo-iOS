@@ -10,8 +10,8 @@ import SwiftUI
 struct RunningPostPage: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var mapVM: MapViewModel
+    @EnvironmentObject var runVM: RunningViewModel
     @Environment(\.dismiss) var dismiss
-    @State private var record: RunningPostResponse?
     let recordId: String
     
     var body: some View {
@@ -42,7 +42,7 @@ struct RunningPostPage: View {
                         VStack(alignment: .leading, spacing: 5) {
                             Text(UserDefaults.standard.string(forKey: "nickname") ?? "닉네임")
                                 .font(.title5_medium)
-                            Text(DateManager.shared.getPostDateString(dateString: record?.started_at ?? ""))
+                            Text(DateManager.shared.getPostDateString(dateString: runVM.runningDetail?.started_at ?? ""))
                                 .font(.caption_regular)
                                 .foregroundStyle(.quaternaryGray)
                         }
@@ -51,7 +51,7 @@ struct RunningPostPage: View {
                     // 완료한 러닝 정보
                     VStack(alignment: .leading, spacing: 16) {
                         VStack(alignment: .leading, spacing: 2) {
-                            Text(String(format: "%.2fkm", Double(record?.total_distance ?? 0)/1000))
+                            Text(String(format: "%.2fkm", Double(runVM.runningDetail?.total_distance ?? 0)/1000))
                                 .font(.title3_bold)
                             Text("거리")
                                 .font(.caption_regular)
@@ -60,7 +60,7 @@ struct RunningPostPage: View {
                         
                         HStack(spacing: 32) {
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(convertPaceToString(pace: record?.average_pace ?? 0))
+                                Text(convertPaceToString(pace: runVM.runningDetail?.average_pace ?? 0))
                                     .font(.title5_bold)
                                 Text("페이스")
                                     .font(.caption_regular)
@@ -68,7 +68,7 @@ struct RunningPostPage: View {
                             }
                             
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(convertTimeToString(seconds: record?.total_running_time ?? 0))
+                                Text(convertTimeToString(seconds: runVM.runningDetail?.total_running_time ?? 0))
                                     .font(.title5_bold)
                                 Text("시간")
                                     .font(.caption_regular)
@@ -79,7 +79,7 @@ struct RunningPostPage: View {
                     
                     
                     // contents
-                    if let description = record?.description {
+                    if let description = runVM.runningDetail?.description {
                         Text(description)
                             .font(.body2_medium)
                     }
@@ -106,16 +106,14 @@ struct RunningPostPage: View {
                             .resizable()
                             .frame(width: 14, height: 14)
                     }
-                    Text(record?.title ?? "")
+                    Text(runVM.runningDetail?.title ?? "")
                         .font(.body1_medium)
                 }
                 .foregroundStyle(.primaryGray)
             }
         }
         .onAppear {
-            RunningService.shared.getRunningPostData(runningId: recordId) { result in
-                record = result
-            }
+            runVM.getRunningDetail(runningId: recordId)
         }
     }
     
@@ -127,16 +125,16 @@ struct RunningPostPage: View {
                     .font(.title5_bold)
                     .foregroundStyle(.primaryGray)
                 Spacer()
-                Text("평균 페이스: \(convertPaceToString(pace: record?.average_pace ?? 0))")
+                Text("평균 페이스: \(convertPaceToString(pace: runVM.runningDetail?.average_pace ?? 0))")
             }
             .padding(.bottom, 20)
             
             // 가장 빠른 페이스
-            let minPacePerKM = record?.segment_pace_list
+            let minPacePerKM = runVM.runningDetail?.segment_pace_list
                     .map { Double($0.pace) / Double($0.distance) }
                     .min() ?? 1.0
             
-            ForEach(record?.segment_pace_list ?? [], id:\.distance) { item in
+            ForEach(runVM.runningDetail?.segment_pace_list ?? [], id:\.distance) { item in
                 // 막대 그래프를 그리기 위한 비율
                 let pacePerKM = Double(item.pace) / Double(item.distance)
                 let normalized = (minPacePerKM / pacePerKM) * 0.9
