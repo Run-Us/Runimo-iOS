@@ -116,7 +116,7 @@ struct FinishRunningPage: View {
             return
         }
         
-        RunningSessionService.shared.patchRunningRecords(runningId: sharedData.completeRunningID, title: title, description: explanation, imgURL: "") { isSuccess in
+        RunningService.shared.patchRunningRecords(runningId: sharedData.completeRunningID, title: title, description: explanation, imgURL: "") { isSuccess in
             if isSuccess {
                 sharedData.completeRunningID = ""
                 navigation.goToRootPage()

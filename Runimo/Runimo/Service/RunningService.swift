@@ -10,8 +10,8 @@ import KeychainSwift
 import CoreLocation
 import Alamofire
 
-class RunningSessionService: ObservableObject {
-    static let shared = RunningSessionService()
+class RunningService: ObservableObject {
+    static let shared = RunningService()
     let keychain = KeychainSwift()
     let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     

@@ -113,7 +113,7 @@ struct RunningPostPage: View {
             }
         }
         .onAppear {
-            RunningSessionService.shared.getRunningPostData(runningId: recordId) { result in
+            RunningService.shared.getRunningPostData(runningId: recordId) { result in
                 record = result
             }
         }

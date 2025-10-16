@@ -92,7 +92,7 @@ struct PostCardList: View {
     
     private func getRunningRecordsAPI() {
         isLoading = true
-        RunningSessionService.shared.getMyRunningRecords(page: page, selectedDate: sharedData.selectedDateForSessionTab) { result in
+        RunningService.shared.getMyRunningRecords(page: page, selectedDate: sharedData.selectedDateForSessionTab) { result in
             DispatchQueue.main.async {
                 totalPage = result.pagination.total_pages
                 sharedData.totalRunningCount = result.pagination.total_items

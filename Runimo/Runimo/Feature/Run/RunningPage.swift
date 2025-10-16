@@ -105,10 +105,10 @@ struct RunningPage: View {
     
     // 러닝 기록 저장
     private func saveRunningAPI() {
-        RunningSessionService.shared.saveRunningRecords(running: mapVM.motionManager.runningResult) { isSuccess, runningId in
+        RunningService.shared.saveRunningRecords(running: mapVM.motionManager.runningResult) { isSuccess, runningId in
             if isSuccess {
                 sharedData.completeRunningID = runningId
-                RunningSessionService.shared.getRunningReward(runningId: runningId) { data in
+                RunningService.shared.getRunningReward(runningId: runningId) { data in
                     sharedData.rewardData = (data.is_rewarded ? data.egg_type : "", data.love_point_amount)
                     navigation.path.append(RunningRewardPage.id)
                 }
