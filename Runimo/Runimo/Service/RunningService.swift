@@ -24,7 +24,7 @@ class RunningService: ObservableObject {
     
     /// 러닝 기록 저장
     func saveRunningRecords(running: RunningResult) -> AnyPublisher<SaveRunningResponse, AFError> {
-        let path = "\(baseUrl)/records"
+        let path = "/records"
         
         let parameters: [String: Any] = [
             "started_at": DateManager.shared.getString(date: running.started_at),
