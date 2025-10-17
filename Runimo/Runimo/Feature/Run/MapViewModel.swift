@@ -39,11 +39,15 @@ class MapViewModel: NSObject, ObservableObject {
         let status = locationManager.authorizationStatus
         print("📍 현재 위치 권한 상태: \(status.rawValue)")
 
-        if status == .notDetermined {
+        switch status {
+        case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
-        } else if status == .authorizedWhenInUse {
-            // 이미 WhenInUse 권한이 있으면 Always 요청
+
+        case .authorizedWhenInUse:
             locationManager.requestAlwaysAuthorization()
+
+        default:
+            break
         }
     }
 }
@@ -53,9 +57,21 @@ extension MapViewModel: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         let status = manager.authorizationStatus
         print("📍 위치 권한 상태 변경: \(status.rawValue)")
-        
-        if status == .authorizedWhenInUse {
+
+        switch status {
+        case .authorizedWhenInUse:
             manager.requestAlwaysAuthorization()
+
+        case .authorizedAlways:
+            if !UserDefaults.standard.bool(forKey: "hasRequestedMotionPermission") {
+                // 모션 권한 요청
+                motionManager.startUpdatesMotion()
+                motionManager.stopRunningMotionData()
+                UserDefaults.standard.set(true, forKey: "hasRequestedMotionPermission")
+            }
+
+        default:
+            break
         }
     }
 
