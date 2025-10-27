@@ -93,43 +93,6 @@ final class NetworkManager: NetworkManagerProtocol {
         }
     }
     
-    func request<T: Codable>(
-        _ request: APIRequest) -> AnyPublisher<T, AFError>
-    {
-        let url = "\(baseUrl)\(request.path)"
-        print("url: \(url)\nparameters: \(String(describing: request.parameters))\n")
-
-        return session.request(
-            url,
-            method: request.method,
-            parameters: request.parameters,
-            encoding: request.encoding,
-            headers: request.headers
-        )
-        .validate()  // ✅ 401 등의 에러를 감지하여 Interceptor 동작
-        .publishDecodable(type: BaseResponse<T>.self)
-        .value()
-        .tryMap({ response in
-            guard let data = response.payload else {
-                print("⚠️ Payload is nil. Code: \(response.code), Message: \(response.message)\n")
-                throw AFError.responseValidationFailed(reason: .dataFileNil)
-            }
-            
-            print(url, data, separator: "\n")
-            return data
-        })
-        .mapError({ error in
-            print("❌ Request Failed: \(url)\n\(error.localizedDescription)")
-            if let aferror = error as? AFError {
-                return aferror
-            } else {
-                return AFError.responseValidationFailed(reason: .customValidationFailed(error: error))
-            }
-        })
-        .receive(on: DispatchQueue.main)
-        .eraseToAnyPublisher()
-    }
-    
     /// async/await 방식의 request
     func request<T: Codable> (_ request: APIRequest) async throws -> T {
         let url = "\(baseUrl)\(request.path)"
