@@ -163,19 +163,22 @@ extension RunningViewModel {
     
     /// 러닝 기록 수정
     func editRunningRecords(runningId: String, title: String, description: String, imgURL: String, completion: @escaping () -> Void) {
-        RunningService.shared.patchRunningRecords(
-            runningId: runningId,
-            title: title,
-            description: description,
-            imgURL: imgURL
-        )
-        .sink(receiveCompletion: handleCompletion) { [weak self] statusCode in
-            if statusCode == 200 {
-                self?.completeRunningID = ""
+        
+        Task {
+            do {
+                try await runningService.patchRunningRecords(
+                    runningId: runningId,
+                    title: title,
+                    description: description,
+                    imgURL: imgURL
+                )
+                
+                self.completeRunningID = ""
                 completion()
+            } catch {
+                print("❌ Error: \(error)")
             }
         }
-        .store(in: &cancellables)
     }
     
     /// 러닝 기록 리스트 초기화

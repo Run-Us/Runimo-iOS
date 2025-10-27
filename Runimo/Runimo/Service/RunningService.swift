@@ -16,6 +16,7 @@ protocol RunningServiceProtocol {
     func getRunningReward(runningId: String) async throws -> RewardResponse
     func getMyRunningRecords(page: Int, selectedDate: Date) async throws -> RunningRecordsResponse
     func getRunningDetail(runningId: String) async throws -> RunningPostResponse
+    func patchRunningRecords(runningId: String, title: String, description: String, imgURL: String) async throws
 }
 
 class RunningService: RunningServiceProtocol {
@@ -56,7 +57,7 @@ class RunningService: RunningServiceProtocol {
     }
     
     /// 러닝 기록 수정
-    func patchRunningRecords(runningId: String, title: String, description: String, imgURL: String) -> AnyPublisher<Int, AFError> {
+    func patchRunningRecords(runningId: String, title: String, description: String, imgURL: String) async throws {
         let path = "/records/\(runningId)"
         
         let parameters: [String: Any] = [
@@ -65,7 +66,7 @@ class RunningService: RunningServiceProtocol {
             "img_url": imgURL
         ]
         
-        return networkManager.getHTTPStatusCode(
+        return try await networkManager.request(
             APIRequest(
                 path: path,
                 method: .patch,
