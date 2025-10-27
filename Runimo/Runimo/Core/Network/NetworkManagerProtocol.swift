@@ -16,4 +16,6 @@ protocol NetworkManagerProtocol: AnyObject {
     func refreshToken(completion: @escaping (Bool) -> Void)
     func getHTTPStatusCode(_ request: APIRequest) -> AnyPublisher<Int, AFError>
     func request<T: Codable>(_ request: APIRequest) -> AnyPublisher<T, AFError>
+    
+    func request<T: Codable>(_ request: APIRequest) async throws -> T
 }

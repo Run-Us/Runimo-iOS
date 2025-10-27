@@ -130,6 +130,29 @@ final class NetworkManager: NetworkManagerProtocol {
         .eraseToAnyPublisher()
     }
     
+    /// async/await 방식의 request
+    func request<T: Codable> (_ request: APIRequest) async throws -> T {
+        let url = "\(baseUrl)\(request.path)"
+        
+        let response: BaseResponse<T> = try await session.request(
+            url,
+            method: request.method,
+            parameters: request.parameters,
+            encoding: request.encoding,
+            headers: request.headers
+        )
+        .validate()
+        .serializingDecodable()
+        .value
+        
+        guard let payload = response.payload else {
+            print("⚠️ Payload is nil. Code: \(response.code), Message: \(response.message)\n")
+            throw AFError.responseValidationFailed(reason: .dataFileNil)
+        }
+        
+        return payload
+    }
+    
     func requestLoginError(_ request: APIRequest)
     {
         let url = "\(baseUrl)\(request.path)"
