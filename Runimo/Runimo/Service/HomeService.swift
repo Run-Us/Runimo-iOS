@@ -12,6 +12,9 @@ import Combine
 // MARK: - HomeServiceProtocol
 protocol HomeServiceProtocol {
     func getHome() async throws -> HomeItem
+    func getCurrentEgg() async throws -> HomeEggResponse
+    func giveLovePoint(eggId: Int, amount: Int) async throws -> PatchLovePointResponse
+    func getMyEggs() async throws -> GetMyEggs
 }
 
 class HomeService: HomeServiceProtocol {
@@ -36,9 +39,10 @@ class HomeService: HomeServiceProtocol {
     }
     
     /// 부화중인 알 조회
-    func getCurrentEgg() -> AnyPublisher<HomeEggResponse, AFError> {
+    func getCurrentEgg() async throws -> HomeEggResponse {
         let path = "/users/eggs/incubators"
-        return networkManager.request(
+        
+        return try await networkManager.request(
             APIRequest(
                 path: path,
                 method: .get,
@@ -48,14 +52,14 @@ class HomeService: HomeServiceProtocol {
     }
     
     /// 애정 주기
-    func giveLovePoint(eggId: Int, amount: Int) -> AnyPublisher<PatchLovePointResponse, AFError> {
+    func giveLovePoint(eggId: Int, amount: Int) async throws -> PatchLovePointResponse {
         let path = "/users/eggs/\(eggId)"
         
         let parameters: [String: Any] = [
             "love_point_amount": amount
         ]
         
-        return networkManager.request(
+        return try await networkManager.request(
             APIRequest(
                 path: path,
                 method: .patch,
@@ -65,10 +69,10 @@ class HomeService: HomeServiceProtocol {
     }
     
     /// 보유 중인 알 조회
-    func getMyEggs() -> AnyPublisher<GetMyEggs, AFError> {
+    func getMyEggs() async throws -> GetMyEggs {
         let path = "/users/eggs"
-        
-        return networkManager.request(
+
+        return try await networkManager.request(
             APIRequest(
                 path: path,
                 method: .get,
