@@ -96,6 +96,7 @@ final class NetworkManager: NetworkManagerProtocol {
     /// async/await 방식의 request
     func request<T: Codable> (_ request: APIRequest) async throws -> T {
         let url = "\(baseUrl)\(request.path)"
+        print("url: \(url)\nparameters: \(String(describing: request.parameters))\n")
         
         let response: BaseResponse<T> = try await session.request(
             url,
@@ -115,7 +116,24 @@ final class NetworkManager: NetworkManagerProtocol {
         
         return payload
     }
-    
+
+    /// async/await 방식의 request (Void 반환 - 상태 코드만 확인)
+    func request(_ request: APIRequest) async throws {
+        let url = "\(baseUrl)\(request.path)"
+        print("url: \(url)\nparameters: \(String(describing: request.parameters))\n")
+
+        _ = try await session.request(
+            url,
+            method: request.method,
+            parameters: request.parameters,
+            encoding: request.encoding,
+            headers: request.headers
+        )
+        .validate()  // 2xx가 아니면 에러 throw
+        .serializingData()
+        .value
+    }
+
     func requestLoginError(_ request: APIRequest)
     {
         let url = "\(baseUrl)\(request.path)"

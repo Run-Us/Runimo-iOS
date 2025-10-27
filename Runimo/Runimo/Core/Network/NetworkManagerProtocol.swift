@@ -15,6 +15,8 @@ protocol NetworkManagerProtocol: AnyObject {
     func requestLoginError(_ request: APIRequest)
     func refreshToken(completion: @escaping (Bool) -> Void)
     func getHTTPStatusCode(_ request: APIRequest) -> AnyPublisher<Int, AFError>
-    
+
+    // async/await 버전
     func request<T: Codable>(_ request: APIRequest) async throws -> T
+    func request(_ request: APIRequest) async throws  // Void 반환 (상태 코드만 확인)
 }
