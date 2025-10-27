@@ -10,7 +10,15 @@ import CoreLocation
 import Alamofire
 import Combine
 
-class RunningService: ObservableObject {
+// MARK: - RunningServiceProtocol
+protocol RunningServiceProtocol {
+    func saveRunningRecords(running: RunningResult) async throws -> SaveRunningResponse
+    func getRunningReward(runningId: String) async throws -> RewardResponse
+    func getMyRunningRecords(page: Int, selectedDate: Date) async throws -> RunningRecordsResponse
+    func getRunningDetail(runningId: String) async throws -> RunningPostResponse
+}
+
+class RunningService: RunningServiceProtocol {
     static let shared = RunningService()
     let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     
@@ -21,7 +29,7 @@ class RunningService: ObservableObject {
     }
     
     /// 러닝 기록 저장
-    func saveRunningRecords(running: RunningResult) -> AnyPublisher<SaveRunningResponse, AFError> {
+    func saveRunningRecords(running: RunningResult) async throws -> SaveRunningResponse {
         let path = "/records"
         
         let parameters: [String: Any] = [
@@ -38,7 +46,7 @@ class RunningService: ObservableObject {
             }
         ]
         
-        return networkManager.request(
+        return try await networkManager.request(
             APIRequest(
                 path: path,
                 method: .post,
@@ -67,14 +75,14 @@ class RunningService: ObservableObject {
     }
     
     /// 러닝 보상 획득
-    func getRunningReward(runningId: String) -> AnyPublisher<RewardResponse, AFError> {
+    func getRunningReward(runningId: String) async throws -> RewardResponse {
         let path = "/rewards/runnings"
         
         let parameters: [String: Any] = [
             "record_id": runningId
         ]
         
-        return networkManager.request(
+        return try await networkManager.request(
             APIRequest(
                 path: path,
                 method: .post,
@@ -83,7 +91,7 @@ class RunningService: ObservableObject {
         )
     }
     
-    func getMyRunningRecords(page: Int, selectedDate: Date) -> AnyPublisher<RunningRecordsResponse, AFError> {
+    func getMyRunningRecords(page: Int, selectedDate: Date) async throws -> RunningRecordsResponse {
         let path = "/records/me"
         
         let (startDate, endDate) = DateManager.shared.currentMonthFirstAndLastDateString(date: selectedDate)
@@ -95,7 +103,7 @@ class RunningService: ObservableObject {
             "endDate": endDate
         ]
         
-        return networkManager.request(
+        return try await networkManager.request(
             APIRequest(
                 path: path,
                 method: .get,
@@ -106,10 +114,10 @@ class RunningService: ObservableObject {
     }
     
     /// 러닝 상세 조회
-    func getRunningDetail(runningId: String) -> AnyPublisher<RunningPostResponse, AFError> {
+    func getRunningDetail(runningId: String) async throws -> RunningPostResponse {
         let path = "/records/\(runningId)"
         
-        return networkManager.request(
+        return try await networkManager.request(
             APIRequest(
                 path: path,
                 method: .get,

@@ -14,11 +14,12 @@ enum RunningType: String {
     case group = "multi"
 }
 
+@MainActor
 class RunningViewModel: ObservableObject {
     @Published var selectedRunningTab: Int = 0  // single or group
     @Published var runningTab: Int = 0  // 러닝 진행 중 picker tab
     @Published var stopRunPopUpText: (title: String, subtitle: String, buttonText: String, cancelText: String) = ("", "", "", "")
-    
+
     /// 완료한 러닝 ID
     @Published var completeRunningID: String = ""
     @Published var rewardData: (egg: String, point: Int) = ("", 0)
@@ -26,7 +27,7 @@ class RunningViewModel: ObservableObject {
     @Published var runningDetail: RunningPostResponse?
     /// 이번 달 달린 횟수
     @Published var totalRunningCount: Int = 0
-    
+
     // MARK: - 러닝 기록 리스트 관리
     /// 러닝 기록 리스트
     @Published var runningList: [RunningRecord] = []
@@ -36,8 +37,15 @@ class RunningViewModel: ObservableObject {
     @Published var totalPages: Int = 1
     /// 로딩상태
     @Published var isLoadingRecords: Bool = false
-    
+
     private var cancellables: Set<AnyCancellable> = []
+
+    // 의존성 주입
+    private let runningService: RunningServiceProtocol
+
+    init(runningService: RunningServiceProtocol = RunningService.shared) {
+        self.runningService = runningService
+    }
     
     func initRunVM() {
         runningTab = 0
@@ -109,46 +117,48 @@ class RunningViewModel: ObservableObject {
 extension RunningViewModel {
     /// 러닝 완료: 저장 -> 보상
     func completeRunning(result: RunningResult, completion: @escaping () -> Void) {
-        saveRunningRecords(result: result)
-            .flatMap { [weak self] response -> AnyPublisher<RewardResponse, AFError> in
-                guard let self = self else {
-                    return Fail(error: AFError.explicitlyCancelled)
-                        .eraseToAnyPublisher()
-                }
-                self.completeRunningID = response.saved_id
-                
-                return self.getRunningReward(runningID: response.saved_id)
-            }
-            .sink(receiveCompletion: handleCompletion) { [weak self] response in
-                self?.rewardData = (
-                    response.is_rewarded ? response.egg_type : "",
-                    response.love_point_amount
-                )
-                
+        Task {
+            do {
+                // 1. 러닝 기록 저장
+                let savedId = try await saveRunningRecords(result: result)
+
+                // 2. 보상 받기
+                try await getRunningReward(runningID: savedId)
+
                 completion()
+            } catch {
+                print("❌ Error: \(error)")
             }
-            .store(in: &cancellables)
+        }
     }
-    
+
     /// 러닝 기록 저장 API 호출
-    func saveRunningRecords(result: RunningResult) -> AnyPublisher<SaveRunningResponse, AFError> {
-        return RunningService.shared.saveRunningRecords(running: result)
+    func saveRunningRecords(result: RunningResult) async throws -> String {
+        let response = try await runningService.saveRunningRecords(running: result)
+        self.completeRunningID = response.saved_id
+        return response.saved_id
     }
-    
+
     /// 러닝 완료 보상 얻기 API 호출
-    func getRunningReward(runningID: String) -> AnyPublisher<RewardResponse, AFError> {
-        return RunningService.shared.getRunningReward(runningId: runningID)
+    func getRunningReward(runningID: String) async throws {
+        let response = try await runningService.getRunningReward(runningId: runningID)
+        self.rewardData = (
+            response.is_rewarded ? response.egg_type : "",
+            response.love_point_amount
+        )
     }
     
     /// 러닝 상세 조회 API 호출
     func getRunningDetail(runningId: String) {
-        RunningService.shared.getRunningDetail(runningId: runningId)
-            .sink(
-                receiveCompletion: handleCompletion,
-                receiveValue: { [weak self] result in
-                    self?.runningDetail = result
-            })
-            .store(in: &cancellables)
+        Task {
+            do {
+                let data = try await runningService.getRunningDetail(runningId: runningId)
+                
+                self.runningDetail = data
+            } catch {
+                print("❌ Error: \(error)")
+            }
+        }
     }
     
     /// 러닝 기록 수정
@@ -181,21 +191,25 @@ extension RunningViewModel {
         guard !isLoadingRecords, page < totalPages else { return }
 
         isLoadingRecords = true
-
-        RunningService.shared.getMyRunningRecords(page: page, selectedDate: selectedDate)
-            .sink(receiveCompletion: { [weak self] completion in
-                // 성공/실패 모두 로딩 상태 해제
-                self?.isLoadingRecords = false
-                self?.handleCompletion(completion)
-            }) { [weak self] response in
-                self?.totalRunningCount = response.pagination.total_items
-                self?.totalPages = response.pagination.total_pages
-                self?.currentPage = response.pagination.current_page
-
+        
+        Task {
+            do {
+                let response = try await runningService.getMyRunningRecords(page: page, selectedDate: selectedDate)
+                
+                self.totalRunningCount = response.pagination.total_items
+                self.totalPages = response.pagination.total_pages
+                self.currentPage = response.pagination.current_page
+                
                 // 기존 리스트에 새 데이터 추가
-                self?.runningList += response.items
+                self.runningList += response.items
+                
+                // 로딩 끝
+                self.isLoadingRecords = false
+            } catch {
+                self.isLoadingRecords = false
+                print("❌ Error: \(error)")
             }
-            .store(in: &cancellables)
+        }
     }
     
     // MARK: - Private Methods
