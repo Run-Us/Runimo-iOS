@@ -9,6 +9,7 @@ import Alamofire
 import Combine
 import Foundation
 
+@MainActor
 class HomeViewModel: ObservableObject {
     @Published var egg_love: (egg: Int, love: Int) = (0, 0)
     @Published var homeData: HomeItem?
@@ -26,17 +27,27 @@ class HomeViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
+    // 의존성 주입
+    private let homeService: HomeServiceProtocol
+    
+    init(homeService: HomeServiceProtocol = HomeService.shared) {
+        self.homeService = homeService
+    }
     
     // MARK: - API 호출 Methods
     /// 홈 데이터 조회 API 호출
     func fetchHome() {
-        HomeService.shared.getHome()
-            .sink(receiveCompletion: handleCompletion) { [weak self] homeItem in
-                self?.homeData = homeItem
-                self?.egg_love = (homeItem.user_info.total_egg_count, homeItem.user_info.love_point)
-                self?.isHomeDataLoaded = true
+        Task {
+            do {
+                let homeItem = try await homeService.getHome()
+                
+                self.homeData = homeItem
+                self.egg_love = (homeItem.user_info.total_egg_count, homeItem.user_info.love_point)
+                self.isHomeDataLoaded = true
+            } catch {
+                print("❌ Error: \(error)")
             }
-            .store(in: &cancellables)
+        }
     }
     
     /// 부화중인 알 조회 API 호출

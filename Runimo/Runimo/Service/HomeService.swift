@@ -9,7 +9,12 @@ import Alamofire
 import Foundation
 import Combine
 
-class HomeService {
+// MARK: - HomeServiceProtocol
+protocol HomeServiceProtocol {
+    func getHome() async throws -> HomeItem
+}
+
+class HomeService: HomeServiceProtocol {
     static let shared = HomeService()
     
     private let networkManager: NetworkManagerProtocol
@@ -18,12 +23,16 @@ class HomeService {
         self.networkManager = networkManager
     }
     
-    func getHome() -> AnyPublisher<HomeItem, AFError> {
+    func getHome() async throws -> HomeItem {
         let path = "/main"
         
-        let dataRequest = APIRequest(path: path, method: .get, encoding: URLEncoding.default)
-        
-        return networkManager.request(dataRequest)
+        return try await networkManager.request(
+            APIRequest(
+                path: path,
+                method: .get,
+                encoding: URLEncoding.default
+            )
+        )
     }
     
     /// 부화중인 알 조회
