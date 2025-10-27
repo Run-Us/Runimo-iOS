@@ -9,7 +9,13 @@ import Alamofire
 import Foundation
 import Combine
 
-class MyPageService {
+protocol MyPageServiceProtocol {
+    func getMyPage() async throws -> MyPage
+    func getWeeklyRunningRecords(startDate: String, endDate: String) async throws -> RunningRecordResponse
+    func getMonthlyRunningRecords(year: Int, month: Int) async throws -> RunningRecordResponse
+}
+
+class MyPageService: MyPageServiceProtocol {
     static let shared = MyPageService()
     let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")/users"
     
@@ -20,10 +26,10 @@ class MyPageService {
     }
     
     /// 마이페이지 메인 조회
-    func getMyPage() -> AnyPublisher<MyPage, AFError> {
+    func getMyPage() async throws -> MyPage {
         let path = "/users/me"
         
-        return networkManager.request(
+        return try await networkManager.request(
             APIRequest(
                 path: path,
                 method: .get,
@@ -33,7 +39,7 @@ class MyPageService {
     }
     
     /// 주간 통계 조회
-    func getWeeklyRunningRecords(startDate: String, endDate: String) -> AnyPublisher<RunningRecordResponse, AFError> {
+    func getWeeklyRunningRecords(startDate: String, endDate: String) async throws -> RunningRecordResponse {
         let path = "/records/stats/weekly"
         
         let parameters: [String: Any] = [
@@ -41,7 +47,7 @@ class MyPageService {
             "endDate": endDate
         ]
         
-        return networkManager.request(
+        return try await networkManager.request(
             APIRequest(
                 path: path,
                 method: .get,
@@ -52,7 +58,7 @@ class MyPageService {
     }
     
     /// 월간 통계 조회
-    func getMonthlyRunningRecords(year: Int, month: Int) -> AnyPublisher<RunningRecordResponse, AFError> {
+    func getMonthlyRunningRecords(year: Int, month: Int) async throws -> RunningRecordResponse {
         let path = "/records/stats/monthly"
         
         let parameters: [String: Any] = [
@@ -60,7 +66,7 @@ class MyPageService {
             "month": month
         ]
         
-        return networkManager.request(
+        return try await networkManager.request(
             APIRequest(
                 path: path,
                 method: .get,

@@ -7,12 +7,10 @@
 
 import Foundation
 import SwiftUI
-import Combine
-import Alamofire
 
 enum RecordType: String {
     case weekly, monthly
-    
+
     var calendarComponent: Calendar.Component {
         switch self {
         case .weekly: return .weekOfYear
@@ -21,6 +19,7 @@ enum RecordType: String {
     }
 }
 
+@MainActor
 class MyPageViewModel: ObservableObject {
     let dateManager = DateManager.shared
     @Published var selectedTab: Int = 0 {
@@ -28,7 +27,7 @@ class MyPageViewModel: ObservableObject {
             getGraphAPI()
         }
     }
-    
+
     @Published var showDateSheet: Bool = false
     @Published var user: MyPage
     @Published var graph: RunningGraph
@@ -36,10 +35,12 @@ class MyPageViewModel: ObservableObject {
     @Published var dailyStats: [DailyStats] = []
     @Published var weeklyGraphList: [Double] = Array(repeating: 0.0, count: 7)
     @Published var monthlyGraphList: [Double] = Array(repeating: 0.0, count: 30)
-    
-    private var cancellables = Set<AnyCancellable>()
-    
-    init() {
+
+    // 의존성 주입
+    private let myPageService: MyPageServiceProtocol
+
+    init(myPageService: MyPageServiceProtocol = MyPageService.shared) {
+        self.myPageService = myPageService
         user = MyPage(profile_image_url: nil, nickname: "", total_distance_in_meters: 0, latest_run_date_before: 0, latest_running_record_nullable: nil)
         graph = RunningGraph(total_count: 0, total_distance: 0, total_time: 0, distance_list: [])
         getGraphAPI()
@@ -57,60 +58,63 @@ class MyPageViewModel: ObservableObject {
 extension MyPageViewModel {
     /// 마이페이지 조회 API 호출
     func getMyPage() {
-        MyPageService.shared.getMyPage()
-            .sink(receiveCompletion: handleCompletion) { [weak self] data in
-                self?.user = data
+        Task {
+            do {
+                let data = try await myPageService.getMyPage()
+                self.user = data
                 if let profile = data.profile_image_url {
                     UserDefaults.standard.set(profile, forKey: "profileURL")
                 }
+            } catch {
+                print("❌ Error: \(error)")
             }
-            .store(in: &cancellables)
+        }
     }
     
     /// 주간 통계 API 호출
     private func getWeeklyRecords(start: Date, end: Date) {
-        MyPageService.shared.getWeeklyRunningRecords(
-            startDate: getDateString(date: start),
-            endDate: getDateString(date: end)
-        )
-        .sink(receiveCompletion: handleCompletion) { [weak self] data in
-            let simpleStat = data.simple_stat
-            self?.graph = RunningGraph(
-                total_count: simpleStat.total_running_count,
-                total_distance: simpleStat.total_distance_in_meters,
-                total_time: simpleStat.total_time_in_seconds,
-                distance_list: []
-            )
-            
-            self?.dailyStats = data.daily_stats
-            self?.setGraphData(startDate: start)
+        Task {
+            do {
+                let data = try await myPageService.getWeeklyRunningRecords(
+                    startDate: getDateString(date: start),
+                    endDate: getDateString(date: end)
+                )
+                
+                let simpleStat = data.simple_stat
+                self.graph = RunningGraph(
+                    total_count: simpleStat.total_running_count,
+                    total_distance: simpleStat.total_distance_in_meters,
+                    total_time: simpleStat.total_time_in_seconds,
+                    distance_list: []
+                )
+                
+                self.dailyStats = data.daily_stats
+                self.setGraphData(startDate: start)
+            } catch {
+                print("❌ Error: \(error)")
+            }
         }
-        .store(in: &cancellables)
     }
     
     /// 월간 통계 API 호출
     private func getYearlyRecords(year: Int, month: Int, startDate: Date) {
-        MyPageService.shared.getMonthlyRunningRecords(year: year, month: month)
-        .sink(receiveCompletion: handleCompletion) { [weak self] data in
-            let simpleStat = data.simple_stat
-            self?.graph = RunningGraph(
-                total_count: simpleStat.total_running_count,
-                total_distance: simpleStat.total_distance_in_meters,
-                total_time: simpleStat.total_time_in_seconds,
-                distance_list: []
-            )
-            
-            self?.dailyStats = data.daily_stats
-            self?.setGraphData(startDate: startDate)
-        }
-        .store(in: &cancellables)
-    }
-    
-    // MARK: - Private Methods
-    /// Comine 완료 이벤트 처리 메서드
-    private func handleCompletion(_ completion: Subscribers.Completion<AFError>) {
-        if case .failure(let error) = completion {
-            print("❌ Error: \(error)")
+        Task {
+            do {
+                let data = try await myPageService.getMonthlyRunningRecords(year: year, month: month)
+                
+                let simpleStat = data.simple_stat
+                self.graph = RunningGraph(
+                    total_count: simpleStat.total_running_count,
+                    total_distance: simpleStat.total_distance_in_meters,
+                    total_time: simpleStat.total_time_in_seconds,
+                    distance_list: []
+                )
+                
+                self.dailyStats = data.daily_stats
+                self.setGraphData(startDate: startDate)
+            } catch {
+                print("❌ Error: \(error)")
+            }
         }
     }
 }
