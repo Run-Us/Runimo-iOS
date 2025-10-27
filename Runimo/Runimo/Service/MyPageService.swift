@@ -7,12 +7,10 @@
 
 import Alamofire
 import Foundation
-import KeychainSwift
 import Combine
 
 class MyPageService {
     static let shared = MyPageService()
-    let keychain = KeychainSwift()
     let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")/users"
     
     private let networkManager: NetworkManagerProtocol

@@ -6,14 +6,12 @@
 //
 
 import Foundation
-import KeychainSwift
 import CoreLocation
 import Alamofire
 import Combine
 
 class RunningService: ObservableObject {
     static let shared = RunningService()
-    let keychain = KeychainSwift()
     let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     
     private let networkManager: NetworkManagerProtocol

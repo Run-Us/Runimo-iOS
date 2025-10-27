@@ -7,12 +7,10 @@
 
 import Alamofire
 import Foundation
-import KeychainSwift
 import Combine
 
 class HomeService {
     static let shared = HomeService()
-    let keychain = KeychainSwift()
     
     private let networkManager: NetworkManagerProtocol
     

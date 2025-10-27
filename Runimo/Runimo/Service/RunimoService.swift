@@ -7,11 +7,9 @@
 
 import Alamofire
 import Foundation
-import KeychainSwift
 
 class RunimoService {
     static let shared = RunimoService()
-    private let keychain = KeychainSwift()
     
     private let networkManager: NetworkManagerProtocol
     
