@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import Combine
-import Alamofire
 
 enum RunningType: String {
     case alone = "single"
@@ -37,8 +35,6 @@ class RunningViewModel: ObservableObject {
     @Published var totalPages: Int = 1
     /// 로딩상태
     @Published var isLoadingRecords: Bool = false
-
-    private var cancellables: Set<AnyCancellable> = []
 
     // 의존성 주입
     private let runningService: RunningServiceProtocol
@@ -212,14 +208,6 @@ extension RunningViewModel {
                 self.isLoadingRecords = false
                 print("❌ Error: \(error)")
             }
-        }
-    }
-    
-    // MARK: - Private Methods
-    /// Comine 완료 이벤트 처리 메서드
-    private func handleCompletion(_ completion: Subscribers.Completion<AFError>) {
-        if case .failure(let error) = completion {
-            print("❌ Error: \(error)")
         }
     }
 }
