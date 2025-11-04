@@ -72,7 +72,7 @@ struct HomeTab: View {
                         Text("달린 거리")
                             .font(.caption_regular)
                             .foregroundStyle(.quaternaryGray)
-                        Text(String(format: "%.2f km", Double(homeVM.homeData?.main_runimo_stat_nullable?.total_distance_in_meters ?? 0)/1000))
+                        Text((homeVM.homeData?.main_runimo_stat_nullable?.total_distance_in_meters ?? 0).toDistanceString())
                             .font(.title5_bold)
                             .foregroundStyle(.primaryGray)
                             .minimumScaleFactor(0.8)

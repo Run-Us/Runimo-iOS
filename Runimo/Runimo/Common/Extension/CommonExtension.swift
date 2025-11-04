@@ -17,13 +17,6 @@ class CommonExtension {
         return String(num)
     }
     
-    static func formatIntToKM(num: Int) -> String {
-        if num >= 1000 {
-            return String(format: "%.2fkm", Double(num)/1000)
-        }
-        return String(num) + "m"
-    }
-    
     static func triggerHaptic() {
         let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
         feedbackGenerator.prepare()

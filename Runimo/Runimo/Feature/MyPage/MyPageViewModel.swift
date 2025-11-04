@@ -122,7 +122,7 @@ extension MyPageViewModel {
 extension MyPageViewModel {
     // 누적 거리
     func getTotalDistance() -> String {
-        return String(format: "%.2fkm", Double(user.total_distance_in_meters)/1000)
+        return user.total_distance_in_meters.toDistanceString()
     }
     
     // 최근 러닝
@@ -179,12 +179,11 @@ extension MyPageViewModel {
     
     // 통계 (화면 표시용)
     func getGraphData() {
-        let distance = Double(graph.total_distance)/1000
         let maxYLength = ceil(Double(graph.distance_list.max() ?? 0)/1000)
         
         graphDisplay = (
             count: graph.total_count,
-            distance: String(format: "%.2fkm", distance),
+            distance: graph.total_distance.toDistanceString(),
             time: convertTimeToString(seconds: graph.total_time),
             maxYLength: maxYLength > 0 ? maxYLength : 6.0
         )

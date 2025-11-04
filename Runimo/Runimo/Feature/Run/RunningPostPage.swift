@@ -51,7 +51,7 @@ struct RunningPostPage: View {
                     // 완료한 러닝 정보
                     VStack(alignment: .leading, spacing: 16) {
                         VStack(alignment: .leading, spacing: 2) {
-                            Text(String(format: "%.2fkm", Double(runVM.runningDetail?.total_distance ?? 0)/1000))
+                            Text((runVM.runningDetail?.total_distance ?? 0).toDistanceString())
                                 .font(.title3_bold)
                             Text("거리")
                                 .font(.caption_regular)

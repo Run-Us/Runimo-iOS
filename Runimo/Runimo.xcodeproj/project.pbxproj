@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		230289462EBA5FF8000C38F2 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230289452EBA5FF8000C38F2 /* Int+Extension.swift */; };
 		230314E52C88851100B299D5 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230314E42C88851100B299D5 /* FontExtension.swift */; };
 		230314E92C88A48D00B299D5 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230314E82C88A48D00B299D5 /* LoginPage.swift */; };
 		230314EF2C89920100B299D5 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230314EE2C89920100B299D5 /* AuthViewModel.swift */; };
@@ -103,6 +104,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		230289452EBA5FF8000C38F2 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		230314E42C88851100B299D5 /* FontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		230314E82C88A48D00B299D5 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		230314EE2C89920100B299D5 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 			isa = PBXGroup;
 			children = (
 				230BC7DA2D9D4DED005CD24B /* SharedData.swift */,
+				230289452EBA5FF8000C38F2 /* Int+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -665,6 +668,7 @@
 				233831032CC7C4B40075E73A /* RunningPostPage.swift in Sources */,
 				237B430E2C8F0193002163B9 /* MapPage.swift in Sources */,
 				236343142C917B3E00336D67 /* MapViewModel.swift in Sources */,
+				230289462EBA5FF8000C38F2 /* Int+Extension.swift in Sources */,
 				238E78F22C83147200D04F58 /* RunimoApp.swift in Sources */,
 				23C0A7F32DACC9A4005283DA /* NavigationManager.swift in Sources */,
 				2355F66C2C9E9CE700A65108 /* MotionManager.swift in Sources */,

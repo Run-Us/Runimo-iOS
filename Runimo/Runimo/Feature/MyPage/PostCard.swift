@@ -35,7 +35,7 @@ struct PostCard: View {
                 Text(runningRecord.title)
                     .font(.title5_bold)
                 HStack(spacing: 20) {
-                    detailInfo(title: "거리", contents: String(format: "%.2fkm", Double(runningRecord.distance_in_meters)/Double(1000)))
+                    detailInfo(title: "거리", contents: runningRecord.distance_in_meters.toDistanceString())
                     detailInfo(title: "시간", contents: formattingDuration(seconds: runningRecord.duration_in_seconds))
                     detailInfo(title: "페이스", contents: convertPaceToString(pace: runningRecord.average_pace_in_miliseconds))
                 }

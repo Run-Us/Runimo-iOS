@@ -124,7 +124,7 @@ extension SharedData {
         if let notFixedData = getSelectedCharacterData(),
                   let fixedData = getFixedCharacterData()
         {
-            characterPopUpData = CharacterPopUpItem(id: notFixedData.id, code: fixedData.code, title: fixedData.name, subtitle: fixedData.description, imageURL: fixedData.img_url, description: "러닝: \(notFixedData.total_run_count), 달린 거리: \(String(format: "%.2fkm", Double(notFixedData.total_distance_in_meters)/1000))")
+            characterPopUpData = CharacterPopUpItem(id: notFixedData.id, code: fixedData.code, title: fixedData.name, subtitle: fixedData.description, imageURL: fixedData.img_url, description: "러닝: \(notFixedData.total_run_count), 달린 거리: \(notFixedData.total_distance_in_meters.toDistanceString())")
         }
     }
     
