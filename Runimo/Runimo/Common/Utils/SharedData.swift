@@ -18,7 +18,6 @@ class SharedData: ObservableObject {
     // MARK: - 1. 홈 탭
     @Published var showEggSheet: Bool = false
     @Published var isHatchable: Bool = false
-    @Published var updateHomeView: Bool = false
     
     // 튜토리얼
     @Published var showTutorial1Sheet: Bool = false

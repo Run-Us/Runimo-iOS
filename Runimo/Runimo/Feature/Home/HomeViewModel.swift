@@ -22,6 +22,9 @@ class HomeViewModel: ObservableObject {
 
     /// 보유 중인 알
     @Published var myEggs: [EggItem] = []
+    
+    /// 홈 화면 업데이트 flag
+    @Published var updateHomeFlag: Bool = false
 
     // 의존성 주입
     private let homeService: HomeServiceProtocol
@@ -96,6 +99,42 @@ class HomeViewModel: ObservableObject {
             do {
                 let data = try await homeService.getMyEggs()
                 self.myEggs = data.items
+            } catch {
+                print("❌ Error: \(error)")
+            }
+        }
+    }
+    
+    /// 알 등록 API 호출 
+    func registerEgg(eggId: Int) {
+        Task {
+            do {
+                let _ = try await homeService.postEgg(eggId: eggId)
+                self.updateHomeFlag.toggle()
+            } catch {
+                print("❌ Error: \(error)")
+            }
+        }
+    }
+    
+    /// 알 부화 API 호출
+    func hatchEgg(eggId: Int, completion: @escaping (HatchEggResponse) -> Void) {
+        Task {
+            do {
+                let data = try await homeService.hatchEgg(eggId: eggId)
+                completion(data)
+            } catch {
+                print("❌ Error: \(error)")
+            }
+        }
+    }
+    
+    /// 대표 러니모 설정 API 호출
+    func setMainRunimo(runimoId: Int, completion: @escaping () -> Void) {
+        Task {
+            do {
+                try await homeService.setMainRunimo(runimoId: runimoId)
+                self.updateHomeFlag.toggle()
             } catch {
                 print("❌ Error: \(error)")
             }

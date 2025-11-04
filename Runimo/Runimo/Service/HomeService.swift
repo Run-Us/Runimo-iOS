@@ -15,6 +15,9 @@ protocol HomeServiceProtocol {
     func getCurrentEgg() async throws -> HomeEggResponse
     func giveLovePoint(eggId: Int, amount: Int) async throws -> PatchLovePointResponse
     func getMyEggs() async throws -> GetMyEggs
+    func postEgg(eggId: Int) async throws -> PostEggResponse
+    func hatchEgg(eggId: Int) async throws -> HatchEggResponse
+    func setMainRunimo(runimoId: Int) async throws
 }
 
 class HomeService: HomeServiceProtocol {
@@ -81,57 +84,44 @@ class HomeService: HomeServiceProtocol {
         )
     }
     
-    // 알 등록
-    func postEgg(egg_id: Int, completion: @escaping () -> Void) {
+    /// 알 등록
+    func postEgg(eggId: Int) async throws -> PostEggResponse {
         let path = "/users/eggs"
         
         let parameters: [String: Any] = [
-            "item_id": egg_id
+            "item_id": eggId
         ]
         
-        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters)
-        
-        networkManager.request(dataRequest) { (result: Result<PostEggResponse, AFError>) in
-            switch result {
-            case .success(let data):
-                print("\(data)")
-                completion()
-            case .failure(let error):
-                print("\(error)")
-            }
-        }
+        return try await networkManager.request(
+            APIRequest(
+                path: path,
+                method: .post,
+                parameters: parameters
+            )
+        )
     }
     
-    // 알 부화
-    func hatchEgg(eggId: Int, completion: @escaping (HatchEggResponse) -> Void) {
+    /// 알 부화
+    func hatchEgg(eggId: Int) async throws -> HatchEggResponse {
         let path = "/incubating-eggs/\(eggId)/hatch"
         
-        let dataRequest = APIRequest(path: path, method: .post)
-        
-        networkManager.request(dataRequest) { (result: Result<HatchEggResponse, AFError>) in
-            switch result {
-            case .success(let data):
-                print("\(data)")
-                completion(data)
-            case .failure(let error):
-                print("\(error)")
-            }
-        }
+        return try await networkManager.request(
+            APIRequest(
+                path: path,
+                method: .post
+            )
+        )
     }
     
-    func setMainRunimo(runimoId: Int, completion: @escaping () -> Void) {
+    /// 대표 러니모 설정
+    func setMainRunimo(runimoId: Int) async throws {
         let path = "/runimos/\(runimoId)/main"
         
-        let dataRequest = APIRequest(path: path, method: .patch)
-        
-        networkManager.request(dataRequest) { (result: Result<RunimoIdResponse, AFError>) in
-            switch result {
-            case .success(let data):
-                print("\(data)")
-                completion()
-            case .failure(let error):
-                print("\(error)")
-            }
-        }
+        return try await networkManager.request(
+            APIRequest(
+                path: path,
+                method: .patch
+            )
+        )
     }
 }

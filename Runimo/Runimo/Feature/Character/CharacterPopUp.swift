@@ -10,6 +10,7 @@ import Kingfisher
 
 struct CharacterPopUp: ViewModifier {
     @EnvironmentObject var sharedData: SharedData
+    @EnvironmentObject var homeVM: HomeViewModel
     @Binding var isPresented: Bool
     var character: CharacterPopUpItem
     var isHatching: Bool = false
@@ -119,8 +120,7 @@ struct CharacterPopUp: ViewModifier {
     
     // 대표 러니모 설정
     private func setMainRunimoAPI() {
-        HomeService.shared.setMainRunimo(runimoId: character.id) {
-            sharedData.updateHomeView.toggle()
+        homeVM.setMainRunimo(runimoId: character.id) {
             sharedData.updateCharacterView.toggle()
         }
     }

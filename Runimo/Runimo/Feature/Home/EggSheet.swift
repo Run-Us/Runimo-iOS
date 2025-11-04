@@ -22,7 +22,7 @@ struct EggSheet: View {
                 ForEach(homeVM.myEggs, id: \.item_id) { egg in
                     Button {
                         sharedData.showEggSheet = false
-                        registerEggAPI(eggId: egg.item_id)
+                        homeVM.registerEgg(eggId: egg.item_id)
                     } label: {
                         eggCell(egg: egg)
                     }
@@ -54,12 +54,6 @@ struct EggSheet: View {
             Spacer()
         }
         .padding(.vertical, 10)
-    }
-    
-    private func registerEggAPI(eggId: Int) {
-        HomeService.shared.postEgg(egg_id: eggId) { 
-            sharedData.updateHomeView.toggle()
-        }
     }
 }
 

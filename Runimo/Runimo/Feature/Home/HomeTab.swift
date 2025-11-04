@@ -32,7 +32,7 @@ struct HomeTab: View {
             homeVM.fetchHome()
             homeVM.fetchCurrentEgg()
         }
-        .onChange(of: sharedData.updateHomeView) { _, _ in
+        .onChange(of: homeVM.updateHomeFlag) { _, _ in
             homeVM.fetchHome()
             homeVM.fetchCurrentEgg()
         }
@@ -209,14 +209,14 @@ struct HomeTab: View {
     }
     
     private func hatchEggAPI(eggId: Int) {
-        HomeService.shared.hatchEgg(eggId: eggId) { data in
+        homeVM.hatchEgg(eggId: eggId) { data in
             sharedData.currentHatchedEgg = data
             sharedData.isHatchable = true
             
             // 부화 로띠
             sharedData.hatchEggFlag = true
             Task {
-                try? await Task.sleep(nanoseconds: 3 * 1_000_000_000)
+                try? await Task.sleep(for: .seconds(3))
                 sharedData.hatchEggFlag = false
                 
                 // 캐릭터 팝업

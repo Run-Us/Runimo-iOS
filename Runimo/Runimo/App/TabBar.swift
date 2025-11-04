@@ -251,9 +251,7 @@ struct TabBar: View {
                     sharedData.isSignUpComplete = false
                     showSignUpCompletePopUp = false
                     
-                    HomeService.shared.postEgg(egg_id: sharedData.firstEgg.id) {
-                        sharedData.updateHomeView.toggle()
-                    }
+                    homeVM.registerEgg(eggId: sharedData.firstEgg.id)
                 } label: {
                     Text("알 등록하기")
                         .font(.body1_bold)
