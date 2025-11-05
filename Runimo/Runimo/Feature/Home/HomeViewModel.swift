@@ -44,7 +44,7 @@ class HomeViewModel: ObservableObject {
                 self.egg_love = (homeItem.user_info.total_egg_count, homeItem.user_info.love_point)
                 self.isHomeDataLoaded = true
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }
@@ -68,7 +68,7 @@ class HomeViewModel: ObservableObject {
                 self.eggSource = .asset(name: lottieName, mode: .loop)
                 self.isHomeEggDataLoaded = true
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }
@@ -88,7 +88,7 @@ class HomeViewModel: ObservableObject {
                 self.fetchHome()
                 self.fetchCurrentEgg()
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }
@@ -100,7 +100,7 @@ class HomeViewModel: ObservableObject {
                 let data = try await homeService.getMyEggs()
                 self.myEggs = data.items
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }
@@ -124,7 +124,7 @@ class HomeViewModel: ObservableObject {
                 let data = try await homeService.hatchEgg(eggId: eggId)
                 completion(data)
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }
@@ -136,7 +136,7 @@ class HomeViewModel: ObservableObject {
                 try await homeService.setMainRunimo(runimoId: runimoId)
                 self.updateHomeFlag.toggle()
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }

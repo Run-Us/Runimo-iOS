@@ -66,7 +66,7 @@ extension MyPageViewModel {
                     UserDefaults.standard.set(profile, forKey: "profileURL")
                 }
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }
@@ -91,7 +91,7 @@ extension MyPageViewModel {
                 self.dailyStats = data.daily_stats
                 self.setGraphData(startDate: start)
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }
@@ -113,7 +113,7 @@ extension MyPageViewModel {
                 self.dailyStats = data.daily_stats
                 self.setGraphData(startDate: startDate)
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }

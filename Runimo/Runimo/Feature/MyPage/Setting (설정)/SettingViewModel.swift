@@ -24,7 +24,7 @@ class SettingViewModel: ObservableObject {
     /// Comine 완료 이벤트 처리 메서드
     private func handleCompletion(_ completion: Subscribers.Completion<AFError>) {
         if case .failure(let error) = completion {
-            print("❌ Error: \(error)")
+            handleError(error)
         }
     }
 }

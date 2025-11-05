@@ -123,7 +123,7 @@ extension RunningViewModel {
 
                 completion()
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }
@@ -152,7 +152,7 @@ extension RunningViewModel {
                 
                 self.runningDetail = data
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }
@@ -172,7 +172,7 @@ extension RunningViewModel {
                 self.completeRunningID = ""
                 completion()
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }
@@ -206,7 +206,7 @@ extension RunningViewModel {
                 self.isLoadingRecords = false
             } catch {
                 self.isLoadingRecords = false
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }

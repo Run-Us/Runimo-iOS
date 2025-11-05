@@ -24,7 +24,7 @@ class CharacterViewModel: ObservableObject {
                 let data = try await runimoService.getAllRunimos()
                 completion(data)
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }
@@ -36,7 +36,7 @@ class CharacterViewModel: ObservableObject {
                 let data = try await runimoService.getMyRunimo()
                 completion(data)
             } catch {
-                print("❌ Error: \(error)")
+                handleError(error)
             }
         }
     }
