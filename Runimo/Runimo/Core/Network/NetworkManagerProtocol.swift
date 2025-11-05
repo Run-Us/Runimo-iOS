@@ -14,7 +14,6 @@ protocol NetworkManagerProtocol: AnyObject {
     func request<T: Codable>(_ request: APIRequest, completion: @escaping (Result<T, AFError>) -> Void)
     func requestLoginError(_ request: APIRequest)
     func refreshToken(completion: @escaping (Bool) -> Void)
-    func getHTTPStatusCode(_ request: APIRequest) -> AnyPublisher<Int, AFError>
 
     // async/await 버전
     func request<T: Codable>(_ request: APIRequest) async throws -> T

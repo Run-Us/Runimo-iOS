@@ -39,34 +39,6 @@ final class NetworkManager: NetworkManagerProtocol {
             }
     }
     
-    func getHTTPStatusCode(_ request: APIRequest) -> AnyPublisher<Int, AFError> {
-        let url = "\(baseUrl)\(request.path)"
-        
-        return session.request(
-            url,
-            method: request.method,
-            parameters: request.parameters,
-            encoding: request.encoding,
-            headers: request.headers
-        )
-        .publishUnserialized()
-        .tryMap({ data in
-            guard let statusCode = data.response?.statusCode else {
-                throw AFError.responseSerializationFailed(reason: .inputDataNilOrZeroLength)
-            }
-            print("Request URL: \(url)\n📡 Status Code: \(statusCode)")
-            return statusCode
-        })
-        .mapError({ error in
-            if let aferror = error as? AFError {
-                return aferror
-            }
-            return AFError.sessionTaskFailed(error: error)
-        })
-        .receive(on: DispatchQueue.main)
-        .eraseToAnyPublisher()
-    }
-    
     // 요청
     func request<T: Codable>(
         _ request: APIRequest,
