@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		230289462EBA5FF8000C38F2 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230289452EBA5FF8000C38F2 /* Int+Extension.swift */; };
 		230289482EBB17C5000C38F2 /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230289472EBB17C5000C38F2 /* CharacterViewModel.swift */; };
+		2302894C2EBB2801000C38F2 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2302894B2EBB2801000C38F2 /* Logger.swift */; };
 		230314E52C88851100B299D5 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230314E42C88851100B299D5 /* FontExtension.swift */; };
 		230314E92C88A48D00B299D5 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230314E82C88A48D00B299D5 /* LoginPage.swift */; };
 		230314EF2C89920100B299D5 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230314EE2C89920100B299D5 /* AuthViewModel.swift */; };
@@ -107,6 +108,7 @@
 /* Begin PBXFileReference section */
 		230289452EBA5FF8000C38F2 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		230289472EBB17C5000C38F2 /* CharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModel.swift; sourceTree = "<group>"; };
+		2302894B2EBB2801000C38F2 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		230314E42C88851100B299D5 /* FontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		230314E82C88A48D00B299D5 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		230314EE2C89920100B299D5 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 			children = (
 				230BC7DA2D9D4DED005CD24B /* SharedData.swift */,
 				230289452EBA5FF8000C38F2 /* Int+Extension.swift */,
+				2302894B2EBB2801000C38F2 /* Logger.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -659,6 +662,7 @@
 				2347D9AE2CD34101003776BC /* MyGraph.swift in Sources */,
 				886CA2A52CEC547600A8E1A8 /* BaseResponse.swift in Sources */,
 				236FC1E72E144CCC00F3F321 /* Tutorial2Sheet.swift in Sources */,
+				2302894C2EBB2801000C38F2 /* Logger.swift in Sources */,
 				2347D9AC2CD25927003776BC /* RecordCard.swift in Sources */,
 				236FC1E52E1443DC00F3F321 /* Tutorial1Sheet.swift in Sources */,
 				237CEF432D941E3C002D9C86 /* CharacterPopUp.swift in Sources */,
