@@ -21,7 +21,6 @@ protocol RunningServiceProtocol {
 
 class RunningService: RunningServiceProtocol {
     static let shared = RunningService()
-    let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
     
     private let networkManager: NetworkManagerProtocol
     

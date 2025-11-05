@@ -19,7 +19,6 @@ protocol MyPageServiceProtocol {
 
 class MyPageService: MyPageServiceProtocol {
     static let shared = MyPageService()
-    let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")/users"
     
     private let networkManager: NetworkManagerProtocol
     
