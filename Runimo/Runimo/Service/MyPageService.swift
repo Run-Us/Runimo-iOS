@@ -13,6 +13,8 @@ protocol MyPageServiceProtocol {
     func getMyPage() async throws -> MyPage
     func getWeeklyRunningRecords(startDate: String, endDate: String) async throws -> RunningRecordResponse
     func getMonthlyRunningRecords(year: Int, month: Int) async throws -> RunningRecordResponse
+    func withdrawUser(reason: String, inputText: String) async throws
+    func sendFeedback(rate: Int, contents: String) async throws
 }
 
 class MyPageService: MyPageServiceProtocol {
@@ -76,45 +78,47 @@ class MyPageService: MyPageServiceProtocol {
         )
     }
     
-    // 탈퇴하기
-    func withdrawUser(reason: String, inputText: String, completion: @escaping (Bool) -> Void) {
+    /// 탈퇴하기
+    func withdrawUser(reason: String, inputText: String) async throws {
         let path = "/users"
-        
+
         let parameters: [String: Any] = [
             "withdraw_reason": reason,
             "reason_detail": inputText
         ]
-        
-        let dataRequest = APIRequest(path: path, method: .delete, parameters: parameters)
-        
-        networkManager.getHTTPStatusCode(dataRequest) { code in
-            if code == 204 {
-                print("탈퇴 성공")
-                completion(true)
-            } else {
-                completion(false)
-            }
-        }
-        
+
+        // NetworkManager의 Void 반환 request 사용
+        // 204 No Content가 성공 응답이며, validate()가 2xx를 체크함
+        try await networkManager.request(
+            APIRequest(
+                path: path,
+                method: .delete,
+                parameters: parameters
+            )
+        )
+
+        print("✅ 탈퇴 성공")
     }
     
-    func sendFeedback(rate: Int, contents: String, completion: @escaping (Bool) -> Void) {
+    /// 피드백 보내기
+    func sendFeedback(rate: Int, contents: String) async throws {
         let path = "/feedback"
-        
+
         let parameters: [String: Any] = [
             "rate": rate,
             "feedback": contents
         ]
-        
-        let dataRequest = APIRequest(path: path, method: .post, parameters: parameters)
-        
-        networkManager.getHTTPStatusCode(dataRequest) { code in
-            if code == 201 {
-                print("피드백 보내기 성공")
-                completion(true)
-            } else {
-                completion(false)
-            }
-        }
+
+        // NetworkManager의 Void 반환 request 사용
+        // 201 Created가 성공 응답이며, validate()가 2xx를 체크함
+        try await networkManager.request(
+            APIRequest(
+                path: path,
+                method: .post,
+                parameters: parameters
+            )
+        )
+
+        print("✅ 피드백 보내기 성공")
     }
 }

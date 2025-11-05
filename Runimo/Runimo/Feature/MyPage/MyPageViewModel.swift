@@ -36,6 +36,9 @@ class MyPageViewModel: ObservableObject {
     @Published var weeklyGraphList: [Double] = Array(repeating: 0.0, count: 7)
     @Published var monthlyGraphList: [Double] = Array(repeating: 0.0, count: 30)
 
+    /// 탈퇴 이유
+    @Published var withdrawReason: (reason: String, inputText: String) = ("", "")
+    
     // 의존성 주입
     private let myPageService: MyPageServiceProtocol
 
@@ -112,6 +115,31 @@ extension MyPageViewModel {
                 
                 self.dailyStats = data.daily_stats
                 self.setGraphData(startDate: startDate)
+            } catch {
+                handleError(error)
+            }
+        }
+    }
+    
+    /// 탈퇴 API 호출
+    func withdrawUser(completion: @escaping (Bool) -> Void) {
+        Task {
+            do {
+                try await myPageService.withdrawUser(reason: withdrawReason.reason, inputText: withdrawReason.inputText)
+                completion(true)
+            } catch {
+                handleError(error)
+                completion(false)
+            }
+        }
+    }
+    
+    /// 피드백 보내기 API 호출 
+    func sendFeedback(rate: Int, contents: String, completion: @escaping () -> Void) {
+        Task {
+            do {
+                try await myPageService.sendFeedback(rate: rate, contents: contents)
+                completion()
             } catch {
                 handleError(error)
             }

@@ -10,6 +10,7 @@ import SwiftUI
 struct Withdraw1Page: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var sharedData: SharedData
+    @EnvironmentObject var mypageVM: MyPageViewModel
     @State private var selectedIndex: Int = -1
     @State private var inputReason: String = ""
     @FocusState private var isEditorFocused: Bool
@@ -37,7 +38,7 @@ struct Withdraw1Page: View {
                 CTAButton(text: "다음", disabled: selectedIndex == -1 || (selectedIndex == WithdrawReason.allCases.count - 1 && inputReason.isEmpty)) {
                     
                     if let value = WithdrawReason(rawValue: selectedIndex) {
-                        sharedData.withdrawReason = (value.requestText, inputReason)
+                        mypageVM.withdrawReason = (value.requestText, inputReason)
                     }
                     navigation.path.append(Withdraw2Page.id)
                 }

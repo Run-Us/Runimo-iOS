@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FeedbackPage: View {
     @EnvironmentObject var navigation: NavigationManager
+    @EnvironmentObject var mypageVM: MyPageViewModel
     @State private var feedbackScoreIndex: Int = -1
     @State private var feedbackText: String = ""
     @FocusState private var isEditorFocused: Bool
@@ -34,7 +35,7 @@ struct FeedbackPage: View {
                 Spacer()
                 
                 CTAButton(text: "제출하기", disabled: feedbackScoreIndex == -1) {
-                    MyPageService.shared.sendFeedback(rate: feedbackScoreIndex, contents: feedbackText) { result in
+                    mypageVM.sendFeedback(rate: feedbackScoreIndex, contents: feedbackText) { 
                         navigation.path.removeLast()
                     }
                 }

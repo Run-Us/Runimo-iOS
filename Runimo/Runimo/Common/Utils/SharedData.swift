@@ -38,10 +38,6 @@ class SharedData: ObservableObject {
     @Published var totalUserRunningDistance: Int = 0
     @Published var updateCharacterView: Bool = false
     
-    // MARK: - 4. 마이페이지
-    // 설정
-    @Published var withdrawReason: (reason: String, inputText: String) = ("", "")
-    
     // MARK: - 캐릭터 팝업
     @Published var characterPopUpData: CharacterPopUpItem = CharacterPopUpItem(id: -1, code: "", title: "", subtitle: "", imageURL: "", description: "")
     @Published var currentHatchedEgg: HatchEggResponse?
