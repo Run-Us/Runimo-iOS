@@ -8,7 +8,14 @@
 import Alamofire
 import Foundation
 
-class RunimoService {
+// MARK: - RunimoServiceProtocol
+protocol RunimoServiceProtocol {
+    func getAllRunimos() async throws -> GetAllRunimo
+    func getMyRunimo() async throws -> GetMyRunimo
+}
+
+// MARK: - RunimoService
+class RunimoService: RunimoServiceProtocol {
     static let shared = RunimoService()
     
     private let networkManager: NetworkManagerProtocol
@@ -17,36 +24,27 @@ class RunimoService {
         self.networkManager = networkManager
     }
     
-    // 전체 러니모 조회
-    func getAllRunimos(completion: @escaping (GetAllRunimo) -> Void) {
+    /// 전체 러니모 조회
+    func getAllRunimos() async throws -> GetAllRunimo {
         let path = "/runimos/types/all"
         
-        let dataRequest = APIRequest(path: path, method: .get)
-        
-        networkManager.request(dataRequest) { (result: Result<GetAllRunimo, AFError>) in
-            switch result {
-            case .success(let data):
-                print("\(data)")
-                completion(data)
-            case .failure(let error):
-                print("\(error)")
-            }
-        }
+        return try await networkManager.request(
+            APIRequest(
+                path: path,
+                method: .get
+            )
+        )
     }
     
-    func getMyRunimo(completion: @escaping (GetMyRunimo) -> Void) {
+    /// 내가 보유한 러니모 조회
+    func getMyRunimo() async throws -> GetMyRunimo {
         let path = "/users/me/runimos"
         
-        let dataRequest = APIRequest(path: path, method: .get)
-        
-        networkManager.request(dataRequest) { (result: Result<GetMyRunimo, AFError>) in
-            switch result {
-            case .success(let data):
-                print("\(data)")
-                completion(data)
-            case .failure(let error):
-                print("\(error)")
-            }
-        }
+        return try await networkManager.request(
+            APIRequest(
+                path: path,
+                method: .get
+            )
+        )
     }
 }

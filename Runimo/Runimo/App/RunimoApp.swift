@@ -31,6 +31,7 @@ struct RunimoApp: App {
                 .environmentObject(NavigationManager())
                 .environmentObject(MyPageViewModel())
                 .environmentObject(HomeViewModel())
+                .environmentObject(CharacterViewModel())
         }
     }
 }

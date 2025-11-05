@@ -17,6 +17,7 @@ enum Tab {
 struct TabBar: View {
     @EnvironmentObject var navigation: NavigationManager
     @EnvironmentObject var homeVM: HomeViewModel
+    @EnvironmentObject var characterVM: CharacterViewModel
     @EnvironmentObject var sharedData: SharedData
     @State private var showSignUpCompletePopUp: Bool = false
 
@@ -116,8 +117,7 @@ struct TabBar: View {
         .navigationBarBackButtonHidden()
         .popupCharacter(isPresented: $sharedData.showCharacterPopUp, character: sharedData.characterPopUpData, isHatching: sharedData.isHatchable)
         .onAppear {
-            
-            RunimoService.shared.getAllRunimos { data in
+            characterVM.getAllRunimos { data in
                 sharedData.allRunimoData = data.runimo_groups
                 sharedData.transformAllRunimo()
             }

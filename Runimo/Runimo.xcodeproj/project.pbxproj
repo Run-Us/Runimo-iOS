@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		230289462EBA5FF8000C38F2 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230289452EBA5FF8000C38F2 /* Int+Extension.swift */; };
+		230289482EBB17C5000C38F2 /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230289472EBB17C5000C38F2 /* CharacterViewModel.swift */; };
 		230314E52C88851100B299D5 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230314E42C88851100B299D5 /* FontExtension.swift */; };
 		230314E92C88A48D00B299D5 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230314E82C88A48D00B299D5 /* LoginPage.swift */; };
 		230314EF2C89920100B299D5 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230314EE2C89920100B299D5 /* AuthViewModel.swift */; };
@@ -105,6 +106,7 @@
 
 /* Begin PBXFileReference section */
 		230289452EBA5FF8000C38F2 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		230289472EBB17C5000C38F2 /* CharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModel.swift; sourceTree = "<group>"; };
 		230314E42C88851100B299D5 /* FontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		230314E82C88A48D00B299D5 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		230314EE2C89920100B299D5 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			children = (
 				88E556122C8F5E49003789B7 /* CharacterTab.swift */,
 				237CEF422D941E3C002D9C86 /* CharacterPopUp.swift */,
+				230289472EBB17C5000C38F2 /* CharacterViewModel.swift */,
 			);
 			path = Character;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				88E556052C8F208F003789B7 /* HomeTab.swift in Sources */,
 				23E1B9EE2CFF54D800846F22 /* InputTextArea.swift in Sources */,
 				23AF27E02E633CF100271E7A /* TokenManager.swift in Sources */,
+				230289482EBB17C5000C38F2 /* CharacterViewModel.swift in Sources */,
 				23C4FF3C2DA969D900DD1F86 /* SettingPage.swift in Sources */,
 				88E556092C8F20E8003789B7 /* RunningPage.swift in Sources */,
 				23CBA1482E0AB1690089B73B /* FeedbackPage.swift in Sources */,
