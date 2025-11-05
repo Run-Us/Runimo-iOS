@@ -10,7 +10,11 @@ import Foundation
 import SwiftUI
 import Combine
 
-final class AuthService: ObservableObject {
+protocol AuthServiceProtocol {
+    func logout() async throws
+}
+
+final class AuthService: ObservableObject, AuthServiceProtocol {
     static let shared = AuthService()
     private let tokenManager = TokenManager()
     let baseUrl = "https://\(Bundle.main.infoDictionary?["BASE_URL"] ?? "nil baseUrl")"
@@ -124,22 +128,18 @@ final class AuthService: ObservableObject {
     }
     
     /// 로그아웃
-    func logout() -> AnyPublisher<Bool, AFError> {
+    func logout() async throws {
         let path = "/auth/log-out"
         
-        return networkManager.getHTTPStatusCode(
+        try await networkManager.request(
             APIRequest(
                 path: path,
                 method: .post,
                 encoding: JSONEncoding.default
             )
         )
-        .map { [weak self] code in
-            self?.tokenManager.removeUserInfo()
-            print("logout", code)
-            return code == 200
-        }
-        .eraseToAnyPublisher()
+        
+        tokenManager.removeUserInfo()
     }
     
     // 토큰 갱신 (자동로그인 확인용)

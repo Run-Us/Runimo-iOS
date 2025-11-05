@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class SharedData: ObservableObject {
     @Published var isLogined: Bool?
     @Published var isSignUpComplete: Bool = false
@@ -126,10 +127,5 @@ extension SharedData {
             characterPopUpData = CharacterPopUpItem(id: notFixedData.id, code: fixedData.code, title: fixedData.name, subtitle: fixedData.description, imageURL: fixedData.img_url, description: "러닝: \(notFixedData.total_run_count), 달린 거리: \(notFixedData.total_distance_in_meters.toDistanceString())")
         }
     }
-    
-}
-
-// MARK: - Setting (설정)
-extension SharedData {
     
 }

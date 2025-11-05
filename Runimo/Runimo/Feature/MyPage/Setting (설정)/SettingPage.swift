@@ -82,7 +82,7 @@ struct SettingPage: View {
         .popup(isPresented: $showLogoutPopup, title: "로그아웃 하시겠어요?", subtitle: "로그아웃해도 러닝 활동은 삭제되지 않아요.", buttonText: "로그아웃 하기", buttonColor: .primary400) {
 
         } buttonAction: {
-            settingVM.logout { _ in
+            settingVM.logout {
                 sharedData.isLogined = false
                 navigation.goToRootPage()
             }

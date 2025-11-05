@@ -9,22 +9,25 @@ import Foundation
 import Combine
 import Alamofire
 
+@MainActor
 class SettingViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
-    func logout(completion: @escaping (Bool) -> Void) {
-        AuthService.shared.logout()
-            .sink(receiveCompletion: handleCompletion) { response in
-                completion(response)
-            }
-            .store(in: &cancellables)
+    private let authService: AuthServiceProtocol
+    
+    init(authService: AuthServiceProtocol = AuthService.shared) {
+        self.authService = authService
     }
     
-    // MARK: - Private Methods
-    /// Comine 완료 이벤트 처리 메서드
-    private func handleCompletion(_ completion: Subscribers.Completion<AFError>) {
-        if case .failure(let error) = completion {
-            handleError(error)
+    /// 로그아웃 API 호출 
+    func logout(completion: @escaping () -> Void) {
+        Task {
+            do {
+                try await authService.logout()
+                completion()
+            } catch {
+                handleError(error)
+            }
         }
     }
 }
