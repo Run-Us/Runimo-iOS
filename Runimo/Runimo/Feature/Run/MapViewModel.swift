@@ -16,7 +16,6 @@ class MapViewModel: NSObject, ObservableObject {
     @Published var userLocation: CLLocation = CLLocation(latitude: 37.564214, longitude: 127.001699)
     @Published var userPath: [NMGLatLng] = []
     @Published var isRunning: Bool = false
-    private var lastUpdateTime: Date?
     
     override init() {
         locationManager = CLLocationManager()
@@ -30,6 +29,7 @@ class MapViewModel: NSObject, ObservableObject {
         locationManager.pausesLocationUpdatesAutomatically = false  // 위치 업데이트 자동 종료 거부
         locationManager.activityType = .fitness  // 러닝/워킹 최적화
         locationManager.desiredAccuracy = kCLLocationAccuracyBest  // 최고 정확도
+        locationManager.distanceFilter = 50  // 50m 이동 시에만 위치 업데이트
 
         print("📍 LocationManager 초기화 완료")
     }
@@ -79,12 +79,6 @@ extension MapViewModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last else { return }
 
-        let now = Date()
-        if let lastTime = lastUpdateTime, now.timeIntervalSince(lastTime) < 1 {
-            return
-        }
-
-        lastUpdateTime = now
         userLocation = newLocation
         userPath.append(NMGLatLng(from: newLocation.coordinate))
         print("📍 위치 업데이트: \(newLocation.coordinate.latitude), \(newLocation.coordinate.longitude)")
